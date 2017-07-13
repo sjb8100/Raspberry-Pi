@@ -10,8 +10,8 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
 >+++++++++++++++++++++[ COMPILING REPOSITORY CODE ]++++++++++++++++++++++
 >
 >There are no make files for the repo's as I am a commercial embedded developer and I use Windows and Visual Studio as my IDE. So I am cross compiling to the PI which comes out thru a commercial toolchain. Rather than waste time with rather complex make files I provide a batch file which contains the compile and link commands as they need to be executed. The path to the compiler executables will need to be changed if you want to use them. My path will look like "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-gcc" and "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-objcopy" you will need to change it to the path of arm-none-eabi-gcc.exe and arm-none-eabi-objcopy.exe on your system"
-
-The files are intended as teaching excercise so the files are not broken up into library arrangements they tend to be clumped together by funcionality. I am not a great fan of using structs to represent hardware but firstly the DesignWare USB reference files were that way to start with and Secondly it does make them easier to read as a teaching excercise. So expect it and don't complain.
+>
+>The files are intended as teaching excercise so the files are not broken up into library arrangements they tend to be clumped together by funcionality. I am not a great fan of using structs to represent hardware but firstly the DesignWare USB reference files were that way to start with and Secondly it does make them easier to read as a teaching excercise. So expect it and don't complain.
 >{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 # USB-HID
