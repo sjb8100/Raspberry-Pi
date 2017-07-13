@@ -14,6 +14,7 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
 >The files are intended as teaching excercise so the files are not broken up into library arrangements they tend to be clumped together by funcionality. I am not a great fan of using structs to represent hardware but firstly the DesignWare USB reference files were that way to start with, and Secondly it does make them easier to read as a teaching excercise. So expect it and don't complain, you are free to change it if you don't like. Where a struct represent hardware there are volatiles on every way you access the register because GCC historically had a number of bugs. Technically they don't need it but I don't have time to chase compiler bugs if they occur.
 >
 >My assembler bootstub called Smartstart.S autodetects Pi version and provides the base address via the variable RPi_IO_Base_Addr in both assembler and C. All hardware pointers I use simply add the offset to the detected address so there is no need to specify Pi model. Would stringly suggest you use the same technique with something like.
+>
 >#define PiReg ((volatile __attribute__((aligned(4))) uint32_t PiRegister*) (RPi_IO_Base_Addr + ????????))
 >{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
