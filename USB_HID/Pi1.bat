@@ -1,11 +1,11 @@
 @REM COMPILER COMMAND LINE
-g:\pi\gcc_pi_6_2\bin\arm-none-eabi-gcc -Wall -O2 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles -specs=nosys.specs -ffunction-sections -Wl,-gc-sections -Wl,-T,rpi.ld main.c smartstart.S usb.c -o kernel.elf -lc -lm
+g:\pi\gcc_pi_6_3\bin\arm-none-eabi-gcc -Wall -O2 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostartfiles -specs=nosys.specs -ffunction-sections -Wl,-gc-sections -Wl,-T,rpi.ld main.c smartstart.S usb.c -o kernel.elf -lc -lm
 @echo off
 if %errorlevel% EQU 1 (goto build_fail)
 
 @REM LINKER COMMAND LINE
 @echo on
-g:\pi\gcc_pi_6_2\bin\arm-none-eabi-objcopy kernel.elf -O binary kernel.img
+g:\pi\gcc_pi_6_3\bin\arm-none-eabi-objcopy kernel.elf -O binary kernel.img
 @echo off
 if %errorlevel% EQU 1 (goto build_fail) 
 echo BUILD COMPLETED NORMALLY
