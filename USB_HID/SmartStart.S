@@ -336,16 +336,20 @@ RPi_CheckAndExitHypModeToSvcMode:
 ;@"================================================================"
 RPI_Activity_Led:
  .if !(__ARM_ARCH == 8)						// Only ARM 6/7 compile this code
+	push { r4 }
 	ldr r1, =RPi_CpuId
 	ldr r1, [r1]							;@ R1 is carrying CPUID  
-	mov r2, #16;							;@ R2 is carrying GPIO Port 16
+	mov r2, #16								;@ R2 is carrying GPIO Port 16
+	mov r4, #0								;@ zero r4
 	ldr r3, =#ARM6_CPU_ID					;@ CPU arm6 id
 	cmp r1, r3
 	beq Pi1_OR_2_Activity_Led				;@ Arm6 so Pi1 board go straight to Led set code
-	mov r2, #18;							;@ R2 is carrying GPIO Port 18
+	mov r2, #(47-32)					    ;@ R2 is carrying 47-32 for GPIO Port 47  
+	mov r4, #4								;@ Set r4 to 4
 	ldr r3, =#ARM7_CPU_ID					;@ CPU arm7 id
 	cmp r1, r3
 	beq Pi1_OR_2_Activity_Led				;@ Arm7 so Pi2 board go straight to Led set code
+	pop { r4 }
 .endif
 	mov r3, r0								;@ Hold on/off request in r3
 	ldr r0, =FB_ACTLED_STRUCT				;@ FB_ACTLED_STRUCT ADDRESS
@@ -396,18 +400,18 @@ RPI_Activity_Led:
 ;@"================================================================"
 Pi1_OR_2_Activity_Led:
     mov r3, #0x1C							;@ GPIO_BIT_SET OFFSET
-    cmp r0, #1
+	cmp r0, #1
 	bne .Pi1_Led_On     
 	mov r3, #0x28							;@ GPIO_BIT_CLR_OFFSET
 .Pi1_Led_On:
+	add r3, r4								;@ Add +4 offset for Pi2
 	ldr r1, =RPi_IO_Base_Addr
 	ldr r1, [r1]
 	add r1, r1, #0x200000
 	mov r0, #1
 	lsl r0, r0, r2							;@ Create a bit mask of the port number
-	Memory_Barrier r2
 	str r0, [r1, r3]						;@ Write bit shifted to position to port
-	Memory_Barrier r2
+	pop { r4 }
 	bx   lr									;@ Return.
 .endif
 .balign	4
