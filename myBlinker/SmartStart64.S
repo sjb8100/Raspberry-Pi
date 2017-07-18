@@ -82,7 +82,8 @@ hang:
 .balign	4
 .ltorg							/* Tell assembler ltorg data for code above can go here */
 
-/* Using as standard stub so weak reference c_irq_handler if user does not provide */
+/* Using as standard start handler which may not have interrupts */
+/* So weak reference c_irq_handler if user does not provide */
 .weak c_irq_handler
 c_irq_handler:
 	ret
