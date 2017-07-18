@@ -82,13 +82,6 @@ hang:
 .balign	4
 .ltorg							/* Tell assembler ltorg data for code above can go here */
 
-.globl enable_irq
-enable_irq:
-
-    //clear/enable irq bit in PSTATE
-    msr daifclr,#2
-    ret
-
 .globl irq_handler
 irq_handler:
 	stp	x29, x30, [sp, #-16]!
