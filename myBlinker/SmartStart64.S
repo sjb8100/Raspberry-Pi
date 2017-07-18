@@ -16,7 +16,7 @@
 {																}
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .section ".text.startup", "ax", %progbits
-.balign	8
+.balign	4
 .globl _start
 _start:	
 	ldr	x0, =__usrsys_stack 	/* Fetch address of user stack for safety */
@@ -80,7 +80,7 @@ exit_el1:
 "================================================================*/
 hang:
 	b hang
-.balign	8
+.balign	4
 .ltorg							/* Tell assembler ltorg data for code above can go here */
 
 .globl enable_irq
@@ -166,7 +166,7 @@ VectorTable:
        	   DATA FOR SMARTSTART64  EXPOSED TO INTERFACE 
 ****************************************************************/
 .section ".data.smartstart64", "aw"
-.balign 8
+.balign 4
 
 .globl RPi_IO_Base_Addr;				// Make sure Pi_IO_Base_Addr label is global
 RPi_IO_Base_Addr : .8byte 0;			// Peripheral Base addr is 8 byte variable in 64bit mode
