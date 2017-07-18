@@ -1,0 +1,1 @@
+g:\pi\gcc_linaro_6_3\bin\aarch64-elf-gcc-nm -a kernel.elf > kernel.map

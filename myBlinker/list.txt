@@ -1,0 +1,2247 @@
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 1
+
+
+   1              		.arch armv8-a
+   2              		.file	"main.c"
+   3              		.section	.text.set_LED,"ax",@progbits
+   4              		.align	2
+   5              		.p2align 4,,15
+   6              		.global	set_LED
+   7              		.type	set_LED, %function
+   8              	set_LED:
+   9 0000 FD7BBCA9 		stp	x29, x30, [sp, -64]!
+  10 0004 21089052 		mov	w1, 32833
+  11 0008 6100A072 		movk	w1, 0x3, lsl 16
+  12 000c FD030091 		add	x29, sp, 0
+  13 0010 02048052 		mov	w2, 32
+  14 0014 001C0012 		and	w0, w0, 255
+  15 0018 F30B00F9 		str	x19, [sp, 16]
+  16 001c 13018052 		mov	w19, 8
+  17 0020 A12B00B9 		str	w1, [x29, 40]
+  18 0024 41108052 		mov	w1, 130
+  19 0028 A27F0429 		stp	w2, wzr, [x29, 32]
+  20 002c B3CF0529 		stp	w19, w19, [x29, 44]
+  21 0030 A13700B9 		str	w1, [x29, 52]
+  22 0034 A07F0729 		stp	w0, wzr, [x29, 56]
+  23 0038 A0830091 		add	x0, x29, 32
+  24 003c 00000094 		bl	mailbox_ARM_to_VC
+  25 0040 E103002A 		mov	w1, w0
+  26 0044 E003132A 		mov	w0, w19
+  27 0048 00000094 		bl	mailbox_write
+  28 004c E003132A 		mov	w0, w19
+  29 0050 00000094 		bl	mailbox_read
+  30 0054 F30B40F9 		ldr	x19, [sp, 16]
+  31 0058 FD7BC4A8 		ldp	x29, x30, [sp], 64
+  32 005c C0035FD6 		ret
+  33              		.size	set_LED, .-set_LED
+  34              		.section	.text.c_irq_handler,"ax",@progbits
+  35              		.align	2
+  36              		.p2align 4,,15
+  37              		.global	c_irq_handler
+  38              		.type	c_irq_handler, %function
+  39              	c_irq_handler:
+  40 0000 FD7BBEA9 		stp	x29, x30, [sp, -32]!
+  41 0004 018096D2 		mov	x1, 46080
+  42 0008 FD030091 		add	x29, sp, 0
+  43 000c 00000090 		adrp	x0, RPi_IO_Base_Addr
+  44 0010 000040F9 		ldr	x0, [x0, #:lo12:RPi_IO_Base_Addr]
+  45 0014 F30B00F9 		str	x19, [sp, 16]
+  46 0018 0000018B 		add	x0, x0, x1
+  47 001c 13000090 		adrp	x19, .LANCHOR0
+  48 0020 610240B9 		ldr	w1, [x19, #:lo12:.LANCHOR0]
+  49 0024 1F0C00B9 		str	wzr, [x0, 12]
+  50 0028 01010035 		cbnz	w1, .L8
+  51 002c 20008052 		mov	w0, 1
+  52 0030 00000094 		bl	set_LED
+  53 0034 20008052 		mov	w0, 1
+  54 0038 600200B9 		str	w0, [x19, #:lo12:.LANCHOR0]
+  55 003c F30B40F9 		ldr	x19, [sp, 16]
+  56 0040 FD7BC2A8 		ldp	x29, x30, [sp], 32
+  57 0044 C0035FD6 		ret
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 2
+
+
+  58              		.p2align 3
+  59              	.L8:
+  60 0048 00008052 		mov	w0, 0
+  61 004c 00000094 		bl	set_LED
+  62 0050 7F0200B9 		str	wzr, [x19, #:lo12:.LANCHOR0]
+  63 0054 F30B40F9 		ldr	x19, [sp, 16]
+  64 0058 FD7BC2A8 		ldp	x29, x30, [sp], 32
+  65 005c C0035FD6 		ret
+  66              		.size	c_irq_handler, .-c_irq_handler
+  67              		.section	.text.kernel_main,"ax",@progbits
+  68              		.align	2
+  69              		.p2align 4,,15
+  70              		.global	kernel_main
+  71              		.type	kernel_main, %function
+  72              	kernel_main:
+  73 0000 FD7BBDA9 		stp	x29, x30, [sp, -48]!
+  74 0004 02048052 		mov	w2, 32
+  75 0008 014B8052 		mov	w1, 600
+  76 000c 00648052 		mov	w0, 800
+  77 0010 FD030091 		add	x29, sp, 0
+  78 0014 F35301A9 		stp	x19, x20, [sp, 16]
+  79 0018 13000090 		adrp	x19, fb
+  80 001c 73020091 		add	x19, x19, :lo12:fb
+  81 0020 F55B02A9 		stp	x21, x22, [sp, 32]
+  82 0024 E30313AA 		mov	x3, x19
+  83 0028 00000094 		bl	allocFrameBuffer
+  84 002c 14000090 		adrp	x20, .LANCHOR0
+  85 0030 810C8052 		mov	w1, 100
+  86 0034 E30313AA 		mov	x3, x19
+  87 0038 E003012A 		mov	w0, w1
+  88 003c 02000090 		adrp	x2, .LC0
+  89 0040 42000091 		add	x2, x2, :lo12:.LC0
+  90 0044 00000094 		bl	WriteText
+  91 0048 00000090 		adrp	x0, RPi_IO_Base_Addr
+  92 004c 000040F9 		ldr	x0, [x0, #:lo12:RPi_IO_Base_Addr]
+  93 0050 014096D2 		mov	x1, 45568
+  94 0054 048096D2 		mov	x4, 46080
+  95 0058 0600018B 		add	x6, x0, x1
+  96 005c 0500048B 		add	x5, x0, x4
+  97 0060 08808052 		mov	w8, 1024
+  98 0064 47008052 		mov	w7, 2
+  99 0068 E30313AA 		mov	x3, x19
+ 100 006c 02000090 		adrp	x2, .LC1
+ 101 0070 42000091 		add	x2, x2, :lo12:.LC1
+ 102 0074 C1604039 		ldrb	w1, [x6, 24]
+ 103 0078 16000090 		adrp	x22, .LC3
+ 104 007c 94020091 		add	x20, x20, :lo12:.LANCHOR0
+ 105 0080 D6020091 		add	x22, x22, :lo12:.LC3
+ 106 0084 21000032 		orr	w1, w1, 1
+ 107 0088 C1600039 		strb	w1, [x6, 24]
+ 108 008c 086824B8 		str	w8, [x0, x4]
+ 109 0090 010F8052 		mov	w1, 120
+ 110 0094 800C8052 		mov	w0, 100
+ 111 0098 15000090 		adrp	x21, .LC2
+ 112 009c A4204039 		ldrb	w4, [x5, 8]
+ 113 00a0 8400072A 		orr	w4, w4, w7
+ 114 00a4 E4041E33 		bfi	w4, w7, 2, 2
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 3
+
+
+ 115 00a8 84001B32 		orr	w4, w4, 32
+ 116 00ac 84601932 		orr	w4, w4, -128
+ 117 00b0 A4200039 		strb	w4, [x5, 8]
+ 118 00b4 00000094 		bl	WriteText
+ 119 00b8 00000094 		bl	enable_irq
+ 120 00bc 1F2003D5 		.p2align 3
+ 121              	.L10:
+ 122 00c0 840240B9 		ldr	w4, [x20]
+ 123 00c4 E30313AA 		mov	x3, x19
+ 124 00c8 A2020091 		add	x2, x21, :lo12:.LC2
+ 125 00cc 01148052 		mov	w1, 160
+ 126 00d0 800C8052 		mov	w0, 100
+ 127 00d4 A4000035 		cbnz	w4, .L14
+ 128 00d8 E30313AA 		mov	x3, x19
+ 129 00dc E20316AA 		mov	x2, x22
+ 130 00e0 01148052 		mov	w1, 160
+ 131 00e4 800C8052 		mov	w0, 100
+ 132              	.L14:
+ 133 00e8 00000094 		bl	WriteText
+ 134 00ec F5FFFF17 		b	.L10
+ 135              		.size	kernel_main, .-kernel_main
+ 136              		.comm	fb,64,8
+ 137              		.bss
+ 138              		.align	2
+ 139              		.set	.LANCHOR0,. + 0
+ 140              		.type	lit, %object
+ 141              		.size	lit, 4
+ 142              	lit:
+ 143 0000 00000000 		.zero	4
+ 144              		.section	.rodata.str1.8,"aMS",@progbits,1
+ 145              		.align	3
+ 146              	.LC0:
+ 147 0000 53657474 		.string	"Setting up Interrupts"
+ 147      696E6720 
+ 147      75702049 
+ 147      6E746572 
+ 147      72757074 
+ 148 0016 0000     		.zero	2
+ 149              	.LC1:
+ 150 0018 53657475 		.string	"Setup complete"
+ 150      7020636F 
+ 150      6D706C65 
+ 150      746500
+ 151 0027 00       		.zero	1
+ 152              	.LC2:
+ 153 0028 4C454420 		.string	"LED on "
+ 153      6F6E2000 
+ 154              	.LC3:
+ 155 0030 4C454420 		.string	"LED off"
+ 155      6F666600 
+ 156              		.ident	"GCC: (Linaro GCC 6.3-2017.05) 6.3.1 20170404"
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:4      .text.set_LED:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:8      .text.set_LED:0000000000000000 set_LED
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:35     .text.c_irq_handler:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:39     .text.c_irq_handler:0000000000000000 c_irq_handler
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:68     .text.kernel_main:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:72     .text.kernel_main:0000000000000000 kernel_main
+                            *COM*:0000000000000040 fb
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:138    .bss:0000000000000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:142    .bss:0000000000000000 lit
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:145    .rodata.str1.8:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+mailbox_ARM_to_VC
+mailbox_write
+mailbox_read
+RPi_IO_Base_Addr
+allocFrameBuffer
+WriteText
+enable_irq
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 1
+
+
+   1              	# 1 "SmartStart64.S"
+   1              	﻿
+   0              	
+   0              	
+   2              	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+   3              	{       Filename: smartstart64.s								}
+   4              	{       Copyright(c): Leon de Boer(LdB) 2017					}
+   5              	{       Version: 2.01											}
+   6              	{******************[ THIS CODE IS FREEWARE ]********************}
+   7              	{																}
+   8              	{     This sourcecode is released for the purpose to promote	}
+   9              	{   programming on the Raspberry Pi. You may redistribute it    }
+  10              	{   and/or modify with the following disclaimer.                }
+  11              	{																}
+  12              	{   The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES	}
+  13              	{   AS TO PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR   } 
+  14              	{   IMPLIED. Redistributions of source code must retain the     }
+  15              	{   copyright notices.                                          }	
+  16              	{																}
+  17              	{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+  18              	.section ".text.startup", "ax", %progbits
+  19              	.balign	8
+  20              	.globl _start
+  21              	_start:	
+  22 0000 80040058 		ldr	x0, =__usrsys_stack 	/* Fetch address of user stack for safety */
+  23 0004 1F000091 		mov	sp, x0					/* Init to whatever EL level stack we have */
+  24 0008 80040058 		ldr	x0, =__irq_stack		/* IRQ and exception handler run in EL1h */
+  25 000c 00411CD5 		msr	sp_el1, x0				/* init their stack */
+  26              	
+  27              		/* Initialize Generic Timers */
+  28 0010 00E13CD5 		mrs	x0, cnthctl_el2
+  29 0014 000440B2 		orr	x0, x0, #0x3			/* Enable EL1 access to timers */
+  30 0018 00E11CD5 		msr	cnthctl_el2, x0
+  31 001c 7FE01CD5 		msr	cntvoff_el2, xzr
+  32              	
+  33              		/* Initilize MPID/MPIDR registers */
+  34 0020 000038D5 		mrs	x0, midr_el1
+  35 0024 A10038D5 		mrs	x1, mpidr_el1
+  36 0028 00001CD5 		msr	vpidr_el2, x0
+  37 002c A1001CD5 		msr	vmpidr_el2, x1
+  38              	
+  39              		/* Disable coprocessor traps */
+  40 0030 E07F86D2 		mov	x0, #0x33ff
+  41 0034 40111CD5 		msr	cptr_el2, x0		/* Disable coprocessor traps to EL2 */
+  42 0038 7F111CD5 		msr	hstr_el2, xzr		/* Disable coprocessor traps to EL2 */
+  43 003c 0006A0D2 		mov	x0, #3 << 20
+  44 0040 401018D5 		msr	cpacr_el1, x0		/* Enable FP/SIMD at EL1 */
+  45              	
+  46              		/* Initialize HCR_EL2 */
+  47 0044 0000B0D2 		mov	x0, #(1 << 31)		/* 64bit EL1 */
+  48 0048 00111CD5 		msr	hcr_el2, x0
+  49              	
+  50              		/* SCTLR_EL1 initialization */
+  51 004c 000081D2 		mov	x0, #0x0800
+  52 0050 001AA6F2 		movk	x0, #0x30d0, lsl #16
+  53 0054 001018D5 		msr	sctlr_el1, x0
+  54              	
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 2
+
+
+  55              		/* Return to the EL1_SP1 mode from EL2 */
+  56 0058 807880D2 		mov	x0, #0x3c4
+  57 005c 00401CD5 		msr	spsr_el2, x0	/* EL1_SP0 | D | A | I | F */
+  58 0060 60000010 		adr	x0, exit_el1
+  59 0064 20401CD5 		msr	elr_el2, x0
+  60 0068 E0039FD6 		eret
+  61              	exit_el1:
+  62              	
+  63              	
+  64 006c A0010058 	    ldr x0,=VectorTable
+  65 0070 00C018D5 	    msr vbar_el1,x0
+  66              	
+  67 0074 E0000058 		ldr	x0, =__usrsys_stack 	/* Fetch address of user stack for safety */
+  68 0078 1F000091 		mov	sp, x0					/* Init to whatever EL level stack we have */
+  69 007c 60010058 		ldr	x0, =0x3F000000			/* No need to detect address in 64bit mode it has to be 0x3F000000 */
+  70 0080 81010058 		ldr x1, =RPi_IO_Base_Addr	/* Address of RPi_IO_Base_Addr */
+  71 0084 200000F9 		str x0, [x1]				/* Set the address */
+  72 0088 00000014 		b kernel_main				/* Straight out to C I am not familiar enough with ARM64 assembler */
+  73              	/*================================================================"
+  74              	      Just safety incase C code ever returns back
+  75              	"================================================================*/
+  76              	hang:
+  77 008c 00000014 		b hang
+  78              	.balign	8
+  79 0090 00000000 	.ltorg							/* Tell assembler ltorg data for code above can go here */
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  80              	
+  81              	.globl enable_irq
+  82              	enable_irq:
+  83              	
+  84              	    //clear/enable irq bit in PSTATE
+  85 00b8 FF4203D5 	    msr daifclr,#2
+  86 00bc C0035FD6 	    ret
+  87              	
+  88              	.globl irq_handler
+  89              	irq_handler:
+  90 00c0 FD7BBFA9 		stp	x29, x30, [sp, #-16]!
+  91 00c4 FB73BFA9 		stp	x27, x28, [sp, #-16]!
+  92 00c8 F96BBFA9 		stp	x25, x26, [sp, #-16]!
+  93 00cc F763BFA9 		stp	x23, x24, [sp, #-16]!
+  94 00d0 F55BBFA9 		stp	x21, x22, [sp, #-16]!
+  95 00d4 F353BFA9 		stp	x19, x20, [sp, #-16]!
+  96 00d8 F14BBFA9 		stp	x17, x18, [sp, #-16]!
+  97 00dc EF43BFA9 		stp	x15, x16, [sp, #-16]!
+  98 00e0 ED3BBFA9 		stp	x13, x14, [sp, #-16]!
+  99 00e4 EB33BFA9 		stp	x11, x12, [sp, #-16]!
+ 100 00e8 E92BBFA9 		stp	x9, x10, [sp, #-16]!
+ 101 00ec E723BFA9 		stp	x7, x8, [sp, #-16]!
+ 102 00f0 E51BBFA9 		stp	x5, x6, [sp, #-16]!
+ 103 00f4 E313BFA9 		stp	x3, x4, [sp, #-16]!
+ 104 00f8 E10BBFA9 		stp	x1, x2, [sp, #-16]!
+ 105 00fc E00F1FF8 		str	x0, [sp, #-16]!
+ 106              	
+ 107 0100 00000094 		bl	c_irq_handler
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 3
+
+
+ 108              	
+ 109 0104 E00741F8 		ldr	x0, [sp], #16
+ 110 0108 E10BC1A8 		ldp	x1, x2, [sp], #16
+ 111 010c E313C1A8 		ldp	x3, x4, [sp], #16
+ 112 0110 E51BC1A8 		ldp	x5, x6, [sp], #16
+ 113 0114 E723C1A8 		ldp	x7, x8, [sp], #16
+ 114 0118 E92BC1A8 		ldp	x9, x10, [sp], #16
+ 115 011c EB33C1A8 		ldp	x11, x12, [sp], #16
+ 116 0120 ED3BC1A8 		ldp	x13, x14, [sp], #16
+ 117 0124 EF43C1A8 		ldp	x15, x16, [sp], #16
+ 118 0128 F14BC1A8 		ldp	x17, x18, [sp], #16
+ 119 012c F353C1A8 		ldp	x19, x20, [sp], #16
+ 120 0130 F55BC1A8 		ldp	x21, x22, [sp], #16
+ 121 0134 F763C1A8 		ldp	x23, x24, [sp], #16
+ 122 0138 F96BC1A8 		ldp	x25, x26, [sp], #16
+ 123 013c FB73C1A8 		ldp	x27, x28, [sp], #16
+ 124 0140 FD7BC1A8 		ldp	x29, x30, [sp], #16
+ 125 0144 E0039FD6 		eret
+ 126              	
+ 127              	/* macro to align handlers every 0x80 bytes */
+ 128              	.macro	vector handler
+ 129              	.balign 0x80
+ 130              	b	\handler
+ 131              	.endm
+ 132              	
+ 133 0148 1F2003D5 	.balign 0x800
+ 133      1F2003D5 
+ 133      1F2003D5 
+ 133      1F2003D5 
+ 133      1F2003D5 
+ 134              	.globl	VectorTable
+ 135              	VectorTable:
+ 136              		/* from current EL with sp_el0 */
+ 137 0800 00000014 		vector	_start			/* Synchronous */
+ 138 0804 1F2003D5 		vector  irq_handler		/* IRQ */
+ 138      1F2003D5 
+ 138      1F2003D5 
+ 138      1F2003D5 
+ 138      1F2003D5 
+ 139 0884 1F2003D5 		vector	hang			/* FIQ */
+ 139      1F2003D5 
+ 139      1F2003D5 
+ 139      1F2003D5 
+ 139      1F2003D5 
+ 140 0904 1F2003D5 		vector	hang			/* SErrorStub */
+ 140      1F2003D5 
+ 140      1F2003D5 
+ 140      1F2003D5 
+ 140      1F2003D5 
+ 141              	
+ 142              		/* from current EL with sp_elx, x != 0 */
+ 143              	.globl	VectorTable_a
+ 144              	VectorTable_a:
+ 145 0984 1F2003D5 		vector	hang			/* Synchronous */
+ 145      1F2003D5 
+ 145      1F2003D5 
+ 145      1F2003D5 
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 4
+
+
+ 145      1F2003D5 
+ 146 0a04 1F2003D5 		vector irq_handler		/* IRQ */
+ 146      1F2003D5 
+ 146      1F2003D5 
+ 146      1F2003D5 
+ 146      1F2003D5 
+ 147 0a84 1F2003D5 		vector	hang			/* FIQ */
+ 147      1F2003D5 
+ 147      1F2003D5 
+ 147      1F2003D5 
+ 147      1F2003D5 
+ 148 0b04 1F2003D5 		vector	hang			/* SErrorStub */
+ 148      1F2003D5 
+ 148      1F2003D5 
+ 148      1F2003D5 
+ 148      1F2003D5 
+ 149              	
+ 150              		/* from lower EL, target EL minus 1 is AArch64 */
+ 151              	.globl	VectorTable_b
+ 152              	VectorTable_b:
+ 153 0b84 1F2003D5 		vector	hang			/* Synchronous */
+ 153      1F2003D5 
+ 153      1F2003D5 
+ 153      1F2003D5 
+ 153      1F2003D5 
+ 154 0c04 1F2003D5 		vector  irq_handler		/* IRQ */
+ 154      1F2003D5 
+ 154      1F2003D5 
+ 154      1F2003D5 
+ 154      1F2003D5 
+ 155 0c84 1F2003D5 		vector	hang			/* FIQ */
+ 155      1F2003D5 
+ 155      1F2003D5 
+ 155      1F2003D5 
+ 155      1F2003D5 
+ 156 0d04 1F2003D5 		vector	hang			/* SErrorStub */
+ 156      1F2003D5 
+ 156      1F2003D5 
+ 156      1F2003D5 
+ 156      1F2003D5 
+ 157              	
+ 158              		/* from lower EL, target EL minus 1 is AArch32 */
+ 159              	.globl	VectorTable_c
+ 160              	VectorTable_c:
+ 161 0d84 1F2003D5 		vector	hang			/* Synchronous */
+ 161      1F2003D5 
+ 161      1F2003D5 
+ 161      1F2003D5 
+ 161      1F2003D5 
+ 162 0e04 1F2003D5 		vector  irq_handler		/* IRQ */
+ 162      1F2003D5 
+ 162      1F2003D5 
+ 162      1F2003D5 
+ 162      1F2003D5 
+ 163 0e84 1F2003D5 		vector	hang			/* FIQ */
+ 163      1F2003D5 
+ 163      1F2003D5 
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 5
+
+
+ 163      1F2003D5 
+ 163      1F2003D5 
+ 164 0f04 1F2003D5 		vector	hang			/* SErrorStub */
+ 164      1F2003D5 
+ 164      1F2003D5 
+ 164      1F2003D5 
+ 164      1F2003D5 
+ 165              	
+ 166              	/****************************************************************
+ 167              	       	   DATA FOR SMARTSTART64  EXPOSED TO INTERFACE 
+ 168              	****************************************************************/
+ 169              	.section ".data.smartstart64", "aw"
+ 170              	.balign 8
+ 171              	
+ 172              	.globl RPi_IO_Base_Addr;				// Make sure Pi_IO_Base_Addr label is global
+ 173 0000 00000000 	RPi_IO_Base_Addr : .8byte 0;			// Peripheral Base addr is 8 byte variable in 64bit mode
+ 173      00000000 
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 6
+
+
+DEFINED SYMBOLS
+      SmartStart64.S:19     .text.startup:0000000000000000 $x
+      SmartStart64.S:21     .text.startup:0000000000000000 _start
+      SmartStart64.S:61     .text.startup:000000000000006c exit_el1
+      SmartStart64.S:135    .text.startup:0000000000000800 VectorTable
+      SmartStart64.S:173    .data.smartstart64:0000000000000000 RPi_IO_Base_Addr
+      SmartStart64.S:76     .text.startup:000000000000008c hang
+      SmartStart64.S:79     .text.startup:0000000000000090 $d
+      SmartStart64.S:82     .text.startup:00000000000000b8 enable_irq
+      SmartStart64.S:85     .text.startup:00000000000000b8 $x
+      SmartStart64.S:89     .text.startup:00000000000000c0 irq_handler
+      SmartStart64.S:144    .text.startup:0000000000000984 VectorTable_a
+      SmartStart64.S:152    .text.startup:0000000000000b84 VectorTable_b
+      SmartStart64.S:160    .text.startup:0000000000000d84 VectorTable_c
+      SmartStart64.S:170    .data.smartstart64:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__usrsys_stack
+__irq_stack
+kernel_main
+c_irq_handler
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 1
+
+
+   1              		.arch armv8-a
+   2              		.file	"rpi-BasicHardware.c"
+   3              		.section	.text.WriteChar32,"ax",@progbits
+   4              		.align	2
+   5              		.p2align 4,,15
+   6              		.global	WriteChar32
+   7              		.type	WriteChar32, %function
+   8              	WriteChar32:
+   9 0000 04184329 		ldp	w4, w6, [x0, 24]
+  10 0004 07048052 		mov	w7, 32
+  11 0008 08144029 		ldp	w8, w5, [x0]
+  12 000c 631C0012 		and	w3, w3, 255
+  13 0010 E70CC41A 		sdiv	w7, w7, w4
+  14 0014 867C061B 		mul	w6, w4, w6
+  15 0018 427C051B 		mul	w2, w2, w5
+  16 001c DF000071 		cmp	w6, 0
+  17 0020 C57C0011 		add	w5, w6, 31
+  18 0024 0809010B 		add	w8, w8, w1, lsl 2
+  19 0028 A6B0861A 		csel	w6, w5, w6, lt
+  20 002c FF000071 		cmp	w7, 0
+  21 0030 0809020B 		add	w8, w8, w2, lsl 2
+  22 0034 C67C0513 		asr	w6, w6, 5
+  23 0038 4D040054 		ble	.L1
+  24 003c 637C061B 		mul	w3, w3, w6
+  25 0040 090840F9 		ldr	x9, [x0, 16]
+  26 0044 0A008052 		mov	w10, 0
+  27 0048 07008052 		mov	w7, 0
+  28 004c 29C9238B 		add	x9, x9, x3, sxtw 2
+  29              		.p2align 3
+  30              	.L6:
+  31 0050 01008052 		mov	w1, 0
+  32 0054 230140B9 		ldr	w3, [x9]
+  33 0058 04000014 		b	.L5
+  34 005c 1F2003D5 		.p2align 3
+  35              	.L4:
+  36 0060 3F800071 		cmp	w1, 32
+  37 0064 40020054 		beq	.L12
+  38              	.L5:
+  39 0068 220CC41A 		sdiv	w2, w1, w4
+  40 006c 7F000071 		cmp	w3, 0
+  41 0070 06144429 		ldp	w6, w5, [x0, 32]
+  42 0074 6300030B 		add	w3, w3, w3
+  43 0078 4284041B 		msub	w2, w2, w4, w1
+  44 007c A5A0861A 		csel	w5, w5, w6, ge
+  45 0080 21040011 		add	w1, w1, 1
+  46 0084 4400070B 		add	w4, w2, w7
+  47 0088 057924B8 		str	w5, [x8, x4, lsl 2]
+  48 008c 041840B9 		ldr	w4, [x0, 24]
+  49 0090 85040051 		sub	w5, w4, #1
+  50 0094 5F00056B 		cmp	w2, w5
+  51 0098 41FEFF54 		bne	.L4
+  52 009c 020440B9 		ldr	w2, [x0, 4]
+  53 00a0 3F800071 		cmp	w1, 32
+  54 00a4 E700020B 		add	w7, w7, w2
+  55 00a8 01FEFF54 		bne	.L5
+  56              	.L12:
+  57 00ac 210CC41A 		sdiv	w1, w1, w4
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 2
+
+
+  58 00b0 4A050011 		add	w10, w10, 1
+  59 00b4 29110091 		add	x9, x9, 4
+  60 00b8 3F000A6B 		cmp	w1, w10
+  61 00bc ACFCFF54 		bgt	.L6
+  62              	.L1:
+  63 00c0 C0035FD6 		ret
+  64              		.size	WriteChar32, .-WriteChar32
+  65              		.section	.text.mailbox_read.part.1,"ax",@progbits
+  66              		.align	2
+  67              		.p2align 4,,15
+  68              		.type	mailbox_read.part.1, %function
+  69              	mailbox_read.part.1:
+  70 0000 01000090 		adrp	x1, RPi_IO_Base_Addr
+  71 0004 220040F9 		ldr	x2, [x1, #:lo12:RPi_IO_Base_Addr]
+  72 0008 011097D2 		mov	x1, 47232
+  73 000c 4200018B 		add	x2, x2, x1
+  74              		.p2align 3
+  75              	.L14:
+  76 0010 411840B9 		ldr	w1, [x2, 24]
+  77 0014 E1FFF737 		tbnz	x1, 30, .L14
+  78 0018 410040B9 		ldr	w1, [x2]
+  79 001c 230C0012 		and	w3, w1, 15
+  80 0020 7F00006B 		cmp	w3, w0
+  81 0024 61FFFF54 		bne	.L14
+  82 0028 206C1C12 		and	w0, w1, -16
+  83 002c C0035FD6 		ret
+  84              		.size	mailbox_read.part.1, .-mailbox_read.part.1
+  85              		.section	.text.gpio_setup,"ax",@progbits
+  86              		.align	2
+  87              		.p2align 4,,15
+  88              		.global	gpio_setup
+  89              		.type	gpio_setup, %function
+  90              	gpio_setup:
+  91 0000 1FD80071 		cmp	w0, 54
+  92 0004 07008052 		mov	w7, 0
+  93 0008 2298477A 		ccmp	w1, 7, 2, ls
+  94 000c 08030054 		bhi	.L19
+  95 0010 48018052 		mov	w8, 10
+  96 0014 E2CC8C52 		mov	w2, 26215
+  97 0018 C2CCAC72 		movk	w2, 0x6666, lsl 16
+  98 001c 03000090 		adrp	x3, RPi_IO_Base_Addr
+  99 0020 660040F9 		ldr	x6, [x3, #:lo12:RPi_IO_Base_Addr]
+ 100 0024 027C229B 		smull	x2, w0, w2
+ 101 0028 25008052 		mov	w5, 1
+ 102 002c 030CC81A 		sdiv	w3, w0, w8
+ 103 0030 C6004891 		add	x6, x6, 2097152
+ 104 0034 E4008052 		mov	w4, 7
+ 105 0038 E703052A 		mov	w7, w5
+ 106 003c 42FC6293 		asr	x2, x2, 34
+ 107 0040 427C804B 		sub	w2, w2, w0, asr 31
+ 108 0044 6380081B 		msub	w3, w3, w8, w0
+ 109 0048 427C4093 		sxtw	x2, w2
+ 110 004c 6304030B 		add	w3, w3, w3, lsl 1
+ 111 0050 C07862B8 		ldr	w0, [x6, x2, lsl 2]
+ 112 0054 A320C31A 		lsl	w3, w5, w3
+ 113 0058 8420C31A 		lsl	w4, w4, w3
+ 114 005c 0400240A 		bic	w4, w0, w4
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 3
+
+
+ 115 0060 2120C31A 		lsl	w1, w1, w3
+ 116 0064 2100042A 		orr	w1, w1, w4
+ 117 0068 C17822B8 		str	w1, [x6, x2, lsl 2]
+ 118              	.L19:
+ 119 006c E003072A 		mov	w0, w7
+ 120 0070 C0035FD6 		ret
+ 121              		.size	gpio_setup, .-gpio_setup
+ 122              		.section	.text.gpio_output,"ax",@progbits
+ 123              		.align	2
+ 124              		.p2align 4,,15
+ 125              		.global	gpio_output
+ 126              		.type	gpio_output, %function
+ 127              	gpio_output:
+ 128 0000 211C0012 		and	w1, w1, 255
+ 129 0004 1FD80071 		cmp	w0, 54
+ 130 0008 C8020054 		bhi	.L24
+ 131 000c 02100012 		and	w2, w0, 31
+ 132 0010 24008052 		mov	w4, 1
+ 133 0014 8320C21A 		lsl	w3, w4, w2
+ 134 0018 41010035 		cbnz	w1, .L25
+ 135 001c 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 136 0020 250040F9 		ldr	x5, [x1, #:lo12:RPi_IO_Base_Addr]
+ 137 0024 027C0513 		asr	w2, w0, 5
+ 138 0028 E103042A 		mov	w1, w4
+ 139 002c A0004891 		add	x0, x5, 2097152
+ 140 0030 02C8228B 		add	x2, x0, x2, sxtw 2
+ 141 0034 E003012A 		mov	w0, w1
+ 142 0038 432800B9 		str	w3, [x2, 40]
+ 143 003c C0035FD6 		ret
+ 144              		.p2align 3
+ 145              	.L25:
+ 146 0040 02000090 		adrp	x2, RPi_IO_Base_Addr
+ 147 0044 440040F9 		ldr	x4, [x2, #:lo12:RPi_IO_Base_Addr]
+ 148 0048 027C0513 		asr	w2, w0, 5
+ 149 004c 80004891 		add	x0, x4, 2097152
+ 150 0050 02C8228B 		add	x2, x0, x2, sxtw 2
+ 151 0054 E003012A 		mov	w0, w1
+ 152 0058 431C00B9 		str	w3, [x2, 28]
+ 153 005c C0035FD6 		ret
+ 154              		.p2align 3
+ 155              	.L24:
+ 156 0060 01008052 		mov	w1, 0
+ 157 0064 E003012A 		mov	w0, w1
+ 158 0068 C0035FD6 		ret
+ 159              		.size	gpio_output, .-gpio_output
+ 160              		.section	.text.gpio_input,"ax",@progbits
+ 161              		.align	2
+ 162              		.p2align 4,,15
+ 163              		.global	gpio_input
+ 164              		.type	gpio_input, %function
+ 165              	gpio_input:
+ 166 0000 1FD80071 		cmp	w0, 54
+ 167 0004 E8010054 		bhi	.L28
+ 168 0008 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 169 000c 230040F9 		ldr	x3, [x1, #:lo12:RPi_IO_Base_Addr]
+ 170 0010 017C0513 		asr	w1, w0, 5
+ 171 0014 00100012 		and	w0, w0, 31
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 4
+
+
+ 172 0018 63004891 		add	x3, x3, 2097152
+ 173 001c 22008052 		mov	w2, 1
+ 174 0020 61C8218B 		add	x1, x3, x1, sxtw 2
+ 175 0024 4020C01A 		lsl	w0, w2, w0
+ 176 0028 21C00091 		add	x1, x1, 48
+ 177 002c 210440B9 		ldr	w1, [x1, 4]
+ 178 0030 1F00016A 		tst	w0, w1
+ 179 0034 E0079F1A 		cset	w0, ne
+ 180 0038 C0035FD6 		ret
+ 181 003c 1F2003D5 		.p2align 3
+ 182              	.L28:
+ 183 0040 00008052 		mov	w0, 0
+ 184 0044 C0035FD6 		ret
+ 185              		.size	gpio_input, .-gpio_input
+ 186              		.section	.text.gpio_checkEvent,"ax",@progbits
+ 187              		.align	2
+ 188              		.p2align 4,,15
+ 189              		.global	gpio_checkEvent
+ 190              		.type	gpio_checkEvent, %function
+ 191              	gpio_checkEvent:
+ 192 0000 1FD80071 		cmp	w0, 54
+ 193 0004 E8010054 		bhi	.L31
+ 194 0008 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 195 000c 230040F9 		ldr	x3, [x1, #:lo12:RPi_IO_Base_Addr]
+ 196 0010 017C0513 		asr	w1, w0, 5
+ 197 0014 00100012 		and	w0, w0, 31
+ 198 0018 217C4093 		sxtw	x1, w1
+ 199 001c 63004891 		add	x3, x3, 2097152
+ 200 0020 21400091 		add	x1, x1, 16
+ 201 0024 22008052 		mov	w2, 1
+ 202 0028 4020C01A 		lsl	w0, w2, w0
+ 203 002c 617861B8 		ldr	w1, [x3, x1, lsl 2]
+ 204 0030 1F00016A 		tst	w0, w1
+ 205 0034 E0079F1A 		cset	w0, ne
+ 206 0038 C0035FD6 		ret
+ 207 003c 1F2003D5 		.p2align 3
+ 208              	.L31:
+ 209 0040 00008052 		mov	w0, 0
+ 210 0044 C0035FD6 		ret
+ 211              		.size	gpio_checkEvent, .-gpio_checkEvent
+ 212              		.section	.text.gpio_clearEvent,"ax",@progbits
+ 213              		.align	2
+ 214              		.p2align 4,,15
+ 215              		.global	gpio_clearEvent
+ 216              		.type	gpio_clearEvent, %function
+ 217              	gpio_clearEvent:
+ 218 0000 1FD80071 		cmp	w0, 54
+ 219 0004 A8010054 		bhi	.L34
+ 220 0008 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 221 000c 230040F9 		ldr	x3, [x1, #:lo12:RPi_IO_Base_Addr]
+ 222 0010 027C0513 		asr	w2, w0, 5
+ 223 0014 01100012 		and	w1, w0, 31
+ 224 0018 427C4093 		sxtw	x2, w2
+ 225 001c 63004891 		add	x3, x3, 2097152
+ 226 0020 42400091 		add	x2, x2, 16
+ 227 0024 20008052 		mov	w0, 1
+ 228 0028 0120C11A 		lsl	w1, w0, w1
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 5
+
+
+ 229 002c 617822B8 		str	w1, [x3, x2, lsl 2]
+ 230 0030 C0035FD6 		ret
+ 231 0034 1F2003D5 		.p2align 3
+ 232              	.L34:
+ 233 0038 00008052 		mov	w0, 0
+ 234 003c C0035FD6 		ret
+ 235              		.size	gpio_clearEvent, .-gpio_clearEvent
+ 236              		.section	.text.gpio_edgeDetect,"ax",@progbits
+ 237              		.align	2
+ 238              		.p2align 4,,15
+ 239              		.global	gpio_edgeDetect
+ 240              		.type	gpio_edgeDetect, %function
+ 241              	gpio_edgeDetect:
+ 242 0000 211C0012 		and	w1, w1, 255
+ 243 0004 421C0012 		and	w2, w2, 255
+ 244 0008 1FD80071 		cmp	w0, 54
+ 245 000c 28030054 		bhi	.L40
+ 246 0010 03100012 		and	w3, w0, 31
+ 247 0014 25008052 		mov	w5, 1
+ 248 0018 A420C31A 		lsl	w4, w5, w3
+ 249 001c 61010034 		cbz	w1, .L37
+ 250 0020 02030034 		cbz	w2, .L38
+ 251 0024 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 252 0028 230040F9 		ldr	x3, [x1, #:lo12:RPi_IO_Base_Addr]
+ 253 002c 017C0513 		asr	w1, w0, 5
+ 254 0030 60004891 		add	x0, x3, 2097152
+ 255 0034 01C8218B 		add	x1, x0, x1, sxtw 2
+ 256 0038 E003022A 		mov	w0, w2
+ 257 003c 247C00B9 		str	w4, [x1, 124]
+ 258 0040 C0035FD6 		ret
+ 259 0044 1F2003D5 		.p2align 3
+ 260              	.L37:
+ 261 0048 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 262 004c 230040F9 		ldr	x3, [x1, #:lo12:RPi_IO_Base_Addr]
+ 263 0050 017C0513 		asr	w1, w0, 5
+ 264 0054 A2020035 		cbnz	w2, .L41
+ 265 0058 60004891 		add	x0, x3, 2097152
+ 266 005c E203052A 		mov	w2, w5
+ 267 0060 01C8218B 		add	x1, x0, x1, sxtw 2
+ 268 0064 E003022A 		mov	w0, w2
+ 269 0068 245800B9 		str	w4, [x1, 88]
+ 270 006c C0035FD6 		ret
+ 271              		.p2align 3
+ 272              	.L40:
+ 273 0070 02008052 		mov	w2, 0
+ 274 0074 E003022A 		mov	w0, w2
+ 275 0078 C0035FD6 		ret
+ 276 007c 1F2003D5 		.p2align 3
+ 277              	.L38:
+ 278 0080 02000090 		adrp	x2, RPi_IO_Base_Addr
+ 279 0084 450040F9 		ldr	x5, [x2, #:lo12:RPi_IO_Base_Addr]
+ 280 0088 037C0513 		asr	w3, w0, 5
+ 281 008c E203012A 		mov	w2, w1
+ 282 0090 A1004891 		add	x1, x5, 2097152
+ 283 0094 E003022A 		mov	w0, w2
+ 284 0098 21C8238B 		add	x1, x1, x3, sxtw 2
+ 285 009c 244C00B9 		str	w4, [x1, 76]
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 6
+
+
+ 286 00a0 C0035FD6 		ret
+ 287 00a4 1F2003D5 		.p2align 3
+ 288              	.L41:
+ 289 00a8 60004891 		add	x0, x3, 2097152
+ 290 00ac 01C8218B 		add	x1, x0, x1, sxtw 2
+ 291 00b0 E003022A 		mov	w0, w2
+ 292 00b4 248800B9 		str	w4, [x1, 136]
+ 293 00b8 C0035FD6 		ret
+ 294              		.size	gpio_edgeDetect, .-gpio_edgeDetect
+ 295              		.section	.text.gpio_fixResistor,"ax",@progbits
+ 296              		.align	2
+ 297              		.p2align 4,,15
+ 298              		.global	gpio_fixResistor
+ 299              		.type	gpio_fixResistor, %function
+ 300              	gpio_fixResistor:
+ 301 0000 1FD80071 		cmp	w0, 54
+ 302 0004 2298427A 		ccmp	w1, 2, 2, ls
+ 303 0008 08070054 		bhi	.L50
+ 304 000c 02000090 		adrp	x2, RPi_IO_Base_Addr
+ 305 0010 420040F9 		ldr	x2, [x2, #:lo12:RPi_IO_Base_Addr]
+ 306 0014 46004891 		add	x6, x2, 2097152
+ 307 0018 420C4091 		add	x2, x2, 12288
+ 308 001c C19400B9 		str	w1, [x6, 148]
+ 309              		.p2align 3
+ 310              	.L44:
+ 311 0020 410840B9 		ldr	w1, [x2, 8]
+ 312 0024 440440B9 		ldr	w4, [x2, 4]
+ 313 0028 430840B9 		ldr	w3, [x2, 8]
+ 314 002c E103012A 		uxtw	x1, w1
+ 315 0030 3F4023EB 		cmp	x1, x3, uxtw
+ 316 0034 61FFFF54 		bne	.L44
+ 317 0038 E403042A 		uxtw	x4, w4
+ 318 003c 818001AA 		orr	x1, x4, x1, lsl 32
+ 319 0040 25080091 		add	x5, x1, 2
+ 320 0044 1F2003D5 		.p2align 3
+ 321              	.L45:
+ 322 0048 410840B9 		ldr	w1, [x2, 8]
+ 323 004c 440440B9 		ldr	w4, [x2, 4]
+ 324 0050 430840B9 		ldr	w3, [x2, 8]
+ 325 0054 E103012A 		uxtw	x1, w1
+ 326 0058 3F4023EB 		cmp	x1, x3, uxtw
+ 327 005c 61FFFF54 		bne	.L45
+ 328 0060 E403042A 		uxtw	x4, w4
+ 329 0064 818001AA 		orr	x1, x4, x1, lsl 32
+ 330 0068 BF0001EB 		cmp	x5, x1
+ 331 006c E8FEFF54 		bhi	.L45
+ 332 0070 057C0513 		asr	w5, w0, 5
+ 333 0074 00100012 		and	w0, w0, 31
+ 334 0078 C5C8258B 		add	x5, x6, x5, sxtw 2
+ 335 007c 21008052 		mov	w1, 1
+ 336 0080 2020C01A 		lsl	w0, w1, w0
+ 337 0084 A09800B9 		str	w0, [x5, 152]
+ 338              		.p2align 3
+ 339              	.L47:
+ 340 0088 400840B9 		ldr	w0, [x2, 8]
+ 341 008c 430440B9 		ldr	w3, [x2, 4]
+ 342 0090 410840B9 		ldr	w1, [x2, 8]
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 7
+
+
+ 343 0094 E003002A 		uxtw	x0, w0
+ 344 0098 1F4021EB 		cmp	x0, x1, uxtw
+ 345 009c 61FFFF54 		bne	.L47
+ 346 00a0 E303032A 		uxtw	x3, w3
+ 347 00a4 608000AA 		orr	x0, x3, x0, lsl 32
+ 348 00a8 04080091 		add	x4, x0, 2
+ 349 00ac 1F2003D5 		.p2align 3
+ 350              	.L48:
+ 351 00b0 400840B9 		ldr	w0, [x2, 8]
+ 352 00b4 430440B9 		ldr	w3, [x2, 4]
+ 353 00b8 410840B9 		ldr	w1, [x2, 8]
+ 354 00bc E003002A 		uxtw	x0, w0
+ 355 00c0 1F4021EB 		cmp	x0, x1, uxtw
+ 356 00c4 61FFFF54 		bne	.L48
+ 357 00c8 E303032A 		uxtw	x3, w3
+ 358 00cc 608000AA 		orr	x0, x3, x0, lsl 32
+ 359 00d0 9F0000EB 		cmp	x4, x0
+ 360 00d4 E8FEFF54 		bhi	.L48
+ 361 00d8 DF9400B9 		str	wzr, [x6, 148]
+ 362 00dc 20008052 		mov	w0, 1
+ 363 00e0 BF9800B9 		str	wzr, [x5, 152]
+ 364 00e4 C0035FD6 		ret
+ 365              	.L50:
+ 366 00e8 00008052 		mov	w0, 0
+ 367 00ec C0035FD6 		ret
+ 368              		.size	gpio_fixResistor, .-gpio_fixResistor
+ 369              		.section	.text.timer_getTickCount,"ax",@progbits
+ 370              		.align	2
+ 371              		.p2align 4,,15
+ 372              		.global	timer_getTickCount
+ 373              		.type	timer_getTickCount, %function
+ 374              	timer_getTickCount:
+ 375 0000 00000090 		adrp	x0, RPi_IO_Base_Addr
+ 376 0004 010040F9 		ldr	x1, [x0, #:lo12:RPi_IO_Base_Addr]
+ 377 0008 210C4091 		add	x1, x1, 12288
+ 378 000c 1F2003D5 		.p2align 3
+ 379              	.L58:
+ 380 0010 200840B9 		ldr	w0, [x1, 8]
+ 381 0014 230440B9 		ldr	w3, [x1, 4]
+ 382 0018 220840B9 		ldr	w2, [x1, 8]
+ 383 001c E003002A 		uxtw	x0, w0
+ 384 0020 1F4022EB 		cmp	x0, x2, uxtw
+ 385 0024 61FFFF54 		bne	.L58
+ 386 0028 E303032A 		uxtw	x3, w3
+ 387 002c 608000AA 		orr	x0, x3, x0, lsl 32
+ 388 0030 C0035FD6 		ret
+ 389              		.size	timer_getTickCount, .-timer_getTickCount
+ 390              		.section	.text.timer_wait,"ax",@progbits
+ 391              		.align	2
+ 392              		.p2align 4,,15
+ 393              		.global	timer_wait
+ 394              		.type	timer_wait, %function
+ 395              	timer_wait:
+ 396 0000 01000090 		adrp	x1, RPi_IO_Base_Addr
+ 397 0004 210040F9 		ldr	x1, [x1, #:lo12:RPi_IO_Base_Addr]
+ 398 0008 210C4091 		add	x1, x1, 12288
+ 399 000c 1F2003D5 		.p2align 3
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 8
+
+
+ 400              	.L61:
+ 401 0010 220840B9 		ldr	w2, [x1, 8]
+ 402 0014 240440B9 		ldr	w4, [x1, 4]
+ 403 0018 230840B9 		ldr	w3, [x1, 8]
+ 404 001c E203022A 		uxtw	x2, w2
+ 405 0020 5F4023EB 		cmp	x2, x3, uxtw
+ 406 0024 61FFFF54 		bne	.L61
+ 407 0028 E403042A 		uxtw	x4, w4
+ 408 002c 828002AA 		orr	x2, x4, x2, lsl 32
+ 409 0030 4400008B 		add	x4, x2, x0
+ 410 0034 1F2003D5 		.p2align 3
+ 411              	.L62:
+ 412 0038 200840B9 		ldr	w0, [x1, 8]
+ 413 003c 230440B9 		ldr	w3, [x1, 4]
+ 414 0040 220840B9 		ldr	w2, [x1, 8]
+ 415 0044 E003002A 		uxtw	x0, w0
+ 416 0048 1F4022EB 		cmp	x0, x2, uxtw
+ 417 004c 61FFFF54 		bne	.L62
+ 418 0050 E303032A 		uxtw	x3, w3
+ 419 0054 608000AA 		orr	x0, x3, x0, lsl 32
+ 420 0058 9F0000EB 		cmp	x4, x0
+ 421 005c E8FEFF54 		bhi	.L62
+ 422 0060 C0035FD6 		ret
+ 423              		.size	timer_wait, .-timer_wait
+ 424              		.section	.text.mailbox_write,"ax",@progbits
+ 425              		.align	2
+ 426              		.p2align 4,,15
+ 427              		.global	mailbox_write
+ 428              		.type	mailbox_write, %function
+ 429              	mailbox_write:
+ 430 0000 1F240071 		cmp	w0, 9
+ 431 0004 A8010054 		bhi	.L70
+ 432 0008 02000090 		adrp	x2, RPi_IO_Base_Addr
+ 433 000c 420040F9 		ldr	x2, [x2, #:lo12:RPi_IO_Base_Addr]
+ 434 0010 216C1C12 		and	w1, w1, -16
+ 435 0014 0000012A 		orr	w0, w0, w1
+ 436 0018 011097D2 		mov	x1, 47232
+ 437 001c 4200018B 		add	x2, x2, x1
+ 438              		.p2align 3
+ 439              	.L69:
+ 440 0020 413840B9 		ldr	w1, [x2, 56]
+ 441 0024 E1FFFF37 		tbnz	w1, #31, .L69
+ 442 0028 402000B9 		str	w0, [x2, 32]
+ 443 002c 20008052 		mov	w0, 1
+ 444 0030 C0035FD6 		ret
+ 445 0034 1F2003D5 		.p2align 3
+ 446              	.L70:
+ 447 0038 00008052 		mov	w0, 0
+ 448 003c C0035FD6 		ret
+ 449              		.size	mailbox_write, .-mailbox_write
+ 450              		.section	.text.mailbox_read,"ax",@progbits
+ 451              		.align	2
+ 452              		.p2align 4,,15
+ 453              		.global	mailbox_read
+ 454              		.type	mailbox_read, %function
+ 455              	mailbox_read:
+ 456 0000 1F240071 		cmp	w0, 9
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 9
+
+
+ 457 0004 A9000054 		bls	.L74
+ 458 0008 A0D59B52 		mov	w0, 57005
+ 459 000c A0DDBF72 		movk	w0, 0xfeed, lsl 16
+ 460 0010 C0035FD6 		ret
+ 461 0014 1F2003D5 		.p2align 3
+ 462              	.L74:
+ 463 0018 00000014 		b	mailbox_read.part.1
+ 464              		.size	mailbox_read, .-mailbox_read
+ 465              		.section	.text.mailbox_ARM_to_VC,"ax",@progbits
+ 466              		.align	2
+ 467              		.p2align 4,,15
+ 468              		.global	mailbox_ARM_to_VC
+ 469              		.type	mailbox_ARM_to_VC, %function
+ 470              	mailbox_ARM_to_VC:
+ 471 0000 00040232 		orr	w0, w0, -1073741824
+ 472 0004 C0035FD6 		ret
+ 473              		.size	mailbox_ARM_to_VC, .-mailbox_ARM_to_VC
+ 474              		.section	.text.mailbox_VC_to_ARM,"ax",@progbits
+ 475              		.align	2
+ 476              		.p2align 4,,15
+ 477              		.global	mailbox_VC_to_ARM
+ 478              		.type	mailbox_VC_to_ARM, %function
+ 479              	mailbox_VC_to_ARM:
+ 480 0000 00740012 		and	w0, w0, 1073741823
+ 481 0004 C0035FD6 		ret
+ 482              		.size	mailbox_VC_to_ARM, .-mailbox_VC_to_ARM
+ 483              		.section	.text.WriteText,"ax",@progbits
+ 484              		.align	2
+ 485              		.p2align 4,,15
+ 486              		.global	WriteText
+ 487              		.type	WriteText, %function
+ 488              	WriteText:
+ 489 0000 C20300B4 		cbz	x2, .L86
+ 490 0004 FD7BBCA9 		stp	x29, x30, [sp, -64]!
+ 491 0008 FD030091 		add	x29, sp, 0
+ 492 000c F35301A9 		stp	x19, x20, [sp, 16]
+ 493 0010 F403002A 		mov	w20, w0
+ 494 0014 F55B02A9 		stp	x21, x22, [sp, 32]
+ 495 0018 F30302AA 		mov	x19, x2
+ 496 001c F71B00F9 		str	x23, [sp, 48]
+ 497 0020 F50303AA 		mov	x21, x3
+ 498 0024 E00302AA 		mov	x0, x2
+ 499 0028 F703012A 		mov	w23, w1
+ 500 002c 00000094 		bl	strlen
+ 501 0030 800100B4 		cbz	x0, .L77
+ 502 0034 7602008B 		add	x22, x19, x0
+ 503              		.p2align 3
+ 504              	.L80:
+ 505 0038 63164038 		ldrb	w3, [x19], 1
+ 506 003c E103142A 		mov	w1, w20
+ 507 0040 A41E40F9 		ldr	x4, [x21, 56]
+ 508 0044 E203172A 		mov	w2, w23
+ 509 0048 E00315AA 		mov	x0, x21
+ 510 004c 80003FD6 		blr	x4
+ 511 0050 A11A40B9 		ldr	w1, [x21, 24]
+ 512 0054 DF0213EB 		cmp	x22, x19
+ 513 0058 9402010B 		add	w20, w20, w1
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 10
+
+
+ 514 005c E1FEFF54 		bne	.L80
+ 515              	.L77:
+ 516 0060 F35341A9 		ldp	x19, x20, [sp, 16]
+ 517 0064 F55B42A9 		ldp	x21, x22, [sp, 32]
+ 518 0068 F71B40F9 		ldr	x23, [sp, 48]
+ 519 006c FD7BC4A8 		ldp	x29, x30, [sp], 64
+ 520 0070 C0035FD6 		ret
+ 521 0074 1F2003D5 		.p2align 3
+ 522              	.L86:
+ 523 0078 C0035FD6 		ret
+ 524              		.size	WriteText, .-WriteText
+ 525              		.section	.text.allocFrameBuffer,"ax",@progbits
+ 526              		.align	2
+ 527              		.p2align 4,,15
+ 528              		.global	allocFrameBuffer
+ 529              		.type	allocFrameBuffer, %function
+ 530              	allocFrameBuffer:
+ 531 0000 430800B4 		cbz	x3, .L92
+ 532 0004 FD7BB9A9 		stp	x29, x30, [sp, -112]!
+ 533 0008 080B8052 		mov	w8, 88
+ 534 000c 061097D2 		mov	x6, 47232
+ 535 0010 67009052 		mov	w7, 32771
+ 536 0014 8700A072 		movk	w7, 0x4, lsl 16
+ 537 0018 FD030091 		add	x29, sp, 0
+ 538 001c 04000090 		adrp	x4, RPi_IO_Base_Addr
+ 539 0020 850040F9 		ldr	x5, [x4, #:lo12:RPi_IO_Base_Addr]
+ 540 0024 A9430011 		add	w9, w29, 16
+ 541 0028 04018052 		mov	w4, 8
+ 542 002c 0400B872 		movk	w4, 0xc000, lsl 16
+ 543 0030 2901042A 		orr	w9, w9, w4
+ 544 0034 A87F0229 		stp	w8, wzr, [x29, 16]
+ 545 0038 04018052 		mov	w4, 8
+ 546 003c 88009052 		mov	w8, 32772
+ 547 0040 8800A072 		movk	w8, 0x4, lsl 16
+ 548 0044 A7130329 		stp	w7, w4, [x29, 24]
+ 549 0048 E7080011 		add	w7, w7, 2
+ 550 004c A500068B 		add	x5, x5, x6
+ 551 0050 A4030429 		stp	w4, w0, [x29, 32]
+ 552 0054 86008052 		mov	w6, 4
+ 553 0058 A12B00B9 		str	w1, [x29, 40]
+ 554 005c A82F00B9 		str	w8, [x29, 44]
+ 555 0060 28008052 		mov	w8, 1
+ 556 0064 8800A072 		movk	w8, 0x4, lsl 16
+ 557 0068 A85300B9 		str	w8, [x29, 80]
+ 558 006c A4130629 		stp	w4, w4, [x29, 48]
+ 559 0070 A0070729 		stp	w0, w1, [x29, 56]
+ 560 0074 A74300B9 		str	w7, [x29, 64]
+ 561 0078 07028052 		mov	w7, 16
+ 562 007c A69B0829 		stp	w6, w6, [x29, 68]
+ 563 0080 A24F00B9 		str	w2, [x29, 76]
+ 564 0084 A49B0A29 		stp	w4, w6, [x29, 84]
+ 565 0088 A75F00B9 		str	w7, [x29, 92]
+ 566 008c BF7F0C29 		stp	wzr, wzr, [x29, 96]
+ 567              		.p2align 3
+ 568              	.L91:
+ 569 0090 A43840B9 		ldr	w4, [x5, 56]
+ 570 0094 E4FFFF37 		tbnz	w4, #31, .L91
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 11
+
+
+ 571 0098 E40303AA 		mov	x4, x3
+ 572 009c E603012A 		mov	w6, w1
+ 573 00a0 E703002A 		mov	w7, w0
+ 574 00a4 E803022A 		mov	w8, w2
+ 575 00a8 A92000B9 		str	w9, [x5, 32]
+ 576 00ac 00018052 		mov	w0, 8
+ 577 00b0 00000094 		bl	mailbox_read.part.1
+ 578 00b4 86200129 		stp	w6, w8, [x4, 8]
+ 579 00b8 A25F40B9 		ldr	w2, [x29, 92]
+ 580 00bc 09018052 		mov	w9, 8
+ 581 00c0 9F1C0529 		stp	wzr, w7, [x4, 40]
+ 582 00c4 05028052 		mov	w5, 16
+ 583 00c8 89140329 		stp	w9, w5, [x4, 24]
+ 584 00cc 03008012 		mov	w3, -1
+ 585 00d0 837C0429 		stp	w3, wzr, [x4, 32]
+ 586 00d4 42740012 		and	w2, w2, 1073741823
+ 587 00d8 821C0029 		stp	w2, w7, [x4]
+ 588 00dc 01000090 		adrp	x1, BitFont
+ 589 00e0 21000091 		add	x1, x1, :lo12:BitFont
+ 590 00e4 810800F9 		str	x1, [x4, 16]
+ 591 00e8 9F180629 		stp	wzr, w6, [x4, 48]
+ 592 00ec 00000090 		adrp	x0, WriteChar32
+ 593 00f0 00000091 		add	x0, x0, :lo12:WriteChar32
+ 594 00f4 801C00F9 		str	x0, [x4, 56]
+ 595 00f8 20008052 		mov	w0, 1
+ 596 00fc FD7BC7A8 		ldp	x29, x30, [sp], 112
+ 597 0100 C0035FD6 		ret
+ 598 0104 1F2003D5 		.p2align 3
+ 599              	.L92:
+ 600 0108 00008052 		mov	w0, 0
+ 601 010c C0035FD6 		ret
+ 602              		.size	allocFrameBuffer, .-allocFrameBuffer
+ 603              		.global	BitFont
+ 604              		.section	.rodata
+ 605              		.align	3
+ 606              		.type	BitFont, %object
+ 607              		.size	BitFont, 4096
+ 608              	BitFont:
+ 609 0000 00000000 		.word	0
+ 610 0004 00000000 		.word	0
+ 611 0008 00000000 		.word	0
+ 612 000c 00000000 		.word	0
+ 613 0010 817E0000 		.word	32385
+ 614 0014 BD8181A5 		.word	-1518239299
+ 615 0018 7E818199 		.word	-1719565954
+ 616 001c 00000000 		.word	0
+ 617 0020 FF7E0000 		.word	32511
+ 618 0024 C3FFFFDB 		.word	-603979837
+ 619 0028 7EFFFFE7 		.word	-402653314
+ 620 002c 00000000 		.word	0
+ 621 0030 00000000 		.word	0
+ 622 0034 FEFEFE6C 		.word	1828650750
+ 623 0038 10387CFE 		.word	-25413616
+ 624 003c 00000000 		.word	0
+ 625 0040 00000000 		.word	0
+ 626 0044 FE7C3810 		.word	272137470
+ 627 0048 0010387C 		.word	2084048896
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 12
+
+
+ 628 004c 00000000 		.word	0
+ 629 0050 18000000 		.word	24
+ 630 0054 E7E73C3C 		.word	1010624487
+ 631 0058 3C1818E7 		.word	-417851332
+ 632 005c 00000000 		.word	0
+ 633 0060 18000000 		.word	24
+ 634 0064 FFFF7E3C 		.word	1014956031
+ 635 0068 3C18187E 		.word	2115508284
+ 636 006c 00000000 		.word	0
+ 637 0070 00000000 		.word	0
+ 638 0074 3C180000 		.word	6204
+ 639 0078 0000183C 		.word	1008205824
+ 640 007c 00000000 		.word	0
+ 641 0080 FFFFFFFF 		.word	-1
+ 642 0084 C3E7FFFF 		.word	-6205
+ 643 0088 FFFFE7C3 		.word	-1008205825
+ 644 008c FFFFFFFF 		.word	-1
+ 645 0090 00000000 		.word	0
+ 646 0094 42663C00 		.word	3958338
+ 647 0098 003C6642 		.word	1113996288
+ 648 009c 00000000 		.word	0
+ 649 00a0 FFFFFFFF 		.word	-1
+ 650 00a4 BD99C3FF 		.word	-3958339
+ 651 00a8 FFC399BD 		.word	-1113996289
+ 652 00ac FFFFFFFF 		.word	-1
+ 653 00b0 0E1E0000 		.word	7694
+ 654 00b4 CC78321A 		.word	439515340
+ 655 00b8 78CCCCCC 		.word	-858993544
+ 656 00bc 00000000 		.word	0
+ 657 00c0 663C0000 		.word	15462
+ 658 00c4 3C666666 		.word	1717986876
+ 659 00c8 18187E18 		.word	410916888
+ 660 00cc 00000000 		.word	0
+ 661 00d0 333F0000 		.word	16179
+ 662 00d4 3030303F 		.word	1060122672
+ 663 00d8 E0F07030 		.word	812708064
+ 664 00dc 00000000 		.word	0
+ 665 00e0 637F0000 		.word	32611
+ 666 00e4 6363637F 		.word	2137219939
+ 667 00e8 E6E76763 		.word	1667753958
+ 668 00ec 000000C0 		.word	-1073741824
+ 669 00f0 18000000 		.word	24
+ 670 00f4 E73CDB18 		.word	417021159
+ 671 00f8 1818DB3C 		.word	1020991512
+ 672 00fc 00000000 		.word	0
+ 673 0100 E0C08000 		.word	8437984
+ 674 0104 F8FEF8F0 		.word	-252117256
+ 675 0108 80C0E0F0 		.word	-253706112
+ 676 010c 00000000 		.word	0
+ 677 0110 0E060200 		.word	132622
+ 678 0114 3EFE3E1E 		.word	507444798
+ 679 0118 02060E1E 		.word	504235522
+ 680 011c 00000000 		.word	0
+ 681 0120 3C180000 		.word	6204
+ 682 0124 1818187E 		.word	2115508248
+ 683 0128 00183C7E 		.word	2117867520
+ 684 012c 00000000 		.word	0
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 13
+
+
+ 685 0130 66660000 		.word	26214
+ 686 0134 66666666 		.word	1717986918
+ 687 0138 66660066 		.word	1711302246
+ 688 013c 00000000 		.word	0
+ 689 0140 DB7F0000 		.word	32731
+ 690 0144 1B7BDBDB 		.word	-606373093
+ 691 0148 1B1B1B1B 		.word	454761243
+ 692 014c 00000000 		.word	0
+ 693 0150 60C67C00 		.word	8177248
+ 694 0154 C6C66C38 		.word	946652870
+ 695 0158 C60C386C 		.word	1815612614
+ 696 015c 0000007C 		.word	2080374784
+ 697 0160 00000000 		.word	0
+ 698 0164 00000000 		.word	0
+ 699 0168 FEFEFEFE 		.word	-16843010
+ 700 016c 00000000 		.word	0
+ 701 0170 3C180000 		.word	6204
+ 702 0174 1818187E 		.word	2115508248
+ 703 0178 7E183C7E 		.word	2117867646
+ 704 017c 00000000 		.word	0
+ 705 0180 3C180000 		.word	6204
+ 706 0184 1818187E 		.word	2115508248
+ 707 0188 18181818 		.word	404232216
+ 708 018c 00000000 		.word	0
+ 709 0190 18180000 		.word	6168
+ 710 0194 18181818 		.word	404232216
+ 711 0198 183C7E18 		.word	410926104
+ 712 019c 00000000 		.word	0
+ 713 01a0 00000000 		.word	0
+ 714 01a4 FE0C1800 		.word	1576190
+ 715 01a8 0000180C 		.word	202899456
+ 716 01ac 00000000 		.word	0
+ 717 01b0 00000000 		.word	0
+ 718 01b4 FE603000 		.word	3170558
+ 719 01b8 00003060 		.word	1613758464
+ 720 01bc 00000000 		.word	0
+ 721 01c0 00000000 		.word	0
+ 722 01c4 C0C00000 		.word	49344
+ 723 01c8 0000FEC0 		.word	-1057095680
+ 724 01cc 00000000 		.word	0
+ 725 01d0 00000000 		.word	0
+ 726 01d4 FE6C2800 		.word	2649342
+ 727 01d8 0000286C 		.word	1814560768
+ 728 01dc 00000000 		.word	0
+ 729 01e0 00000000 		.word	0
+ 730 01e4 7C383810 		.word	272119932
+ 731 01e8 00FEFE7C 		.word	2097085952
+ 732 01ec 00000000 		.word	0
+ 733 01f0 00000000 		.word	0
+ 734 01f4 7C7CFEFE 		.word	-16876420
+ 735 01f8 00103838 		.word	943198208
+ 736 01fc 00000000 		.word	0
+ 737 0200 00000000 		.word	0
+ 738 0204 00000000 		.word	0
+ 739 0208 00000000 		.word	0
+ 740 020c 00000000 		.word	0
+ 741 0210 3C180000 		.word	6204
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 14
+
+
+ 742 0214 18183C3C 		.word	1010571288
+ 743 0218 18180018 		.word	402659352
+ 744 021c 00000000 		.word	0
+ 745 0220 66666600 		.word	6710886
+ 746 0224 00000024 		.word	603979776
+ 747 0228 00000000 		.word	0
+ 748 022c 00000000 		.word	0
+ 749 0230 6C000000 		.word	108
+ 750 0234 6C6CFE6C 		.word	1828613228
+ 751 0238 6C6CFE6C 		.word	1828613228
+ 752 023c 00000000 		.word	0
+ 753 0240 C67C1818 		.word	404257990
+ 754 0244 067CC0C2 		.word	-1027572730
+ 755 0248 7CC68606 		.word	109495932
+ 756 024c 00001818 		.word	404226048
+ 757 0250 00000000 		.word	0
+ 758 0254 180CC6C2 		.word	-1027208168
+ 759 0258 86C66030 		.word	811648646
+ 760 025c 00000000 		.word	0
+ 761 0260 6C380000 		.word	14444
+ 762 0264 DC76386C 		.word	1815639772
+ 763 0268 76CCCCCC 		.word	-858993546
+ 764 026c 00000000 		.word	0
+ 765 0270 30303000 		.word	3158064
+ 766 0274 00000060 		.word	1610612736
+ 767 0278 00000000 		.word	0
+ 768 027c 00000000 		.word	0
+ 769 0280 180C0000 		.word	3096
+ 770 0284 30303030 		.word	808464432
+ 771 0288 0C183030 		.word	808458252
+ 772 028c 00000000 		.word	0
+ 773 0290 18300000 		.word	12312
+ 774 0294 0C0C0C0C 		.word	202116108
+ 775 0298 30180C0C 		.word	202119216
+ 776 029c 00000000 		.word	0
+ 777 02a0 00000000 		.word	0
+ 778 02a4 FF3C6600 		.word	6700287
+ 779 02a8 0000663C 		.word	1013317632
+ 780 02ac 00000000 		.word	0
+ 781 02b0 00000000 		.word	0
+ 782 02b4 7E181800 		.word	1579134
+ 783 02b8 00001818 		.word	404226048
+ 784 02bc 00000000 		.word	0
+ 785 02c0 00000000 		.word	0
+ 786 02c4 00000000 		.word	0
+ 787 02c8 18181800 		.word	1579032
+ 788 02cc 00000030 		.word	805306368
+ 789 02d0 00000000 		.word	0
+ 790 02d4 FE000000 		.word	254
+ 791 02d8 00000000 		.word	0
+ 792 02dc 00000000 		.word	0
+ 793 02e0 00000000 		.word	0
+ 794 02e4 00000000 		.word	0
+ 795 02e8 18180000 		.word	6168
+ 796 02ec 00000000 		.word	0
+ 797 02f0 00000000 		.word	0
+ 798 02f4 180C0602 		.word	33950744
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 15
+
+
+ 799 02f8 80C06030 		.word	811647104
+ 800 02fc 00000000 		.word	0
+ 801 0300 6C380000 		.word	14444
+ 802 0304 D6D6C6C6 		.word	-960047402
+ 803 0308 386CC6C6 		.word	-960074696
+ 804 030c 00000000 		.word	0
+ 805 0310 38180000 		.word	6200
+ 806 0314 18181878 		.word	2014844952
+ 807 0318 7E181818 		.word	404232318
+ 808 031c 00000000 		.word	0
+ 809 0320 C67C0000 		.word	31942
+ 810 0324 30180C06 		.word	101455920
+ 811 0328 FEC6C060 		.word	1623246590
+ 812 032c 00000000 		.word	0
+ 813 0330 C67C0000 		.word	31942
+ 814 0334 063C0606 		.word	101071878
+ 815 0338 7CC60606 		.word	101107324
+ 816 033c 00000000 		.word	0
+ 817 0340 1C0C0000 		.word	3100
+ 818 0344 FECC6C3C 		.word	1013763326
+ 819 0348 1E0C0C0C 		.word	202116126
+ 820 034c 00000000 		.word	0
+ 821 0350 C0FE0000 		.word	65216
+ 822 0354 06FCC0C0 		.word	-1061094394
+ 823 0358 7CC60606 		.word	101107324
+ 824 035c 00000000 		.word	0
+ 825 0360 60380000 		.word	14432
+ 826 0364 C6FCC0C0 		.word	-1061094202
+ 827 0368 7CC6C6C6 		.word	-960051588
+ 828 036c 00000000 		.word	0
+ 829 0370 C6FE0000 		.word	65222
+ 830 0374 180C0606 		.word	101059608
+ 831 0378 30303030 		.word	808464432
+ 832 037c 00000000 		.word	0
+ 833 0380 C67C0000 		.word	31942
+ 834 0384 C67CC6C6 		.word	-960070458
+ 835 0388 7CC6C6C6 		.word	-960051588
+ 836 038c 00000000 		.word	0
+ 837 0390 C67C0000 		.word	31942
+ 838 0394 067EC6C6 		.word	-960070138
+ 839 0398 780C0606 		.word	101059704
+ 840 039c 00000000 		.word	0
+ 841 03a0 00000000 		.word	0
+ 842 03a4 00001818 		.word	404226048
+ 843 03a8 00181800 		.word	1579008
+ 844 03ac 00000000 		.word	0
+ 845 03b0 00000000 		.word	0
+ 846 03b4 00001818 		.word	404226048
+ 847 03b8 30181800 		.word	1579056
+ 848 03bc 00000000 		.word	0
+ 849 03c0 06000000 		.word	6
+ 850 03c4 6030180C 		.word	202911840
+ 851 03c8 060C1830 		.word	806882310
+ 852 03cc 00000000 		.word	0
+ 853 03d0 00000000 		.word	0
+ 854 03d4 00007E00 		.word	8257536
+ 855 03d8 0000007E 		.word	2113929216
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 16
+
+
+ 856 03dc 00000000 		.word	0
+ 857 03e0 60000000 		.word	96
+ 858 03e4 060C1830 		.word	806882310
+ 859 03e8 6030180C 		.word	202911840
+ 860 03ec 00000000 		.word	0
+ 861 03f0 C67C0000 		.word	31942
+ 862 03f4 18180CC6 		.word	-972285928
+ 863 03f8 18180018 		.word	402659352
+ 864 03fc 00000000 		.word	0
+ 865 0400 7C000000 		.word	124
+ 866 0404 DEDEC6C6 		.word	-960045346
+ 867 0408 7CC0DCDE 		.word	-555958148
+ 868 040c 00000000 		.word	0
+ 869 0410 38100000 		.word	4152
+ 870 0414 FEC6C66C 		.word	1824966398
+ 871 0418 C6C6C6C6 		.word	-960051514
+ 872 041c 00000000 		.word	0
+ 873 0420 66FC0000 		.word	64614
+ 874 0424 667C6666 		.word	1717992550
+ 875 0428 FC666666 		.word	1717987068
+ 876 042c 00000000 		.word	0
+ 877 0430 663C0000 		.word	15462
+ 878 0434 C0C0C0C2 		.word	-1027555136
+ 879 0438 3C66C2C0 		.word	-1061001668
+ 880 043c 00000000 		.word	0
+ 881 0440 6CF80000 		.word	63596
+ 882 0444 66666666 		.word	1717986918
+ 883 0448 F86C6666 		.word	1717988600
+ 884 044c 00000000 		.word	0
+ 885 0450 66FE0000 		.word	65126
+ 886 0454 68786862 		.word	1651013736
+ 887 0458 FE666260 		.word	1617061630
+ 888 045c 00000000 		.word	0
+ 889 0460 66FE0000 		.word	65126
+ 890 0464 68786862 		.word	1651013736
+ 891 0468 F0606060 		.word	1616929008
+ 892 046c 00000000 		.word	0
+ 893 0470 663C0000 		.word	15462
+ 894 0474 DEC0C0C2 		.word	-1027555106
+ 895 0478 3A66C6C6 		.word	-960076230
+ 896 047c 00000000 		.word	0
+ 897 0480 C6C60000 		.word	50886
+ 898 0484 C6FEC6C6 		.word	-960037178
+ 899 0488 C6C6C6C6 		.word	-960051514
+ 900 048c 00000000 		.word	0
+ 901 0490 183C0000 		.word	15384
+ 902 0494 18181818 		.word	404232216
+ 903 0498 3C181818 		.word	404232252
+ 904 049c 00000000 		.word	0
+ 905 04a0 0C1E0000 		.word	7692
+ 906 04a4 0C0C0C0C 		.word	202116108
+ 907 04a8 78CCCCCC 		.word	-858993544
+ 908 04ac 00000000 		.word	0
+ 909 04b0 66E60000 		.word	58982
+ 910 04b4 78786C66 		.word	1718384760
+ 911 04b8 E666666C 		.word	1818650342
+ 912 04bc 00000000 		.word	0
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 17
+
+
+ 913 04c0 60F00000 		.word	61536
+ 914 04c4 60606060 		.word	1616928864
+ 915 04c8 FE666260 		.word	1617061630
+ 916 04cc 00000000 		.word	0
+ 917 04d0 EEC60000 		.word	50926
+ 918 04d4 C6D6FEFE 		.word	-16853306
+ 919 04d8 C6C6C6C6 		.word	-960051514
+ 920 04dc 00000000 		.word	0
+ 921 04e0 E6C60000 		.word	50918
+ 922 04e4 CEDEFEF6 		.word	-151068978
+ 923 04e8 C6C6C6C6 		.word	-960051514
+ 924 04ec 00000000 		.word	0
+ 925 04f0 C67C0000 		.word	31942
+ 926 04f4 C6C6C6C6 		.word	-960051514
+ 927 04f8 7CC6C6C6 		.word	-960051588
+ 928 04fc 00000000 		.word	0
+ 929 0500 66FC0000 		.word	64614
+ 930 0504 607C6666 		.word	1717992544
+ 931 0508 F0606060 		.word	1616929008
+ 932 050c 00000000 		.word	0
+ 933 0510 C67C0000 		.word	31942
+ 934 0514 C6C6C6C6 		.word	-960051514
+ 935 0518 7CDED6C6 		.word	-958996868
+ 936 051c 00000E0C 		.word	202244096
+ 937 0520 66FC0000 		.word	64614
+ 938 0524 6C7C6666 		.word	1717992556
+ 939 0528 E6666666 		.word	1717987046
+ 940 052c 00000000 		.word	0
+ 941 0530 C67C0000 		.word	31942
+ 942 0534 0C3860C6 		.word	-966772724
+ 943 0538 7CC6C606 		.word	113690236
+ 944 053c 00000000 		.word	0
+ 945 0540 7E7E0000 		.word	32382
+ 946 0544 1818185A 		.word	1511528472
+ 947 0548 3C181818 		.word	404232252
+ 948 054c 00000000 		.word	0
+ 949 0550 C6C60000 		.word	50886
+ 950 0554 C6C6C6C6 		.word	-960051514
+ 951 0558 7CC6C6C6 		.word	-960051588
+ 952 055c 00000000 		.word	0
+ 953 0560 C6C60000 		.word	50886
+ 954 0564 C6C6C6C6 		.word	-960051514
+ 955 0568 10386CC6 		.word	-965986288
+ 956 056c 00000000 		.word	0
+ 957 0570 C6C60000 		.word	50886
+ 958 0574 D6D6C6C6 		.word	-960047402
+ 959 0578 6CEEFED6 		.word	-687935892
+ 960 057c 00000000 		.word	0
+ 961 0580 C6C60000 		.word	50886
+ 962 0584 38387C6C 		.word	1820080184
+ 963 0588 C6C66C7C 		.word	2087503558
+ 964 058c 00000000 		.word	0
+ 965 0590 66660000 		.word	26214
+ 966 0594 183C6666 		.word	1717976088
+ 967 0598 3C181818 		.word	404232252
+ 968 059c 00000000 		.word	0
+ 969 05a0 C6FE0000 		.word	65222
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 18
+
+
+ 970 05a4 30180C86 		.word	-2046027728
+ 971 05a8 FEC6C260 		.word	1623377662
+ 972 05ac 00000000 		.word	0
+ 973 05b0 303C0000 		.word	15408
+ 974 05b4 30303030 		.word	808464432
+ 975 05b8 3C303030 		.word	808464444
+ 976 05bc 00000000 		.word	0
+ 977 05c0 80000000 		.word	128
+ 978 05c4 3870E0C0 		.word	-1059033032
+ 979 05c8 02060E1C 		.word	470681090
+ 980 05cc 00000000 		.word	0
+ 981 05d0 0C3C0000 		.word	15372
+ 982 05d4 0C0C0C0C 		.word	202116108
+ 983 05d8 3C0C0C0C 		.word	202116156
+ 984 05dc 00000000 		.word	0
+ 985 05e0 C66C3810 		.word	272133318
+ 986 05e4 00000000 		.word	0
+ 987 05e8 00000000 		.word	0
+ 988 05ec 00000000 		.word	0
+ 989 05f0 00000000 		.word	0
+ 990 05f4 00000000 		.word	0
+ 991 05f8 00000000 		.word	0
+ 992 05fc 0000FF00 		.word	16711680
+ 993 0600 00183030 		.word	808458240
+ 994 0604 00000000 		.word	0
+ 995 0608 00000000 		.word	0
+ 996 060c 00000000 		.word	0
+ 997 0610 00000000 		.word	0
+ 998 0614 7C0C7800 		.word	7867516
+ 999 0618 76CCCCCC 		.word	-858993546
+ 1000 061c 00000000 		.word	0
+ 1001 0620 60E00000 		.word	57440
+ 1002 0624 666C7860 		.word	1618504806
+ 1003 0628 7C666666 		.word	1717986940
+ 1004 062c 00000000 		.word	0
+ 1005 0630 00000000 		.word	0
+ 1006 0634 C0C67C00 		.word	8177344
+ 1007 0638 7CC6C0C0 		.word	-1061108100
+ 1008 063c 00000000 		.word	0
+ 1009 0640 0C1C0000 		.word	7180
+ 1010 0644 CC6C3C0C 		.word	205286604
+ 1011 0648 76CCCCCC 		.word	-858993546
+ 1012 064c 00000000 		.word	0
+ 1013 0650 00000000 		.word	0
+ 1014 0654 FEC67C00 		.word	8177406
+ 1015 0658 7CC6C0C0 		.word	-1061108100
+ 1016 065c 00000000 		.word	0
+ 1017 0660 6C380000 		.word	14444
+ 1018 0664 60F06064 		.word	1684074592
+ 1019 0668 F0606060 		.word	1616929008
+ 1020 066c 00000000 		.word	0
+ 1021 0670 00000000 		.word	0
+ 1022 0674 CCCC7600 		.word	7785676
+ 1023 0678 7CCCCCCC 		.word	-858993540
+ 1024 067c 0078CC0C 		.word	214726656
+ 1025 0680 60E00000 		.word	57440
+ 1026 0684 66766C60 		.word	1617720934
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 19
+
+
+ 1027 0688 E6666666 		.word	1717987046
+ 1028 068c 00000000 		.word	0
+ 1029 0690 18180000 		.word	6168
+ 1030 0694 18183800 		.word	3676184
+ 1031 0698 3C181818 		.word	404232252
+ 1032 069c 00000000 		.word	0
+ 1033 06a0 06060000 		.word	1542
+ 1034 06a4 06060E00 		.word	919046
+ 1035 06a8 06060606 		.word	101058054
+ 1036 06ac 003C6666 		.word	1717976064
+ 1037 06b0 60E00000 		.word	57440
+ 1038 06b4 786C6660 		.word	1617325176
+ 1039 06b8 E6666C78 		.word	2020370150
+ 1040 06bc 00000000 		.word	0
+ 1041 06c0 18380000 		.word	14360
+ 1042 06c4 18181818 		.word	404232216
+ 1043 06c8 3C181818 		.word	404232252
+ 1044 06cc 00000000 		.word	0
+ 1045 06d0 00000000 		.word	0
+ 1046 06d4 D6FEEC00 		.word	15531734
+ 1047 06d8 C6D6D6D6 		.word	-690563386
+ 1048 06dc 00000000 		.word	0
+ 1049 06e0 00000000 		.word	0
+ 1050 06e4 6666DC00 		.word	14444134
+ 1051 06e8 66666666 		.word	1717986918
+ 1052 06ec 00000000 		.word	0
+ 1053 06f0 00000000 		.word	0
+ 1054 06f4 C6C67C00 		.word	8177350
+ 1055 06f8 7CC6C6C6 		.word	-960051588
+ 1056 06fc 00000000 		.word	0
+ 1057 0700 00000000 		.word	0
+ 1058 0704 6666DC00 		.word	14444134
+ 1059 0708 7C666666 		.word	1717986940
+ 1060 070c 00F06060 		.word	1616965632
+ 1061 0710 00000000 		.word	0
+ 1062 0714 CCCC7600 		.word	7785676
+ 1063 0718 7CCCCCCC 		.word	-858993540
+ 1064 071c 001E0C0C 		.word	202120704
+ 1065 0720 00000000 		.word	0
+ 1066 0724 6676DC00 		.word	14448230
+ 1067 0728 F0606060 		.word	1616929008
+ 1068 072c 00000000 		.word	0
+ 1069 0730 00000000 		.word	0
+ 1070 0734 60C67C00 		.word	8177248
+ 1071 0738 7CC60C38 		.word	940361340
+ 1072 073c 00000000 		.word	0
+ 1073 0740 30100000 		.word	4144
+ 1074 0744 3030FC30 		.word	821833776
+ 1075 0748 1C363030 		.word	808465948
+ 1076 074c 00000000 		.word	0
+ 1077 0750 00000000 		.word	0
+ 1078 0754 CCCCCC00 		.word	13421772
+ 1079 0758 76CCCCCC 		.word	-858993546
+ 1080 075c 00000000 		.word	0
+ 1081 0760 00000000 		.word	0
+ 1082 0764 66666600 		.word	6710886
+ 1083 0768 183C6666 		.word	1717976088
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 20
+
+
+ 1084 076c 00000000 		.word	0
+ 1085 0770 00000000 		.word	0
+ 1086 0774 D6C6C600 		.word	13027030
+ 1087 0778 6CFED6D6 		.word	-690553236
+ 1088 077c 00000000 		.word	0
+ 1089 0780 00000000 		.word	0
+ 1090 0784 386CC600 		.word	13003832
+ 1091 0788 C66C3838 		.word	943221958
+ 1092 078c 00000000 		.word	0
+ 1093 0790 00000000 		.word	0
+ 1094 0794 C6C6C600 		.word	13027014
+ 1095 0798 7EC6C6C6 		.word	-960051586
+ 1096 079c 00F80C06 		.word	101513216
+ 1097 07a0 00000000 		.word	0
+ 1098 07a4 18CCFE00 		.word	16698392
+ 1099 07a8 FEC66030 		.word	811648766
+ 1100 07ac 00000000 		.word	0
+ 1101 07b0 180E0000 		.word	3608
+ 1102 07b4 18701818 		.word	404254744
+ 1103 07b8 0E181818 		.word	404232206
+ 1104 07bc 00000000 		.word	0
+ 1105 07c0 18180000 		.word	6168
+ 1106 07c4 18001818 		.word	404226072
+ 1107 07c8 18181818 		.word	404232216
+ 1108 07cc 00000000 		.word	0
+ 1109 07d0 18700000 		.word	28696
+ 1110 07d4 180E1818 		.word	404229656
+ 1111 07d8 70181818 		.word	404232304
+ 1112 07dc 00000000 		.word	0
+ 1113 07e0 DC760000 		.word	30428
+ 1114 07e4 00000000 		.word	0
+ 1115 07e8 00000000 		.word	0
+ 1116 07ec 00000000 		.word	0
+ 1117 07f0 00000000 		.word	0
+ 1118 07f4 C66C3810 		.word	272133318
+ 1119 07f8 00FEC6C6 		.word	-960037376
+ 1120 07fc 00000000 		.word	0
+ 1121 0800 663C0000 		.word	15462
+ 1122 0804 C0C0C0C2 		.word	-1027555136
+ 1123 0808 0C3C66C2 		.word	-1033487348
+ 1124 080c 00007C06 		.word	108789760
+ 1125 0810 00CC0000 		.word	52224
+ 1126 0814 CCCCCC00 		.word	13421772
+ 1127 0818 76CCCCCC 		.word	-858993546
+ 1128 081c 00000000 		.word	0
+ 1129 0820 30180C00 		.word	792624
+ 1130 0824 FEC67C00 		.word	8177406
+ 1131 0828 7CC6C0C0 		.word	-1061108100
+ 1132 082c 00000000 		.word	0
+ 1133 0830 6C381000 		.word	1063020
+ 1134 0834 7C0C7800 		.word	7867516
+ 1135 0838 76CCCCCC 		.word	-858993546
+ 1136 083c 00000000 		.word	0
+ 1137 0840 00CC0000 		.word	52224
+ 1138 0844 7C0C7800 		.word	7867516
+ 1139 0848 76CCCCCC 		.word	-858993546
+ 1140 084c 00000000 		.word	0
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 21
+
+
+ 1141 0850 18306000 		.word	6303768
+ 1142 0854 7C0C7800 		.word	7867516
+ 1143 0858 76CCCCCC 		.word	-858993546
+ 1144 085c 00000000 		.word	0
+ 1145 0860 386C3800 		.word	3697720
+ 1146 0864 7C0C7800 		.word	7867516
+ 1147 0868 76CCCCCC 		.word	-858993546
+ 1148 086c 00000000 		.word	0
+ 1149 0870 00000000 		.word	0
+ 1150 0874 6060663C 		.word	1013342304
+ 1151 0878 060C3C66 		.word	1715211270
+ 1152 087c 0000003C 		.word	1006632960
+ 1153 0880 6C381000 		.word	1063020
+ 1154 0884 FEC67C00 		.word	8177406
+ 1155 0888 7CC6C0C0 		.word	-1061108100
+ 1156 088c 00000000 		.word	0
+ 1157 0890 00C60000 		.word	50688
+ 1158 0894 FEC67C00 		.word	8177406
+ 1159 0898 7CC6C0C0 		.word	-1061108100
+ 1160 089c 00000000 		.word	0
+ 1161 08a0 18306000 		.word	6303768
+ 1162 08a4 FEC67C00 		.word	8177406
+ 1163 08a8 7CC6C0C0 		.word	-1061108100
+ 1164 08ac 00000000 		.word	0
+ 1165 08b0 00660000 		.word	26112
+ 1166 08b4 18183800 		.word	3676184
+ 1167 08b8 3C181818 		.word	404232252
+ 1168 08bc 00000000 		.word	0
+ 1169 08c0 663C1800 		.word	1588326
+ 1170 08c4 18183800 		.word	3676184
+ 1171 08c8 3C181818 		.word	404232252
+ 1172 08cc 00000000 		.word	0
+ 1173 08d0 18306000 		.word	6303768
+ 1174 08d4 18183800 		.word	3676184
+ 1175 08d8 3C181818 		.word	404232252
+ 1176 08dc 00000000 		.word	0
+ 1177 08e0 1000C600 		.word	12976144
+ 1178 08e4 C6C66C38 		.word	946652870
+ 1179 08e8 C6C6C6FE 		.word	-20527418
+ 1180 08ec 00000000 		.word	0
+ 1181 08f0 00386C38 		.word	946616320
+ 1182 08f4 C6C66C38 		.word	946652870
+ 1183 08f8 C6C6C6FE 		.word	-20527418
+ 1184 08fc 00000000 		.word	0
+ 1185 0900 00603018 		.word	405823488
+ 1186 0904 7C6066FE 		.word	-26845060
+ 1187 0908 FE666060 		.word	1616930558
+ 1188 090c 00000000 		.word	0
+ 1189 0910 00000000 		.word	0
+ 1190 0914 3676CC00 		.word	13399606
+ 1191 0918 6ED8D87E 		.word	2128140398
+ 1192 091c 00000000 		.word	0
+ 1193 0920 6C3E0000 		.word	15980
+ 1194 0924 CCFECCCC 		.word	-858980660
+ 1195 0928 CECCCCCC 		.word	-858993458
+ 1196 092c 00000000 		.word	0
+ 1197 0930 6C381000 		.word	1063020
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 22
+
+
+ 1198 0934 C6C67C00 		.word	8177350
+ 1199 0938 7CC6C6C6 		.word	-960051588
+ 1200 093c 00000000 		.word	0
+ 1201 0940 00C60000 		.word	50688
+ 1202 0944 C6C67C00 		.word	8177350
+ 1203 0948 7CC6C6C6 		.word	-960051588
+ 1204 094c 00000000 		.word	0
+ 1205 0950 18306000 		.word	6303768
+ 1206 0954 C6C67C00 		.word	8177350
+ 1207 0958 7CC6C6C6 		.word	-960051588
+ 1208 095c 00000000 		.word	0
+ 1209 0960 CC783000 		.word	3176652
+ 1210 0964 CCCCCC00 		.word	13421772
+ 1211 0968 76CCCCCC 		.word	-858993546
+ 1212 096c 00000000 		.word	0
+ 1213 0970 18306000 		.word	6303768
+ 1214 0974 CCCCCC00 		.word	13421772
+ 1215 0978 76CCCCCC 		.word	-858993546
+ 1216 097c 00000000 		.word	0
+ 1217 0980 00C60000 		.word	50688
+ 1218 0984 C6C6C600 		.word	13027014
+ 1219 0988 7EC6C6C6 		.word	-960051586
+ 1220 098c 00780C06 		.word	101480448
+ 1221 0990 7C00C600 		.word	12976252
+ 1222 0994 C6C6C6C6 		.word	-960051514
+ 1223 0998 7CC6C6C6 		.word	-960051588
+ 1224 099c 00000000 		.word	0
+ 1225 09a0 C600C600 		.word	12976326
+ 1226 09a4 C6C6C6C6 		.word	-960051514
+ 1227 09a8 7CC6C6C6 		.word	-960051588
+ 1228 09ac 00000000 		.word	0
+ 1229 09b0 3C181800 		.word	1579068
+ 1230 09b4 60606066 		.word	1717592160
+ 1231 09b8 18183C66 		.word	1715214360
+ 1232 09bc 00000000 		.word	0
+ 1233 09c0 646C3800 		.word	3697764
+ 1234 09c4 6060F060 		.word	1626366048
+ 1235 09c8 FCE66060 		.word	1616963324
+ 1236 09cc 00000000 		.word	0
+ 1237 09d0 66660000 		.word	26214
+ 1238 09d4 187E183C 		.word	1008238104
+ 1239 09d8 1818187E 		.word	2115508248
+ 1240 09dc 00000000 		.word	0
+ 1241 09e0 CCCCF800 		.word	16305356
+ 1242 09e4 DECCC4F8 		.word	-121320226
+ 1243 09e8 C6CCCCCC 		.word	-858993466
+ 1244 09ec 00000000 		.word	0
+ 1245 09f0 181B0E00 		.word	924440
+ 1246 09f4 187E1818 		.word	404258328
+ 1247 09f8 18181818 		.word	404232216
+ 1248 09fc 000070D8 		.word	-663748608
+ 1249 0a00 60301800 		.word	1585248
+ 1250 0a04 7C0C7800 		.word	7867516
+ 1251 0a08 76CCCCCC 		.word	-858993546
+ 1252 0a0c 00000000 		.word	0
+ 1253 0a10 30180C00 		.word	792624
+ 1254 0a14 18183800 		.word	3676184
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 23
+
+
+ 1255 0a18 3C181818 		.word	404232252
+ 1256 0a1c 00000000 		.word	0
+ 1257 0a20 60301800 		.word	1585248
+ 1258 0a24 C6C67C00 		.word	8177350
+ 1259 0a28 7CC6C6C6 		.word	-960051588
+ 1260 0a2c 00000000 		.word	0
+ 1261 0a30 60301800 		.word	1585248
+ 1262 0a34 CCCCCC00 		.word	13421772
+ 1263 0a38 76CCCCCC 		.word	-858993546
+ 1264 0a3c 00000000 		.word	0
+ 1265 0a40 DC760000 		.word	30428
+ 1266 0a44 6666DC00 		.word	14444134
+ 1267 0a48 66666666 		.word	1717986918
+ 1268 0a4c 00000000 		.word	0
+ 1269 0a50 C600DC76 		.word	1994129606
+ 1270 0a54 DEFEF6E6 		.word	-420020514
+ 1271 0a58 C6C6C6CE 		.word	-825833786
+ 1272 0a5c 00000000 		.word	0
+ 1273 0a60 6C6C3C00 		.word	3959916
+ 1274 0a64 007E003E 		.word	1040219648
+ 1275 0a68 00000000 		.word	0
+ 1276 0a6c 00000000 		.word	0
+ 1277 0a70 6C6C3800 		.word	3697772
+ 1278 0a74 007C0038 		.word	939555840
+ 1279 0a78 00000000 		.word	0
+ 1280 0a7c 00000000 		.word	0
+ 1281 0a80 30300000 		.word	12336
+ 1282 0a84 60303000 		.word	3158112
+ 1283 0a88 7CC6C6C0 		.word	-1060714884
+ 1284 0a8c 00000000 		.word	0
+ 1285 0a90 00000000 		.word	0
+ 1286 0a94 C0FE0000 		.word	65216
+ 1287 0a98 00C0C0C0 		.word	-1061109760
+ 1288 0a9c 00000000 		.word	0
+ 1289 0aa0 00000000 		.word	0
+ 1290 0aa4 06FE0000 		.word	65030
+ 1291 0aa8 00060606 		.word	101058048
+ 1292 0aac 00000000 		.word	0
+ 1293 0ab0 C2C0C000 		.word	12632258
+ 1294 0ab4 3018CCC6 		.word	-959702992
+ 1295 0ab8 0C86DC60 		.word	1625064972
+ 1296 0abc 00003E18 		.word	406716416
+ 1297 0ac0 C2C0C000 		.word	12632258
+ 1298 0ac4 3018CCC6 		.word	-959702992
+ 1299 0ac8 3E9ECE66 		.word	1724816958
+ 1300 0acc 00000606 		.word	101056512
+ 1301 0ad0 18180000 		.word	6168
+ 1302 0ad4 18181800 		.word	1579032
+ 1303 0ad8 183C3C3C 		.word	1010580504
+ 1304 0adc 00000000 		.word	0
+ 1305 0ae0 00000000 		.word	0
+ 1306 0ae4 D86C3600 		.word	3566808
+ 1307 0ae8 0000366C 		.word	1815478272
+ 1308 0aec 00000000 		.word	0
+ 1309 0af0 00000000 		.word	0
+ 1310 0af4 366CD800 		.word	14183478
+ 1311 0af8 0000D86C 		.word	1826095104
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 24
+
+
+ 1312 0afc 00000000 		.word	0
+ 1313 0b00 44114411 		.word	289673540
+ 1314 0b04 44114411 		.word	289673540
+ 1315 0b08 44114411 		.word	289673540
+ 1316 0b0c 44114411 		.word	289673540
+ 1317 0b10 AA55AA55 		.word	1437226410
+ 1318 0b14 AA55AA55 		.word	1437226410
+ 1319 0b18 AA55AA55 		.word	1437226410
+ 1320 0b1c AA55AA55 		.word	1437226410
+ 1321 0b20 77DD77DD 		.word	-579347081
+ 1322 0b24 77DD77DD 		.word	-579347081
+ 1323 0b28 77DD77DD 		.word	-579347081
+ 1324 0b2c 77DD77DD 		.word	-579347081
+ 1325 0b30 18181818 		.word	404232216
+ 1326 0b34 18181818 		.word	404232216
+ 1327 0b38 18181818 		.word	404232216
+ 1328 0b3c 18181818 		.word	404232216
+ 1329 0b40 18181818 		.word	404232216
+ 1330 0b44 F8181818 		.word	404232440
+ 1331 0b48 18181818 		.word	404232216
+ 1332 0b4c 18181818 		.word	404232216
+ 1333 0b50 18181818 		.word	404232216
+ 1334 0b54 F818F818 		.word	418912504
+ 1335 0b58 18181818 		.word	404232216
+ 1336 0b5c 18181818 		.word	404232216
+ 1337 0b60 36363636 		.word	909522486
+ 1338 0b64 F6363636 		.word	909522678
+ 1339 0b68 36363636 		.word	909522486
+ 1340 0b6c 36363636 		.word	909522486
+ 1341 0b70 00000000 		.word	0
+ 1342 0b74 FE000000 		.word	254
+ 1343 0b78 36363636 		.word	909522486
+ 1344 0b7c 36363636 		.word	909522486
+ 1345 0b80 00000000 		.word	0
+ 1346 0b84 F818F800 		.word	16259320
+ 1347 0b88 18181818 		.word	404232216
+ 1348 0b8c 18181818 		.word	404232216
+ 1349 0b90 36363636 		.word	909522486
+ 1350 0b94 F606F636 		.word	922093302
+ 1351 0b98 36363636 		.word	909522486
+ 1352 0b9c 36363636 		.word	909522486
+ 1353 0ba0 36363636 		.word	909522486
+ 1354 0ba4 36363636 		.word	909522486
+ 1355 0ba8 36363636 		.word	909522486
+ 1356 0bac 36363636 		.word	909522486
+ 1357 0bb0 00000000 		.word	0
+ 1358 0bb4 F606FE00 		.word	16647926
+ 1359 0bb8 36363636 		.word	909522486
+ 1360 0bbc 36363636 		.word	909522486
+ 1361 0bc0 36363636 		.word	909522486
+ 1362 0bc4 FE06F636 		.word	922093310
+ 1363 0bc8 00000000 		.word	0
+ 1364 0bcc 00000000 		.word	0
+ 1365 0bd0 36363636 		.word	909522486
+ 1366 0bd4 FE363636 		.word	909522686
+ 1367 0bd8 00000000 		.word	0
+ 1368 0bdc 00000000 		.word	0
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 25
+
+
+ 1369 0be0 18181818 		.word	404232216
+ 1370 0be4 F818F818 		.word	418912504
+ 1371 0be8 00000000 		.word	0
+ 1372 0bec 00000000 		.word	0
+ 1373 0bf0 00000000 		.word	0
+ 1374 0bf4 F8000000 		.word	248
+ 1375 0bf8 18181818 		.word	404232216
+ 1376 0bfc 18181818 		.word	404232216
+ 1377 0c00 18181818 		.word	404232216
+ 1378 0c04 1F181818 		.word	404232223
+ 1379 0c08 00000000 		.word	0
+ 1380 0c0c 00000000 		.word	0
+ 1381 0c10 18181818 		.word	404232216
+ 1382 0c14 FF181818 		.word	404232447
+ 1383 0c18 00000000 		.word	0
+ 1384 0c1c 00000000 		.word	0
+ 1385 0c20 00000000 		.word	0
+ 1386 0c24 FF000000 		.word	255
+ 1387 0c28 18181818 		.word	404232216
+ 1388 0c2c 18181818 		.word	404232216
+ 1389 0c30 18181818 		.word	404232216
+ 1390 0c34 1F181818 		.word	404232223
+ 1391 0c38 18181818 		.word	404232216
+ 1392 0c3c 18181818 		.word	404232216
+ 1393 0c40 00000000 		.word	0
+ 1394 0c44 FF000000 		.word	255
+ 1395 0c48 00000000 		.word	0
+ 1396 0c4c 00000000 		.word	0
+ 1397 0c50 18181818 		.word	404232216
+ 1398 0c54 FF181818 		.word	404232447
+ 1399 0c58 18181818 		.word	404232216
+ 1400 0c5c 18181818 		.word	404232216
+ 1401 0c60 18181818 		.word	404232216
+ 1402 0c64 1F181F18 		.word	404690975
+ 1403 0c68 18181818 		.word	404232216
+ 1404 0c6c 18181818 		.word	404232216
+ 1405 0c70 36363636 		.word	909522486
+ 1406 0c74 37363636 		.word	909522487
+ 1407 0c78 36363636 		.word	909522486
+ 1408 0c7c 36363636 		.word	909522486
+ 1409 0c80 36363636 		.word	909522486
+ 1410 0c84 3F303736 		.word	909586495
+ 1411 0c88 00000000 		.word	0
+ 1412 0c8c 00000000 		.word	0
+ 1413 0c90 00000000 		.word	0
+ 1414 0c94 37303F00 		.word	4141111
+ 1415 0c98 36363636 		.word	909522486
+ 1416 0c9c 36363636 		.word	909522486
+ 1417 0ca0 36363636 		.word	909522486
+ 1418 0ca4 FF00F736 		.word	922157311
+ 1419 0ca8 00000000 		.word	0
+ 1420 0cac 00000000 		.word	0
+ 1421 0cb0 00000000 		.word	0
+ 1422 0cb4 F700FF00 		.word	16711927
+ 1423 0cb8 36363636 		.word	909522486
+ 1424 0cbc 36363636 		.word	909522486
+ 1425 0cc0 36363636 		.word	909522486
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 26
+
+
+ 1426 0cc4 37303736 		.word	909586487
+ 1427 0cc8 36363636 		.word	909522486
+ 1428 0ccc 36363636 		.word	909522486
+ 1429 0cd0 00000000 		.word	0
+ 1430 0cd4 FF00FF00 		.word	16711935
+ 1431 0cd8 00000000 		.word	0
+ 1432 0cdc 00000000 		.word	0
+ 1433 0ce0 36363636 		.word	909522486
+ 1434 0ce4 F700F736 		.word	922157303
+ 1435 0ce8 36363636 		.word	909522486
+ 1436 0cec 36363636 		.word	909522486
+ 1437 0cf0 18181818 		.word	404232216
+ 1438 0cf4 FF00FF18 		.word	419365119
+ 1439 0cf8 00000000 		.word	0
+ 1440 0cfc 00000000 		.word	0
+ 1441 0d00 36363636 		.word	909522486
+ 1442 0d04 FF363636 		.word	909522687
+ 1443 0d08 00000000 		.word	0
+ 1444 0d0c 00000000 		.word	0
+ 1445 0d10 00000000 		.word	0
+ 1446 0d14 FF00FF00 		.word	16711935
+ 1447 0d18 18181818 		.word	404232216
+ 1448 0d1c 18181818 		.word	404232216
+ 1449 0d20 00000000 		.word	0
+ 1450 0d24 FF000000 		.word	255
+ 1451 0d28 36363636 		.word	909522486
+ 1452 0d2c 36363636 		.word	909522486
+ 1453 0d30 36363636 		.word	909522486
+ 1454 0d34 3F363636 		.word	909522495
+ 1455 0d38 00000000 		.word	0
+ 1456 0d3c 00000000 		.word	0
+ 1457 0d40 18181818 		.word	404232216
+ 1458 0d44 1F181F18 		.word	404690975
+ 1459 0d48 00000000 		.word	0
+ 1460 0d4c 00000000 		.word	0
+ 1461 0d50 00000000 		.word	0
+ 1462 0d54 1F181F00 		.word	2037791
+ 1463 0d58 18181818 		.word	404232216
+ 1464 0d5c 18181818 		.word	404232216
+ 1465 0d60 00000000 		.word	0
+ 1466 0d64 3F000000 		.word	63
+ 1467 0d68 36363636 		.word	909522486
+ 1468 0d6c 36363636 		.word	909522486
+ 1469 0d70 36363636 		.word	909522486
+ 1470 0d74 FF363636 		.word	909522687
+ 1471 0d78 36363636 		.word	909522486
+ 1472 0d7c 36363636 		.word	909522486
+ 1473 0d80 18181818 		.word	404232216
+ 1474 0d84 FF18FF18 		.word	419371263
+ 1475 0d88 18181818 		.word	404232216
+ 1476 0d8c 18181818 		.word	404232216
+ 1477 0d90 18181818 		.word	404232216
+ 1478 0d94 F8181818 		.word	404232440
+ 1479 0d98 00000000 		.word	0
+ 1480 0d9c 00000000 		.word	0
+ 1481 0da0 00000000 		.word	0
+ 1482 0da4 1F000000 		.word	31
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 27
+
+
+ 1483 0da8 18181818 		.word	404232216
+ 1484 0dac 18181818 		.word	404232216
+ 1485 0db0 FFFFFFFF 		.word	-1
+ 1486 0db4 FFFFFFFF 		.word	-1
+ 1487 0db8 FFFFFFFF 		.word	-1
+ 1488 0dbc FFFFFFFF 		.word	-1
+ 1489 0dc0 00000000 		.word	0
+ 1490 0dc4 FF000000 		.word	255
+ 1491 0dc8 FFFFFFFF 		.word	-1
+ 1492 0dcc FFFFFFFF 		.word	-1
+ 1493 0dd0 F0F0F0F0 		.word	-252645136
+ 1494 0dd4 F0F0F0F0 		.word	-252645136
+ 1495 0dd8 F0F0F0F0 		.word	-252645136
+ 1496 0ddc F0F0F0F0 		.word	-252645136
+ 1497 0de0 0F0F0F0F 		.word	252645135
+ 1498 0de4 0F0F0F0F 		.word	252645135
+ 1499 0de8 0F0F0F0F 		.word	252645135
+ 1500 0dec 0F0F0F0F 		.word	252645135
+ 1501 0df0 FFFFFFFF 		.word	-1
+ 1502 0df4 00FFFFFF 		.word	-256
+ 1503 0df8 00000000 		.word	0
+ 1504 0dfc 00000000 		.word	0
+ 1505 0e00 00000000 		.word	0
+ 1506 0e04 D8DC7600 		.word	7789784
+ 1507 0e08 76DCD8D8 		.word	-656876426
+ 1508 0e0c 00000000 		.word	0
+ 1509 0e10 CC780000 		.word	30924
+ 1510 0e14 CCD8CCCC 		.word	-858990388
+ 1511 0e18 CCC6C6C6 		.word	-960051508
+ 1512 0e1c 00000000 		.word	0
+ 1513 0e20 C6FE0000 		.word	65222
+ 1514 0e24 C0C0C0C6 		.word	-960446272
+ 1515 0e28 C0C0C0C0 		.word	-1061109568
+ 1516 0e2c 00000000 		.word	0
+ 1517 0e30 00000000 		.word	0
+ 1518 0e34 6C6C6CFE 		.word	-26448788
+ 1519 0e38 6C6C6C6C 		.word	1819044972
+ 1520 0e3c 00000000 		.word	0
+ 1521 0e40 FE000000 		.word	254
+ 1522 0e44 183060C6 		.word	-966774760
+ 1523 0e48 FEC66030 		.word	811648766
+ 1524 0e4c 00000000 		.word	0
+ 1525 0e50 00000000 		.word	0
+ 1526 0e54 D8D87E00 		.word	8313048
+ 1527 0e58 70D8D8D8 		.word	-656877456
+ 1528 0e5c 00000000 		.word	0
+ 1529 0e60 00000000 		.word	0
+ 1530 0e64 66666666 		.word	1717986918
+ 1531 0e68 60607C66 		.word	1719427168
+ 1532 0e6c 000000C0 		.word	-1073741824
+ 1533 0e70 00000000 		.word	0
+ 1534 0e74 1818DC76 		.word	1994135576
+ 1535 0e78 18181818 		.word	404232216
+ 1536 0e7c 00000000 		.word	0
+ 1537 0e80 7E000000 		.word	126
+ 1538 0e84 66663C18 		.word	406611558
+ 1539 0e88 7E183C66 		.word	1715214462
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 28
+
+
+ 1540 0e8c 00000000 		.word	0
+ 1541 0e90 38000000 		.word	56
+ 1542 0e94 FEC6C66C 		.word	1824966398
+ 1543 0e98 386CC6C6 		.word	-960074696
+ 1544 0e9c 00000000 		.word	0
+ 1545 0ea0 6C380000 		.word	14444
+ 1546 0ea4 6CC6C6C6 		.word	-960051604
+ 1547 0ea8 EE6C6C6C 		.word	1819045102
+ 1548 0eac 00000000 		.word	0
+ 1549 0eb0 301E0000 		.word	7728
+ 1550 0eb4 663E0C18 		.word	403455590
+ 1551 0eb8 3C666666 		.word	1717986876
+ 1552 0ebc 00000000 		.word	0
+ 1553 0ec0 00000000 		.word	0
+ 1554 0ec4 DBDB7E00 		.word	8313819
+ 1555 0ec8 00007EDB 		.word	-612499456
+ 1556 0ecc 00000000 		.word	0
+ 1557 0ed0 03000000 		.word	3
+ 1558 0ed4 DBDB7E06 		.word	108977115
+ 1559 0ed8 C0607EF3 		.word	-209821504
+ 1560 0edc 00000000 		.word	0
+ 1561 0ee0 301C0000 		.word	7216
+ 1562 0ee4 607C6060 		.word	1616936032
+ 1563 0ee8 1C306060 		.word	1616916508
+ 1564 0eec 00000000 		.word	0
+ 1565 0ef0 7C000000 		.word	124
+ 1566 0ef4 C6C6C6C6 		.word	-960051514
+ 1567 0ef8 C6C6C6C6 		.word	-960051514
+ 1568 0efc 00000000 		.word	0
+ 1569 0f00 00000000 		.word	0
+ 1570 0f04 FE0000FE 		.word	-33554178
+ 1571 0f08 00FE0000 		.word	65024
+ 1572 0f0c 00000000 		.word	0
+ 1573 0f10 00000000 		.word	0
+ 1574 0f14 187E1818 		.word	404258328
+ 1575 0f18 FF000018 		.word	402653439
+ 1576 0f1c 00000000 		.word	0
+ 1577 0f20 30000000 		.word	48
+ 1578 0f24 0C060C18 		.word	403441164
+ 1579 0f28 7E003018 		.word	405799038
+ 1580 0f2c 00000000 		.word	0
+ 1581 0f30 0C000000 		.word	12
+ 1582 0f34 30603018 		.word	405823536
+ 1583 0f38 7E000C18 		.word	403439742
+ 1584 0f3c 00000000 		.word	0
+ 1585 0f40 1B0E0000 		.word	3611
+ 1586 0f44 1818181B 		.word	454563864
+ 1587 0f48 18181818 		.word	404232216
+ 1588 0f4c 18181818 		.word	404232216
+ 1589 0f50 18181818 		.word	404232216
+ 1590 0f54 18181818 		.word	404232216
+ 1591 0f58 70D8D8D8 		.word	-656877456
+ 1592 0f5c 00000000 		.word	0
+ 1593 0f60 00000000 		.word	0
+ 1594 0f64 7E001818 		.word	404226174
+ 1595 0f68 00181800 		.word	1579008
+ 1596 0f6c 00000000 		.word	0
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 29
+
+
+ 1597 0f70 00000000 		.word	0
+ 1598 0f74 00DC7600 		.word	7789568
+ 1599 0f78 0000DC76 		.word	1994129408
+ 1600 0f7c 00000000 		.word	0
+ 1601 0f80 6C6C3800 		.word	3697772
+ 1602 0f84 00000038 		.word	939524096
+ 1603 0f88 00000000 		.word	0
+ 1604 0f8c 00000000 		.word	0
+ 1605 0f90 00000000 		.word	0
+ 1606 0f94 18000000 		.word	24
+ 1607 0f98 00000018 		.word	402653184
+ 1608 0f9c 00000000 		.word	0
+ 1609 0fa0 00000000 		.word	0
+ 1610 0fa4 00000000 		.word	0
+ 1611 0fa8 00000018 		.word	402653184
+ 1612 0fac 00000000 		.word	0
+ 1613 0fb0 0C0C0F00 		.word	986124
+ 1614 0fb4 EC0C0C0C 		.word	202116332
+ 1615 0fb8 1C3C6C6C 		.word	1819032604
+ 1616 0fbc 00000000 		.word	0
+ 1617 0fc0 6C6CD800 		.word	14183532
+ 1618 0fc4 006C6C6C 		.word	1819044864
+ 1619 0fc8 00000000 		.word	0
+ 1620 0fcc 00000000 		.word	0
+ 1621 0fd0 30D87000 		.word	7395376
+ 1622 0fd4 00F8C860 		.word	1623783424
+ 1623 0fd8 00000000 		.word	0
+ 1624 0fdc 00000000 		.word	0
+ 1625 0fe0 00000000 		.word	0
+ 1626 0fe4 7C7C7C7C 		.word	2088533116
+ 1627 0fe8 007C7C7C 		.word	2088532992
+ 1628 0fec 00000000 		.word	0
+ 1629 0ff0 00000000 		.word	0
+ 1630 0ff4 00000000 		.word	0
+ 1631 0ff8 00000000 		.word	0
+ 1632 0ffc 00000000 		.word	0
+ 1633              		.ident	"GCC: (Linaro GCC 6.3-2017.05) 6.3.1 20170404"
+AARCH64 GAS  C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rpi-BasicHardware.c
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:4      .text.WriteChar32:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:8      .text.WriteChar32:0000000000000000 WriteChar32
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:66     .text.mailbox_read.part.1:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:69     .text.mailbox_read.part.1:0000000000000000 mailbox_read.part.1
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:86     .text.gpio_setup:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:90     .text.gpio_setup:0000000000000000 gpio_setup
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:123    .text.gpio_output:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:127    .text.gpio_output:0000000000000000 gpio_output
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:161    .text.gpio_input:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:165    .text.gpio_input:0000000000000000 gpio_input
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:187    .text.gpio_checkEvent:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:191    .text.gpio_checkEvent:0000000000000000 gpio_checkEvent
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:213    .text.gpio_clearEvent:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:217    .text.gpio_clearEvent:0000000000000000 gpio_clearEvent
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:237    .text.gpio_edgeDetect:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:241    .text.gpio_edgeDetect:0000000000000000 gpio_edgeDetect
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:296    .text.gpio_fixResistor:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:300    .text.gpio_fixResistor:0000000000000000 gpio_fixResistor
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:370    .text.timer_getTickCount:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:374    .text.timer_getTickCount:0000000000000000 timer_getTickCount
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:391    .text.timer_wait:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:395    .text.timer_wait:0000000000000000 timer_wait
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:425    .text.mailbox_write:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:429    .text.mailbox_write:0000000000000000 mailbox_write
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:451    .text.mailbox_read:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:455    .text.mailbox_read:0000000000000000 mailbox_read
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:466    .text.mailbox_ARM_to_VC:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:470    .text.mailbox_ARM_to_VC:0000000000000000 mailbox_ARM_to_VC
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:475    .text.mailbox_VC_to_ARM:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:479    .text.mailbox_VC_to_ARM:0000000000000000 mailbox_VC_to_ARM
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:484    .text.WriteText:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:488    .text.WriteText:0000000000000000 WriteText
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:526    .text.allocFrameBuffer:0000000000000000 $x
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:530    .text.allocFrameBuffer:0000000000000000 allocFrameBuffer
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:608    .rodata:0000000000000000 BitFont
+C:\Users\ldebo\AppData\Local\Temp\ccHniYqA.s:605    .rodata:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+RPi_IO_Base_Addr
+strlen
