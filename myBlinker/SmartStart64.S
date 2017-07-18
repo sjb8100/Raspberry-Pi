@@ -69,9 +69,9 @@ _start:
 	eret
 exit_el1:
 
-
-    ldr x0,=VectorTable
-    msr vbar_el1,x0
+	/* Set vector table for EL1 */
+    	ldr x0,=VectorTable
+    	msr vbar_el1,x0
 
 	b kernel_main				/* Straight out to C I am not familiar enough with ARM64 assembler */
 /*================================================================"
