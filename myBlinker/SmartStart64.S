@@ -19,6 +19,10 @@
 .balign	4
 .globl _start
 _start:	
+	ldr	x0, =0x3F000000			/* No need to detect address in 64bit mode it has to be 0x3F000000 */
+	ldr x1, =RPi_IO_Base_Addr	/* Address of RPi_IO_Base_Addr */
+	str x0, [x1]				/* Set the address */
+	
 	ldr	x0, =__usrsys_stack 	/* Fetch address of user stack for safety */
 	mov	sp, x0					/* Init to whatever EL level stack we have */
 	ldr	x0, =__irq_stack		/* IRQ and exception handler run in EL1h */
@@ -69,11 +73,6 @@ exit_el1:
     ldr x0,=VectorTable
     msr vbar_el1,x0
 
-	ldr	x0, =__usrsys_stack 	/* Fetch address of user stack for safety */
-	mov	sp, x0					/* Init to whatever EL level stack we have */
-	ldr	x0, =0x3F000000			/* No need to detect address in 64bit mode it has to be 0x3F000000 */
-	ldr x1, =RPi_IO_Base_Addr	/* Address of RPi_IO_Base_Addr */
-	str x0, [x1]				/* Set the address */
 	b kernel_main				/* Straight out to C I am not familiar enough with ARM64 assembler */
 /*================================================================"
       Just safety incase C code ever returns back
