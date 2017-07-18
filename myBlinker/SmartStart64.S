@@ -82,6 +82,12 @@ hang:
 .balign	4
 .ltorg							/* Tell assembler ltorg data for code above can go here */
 
+/* Using as standard stub so weak reference c_irq_handler if user does not provide */
+.weak c_irq_handler
+c_irq_handler:
+	ret
+
+/* irq_handler stub */
 .globl irq_handler
 irq_handler:
 	stp	x29, x30, [sp, #-16]!
@@ -101,7 +107,7 @@ irq_handler:
 	stp	x1, x2, [sp, #-16]!
 	str	x0, [sp, #-16]!
 
-	bl	c_irq_handler
+	bl	c_irq_handler	/* User will provide or will use weak stub */
 
 	ldr	x0, [sp], #16
 	ldp	x1, x2, [sp], #16
