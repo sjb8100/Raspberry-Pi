@@ -29,6 +29,11 @@ _start:
 	orr	x0, x0, #0x3			/* Enable EL1 access to timers */
 	msr	cnthctl_el2, x0
 	msr	cntvoff_el2, xzr
+	
+	/* Not sure if I want this yet */
+	mrs	x0, cntkctl_el1
+	orr	x0, x0, #0x3		/* Enable EL0 access to timers */
+	msr	cntkctl_el1, x0
 
 	/* Initilize MPID/MPIDR registers */
 	mrs	x0, midr_el1
@@ -53,8 +58,8 @@ _start:
 	msr	sctlr_el1, x0
 
 	/* Return to the EL1_SP1 mode from EL2 */
-	mov	x0, #0x3c4
-	msr	spsr_el2, x0	/* EL1_SP0 | D | A | I | F */
+	mov	x0, #0x3c5
+	msr	spsr_el2, x0	/* EL1_SP1 | D | A | I | F */
 	adr	x0, exit_el1
 	msr	elr_el2, x0
 	eret
@@ -135,29 +140,23 @@ b	\handler
 VectorTable:
 	/* from current EL with sp_el0 */
 	vector	_start			/* Synchronous */
-	vector  irq_handler		/* IRQ */
+	vector  hang			/* IRQ */
 	vector	hang			/* FIQ */
 	vector	hang			/* SErrorStub */
 
 	/* from current EL with sp_elx, x != 0 */
-.globl	VectorTable_a
-VectorTable_a:
 	vector	hang			/* Synchronous */
-	vector	hang			/* IRQ */
+	vector	irq_handler		/* IRQ */
 	vector	hang			/* FIQ */
 	vector	hang			/* SErrorStub */
 
 	/* from lower EL, target EL minus 1 is AArch64 */
-.globl	VectorTable_b
-VectorTable_b:
 	vector	hang			/* Synchronous */
 	vector  hang			/* IRQ */
 	vector	hang			/* FIQ */
 	vector	hang			/* SErrorStub */
 
 	/* from lower EL, target EL minus 1 is AArch32 */
-.globl	VectorTable_c
-VectorTable_c:
 	vector	hang			/* Synchronous */
 	vector  hang			/* IRQ */
 	vector	hang			/* FIQ */
