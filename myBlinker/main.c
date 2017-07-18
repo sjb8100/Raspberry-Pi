@@ -40,8 +40,6 @@ void c_irq_handler (void)
 
 }
 
-extern void enable_irq();
-
 int main (void) {
 	allocFrameBuffer(800, 600, 32, &fb);							// Allocate a framebuffer
 	WriteText(100, 100, "Setting up Interrupts", &fb);				// Write text
@@ -60,7 +58,8 @@ int main (void) {
 
 	WriteText(100, 120, "Setup complete", &fb);						// Write text
 
-	enable_irq();
+	/* Enable interrupts to IRQ */
+	asm("msr daifclr,#2");
 
 	while (1) {
 
