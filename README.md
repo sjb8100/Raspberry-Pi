@@ -20,12 +20,12 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
 >#define PiReg ((volatile __attribute__((aligned(4))) uint32_t PiRegister*) (RPi_IO_Base_Addr + ????????))
 >{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-# USB-HID
+# USB-HID (Pi1,2,3)
 Complete redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick. All the memory allocation is gone and compacted to a single file (usb.c). It provides the Control channel functionality for a USB which enables enumeration. The HID support is very very basic and operates in the control channel. Later versions will add the full channels and full HID implementation. It works on Pi1, Pi2 & Pi3. If you want to just see what it does format an SD card and place the files in the diskimg directory onto it, place in Pi and turn power on. All being equal you should see something like this.
 ![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/USB_HID.jpg)
-# MULTICORE
+# MULTICORE (Pi2,3 .. needs multicores)
 The smartstart assembler boot was extended to setup cores 1,2,3 for hyperthreading. A new spinlock was created which mimics the bootloaders but is C compiler safe. To do that registers R0-R3 need to be able to be trashed when the core process is called. The demo uses printf to screen which is very dangerous because printf is not re-entrant so I took a bit of care to avoid clashes using it. Please don't try and take using printf too far what is expected is you setup proper thread safe C code. The stacks for the 4 cores are controlled by the linker file. So you can vary stack sizes by simply changing the linker file and recompiling. The random core hyperthread calls are cause by the interrupt timer.
 ![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/Multicore.jpg)
-# MYBLINKER (AARCH64 Pi3)
+# MYBLINKER (AARCH64 Pi3 .. 64Bit only avail on Pi3)
 Yes it's the boring old interrupt timer and blinking LED this time with the Pi3 in 64Bit mode. The technical background is the Pi3 is given to us in EL2 state. The timer interrupt is routed to EL1 where the interrupt service is established. It is obviously the first steps in how to route interrupt signals to services on the Pi3 in 64bit mode. 
 
