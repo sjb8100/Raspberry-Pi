@@ -29,6 +29,13 @@
 #define strcpy_P(dest, src) strcpy((dest), (src))
 #define strlen_P(a) strlen((a))
 
+/* These were copied from print.h */
+#define DEC 10
+#define HEX 16
+#define OCT 8
+#define BIN 2
+
+
 // When compiling programs with this class, the following gcc parameters
 // dramatically increase performance and memory (RAM) efficiency, typically
 // with little or no increase in code size.
