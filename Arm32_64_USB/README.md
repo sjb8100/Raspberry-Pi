@@ -1,6 +1,6 @@
 
 # USB alpha ... PI3 only AARCH64 and AARCH32
-My redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick was converted to 64 bit. I also merged nested interrupt code which blinks the LED while the USB runs. Finally the 32 bit version also had the multicore operation merged from the multicore code.
+My redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick was converted to 64 bit. I also merged nested interrupt code which blinks the LED while the USB runs. Finally the 32 bit version also had the multicore operation merged from the multicore directory on this site.
 
 Having got the interrupts nested and running I will now complete the USB channels and implement a complete interrupt driven USB system.
 
