@@ -8,4 +8,4 @@ I have yet to port the whole of the standards library in 64bit so the printf is 
 
 If you just want to see it just put the files in the firmware directory on a formatted SD card and place in Pi3.
 >
-![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/USB_64BIT.jpg)
+![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/USB64_alpha.jpg)
