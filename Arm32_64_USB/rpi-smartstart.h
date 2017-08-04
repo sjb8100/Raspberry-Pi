@@ -115,11 +115,10 @@ static_assert(sizeof(CPU_ID) == 0x04, "Structure CPU_ID should be 0x04 bytes in 
 /***************************************************************************}
 {                      PUBLIC INTERFACE MEMORY VARIABLES                    }
 {***************************************************************************/
-extern uintptr_t RPi_IO_Base_Addr;				// RPI IO base address auto-detected by SmartStartxx.S
-extern uintptr_t RPi_BootAddr;					// RPI address processor booted from auto-detected by SmartStartxx.S
+extern uint32_t RPi_IO_Base_Addr;				// RPI IO base address auto-detected by SmartStartxx.S
+extern uint32_t RPi_BootAddr;					// RPI address processor booted from auto-detected by SmartStartxx.S
 extern CPU_ID RPi_CpuId;						// RPI CPU type auto-detected by SmartStartxx.S
 extern CODE_TYPE RPi_CompileMode;				// RPI code type that compiler produced
-
 extern uint32_t RPi_CPUBootMode;				// RPI cpu mode it was in when it booted
 extern uint32_t RPi_CPUCurrentMode;				// RPI cpu current operation mode
 
@@ -129,10 +128,16 @@ extern uint32_t RPi_CPUCurrentMode;				// RPI cpu current operation mode
 {***************************************************************************/
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{					CPU ID ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+extern const char* RPi_CpuIdString (void);
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {			GLOBAL INTERRUPT CONTROL PROVIDE BY RPi-SmartStart API		    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 extern void EnableInterrupts (void);			// Enable global interrupts
 extern void DisableInterrupts (void);			// Disable global interrupts
+
 
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper

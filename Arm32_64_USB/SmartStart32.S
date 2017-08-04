@@ -53,6 +53,7 @@
 #define I_Bit  (1 << 7)							// Irq flag bit in cpsr (CPUMODE register)
 #define F_Bit  (1 << 6)							// Fiq flag bit in cpsr (CPUMODE register)
 
+
 ;@"****************************************************************"
 ;@      INTERNAL DATA FOR SMARTSTART NOT EXPOSED TO INTERFACE 
 ;@"****************************************************************"
@@ -376,7 +377,8 @@ _fast_interrupt_vector_h:           .word   hang
 .balign	4
 SecondarySpin:
 	mrc     p15, 0, r0, c0, c0, 5
-	ubfx    r0, r0, #0, #2					// Read core id and make a 2 bit mask in R0 
+	ands r0, r0, #0x3					    // Make core 2 bit bitmask in R0
+	/*ubfx    r0, r0, #0, #2*/					// Read core id and make a 2 bit mask in R0 
 	ldr r5, =mbox		
 	ldr r5, [r5]		@ mbox
 	mov	r3, #0			@ magic
@@ -401,6 +403,26 @@ atags:  .4byte 0x100
 .balign	4
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 
+.globl RPi_CpuIdString
+RPi_CpuIdString:
+	ldr r0, =ARM6_STR						
+	mrc p15,0,r2,c0,c0,0					;@ Read Main ID Register
+	ldr r1, =#ARM6_CPU_ID					;@ Fetch ARM6_CPU_ID
+	cmp r1, r2								;@ Check for match	
+	beq CpuIdStringDone
+	ldr r0, =ARM7_STR
+	ldr r1, =#ARM7_CPU_ID					;@ Fetch ARM7_CPU_ID
+	cmp r1, r2								;@ Check for match
+	beq CpuIdStringDone
+	ldr r0, =ARM8_STR
+	ldr r1, =#ARM8_CPU_ID					;@ Fetch ARM8_CPU_ID
+	cmp r1, r2								;@ Check for match
+	beq CpuIdStringDone	
+	ldr r0, =ARMX_STR
+CpuIdStringDone:
+	bx  lr									;@ Return
+
+
 .globl EnableInterrupts
 EnableInterrupts:
 	cpsie i									;@ Enable IRQ
@@ -410,6 +432,7 @@ EnableInterrupts:
 DisableInterrupts:
     cpsid i									;@ Disable IRQ
 	bx  lr									;@ Return
+
 
 /* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
 .weak c_irq_handler
@@ -465,6 +488,16 @@ _sbrk:
 .balign	4
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 .size	_sbrk, .-_sbrk
+
+/*==========================================================================}
+;{					  CPU STRING CONSTANT DEFINITIONS					    }
+;{=========================================================================*/
+.section ".rodata.cpuid", "a", %progbits
+.balign	4
+ARM6_STR: .string "arm1176jzf-s\0"
+ARM7_STR: .string "cortex-a7\0"
+ARM8_STR: .string "cortex-a53\0"
+ARMX_STR: .string "unknown ARM cpu\0"
 
 /****************************************************************
        	   DATA FOR SMARTSTART32 EXPOSED TO INTERFACE 

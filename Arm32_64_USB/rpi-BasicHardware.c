@@ -238,25 +238,41 @@ uint32_t mailbox_VC_to_ARM (uint32_t ptr) {
 	return (ptr & (~0xC0000000));
 }
 
-void set_LED(bool on) {
-	uint32_t __attribute__((aligned(16))) mailbox_message[8];
-	mailbox_message[0] = sizeof(mailbox_message);
-	mailbox_message[1] = 0;
-	mailbox_message[2] = 0x38041;
-	mailbox_message[3] = 8;
-	mailbox_message[4] = 8;
-	mailbox_message[5] = 130;
-	mailbox_message[6] = (uint32_t)on;
-	mailbox_message[7] = 0;
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
-	mailbox_read(MB_CHANNEL_TAGS);
+/*--------------------------------------------------------------------------}
+{						  PI ACTIVITY LED ROUTINES							}
+{--------------------------------------------------------------------------*/
+void set_Activity_LED (bool on) {
+	switch (RPi_CpuId.PartNumber) {
+		case 0xb76: {												// arm1176jzf-s AKA Pi1
+			gpio_output(16, on);									// GPIO port 16 on/off
+			break;
+		}
+		case 0xc07: {												// cortex-a7 AKA Pi2
+			gpio_output(47, on);									// GPIO port 47 on/off
+			break;
+		}
+		case 0xd03: {												// cortex-a53 AKA Pi3 
+			uint32_t __attribute__((aligned(16))) mailbox_message[8];
+			mailbox_message[0] = sizeof(mailbox_message);
+			mailbox_message[1] = 0;
+			mailbox_message[2] = 0x38041;
+			mailbox_message[3] = 8;
+			mailbox_message[4] = 8;
+			mailbox_message[5] = 130;
+			mailbox_message[6] = (uint32_t)on;
+			mailbox_message[7] = 0;
+			mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
+			mailbox_read(MB_CHANNEL_TAGS);
+			break;
+		}
+	}
 }
 
 void DeadLoop(void) {
 	while (1) {
-		set_LED(true);
+		set_Activity_LED(true);
 		timer_wait(500000);				// We want a 0.5 sec delay					
-		set_LED(false);
+		set_Activity_LED(false);
 		timer_wait(500000);				// We want a 0.5 sec delay
 	}
 }

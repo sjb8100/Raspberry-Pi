@@ -14,17 +14,18 @@
 {   copyright notices.                                          }	
 {																}
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 .section ".text.startup", "ax", %progbits
 .balign	4
 .globl _start
 _start:	
 	adr x12, _start							// Hold boot address in high register R12
 	ldr x1, =RPi_BootAddr					// Address of RPi_BootAddr
-	str x12, [x1]							// Store the boot address
+	str w12, [x1]							// Store the boot address
 
 	ldr	x0, =0x3F000000						// No need to detect address in 64bit mode it has to be 0x3F000000 on Pi3
 	ldr x1, =RPi_IO_Base_Addr				// Address of RPi_IO_Base_Addr
-	str x0, [x1]							// Store the IO base address
+	str w0, [x1]							// Store the IO base address
 
 	mov x0, #0x38							// Compiled for ARM8 CPU in AARCH64 and supports 1 core
 	ldr x1, =RPi_CompileMode				// Address of RPi_CompileMode
@@ -108,6 +109,14 @@ hang:
 	b hang
 .balign	4
 .ltorg							/* Tell assembler ltorg data for code above can go here */
+
+.globl RPi_CpuIdString
+RPi_CpuIdString:
+	ldr x0, =ARM8_STR						// Can not be anything but a Cortex-a53 						
+	ret										// Return
+.balign	4
+.ltorg										/* Tell assembler ltorg data for code above can go here */
+
 
 .globl EnableInterrupts
 EnableInterrupts:
@@ -213,6 +222,13 @@ VectorTable:
 	vector	hang			/* FIQ */
 	vector	hang			/* SErrorStub */
 
+/*==========================================================================}
+;{					  CPU STRING CONSTANT DEFINITIONS					    }
+;{=========================================================================*/
+.section ".rodata.cpuid", "a", %progbits
+.balign	4
+ARM8_STR: .string "cortex-a53\0"
+
 /****************************************************************
        	   DATA FOR SMARTSTART64  EXPOSED TO INTERFACE 
 ****************************************************************/
@@ -220,10 +236,10 @@ VectorTable:
 .balign 4
 
 .globl RPi_IO_Base_Addr;				// Make sure Pi_IO_Base_Addr label is global
-RPi_IO_Base_Addr : .8byte 0;			// Peripheral Base addr is 8 byte variable in 64bit mode
+RPi_IO_Base_Addr : .4byte 0;			// Peripheral Base addr is 4 byte variable in 64bit mode
 
 .globl RPi_BootAddr;					// Make sure RPi_BootAddr label is global
-RPi_BootAddr : .8byte 0;				// CPU boot address is 8 byte variable in 64bit mode
+RPi_BootAddr : .4byte 0;				// CPU boot address is 4 byte variable in 64bit mode
 
 .globl RPi_CPUBootMode;					// Make sure RPi_CPUBootMode label is global
 RPi_CPUBootMode : .4byte 0;				// CPU Boot Mode is 4 byte variable in 64bit mode

@@ -11,7 +11,7 @@ FRAMEBUFFER fb;							// Framebuffer variable
 static bool lit = false;
 void c_irq_handler (void) {
 	if (lit) lit = false; else lit = true;							// Flip lit flag
-	set_LED(lit);													// Turn LED on/off as per new flag
+	set_Activity_LED(lit);											// Turn LED on/off as per new flag
 }
 
 void c_irq_identify_and_clear_source (void) {
@@ -30,11 +30,11 @@ void c_irq_identify_and_clear_source (void) {
 int main (void) {
 	allocFrameBuffer(1280, 1024, 32, &fb);							// Allocate a framebuffer
 	PiConsole_Init(&fb);
-	printf("Code is Arm%d in AARCH%d mode with %d core support\n", 
-		RPi_CompileMode.CodeType, RPi_CompileMode.AArchMode*32 + 32,
+	printf("SmartStart compiled for Arm%d, AARCH%d with %d core s/w support\n",
+		RPi_CompileMode.CodeType, RPi_CompileMode.AArchMode * 32 + 32,
 		RPi_CompileMode.CoresSupported);							// Write text
-	printf("CPU part is %03X, revision %01x:%01x\n",
-		RPi_CpuId.PartNumber, RPi_CpuId.Variant, 
+	printf("Detected %s CPU, part id: 0x%03X, revision: %01x.%01x\n",
+		RPi_CpuIdString(), RPi_CpuId.PartNumber, RPi_CpuId.Variant,
 		RPi_CpuId.Revision);										// Write text
 	printf("Pi IO base address %08X\n", RPi_IO_Base_Addr);			// Write text
 	printf("Pi booted from address %08X\n", RPi_BootAddr);			// Write text

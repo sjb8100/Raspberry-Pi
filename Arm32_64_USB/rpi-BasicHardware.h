@@ -573,14 +573,14 @@ struct __attribute__((__packed__, aligned(4))) MailBoxRegisters {
 /***************************************************************************}
 {     PUBLIC POINTERS TO ALL OUR RASPBERRY PI REGISTER BANK STRUCTURES	    }
 ****************************************************************************/
-#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*) (RPi_IO_Base_Addr + 0x200000))
-#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(RPi_IO_Base_Addr + 0x3000))
-#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x205000))
-#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x804000))
-#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x805000))
-#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(RPi_IO_Base_Addr + 0xB200))
-#define ARMTIMER ((__attribute__((aligned(4))) struct  ArmTimerRegisters*)(RPi_IO_Base_Addr + 0xB400))
-#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(RPi_IO_Base_Addr + 0xB880))
+#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x200000))
+#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x3000))
+#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x205000))
+#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x804000))
+#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x805000))
+#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB200))
+#define ARMTIMER ((__attribute__((aligned(4))) struct  ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400))
+#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB880))
 
 /***************************************************************************}
 {					      PUBLIC INTERFACE ROUTINES			                }
@@ -683,10 +683,14 @@ bool mailbox_write (MAILBOX_CHANNEL channel, uint32_t message);
  --------------------------------------------------------------------------*/
 uint32_t mailbox_read (MAILBOX_CHANNEL channel);
 
+/*--------------------------------------------------------------------------}
+{						  PI ACTIVITY LED ROUTINES							}
+{--------------------------------------------------------------------------*/
+void set_Activity_LED (bool on);
+
 uint32_t mailbox_ARM_to_VC (void* ptr);
 uint32_t mailbox_VC_to_ARM (uint32_t ptr);
 
-void set_LED (bool on);
 void DeadLoop (void);
 bool allocFrameBuffer (int width, int height, int depth, FRAMEBUFFER* fb);
 

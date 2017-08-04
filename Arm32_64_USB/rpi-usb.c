@@ -654,37 +654,37 @@ struct __attribute__((__packed__, aligned(4))) UsbSendControl {
 /*--------------------------------------------------------------------------}
 {					 DWC USB CORE REGISTER POINTERS						    }
 {--------------------------------------------------------------------------*/
-#define DWC_CORE_OTGCONTROL			((volatile __attribute__((aligned(4))) struct CoreOtgControl*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x00))
-#define DWC_CORE_OTGINTERRUPT		((volatile __attribute__((aligned(4))) struct CoreOtgInterrupt*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x04))
-#define DWC_CORE_AHB				((volatile __attribute__((aligned(4))) struct CoreAhb*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x08))
-#define DWC_CORE_CONTROL			((volatile __attribute__((aligned(4))) struct UsbControl*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x0C))
-#define DWC_CORE_RESET				((volatile __attribute__((aligned(4))) struct CoreReset*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x10))
-#define DWC_CORE_INTERRUPT			((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x14))
-#define DWC_CORE_INTERRUPTMASK		((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x18))
-#define DWC_CORE_RECEIVESIZE		((volatile __attribute__((aligned(4))) uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x24))
-#define DWC_CORE_NONPERIODICFIFO	((volatile __attribute__((aligned(4))) struct CoreNonPeriodicInfo*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x28))
-#define DWC_CORE_USERID				((volatile __attribute__((aligned(4))) uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x3C))
-#define DWC_CORE_VENDORID			((volatile __attribute__((aligned(4))) const uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x40))
-#define DWC_CORE_HARDWARE			((volatile __attribute__((aligned(4))) const struct CoreHardware*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x44))
-#define DWC_CORE_PERIODICINFO		((volatile __attribute__((aligned(4))) struct CorePeriodicInfo*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x100))
+#define DWC_CORE_OTGCONTROL			((volatile __attribute__((aligned(4))) struct CoreOtgControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x00))
+#define DWC_CORE_OTGINTERRUPT		((volatile __attribute__((aligned(4))) struct CoreOtgInterrupt*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x04))
+#define DWC_CORE_AHB				((volatile __attribute__((aligned(4))) struct CoreAhb*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x08))
+#define DWC_CORE_CONTROL			((volatile __attribute__((aligned(4))) struct UsbControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x0C))
+#define DWC_CORE_RESET				((volatile __attribute__((aligned(4))) struct CoreReset*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x10))
+#define DWC_CORE_INTERRUPT			((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x14))
+#define DWC_CORE_INTERRUPTMASK		((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x18))
+#define DWC_CORE_RECEIVESIZE		((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x24))
+#define DWC_CORE_NONPERIODICFIFO	((volatile __attribute__((aligned(4))) struct CoreNonPeriodicInfo*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x28))
+#define DWC_CORE_USERID				((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x3C))
+#define DWC_CORE_VENDORID			((volatile __attribute__((aligned(4))) const uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x40))
+#define DWC_CORE_HARDWARE			((volatile __attribute__((aligned(4))) const struct CoreHardware*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x44))
+#define DWC_CORE_PERIODICINFO		((volatile __attribute__((aligned(4))) struct CorePeriodicInfo*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x100))
 
 /*--------------------------------------------------------------------------}
 {					DWC USB HOST REGISTER POINTERS						    }
 {--------------------------------------------------------------------------*/
-#define DWC_HOST_CONFIG				((volatile __attribute__((aligned(4))) struct HostConfig*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x400))
-#define DWC_HOST_FRAMEINTERVAL		((volatile __attribute__((aligned(4))) struct HostFrameInterval*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x404))
-#define DWC_HOST_FRAMECONTROL		((volatile __attribute__((aligned(4))) struct HostFrameControl*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x408))
-#define DWC_HOST_FIFOSTATUS			((volatile __attribute__((aligned(4))) struct HostFifoStatus*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x410))
-#define DWC_HOST_INTERRUPT			((volatile __attribute__((aligned(4))) uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x414))
-#define DWC_HOST_INTERRUPTMASK		((volatile __attribute__((aligned(4))) uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x418))
-#define DWC_HOST_FRAMELIST			((volatile __attribute__((aligned(4))) uint32_t*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x41C))
-#define DWC_HOST_PORT				((volatile __attribute__((aligned(4))) struct HostPort*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x440))
-#define DWC_HOST_CHANNEL			((volatile __attribute__((aligned(4))) struct HostChannel*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x500))
+#define DWC_HOST_CONFIG				((volatile __attribute__((aligned(4))) struct HostConfig*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x400))
+#define DWC_HOST_FRAMEINTERVAL		((volatile __attribute__((aligned(4))) struct HostFrameInterval*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x404))
+#define DWC_HOST_FRAMECONTROL		((volatile __attribute__((aligned(4))) struct HostFrameControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x408))
+#define DWC_HOST_FIFOSTATUS			((volatile __attribute__((aligned(4))) struct HostFifoStatus*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x410))
+#define DWC_HOST_INTERRUPT			((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x414))
+#define DWC_HOST_INTERRUPTMASK		((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x418))
+#define DWC_HOST_FRAMELIST			((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x41C))
+#define DWC_HOST_PORT				((volatile __attribute__((aligned(4))) struct HostPort*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x440))
+#define DWC_HOST_CHANNEL			((volatile __attribute__((aligned(4))) struct HostChannel*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x500))
 
 /*--------------------------------------------------------------------------}
 {					DWC POWER AND CLOCK REGISTER POINTER				    }
 {--------------------------------------------------------------------------*/
-#define DWC_POWER_AND_CLOCK			((__attribute__((aligned(4))) struct PowerReg*)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0xE00))
+#define DWC_POWER_AND_CLOCK			((__attribute__((aligned(4))) struct PowerReg*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0xE00))
 
 
 /*--------------------------------------------------------------------------}
