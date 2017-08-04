@@ -64,7 +64,7 @@ SECTIONS
 
 .stack :
     {
-        . = ALIGN(8);  /* Stack must always be aligned to 8 byte boundary AAPCS call standard */
+        . = ALIGN(16);  /* Stack must always be aligned to 16 byte boundary AAPCS64 call standard */
         __stack_start__ = .;
         . = . + 512;    /* fiq stack size */
         __fiq_stack = .;
@@ -80,7 +80,7 @@ SECTIONS
         __hyp_stack = .;
         . = . + 512;    /* und stack size */
         __und_stack = .;
-        . = ALIGN(8);
+        . = ALIGN(16);
         __stack_end__ = .;  
          
     } > RAM
