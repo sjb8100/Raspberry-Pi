@@ -10,7 +10,7 @@ The demo uses printf to screen which is very dangerous because printf is not re-
 Where CORECALLFUNC is defined as
 >typedef void (*CORECALLFUNC) (void);
 >
-So CoreExecute can assign any "void function (void)" to be execute by the given core (1..3).
+So CoreExecute can assign any "void function (void)" C routine to be execute by the given core (1..3).
 >
  As per usual you can simply copy the files in the DiskImg directory onto a format SD card and place in Pi to test
 >
