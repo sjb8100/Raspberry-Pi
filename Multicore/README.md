@@ -1,4 +1,4 @@
-# MULTICORE Pi 1,2,3 AARCH 32, *NEW* Pi3 AARCH64 
+# MULTICORE Pi 1,2,3 AARCH 32, NEW*** Pi3 AARCH64 
 >
 The SmartStartxx.S assembler boot stub was extended to setup cores 1,2,3 for hyperthreading. A new spinlock was created which mimics the bootloaders but is C compiler safe. To do that registers that would be trashed by C routines where restored when the core process is called. In addition to that each core has its own stack the size of which is controlled by the new matching linker file (rpixx.ld).
 >
