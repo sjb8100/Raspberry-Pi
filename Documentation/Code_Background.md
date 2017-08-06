@@ -11,7 +11,7 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
       PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED. 
       Redistributions of source code must retain the copyright notices to 
       maintain the author credit (attribution).       
-{############################################################################}             	
+{============================================================================}             	
 >
 # COMPILING REPOSITORY CODE
 >
