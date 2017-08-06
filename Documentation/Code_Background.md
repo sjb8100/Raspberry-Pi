@@ -7,10 +7,10 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
       the Raspberry Pi. You may redistribute it and/or modify with the 
       following disclaimer and condition.
  >  
-      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO
-   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.
-   Redistributions of source code must retain the copyright notices to
-   maintain the author credit (attribution) .								              
+      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO 
+      PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED. 
+      Redistributions of source code must retain the copyright notices to 
+      maintain the author credit (attribution) .								              
 {***************************************************************************}             	
 >
 # COMPILING REPOSITORY CODE
