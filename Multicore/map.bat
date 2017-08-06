@@ -1,1 +1,0 @@
-g:\pi\gcc_pi_6_2\bin\arm-none-eabi-nm kernel.elf > kernel.map
