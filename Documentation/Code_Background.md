@@ -1,4 +1,4 @@
-# BareMetal Raspberry-Pi (Linux free zone)
+# CODE BACKGROUND
 My public baremetal workings with the Raspberry Pi in Assembler and C. Much of the code here was done for and covered by articles on CodeProject.com.
 
 >/*+++++++++++++++[ ALL CODE IN THE REPOSITORY IS FREEWARE ]++++++++++++++++++}
