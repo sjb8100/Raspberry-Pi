@@ -22,4 +22,3 @@ My assembler bootstubs called SmartStart32.S (32 bit compiling) or SmartStart64.
 >#define PiReg ((volatile __attribute__((aligned(4))) uint32_t PiRegister*) (RPi_IO_Base_Addr + ????????))
 >
 rpi-SmartStart.h is the file that provides the C interface to SmartStartxx.S and adds a few Macros and 32/64 bit specific functions like global InterruptEnables and HyperThreading calls. If you need any of the functions you just #include "rpi-SmartStart.h".
->{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
