@@ -4,7 +4,7 @@ The SmartStartxx.S assembler boot stub was extended to setup cores 1,2,3 for hyp
 >
 The demo uses printf to screen which is very dangerous because printf is not re-entrant so I took a bit of care to avoid clashes using it. Please don't try and take using printf too far what is expected is you setup proper thread safe C code. The random core hyperthread calls are cause by the interrupt timer.
 >
- rpi-SmartStart.h provides the C 
+ rpi-SmartStart.h provides the C call
 >function bool CoreExecute (uint8_t coreNum, CORECALLFUNC func);
 >
 Where CORECALLFUNC is defined as
