@@ -3,6 +3,7 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
 >
 >{***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
 >{                                                                           }
+>
 >{     This sourcecode is released for the purpose to promote programming    }
 >
 >{  on the Raspberry Pi. You may redistribute it and/or modify with the      }
