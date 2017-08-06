@@ -6,8 +6,8 @@ The demo uses printf to screen which is very dangerous because printf is not re-
 >
  rpi-SmartStart.h provides the C 
 >function bool CoreExecute (uint8_t coreNum, CORECALLFUNC func);
-Where CORECALLFUNC is defined as
 >
+Where CORECALLFUNC is defined as
 >typedef void (*CORECALLFUNC) (void);
 >
 So CoreExecute can assign any "void function (void)" to be execute by the given core (1..3).
