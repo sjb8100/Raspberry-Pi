@@ -7,7 +7,7 @@ My public baremetal workings with the Raspberry Pi in Assembler and C. Much of t
 >
 >  The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED. Redistributions of source code must retain the copyright notices for verification of origin.               	
 >
-#[ COMPILING REPOSITORY CODE ]
+# COMPILING REPOSITORY CODE
 >
 If you wish to just try any sample a pre-compiled version is provided in the "diskimg" directory of each sample. Simply take a formatted SD card and place the files in that directory onto the root directory of the SD Card place in Pi and turn on. 
 >
