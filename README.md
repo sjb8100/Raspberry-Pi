@@ -1,6 +1,12 @@
 # BareMetal Raspberry-Pi (Linux free zone)
 >
-Code background: https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Documentation/Code_Background.md
+Code background: 
+https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Documentation/Code_Background.md
+32 Bit Toolchain I use:
+https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
+64 Bit Toolchain I use:
+https://releases.linaro.org/components/toolchain/binaries/latest/aarch64-elf/
+
 
 # USB-HID (Pi1,2,3 32Bit .. 64Bit alpha is up)
 >AARCH64 Alpha: https://github.com/LdB-ECM/Raspberry-Pi/tree/master/Arm32_64_USB
