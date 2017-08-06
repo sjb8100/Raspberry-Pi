@@ -3,6 +3,8 @@
 Code background: 
 https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Documentation/Code_Background.md
 >
+There are no make files for the repo's as I am a commercial embedded developer and I use Windows and Visual Studio as my IDE. So I am cross compiling to the PI which comes out thru a commercial toolchain. Rather than waste time with rather complex make files I provide a batch file which contains the compile and link commands as they need to be executed. The path to the compiler executables will need to be changed if you want to use them. My path will look like "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-gcc" and "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-objcopy" you will need to change it to the path of arm-none-eabi-gcc.exe and arm-none-eabi-objcopy.exe on your system.
+
 32 Bit Toolchain I use:
 https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 >
