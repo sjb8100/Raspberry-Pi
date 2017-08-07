@@ -18,4 +18,4 @@ So CoreExecute can assign any "void function (void)" C routine to be execute by 
 >
  As per usual you can simply copy the files in the DiskImg directory onto a format SD card and place in Pi to test
 >
-![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/Multicore.jpg)
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/Multicore.jpg)
