@@ -8,4 +8,4 @@ The basic tests I did were the tutorial code from the two sites
 https://www.tweaking4all.com/hardware/arduino/arduino-programming-course/arduino-programming-part-7/
 http://www.arduino.org/learning/reference/stringobject
 >
-![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/Arduino1.jpg)
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/Arduino1.jpg)
