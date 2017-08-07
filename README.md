@@ -13,6 +13,9 @@ There are no make files for the repo's as I am a commercial embedded developer a
 >
 64 Bit Toolchain I use (Multiple O/S are supported):
 >https://releases.linaro.org/components/toolchain/binaries/latest/aarch64-elf/
+>
+64 Bit compile on the Pi itself:
+> TBD: Still trying to work out a toolchain install
 
 
 # USB-HID (Pi1,2,3 32Bit .. new** AARCH64 alpha up)
