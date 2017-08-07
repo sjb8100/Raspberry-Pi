@@ -43,4 +43,4 @@ If you got here it shoudl be done. To check on a terminal command box type GCC-6
 >
 So the command GCC is the old 4.8 Compiler and GCC-6 is the newer version 6 compiler.
 >
-Now if your Pi is booting and running on the SD card to make a baremetal card you will need a USB to SD card reader/writer because you have the Raspbian card in the only slot. Once you have the SD card mounted via teh USB you can copy the files you need onto it. Then you turn off power remove the Raspbian SD card and place your Baremetal card in the SD slot and power the Pi up. All being well your baremetal code runs and does what you expect :-) 
+Now if your Pi is booting and running on the SD card to make a baremetal card you will need a USB to SD card reader/writer because you have the Raspbian card in the only slot. Once you have the SD card mounted via the USB you can copy the files you need onto it. Then you turn off power remove the Raspbian SD card and place your Baremetal card in the SD slot and power the Pi up. All being well your baremetal code runs and does what you expect :-) 
