@@ -5,10 +5,10 @@ First the warning I am a Linux newbie and I have no way to know if these instruc
 So I started with a new version of Raspbian Jessie (in my case
 2017-07-05-raspbian-jessie.img) which I wrote on the SD card using the normal image writer. Then I started the system.
 >
-From there I first made sure Jessie was updated and upgraded
+From there makee sure Jessie was updated and upgraded
 >
-1.) sudo apt-get update
-2.) sudo apt-get upgrade
+>1.) sudo apt-get update
+>2.) sudo apt-get upgrade
 >
 I couldn't find any text editors I knew so next I installed VIM
 >
