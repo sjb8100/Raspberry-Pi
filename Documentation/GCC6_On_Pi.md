@@ -8,6 +8,7 @@ So I started with a new version of Raspbian Jessie (in my case
 From there makee sure Jessie was updated and upgraded
 >
 >1.) sudo apt-get update
+>
 >2.) sudo apt-get upgrade
 >
 I couldn't find any text editors I knew so next I installed VIM
