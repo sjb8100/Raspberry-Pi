@@ -31,7 +31,7 @@ Please remember the Pi1 is single processor. So while you can build code for a P
 The SmartStartxx.S assembler boot stub was extended to setup cores 1,2,3 for hyperthreading. A new spinlock was created which mimics the bootloaders but is C compiler safe. To do that registers that would be trashed by C routines where restored when the core process is called. In addition to that each core has its own stack the size of which is controlled by the new matching linker file (rpixx.ld).
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
-![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/Multicore.jpg)
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/Multicore.jpg?raw=true)
 # MYBLINKER (AARCH64 Pi3 .. 64Bit only avail on Pi3)
 Yes it's the boring old interrupt timer and blinking LED this time with the Pi3 in 64Bit mode. The technical background is the Pi3 is given to us in EL2 state. The timer interrupt is routed to EL1 where the interrupt service is established. It is obviously the first steps in how to route interrupt signals to services on the Pi3 in 64bit mode. 
 
