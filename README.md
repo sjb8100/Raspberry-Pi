@@ -8,7 +8,7 @@ There are no make files for the repo's as I am a commercial embedded developer a
 32 Bit Toolchain I use (Multiple O/S are supported):
 >https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 >
-32 Bit compile on the Pi itself: 
+32 Bit compile on the Pi itself with GCC 6: 
 >https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Documentation/GCC6_On_Pi.md
 >
 64 Bit Toolchain I use (Multiple O/S are supported):
