@@ -1,5 +1,5 @@
-#Install GCC 6 on Raspberry Pi
-
+# Install GCC 6 on Raspberry Pi
+>
 First the warning I am a Linux newbie and I have no way to know if these instructions fail if they won't toast your entire linux install so BACKUP BEFORE YOU BEGIN. You will also probably need to do this on a 16GB SD card I am not sure if it will fit on smaller cards.
 >
 So I started with a new version of Raspbian Jessie (in my case
