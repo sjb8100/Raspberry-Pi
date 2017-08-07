@@ -23,7 +23,7 @@ Change jessie to stretch in the repository source line then hit the esc key, col
 >
 Now we need to run updates for stretch
 >
->5.)sudo apt-get update
+>5.) sudo apt-get update
 >
 Now install GCC 6 but will will put it under the extension "-6" so that the existing 4.8 GCC compiler in Raspbian remains.
 >
@@ -39,7 +39,7 @@ Then again do a final update check
 >
 >8.) sudo apt-get update
 >
-If you got here you should have the compiler online on a terminal command line type GCC-6 and hopefully you get the meessage youd didn't nominate a source file and you are good to go.
+If you got here it shoudl be done. To check on a terminal command box type GCC-6 and hopefully you get the error message you didn't nominate a source file and you are good to go.
 >
 So the command GCC is the old 4.8 Compiler and GCC-6 is the newer version 6 compiler.
 >
