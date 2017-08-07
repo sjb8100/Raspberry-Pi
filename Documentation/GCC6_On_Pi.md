@@ -8,36 +8,35 @@ So I started with a new version of Raspbian Jessie (in my case
 From there makee sure Jessie was updated and upgraded
 >
 >1.) sudo apt-get update
->
 >2.) sudo apt-get upgrade
 >
 I couldn't find any text editors I knew so next I installed VIM
 >
-3.) sudo apt-get install vim
+>3.) sudo apt-get install vim
 >
 The prebuilt GCC6 on Debian requires stretch so we temporarily change repository source
 >
-4.) sudo vim /etc/apt/sources.list
+>4.) sudo vim /etc/apt/sources.list
 >
 Change jessie to stretch in the repository source line then hit the esc key, colon key ':" and x which will save and exit the file in VIM.
 >
 Now we need to run updates for stretch
 >
-5.)sudo apt-get update
+>5.)sudo apt-get update
 >
 Now install GCC 6 but will will put it under the extension "-6" so that the existing 4.8 GCC compiler in Raspbian remains.
 >
-6.) sudo apt-get install gcc-6 g++-6
+>6.) sudo apt-get install gcc-6 g++-6
 >
 Now we need to put the repository back to Jessie
 >
-7.) sudo vim /etc/apt/sources.list
+>7.) sudo vim /etc/apt/sources.list
 >
 Change stretch back to jessie in the repository source line then hit the esc key, colon key ':" and x which will save and exit the file in VIM.
 >
 Then again do a final update check
 >
-8.) sudo apt-get update
+>8.) sudo apt-get update
 >
 If you got here you should have the compiler online on a terminal command line type GCC-6 and hopefully you get the meessage youd didn't nominate a source file and you are good to go.
 >
