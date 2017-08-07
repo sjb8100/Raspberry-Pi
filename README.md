@@ -1,7 +1,7 @@
 # BareMetal Raspberry-Pi (Linux free zone)
 >
 Code background: 
-https://github.com/LdB-ECM/Documentation-and-Images/tree/master/Documentation/Code_Background.md
+https://github.com/LdB-ECM/Docs_and_Images/tree/master/Documentation/Code_Background.md
 >
 There are no make files for the repo's as I am a commercial embedded developer and I use Windows and Visual Studio as my IDE. So I am cross compiling to the PI which comes out thru a commercial toolchain. Rather than waste time with rather complex make files I provide a batch file which contains the compile and link commands as they need to be executed. The path to the compiler executables will need to be changed if you want to use them. My path will look like "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-gcc" and "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-objcopy" you will need to change it to the path of arm-none-eabi-gcc.exe and arm-none-eabi-objcopy.exe on your system. The files usually have only 2 active lines and easy enough to convert to bash scripts for linux users. I am slowly providing basic bash scripts in the directory bash_scripts on each samples for copying into the main directory if needed.
 
@@ -9,7 +9,7 @@ There are no make files for the repo's as I am a commercial embedded developer a
 >https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 >
 32 Bit compile on the Pi itself with GCC 6: 
->https://github.com/LdB-ECM/Documentation-and-Images/tree/master/Documentation/GCC6_On_Pi.md
+>https://github.com/LdB-ECM/Docs_and_Images/tree/master/Documentation/GCC6_On_Pi.md
 >
 64 Bit Toolchain I use (Multiple O/S are supported):
 >https://releases.linaro.org/components/toolchain/binaries/latest/aarch64-elf/
