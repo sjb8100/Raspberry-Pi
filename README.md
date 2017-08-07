@@ -26,7 +26,7 @@ Complete redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick. All the 
 # MULTICORE (Pi1,2,3 32Bit .. new*** Pi3 AARCH64)
 >https://github.com/LdB-ECM/Raspberry-Pi/tree/master/Multicore
 >
-Please remember the Pi1 is single processor. So while you can build code for a Pi1 it can't be used for hyperthreading unless used on a Pi2 or Pi3. The assembler and linker files are paired you use either the 32 bit or 64 bit together.
+Please remember the Pi1 is single processor. So while you can build code for a Pi1 it can't be used for hyperthreading unless used on a Pi2 or Pi3. The fact you can run your Pi1 code on a Pi2/3 will only work because the smartstartxx.s stub sorts all that out. The assembler and linker files are paired you use either the 32 bit or 64 bit together.
 >
 The SmartStartxx.S assembler boot stub was extended to setup cores 1,2,3 for hyperthreading. A new spinlock was created which mimics the bootloaders but is C compiler safe. To do that registers that would be trashed by C routines where restored when the core process is called. In addition to that each core has its own stack the size of which is controlled by the new matching linker file (rpixx.ld).
 >
