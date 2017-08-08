@@ -1,11 +1,11 @@
 @REM COMPILER COMMAND LINE
 @echo off
 set "bindir=g:\pi\gcc_linaro_6_3\bin\"
-set "cflags=-Wall -g -O2 -march=armv8-a -mtune=cortex-a53 -mlittle-endian -mabi=lp64 -nostdlib -nostartfiles -ffreestanding --specs=nosys.specs"
-set "sflags=-ffunction-sections -fdata-sections -fomit-frame-pointer -fno-builtin -fno-common -fno-pic -fno-asynchronous-unwind-tables"
-set "linkflags=-Wno-address -Wl,-gc-sections -Wl,-Bdynamic -Wl,-Map,kernel.map -Wl,--build-id=none"
-set "outflags=-Wa,-a >list.txt -o kernel.elf"
-set "libflags=-lc -lg -lm -lgcc -lnosys"
+set "cflags=-Wall -g -O2 -march=armv8-a -mtune=cortex-a53 -mlittle-endian -mabi=lp64 -nostdlib -nostartfiles -ffreestanding"
+set "sflags=-fomit-frame-pointer -fno-common -fno-asynchronous-unwind-tables"
+set "linkflags=-Wl,--print-gc -Wl,-Bdynamic -Wl,-Map,kernel.map -Wl,--build-id=none"
+set "outflags=-Wa,-a=list.txt -o kernel.elf"
+set "libflags=-lc -lg -lm -lgcc"
 @echo on
 %bindir%aarch64-elf-gcc %cflags% %sflags% %linkflags% -Wl,-T,rpi64.ld main.c  SmartStart64.S rpi-BasicHardware.c %outflags% %libflags% 
 @echo off
