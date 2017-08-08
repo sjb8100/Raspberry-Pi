@@ -451,7 +451,52 @@ CoreExecuteFail:
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+/* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
+.section .text.ARMaddrToGPUaddr, "ax", %progbits
+.balign	4
+.globl ARMaddrToGPUaddr;		
+.type ARMaddrToGPUaddr, %function
+.syntax unified
+.arm
+;@"================================================================"
+;@ ARMaddrToGPUaddr -- Composite Pi1, Pi2 & Pi3 code
+;@ C Function: uint32_t ARMaddrToGPUaddr (void* ARMaddress);
+;@ Entry: R0 will have ARMAddress value
+;@"================================================================"
+ARMaddrToGPUaddr:
+	ldr r1, =RPi_BusAlias
+    ldr r1,[r1]								;@ Fetch bus alias	
+	orr r0, r0, r1							;@ Create bus address
+	bx   lr									;@ Return
+.balign	4
+.ltorg										;@ Tell assembler ltorg data for this code can go here
+.size	ARMaddrToGPUaddr, .-ARMaddrToGPUaddr
+
+
+/* "PROVIDE C FUNCTION: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);" */
+.section .text.GPUaddrToARMaddr, "ax", %progbits
+.balign	4
+.globl GPUaddrToARMaddr;		
+.type GPUaddrToARMaddr, %function
+.syntax unified
+.arm
+;@"================================================================"
+;@ GPUaddrToARMaddr -- Composite Pi1, Pi2 & Pi3 code
+;@ C Function: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);
+;@ Entry: R0 will have GPUAddress value
+;@"================================================================"
+GPUaddrToARMaddr:
+	ldr r1, =RPi_BusAlias
+    ldr r1,[r1]								;@ Fetch bus alias	
+	bic r0, r0, r1							;@ Create arm address
+	bx   lr									;@ Return
+.balign	4
+.ltorg										;@ Tell assembler ltorg data for this code can go here
+.size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
 /* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
 .weak c_irq_handler

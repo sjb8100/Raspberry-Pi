@@ -581,14 +581,14 @@ struct __attribute__((__packed__, aligned(4))) MailBoxRegisters {
 /***************************************************************************}
 {     PUBLIC POINTERS TO ALL OUR RASPBERRY PI REGISTER BANK STRUCTURES	    }
 ****************************************************************************/
-#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x200000))
-#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x3000))
-#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x205000))
-#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x804000))
-#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x805000))
-#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB200))
-#define ARMTIMER ((volatile __attribute__((aligned(4))) struct  ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400))
-#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB880))
+#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x200000u))
+#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x3000u))
+#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x205000u))
+#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x804000u))
+#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x805000u))
+#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB200u))
+#define ARMTIMER ((volatile __attribute__((aligned(4))) struct  ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400u))
+#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB880u))
 
 /***************************************************************************}
 {					      PUBLIC INTERFACE ROUTINES			                }
@@ -701,6 +701,10 @@ void DeadLoop (void);
 void PiConsole_Init (int Width, int Height, int Depth);
 void PiConsole_WriteChar (char Ch);
 void WriteText (int x, int y, char* txt);
+
+#ifdef __aarch64__
+int printf(const char *fmt, ...);
+#endif
 
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper

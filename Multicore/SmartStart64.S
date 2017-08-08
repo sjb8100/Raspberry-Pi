@@ -268,6 +268,46 @@ CoreExecuteFail:
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
+.section .text.ARMaddrToGPUaddr, "ax", %progbits
+.balign	4
+.globl ARMaddrToGPUaddr;		
+.type ARMaddrToGPUaddr, %function
+//"================================================================"
+// ARMaddrToGPUaddr -- AARCH64 Pi3 code
+// C Function: uint32_t ARMaddrToGPUaddr (void* ARMaddress);
+// Entry: x0 will have ARMAddress value
+//"================================================================"
+ARMaddrToGPUaddr:
+	mov x1, #0xC0000000						// ARM to VC conversion value
+	orr x0, x0, x1							// Create bus address
+	ret										// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	ARMaddrToGPUaddr, .-ARMaddrToGPUaddr
+
+
+/* "PROVIDE C FUNCTION: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);" */
+.section .text.GPUaddrToARMaddr, "ax", %progbits
+.balign	4
+.globl GPUaddrToARMaddr;		
+.type GPUaddrToARMaddr, %function
+//"================================================================"
+// GPUaddrToARMaddr -- AARCH64 Pi3 code
+// C Function: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);
+// Entry: x0 will have GPUAddress value
+//"================================================================"
+GPUaddrToARMaddr:
+	mov x1, #0xC0000000						// ARM to VC conversion value	
+	bic x0, x0, x1							// Create arm address
+	ret										// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
 /* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
 .weak c_irq_handler

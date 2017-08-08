@@ -231,13 +231,6 @@ uint32_t mailbox_read (MAILBOX_CHANNEL channel) {
 	return value;													// Return the value
 }
 
-static uint32_t mailbox_ARM_to_VC (void* ptr) {
-	return ((uintptr_t)ptr | 0xC0000000);
-}
-
-static uint32_t mailbox_VC_to_ARM (uint32_t ptr) {
-	return (ptr & (~0xC0000000));
-}
 
 /*--------------------------------------------------------------------------}
 {						  PI ACTIVITY LED ROUTINES							}
@@ -262,7 +255,7 @@ static void BoardRevisionCheck (void) {
 	message[4] = 0;													// Provided data length = 0
 	message[5] = 0;													// Response
 	message[6] = 0;													// END no more tags
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&message[0]));
+	mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
 	mailbox_read(MB_CHANNEL_TAGS);									// Write message and clear response
 	if ((message[1] == 0x80000000) && (message[4] == 0x80000004)) {
 		if ((message[5] >= 0x0002) && (message[5] <= 0x000F)){		// Models A, B return 0002 to 000F
@@ -293,7 +286,7 @@ void set_Activity_LED (bool on) {
 			message[5] = 130;										// Port 130
 			message[6] = (uint32_t)on;								// Set on/off
 			message[7] = 0;											// END no more tags
-			mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&message[0]));
+			mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
 			mailbox_read(MB_CHANNEL_TAGS);							// Write message and clear response
 			break;
 		}
@@ -422,11 +415,11 @@ static bool allocFrameBuffer (int width, int height, int depth, FRAMEBUFFER* fb)
 
 	mailbox_message[21] = 0;
 
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
+	mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&mailbox_message[0]));
 	mailbox_read(MB_CHANNEL_TAGS);
 
-	fb->buffer = mailbox_VC_to_ARM(mailbox_message[19]);
-
+	fb->buffer = GPUaddrToARMaddr(mailbox_message[19]);
+	
 	//extern uint32_t RPi_FrameBuffer;
 	//fb->buffer = RPi_FrameBuffer;
 	fb->bitfont = (uintptr_t)&BitFont[0];
@@ -495,6 +488,13 @@ void PiConsole_WriteChar (char Ch) {
 
 }
 
+void PiConsole_WriteText (char* Txt) {
+	while ((Txt) && (*Txt)) {									// For each character
+		PiConsole_WriteChar(*Txt);								// Write the character
+		Txt++;													// Next text character
+	}
+}
+
 /*-WriteText-----------------------------------------------------------------
 Draws given string in BitFont Characters in the colour specified starting at
 (X,Y) on the screen. It just redirects each character write to WriteChar.
@@ -511,6 +511,10 @@ void WriteText (int X, int Y, char* Txt) {
 		}
 	}
 }
+
+
+/* Overrides stdio printf */
+#include "printf_64.inc"
 
 
 

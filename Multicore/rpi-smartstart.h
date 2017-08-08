@@ -147,6 +147,17 @@ typedef void (*CORECALLFUNC) (void);
 /* Execute function on (1..CoresReady) */
 extern bool CoreExecute (uint8_t coreNum, CORECALLFUNC func); 
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* ARM bus address to GPU bus address */
+extern uint32_t ARMaddrToGPUaddr (void* ARMaddress);
+
+/* GPU bus address to ARM bus address */
+extern uint32_t GPUaddrToARMaddr (uint32_t GPUaddress);
+
+
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper
 #endif
