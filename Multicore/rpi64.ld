@@ -94,7 +94,7 @@ SECTIONS
 
 .stack_core2 :
     {
-        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS call standard */
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS64 call standard */
         __stack_start_core2__ = .;
         . = . + 512;    /* EL0 stack size */
         __EL0_stack_core2 = .;
@@ -109,7 +109,7 @@ SECTIONS
 
 .stack_core3 :
     {
-        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS call standard */
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS64 call standard */
         __stack_start_core3__ = .;
         . = . + 512;    /* EL0 stack size */
         __EL0_stack_core3 = .;
