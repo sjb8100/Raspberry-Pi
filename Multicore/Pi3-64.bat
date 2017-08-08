@@ -1,7 +1,7 @@
 @REM COMPILER COMMAND LINE
 @echo off
 set "bindir=g:\pi\gcc_linaro_6_3\bin\"
-set "cflags=-Wall -g -O2 -march=armv8-a -mtune=cortex-a53 -mlittle-endian -mabi=lp64 -nostdlib -nostartfiles -ffreestanding"
+set "cflags=-Wall -O2 -flto -march=armv8-a -mtune=cortex-a53 -mlittle-endian -mabi=lp64 -nostdlib -nostartfiles -ffreestanding"
 set "sflags=-fomit-frame-pointer -fno-common -fno-asynchronous-unwind-tables"
 set "linkflags=-Wl,--print-gc -Wl,-Bdynamic -Wl,-Map,kernel.map -Wl,--build-id=none"
 set "outflags=-Wa,-a=list.txt -o kernel.elf"
