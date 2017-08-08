@@ -1,7 +1,7 @@
 @REM COMPILER COMMAND LINE
 @echo off
 set "bindir=g:\pi\gcc_pi_6_3\bin\"
-set "cflags=-Wall -O2 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostdlib -nostartfiles -ffreestanding --specs=nosys.specs"
+set "cflags=-Wall -O2 -flto -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -nostdlib -nostartfiles -ffreestanding --specs=nosys.specs"
 set "sflags=-fomit-frame-pointer -fno-common -fno-asynchronous-unwind-tables"
 set "linkflags=-Wl,--print-gc -Wl,-Bdynamic -Wl,-Map,kernel.map -Wl,--build-id=none"
 set "outflags=-Wa,-a=list.txt -o kernel.elf"
