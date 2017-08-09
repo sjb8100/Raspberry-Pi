@@ -1,2 +1,2 @@
-# MYBLINKER (AARCH64 Pi3 .. 64Bit only avail on Pi3)
-Yes it's the boring old interrupt timer and blinking LED this time with the Pi3 in 64Bit mode. The technical background is the Pi3 is given to us in EL2 state. The timer interrupt is routed to EL1 where the interrupt service is established. It is obviously the first steps in how to route interrupt signals to services on the Pi3 in 64bit mode. 
+# MYBLINKER (Pi1,2,3 32Bit .. Pi3 AARCH64)
+Yes it's the boring old interrupt timer and blinking LED this time in either 32Bit or 64Bit mode. The technical background to 64Bit mode is the Pi3 is given to us in EL2 state. The timer interrupt is routed to EL1 where the interrupt service is established. It is obviously the first steps in how to route interrupt signals to services on the Pi3 in 64bit mode. 
