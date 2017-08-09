@@ -197,6 +197,14 @@ typedef enum {
 /***************************************************************************}
 {		 				 PUBLIC STRUCT DEFINITIONS				            }
 ****************************************************************************/
+
+typedef struct __attribute__((__packed__, aligned(1))) RGBA {
+	uint8_t B;
+	uint8_t G;
+	uint8_t R;
+	uint8_t A;
+} RGBA;
+
 typedef struct FrameBuffer FRAMEBUFFER;
 /*--------------------------------------------------------------------------}
 {						  FRAME BUFFER STRUCTURE							}
@@ -206,20 +214,20 @@ struct FrameBuffer {
 	int	width;														// Physical width
 	int height;														// Physical height
 	int depth;														// Colour depth
-	const uint32_t*	bitfont;										// Bitmap font	
+	uintptr_t bitfont;												// Bitmap font	
 	int  fontWth;													// Bitmap font width
 	int  fontHt;													// Bitmap font height
 
-	/* Text colour control */
-	uint32_t TxtColor;												// Text colour to write
-	uint32_t BkColor;												// Background colour to write
-	
+																	/* Text colour control */
+	RGBA TxtColor;													// Text colour to write
+	RGBA BkColor;													// Background colour to write
+
 	/* Limit control */
 	int clipMinX;
 	int clipMaxX;
 	int clipMinY;
 	int clipMaxY;
-	void (*WriteChar) (FRAMEBUFFER* self, int X1, int Y1, char Ch);
+	void (*WriteChar) (FRAMEBUFFER* self, uint32_t X1, uint32_t Y1, uint8_t Ch);
 };
 
 
@@ -448,12 +456,12 @@ struct __attribute__((__packed__, aligned(4))) TimerControlReg {
 	union {
 		struct __attribute__((__packed__, aligned(1))) {
 			unsigned unused : 1;									// @0 Unused bit
-			bool Counter32Bit : 1;							// @1 Counter32 bit (16bit if false)
-			TIMER_PRESCALE Prescale : 2;					// @2-3 Prescale  
+			volatile bool Counter32Bit : 1;							// @1 Counter32 bit (16bit if false)
+			volatile TIMER_PRESCALE Prescale : 2;					// @2-3 Prescale  
 			unsigned unused1 : 1;									// @4 Unused bit
-			bool TimerIrqEnable : 1;						// @5 Timer irq enable
+			volatile bool TimerIrqEnable : 1;						// @5 Timer irq enable
 			unsigned unused2 : 1;									// @6 Unused bit
-			bool TimerEnable : 1;							// @7 Timer enable
+			volatile bool TimerEnable : 1;							// @7 Timer enable
 			unsigned reserved : 24;									// @8-31 reserved
 		};
 		uint32_t Raw32;												// Union to access all 32 bits as a uint32_t
@@ -482,7 +490,7 @@ struct __attribute__((__packed__, aligned(4))) BSCRegisters {
 {    RASPBERRY PI GPIO HARDWARE REGISTERS - BCM2835.PDF Manual Section 6	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) GPIORegisters {
-	volatile uint32_t GPFSEL[6];									// 0x00  GPFSEL0 - GPFSEL[5]
+	volatile uint32_t GPFSEL[6];									// 0x00  GPFSEL0 - GPFSEL5
 	uint32_t reserved1;												// 0x18  reserved
 	volatile uint32_t GPSET[2];										// 0x1C  GPSET0 - GPSET1;
 	uint32_t reserved2;												// 0x24  reserved
@@ -513,8 +521,8 @@ struct __attribute__((__packed__, aligned(4))) GPIORegisters {
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) IrqControlRegisters {
 	const volatile struct IrqBasicPendingReg IRQBasicPending;		// 0x200   ** Read only hence const
-	const volatile uint32_t IRQPending1;							// 0x204   ** Read only hence const
-	const volatile uint32_t IRQPending2;							// 0x208   ** Read only hence const
+	volatile uint32_t IRQPending1;									// 0x204
+	volatile uint32_t IRQPending2;									// 0x208
 	volatile struct FiqControlReg FIQControl;						// 0x20C
 	volatile uint32_t EnableIRQs1;									// 0x210
 	volatile uint32_t EnableIRQs2;									// 0x214
@@ -573,14 +581,14 @@ struct __attribute__((__packed__, aligned(4))) MailBoxRegisters {
 /***************************************************************************}
 {     PUBLIC POINTERS TO ALL OUR RASPBERRY PI REGISTER BANK STRUCTURES	    }
 ****************************************************************************/
-#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*) (RPi_IO_Base_Addr + 0x200000))
-#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(RPi_IO_Base_Addr + 0x3000))
-#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x205000))
-#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x804000))
-#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(RPi_IO_Base_Addr + 0x805000))
-#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(RPi_IO_Base_Addr + 0xB200))
-#define ARMTIMER ((__attribute__((aligned(4))) struct  ArmTimerRegisters*)(RPi_IO_Base_Addr + 0xB400))
-#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(RPi_IO_Base_Addr + 0xB880))
+#define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x200000u))
+#define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x3000u))
+#define BSC0 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x205000u))
+#define BSC1 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x804000u))
+#define BSC2 ((volatile __attribute__((aligned(4))) struct BSCRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x805000u))
+#define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB200u))
+#define ARMTIMER ((volatile __attribute__((aligned(4))) struct  ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400u))
+#define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB880u))
 
 /***************************************************************************}
 {					      PUBLIC INTERFACE ROUTINES			                }
@@ -658,6 +666,12 @@ uint64_t timer_getTickCount (void);
  --------------------------------------------------------------------------*/
 void timer_wait (uint64_t us);
 
+/*-[tick_Difference]--------------------------------------------------------}
+ Given two timer tick results it returns the time difference between them.
+ 02Jul17 LdB
+ --------------------------------------------------------------------------*/
+uint64_t tick_difference (uint64_t us1, uint64_t us2);
+
 /*--------------------------------------------------------------------------}
 {						    PI MAILBOX ROUTINES								}
 {--------------------------------------------------------------------------*/
@@ -677,12 +691,18 @@ bool mailbox_write (MAILBOX_CHANNEL channel, uint32_t message);
  --------------------------------------------------------------------------*/
 uint32_t mailbox_read (MAILBOX_CHANNEL channel);
 
-uint32_t mailbox_ARM_to_VC (void* ptr);
-uint32_t mailbox_VC_to_ARM (uint32_t ptr);
+/*--------------------------------------------------------------------------}
+{						  PI ACTIVITY LED ROUTINES							}
+{--------------------------------------------------------------------------*/
+bool set_Activity_LED (bool on);
 
-bool allocFrameBuffer (int width, int height, int depth, FRAMEBUFFER* fb);
+void DeadLoop (void);
 
-void WriteText (int x, int y, char* txt, FRAMEBUFFER* Fb);
+bool PiConsole_Init (int Width, int Height, int Depth);
+void PiConsole_WriteChar (char Ch);
+void WriteText (int x, int y, char* txt);
+
+int printf(const char *fmt, ...);
 
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper

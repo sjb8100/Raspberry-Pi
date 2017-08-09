@@ -1,49 +1,39 @@
 #include <stdbool.h>		// C standard needed for bool
 #include <stdint.h>			// C standard for uint8_t, uint16_t, uint32_t etc
 #include <stdio.h>				// Needed for printf
+#include "rpi-smartstart.h"		
 #include "rpi-BasicHardware.h"
-FRAMEBUFFER fb;							// Framebuffer variable
 
-void set_LED(bool on) {
-	uint32_t __attribute__((aligned(16))) mailbox_message[8];
-	mailbox_message[0] = sizeof(mailbox_message);
-	mailbox_message[1] = 0;
-	mailbox_message[2] = 0x38041;
-	mailbox_message[3] = 8;
-	mailbox_message[4] = 8;
-	mailbox_message[5] = 130;
-	mailbox_message[6] = (uint32_t)on;
-	mailbox_message[7] = 0;
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
-	mailbox_read(MB_CHANNEL_TAGS);
+
+static bool lit = false;
+void c_irq_handler(void) {
+	if (lit) lit = false; else lit = true;							// Flip lit flag
+	set_Activity_LED(lit);											// Turn LED on/off as per new flag
 }
 
-static int lit = 0;
-void c_irq_handler (void)
-{
+void c_irq_identify_and_clear_source(void) {
 
+	ARMTIMER->Clear = 1;											// Write any value to register to clear irq ... PAGE 198
 
-	/* Clear the ARM Timer interrupt - it's the only interrupt we have
-	enabled, so we want don't have to work out which interrupt source
-	caused us to interrupt */
-	ARMTIMER->Clear = 0;				// Write any value to register to clear irq ... PAGE 198
-
-										/* Flip the LED */
-	if (lit) {
-		set_LED(false);					// Turn Led off
-		lit = 0;
-	}
-	else {
-		set_LED(true);					// Turn LED on
-		lit = 1;
-	}
-
+	/* As we are running nested interrupts we must clear the Pi Irq controller,
+	the timer irq pending is bit 0 of pending register 1 as it's irq 0 */
+	IRQ->IRQPending1 &= ~0x1;										// Clear timer pending irq bit 0
 }
 
+static const char Spin[4] = { '|', '/', '-', '\\' };
+static int i = 0;
 int main (void) {
-	allocFrameBuffer(800, 600, 32, &fb);							// Allocate a framebuffer
-	WriteText(100, 100, "Setting up Interrupts", &fb);				// Write text
-																	/* Enable the timer interrupt IRQ */
+	if (PiConsole_Init(1280, 1024, 16)) {
+		printf("SmartStart compiled for Arm%d, AARCH%d with %u core s/w support\n",
+			RPi_CompileMode.CodeType, RPi_CompileMode.AArchMode * 32 + 32,
+			(unsigned int)RPi_CompileMode.CoresSupported);							// Write text
+		printf("Detected %s CPU, part id: 0x%03X, Cores made ready for use: %u\n",
+			RPi_CpuIdString(), RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady);	// Write text
+		printf("Pi IO base address %08X\n", (unsigned int)RPi_IO_Base_Addr);			// Write text
+		printf("Pi booted from address %08X\n", (unsigned int)RPi_BootAddr);			// Write text
+	}
+
+	/* Enable the timer interrupt IRQ */
 	IRQ->EnableBasicIRQs.Enable_Timer_IRQ = true;
 
 
@@ -56,17 +46,15 @@ int main (void) {
 	ARMTIMER->Control.TimerIrqEnable = true;
 	ARMTIMER->Control.TimerEnable = true;
 
-	WriteText(100, 120, "Setup complete", &fb);						// Write text
-
-	/* Enable interrupts to IRQ */
-	asm("msr daifclr,#2");
+	/* Enable interrupts! */
+	EnableInterrupts();
 
 	while (1) {
-
-		if (lit) WriteText(100, 160, "LED on ", &fb);				// Write text
-			else WriteText(100, 160, "LED off", &fb);				// Write text
+		printf("Deadloop %c\r", Spin[i]);
+		timer_wait(50000);
+		i++;
+		i %= 4;
 	}
 
 	return(0);
 }
-

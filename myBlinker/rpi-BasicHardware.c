@@ -1,5 +1,6 @@
 #include <stdbool.h>							// Needed for bool and true/false
 #include <stdint.h>								// Needed for uint8_t, uint32_t, uint64_t etc
+#include <stdio.h>								// Needed for printf
 #include "rpi-BasicHardware.h"					// This units header
 #include <string.h>
 
@@ -25,6 +26,7 @@ static_assert(sizeof(struct GPIORegisters) == 0xA0, "Register/Structure should b
 static_assert(sizeof(struct SystemTimerRegisters) == 0x1C, "Register/Structure should be 0x1C bytes in size");
 static_assert(sizeof(struct IrqControlRegisters) == 0x28, "Register/Structure should be 0x28 bytes in size");
 static_assert(sizeof(struct ArmTimerRegisters) == 0x1C, "Register/Structure should be 0x1C bytes in size");
+
 
 /***************************************************************************}
 {					      PUBLIC INTERFACE ROUTINES			                }
@@ -173,6 +175,19 @@ void timer_wait (uint64_t us) {
 	while (timer_getTickCount() < us) {};							// Loop on timeout function until timeout
 }
 
+
+/*-[tick_Difference]--------------------------------------------------------}
+ Given two timer tick results it returns the time difference between them.
+ 02Jul17 LdB
+ --------------------------------------------------------------------------*/
+uint64_t tick_difference (uint64_t us1, uint64_t us2) {
+	if (us1 > us2) {												// If timer one is greater than two then timer rolled
+		uint64_t td = UINT64_MAX - us1 + 1;							// Counts left to roll value
+		return us2 + td;											// Add that to new count
+	} 
+	return us2 - us1;												// Return difference between values
+}
+
 /*--------------------------------------------------------------------------}
 {						    PI MAILBOX ROUTINES								}
 {--------------------------------------------------------------------------*/
@@ -216,35 +231,272 @@ uint32_t mailbox_read (MAILBOX_CHANNEL channel) {
 	return value;													// Return the value
 }
 
-uint32_t mailbox_ARM_to_VC (void* ptr) {
-	return ((uint64_t)ptr | 0xC0000000);
+
+/*--------------------------------------------------------------------------}
+{						  PI ACTIVITY LED ROUTINES							}
+{--------------------------------------------------------------------------*/
+
+
+/*-[INTERNAL: BoardRevisionCheck ]-----------------------------------------}
+ This will read the board revision from the mailbox system and for Model 1
+ A and B set the activity led GPIO to 16 instead of 47 for later boards.
+ 04Jul17 LdB
+ --------------------------------------------------------------------------*/
+static bool ModelCheckHasRun = false;
+static int ActivityGPIOPort = 47;
+
+static void BoardRevisionCheck (void) {
+	uint32_t __attribute__((aligned(16))) message[7];
+	ModelCheckHasRun = true;										// Set we have run the model check
+	message[0] = sizeof(message);									// Set total message size
+	message[1] = 0;													// Zero response message
+	message[2] = MAILBOX_TAG_GET_BOARD_REVISION;					// Get Board revision tag
+	message[3] = 4;													// Response Buffer length is 4 bytes
+	message[4] = 0;													// Provided data length = 0
+	message[5] = 0;													// Response
+	message[6] = 0;													// END no more tags
+	mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
+	mailbox_read(MB_CHANNEL_TAGS);									// Write message and clear response
+	if ((message[1] == 0x80000000) && (message[4] == 0x80000004)) {
+		if ((message[5] >= 0x0002) && (message[5] <= 0x000F)){		// Models A, B return 0002 to 000F
+			ActivityGPIOPort = 16;									// GPIO port 16 is activity led
+		} else ActivityGPIOPort = 47;								// GPIO port 47 activity as default
+	}
 }
 
-uint32_t mailbox_VC_to_ARM (uint32_t ptr) {
-	return (ptr & (~0xC0000000));
+bool set_Activity_LED (bool on) {
+ 
+	switch (RPi_CpuId.PartNumber) {
+		case 0xb76: {												// arm1176jzf-s AKA Pi1
+			if (!ModelCheckHasRun) BoardRevisionCheck();			// Just check board isn't early Pi1 on GPIO16
+			gpio_output(ActivityGPIOPort, on);						// GPIO activity (port 16 or 47 depends on model) on/off
+			return true;
+		}
+		case 0xc07: {												// cortex-a7 AKA Pi2
+			gpio_output(47, on);									// GPIO port 47 on/off
+			return true;
+		}
+		case 0xd03: {												// cortex-a53 AKA Pi3 
+			uint32_t __attribute__((aligned(16))) message[8];
+			message[0] = sizeof(message);							// Set total message size
+			message[1] = 0;											// Zero response message
+			message[2] = MAILBOX_TAG_SET_GPIO_STATE;				// Set GPIO state
+			message[3] = 8;											// Response is 8 bytes
+			message[4] = 8;											// Send parameters is 8 bytes
+			message[5] = 130;										// Port 130
+			message[6] = (uint32_t)on;								// Set on/off
+			message[7] = 0;											// END no more tags
+			mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
+			mailbox_read(MB_CHANNEL_TAGS);							// Write message and clear response
+			if ((message[1] == 0x80000000) && (message[4] == 0x80000008))
+				return true;
+		}
+	}
+	return false;
+}
+
+void DeadLoop(void) {
+	while (1) {
+		set_Activity_LED(true);
+		timer_wait(500000);				// We want a 0.5 sec delay					
+		set_Activity_LED(false);
+		timer_wait(500000);				// We want a 0.5 sec delay
+	}
+}
+
+#include "Font8x16.h"
+
+
+
+static void WriteChar32 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint8_t Ch) {
+	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(Fb->buffer + (Y1 * Fb->width * 4) + (X1 * 4));
+	for (int y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];
+		for (int i = 0; i < 32; i++) {
+			RGBA col = Fb->BkColor;
+			int xoffs = i % 8;
+			if ((b & 0x80000000) != 0) col = Fb->TxtColor;
+			video_wr_ptr[xoffs] = col;
+			b <<= 1;
+			if (xoffs == 7) video_wr_ptr += Fb->width;
+		}
+	}
+}
+
+typedef struct __attribute__((__packed__, aligned(1))) RGB {
+	uint8_t B;
+	uint8_t G;
+	uint8_t R;
+} RGB;
+
+static void WriteChar24 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint8_t Ch) {
+	RGB* __attribute__((__packed__, aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(Fb->buffer + (Y1 * Fb->width * 3) + (X1 * 3));
+	RGB Fc = { .R = Fb->TxtColor.R,
+			   .G = Fb->TxtColor.G, 
+			   .B = Fb->TxtColor.B };
+	RGB Bc = { .R = Fb->BkColor.R,
+			   .G = Fb->BkColor.G,
+			   .B = Fb->BkColor.B };
+	for (int y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];
+		for (int i = 0; i < 32; i++) {
+			RGB col = Bc;
+			int xoffs = i % 8;
+			if ((b & 0x80000000) != 0) col = Fc;
+			video_wr_ptr[xoffs] = col;
+			b <<= 1;
+			if (xoffs == 7) video_wr_ptr += Fb->width;
+		}
+	}
+}
+
+typedef struct __attribute__((__packed__, aligned(1))) RGB565 {
+	unsigned B : 5;
+	unsigned G : 6;
+	unsigned R : 5;
+} RGB565;
+static void WriteChar16 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint8_t Ch) {
+	RGB565* __attribute__((__packed__, aligned(1))) video_wr_ptr = (RGB565*)(uintptr_t)(Fb->buffer + (Y1 * Fb->width * 2) + (X1 * 2));
+	RGB565 Fc = { .R = Fb->TxtColor.R >> 3,
+				  .G = Fb->TxtColor.G >> 2,
+				  .B = Fb->TxtColor.B >> 3 };
+	RGB565 Bc = { .R = Fb->BkColor.R >> 3,
+				  .G = Fb->BkColor.G >> 2,
+				  .B = Fb->BkColor.B >> 3 };
+	for (int y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];
+		for (int i = 0; i < 32; i++) {
+			RGB565 col = Bc;
+			int xoffs = i % 8;
+			if ((b & 0x80000000) != 0) col = Fc;
+			video_wr_ptr[xoffs] = col;
+			b <<= 1;
+			if (xoffs == 7) video_wr_ptr += Fb->width;
+		}
+	}
+}
+
+static bool allocFrameBuffer (int width, int height, int depth, FRAMEBUFFER* fb) {
+	uint32_t __attribute__((aligned(16))) message[22];
+	if (!fb) return false;											// No framebuffer provided fail out
+	fb->width = width;
+	fb->height = height;
+	fb->depth = depth;
+	fb->clipMinX = 0;
+	fb->clipMaxX = width;
+	fb->clipMinY = 0;
+	fb->clipMaxY = height;
+	fb->TxtColor = (RGBA){ .R = 0xFF,.G = 0xFF,.B = 0xFF,.A = 0xFF };
+	fb->BkColor = (RGBA){ .R = 0x00,.G = 0x00,.B = 0x00,.A = 0x00 };
+
+	message[0] = sizeof(message);
+	message[1] = 0;
+
+	message[2] = MAILBOX_TAG_SET_PHYSICAL_WIDTH_HEIGHT;
+	message[3] = 8;
+	message[4] = 8;
+	message[5] = width;
+	message[6] = height;
+
+	message[7] = MAILBOX_TAG_SET_VIRTUAL_WIDTH_HEIGHT;
+	message[8] = 8;
+	message[9] = 8;
+	message[10] = width;
+	message[11] = height;
+
+	message[12] = MAILBOX_TAG_SET_COLOUR_DEPTH;
+	message[13] = 4;
+	message[14] = 4;
+	message[15] = depth;
+
+	message[16] = MAILBOX_TAG_ALLOCATE_FRAMEBUFFER;
+	message[17] = 8;
+	message[18] = 4;
+	message[19] = 16;
+	message[20] = 0;
+
+	message[21] = 0;
+
+	mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
+	mailbox_read(MB_CHANNEL_TAGS);
+	if ((message[1] != 0x80000000) || (message[18] != 0x80000008))
+		return false;
+
+
+	fb->buffer = GPUaddrToARMaddr(message[19]);
+	
+	//extern uint32_t RPi_FrameBuffer;
+	//fb->buffer = RPi_FrameBuffer;
+	fb->bitfont = (uintptr_t)&BitFont[0];
+	fb->fontWth = 8;
+	fb->fontHt = 16;
+
+
+	switch (depth) {
+		case 32:
+			fb->WriteChar = WriteChar32;
+			break;
+		case 24:
+			fb->WriteChar = WriteChar24;
+			break;
+		case 16:
+			fb->WriteChar = WriteChar16;
+			break;
+	}
+	return true;
 }
 
 
-/*-WriteChar-----------------------------------------------------------------
-Draws given BitFont character in the colour specified starting at (X1,Y1)
-This can be done better ... just right for now LdB
+
+
+
+
+typedef struct tagCONSOLEDATA {
+	int xCursor;					// Current cursor column
+	int yCursor;					// Current cursor row
+	FRAMEBUFFER fb;
+
+
+} CONSOLEDATA;
+
+CONSOLEDATA con = { 0 };
+
+bool PiConsole_Init (int Width, int Height, int Depth) {
+	return(allocFrameBuffer(Width, Height, Depth, &con.fb));	// Allocate a framebuffer;
+}
+
+/*-PiConsole_WriteChar------------------------------------------------------
+Writes the given character to the console and preforms cursor movements as
+required by what the character is.
 25Nov16 LdB
 --------------------------------------------------------------------------*/
-void WriteChar32 (FRAMEBUFFER* Fb, int X1, int Y1, char Ch) {
-	uint32_t* video_wr_ptr = (uint32_t*)(intptr_t)(Fb->buffer + (Y1 * Fb->width * 4) + (X1 * 4));
-	uint32_t wr_ptr_yoffs = 0;
-	int fu32pc = (Fb->fontHt * Fb->fontWth) / 32;					// Font uin32_t per character
-	for (int y = 0; y < (32/Fb->fontWth); y++) {
-		uint32_t b = Fb->bitfont[(Ch * fu32pc) + y];	
-		for (int i = 0; i < 32; i++) {
-			uint32_t col;
-			int xoffs = i % Fb->fontWth;
-			if ((b & 0x80000000) != 0) col = Fb->TxtColor;
-				else col = Fb->BkColor;
-			video_wr_ptr[wr_ptr_yoffs + xoffs] = col; 
-			b <<= 1;
-			if (xoffs == Fb->fontWth-1) wr_ptr_yoffs += Fb->width;
+void PiConsole_WriteChar (char Ch) {
+
+		switch (Ch) {
+		case '\r': {											// Carriage return character
+			con.xCursor = 0;
 		}
+				   break;
+		case '\n': {											// New line character
+			con.xCursor = 0;									// Cursor back to line start
+			con.yCursor++;										// Increment cursor down a line
+		}
+				   break;
+		default: {												// All other characters
+			int x = con.xCursor*con.fb.fontWth;
+			int y = con.yCursor*con.fb.fontHt;
+			con.fb.WriteChar(&con.fb, x, y, Ch);				// Write the character to graphics screen
+			con.xCursor++;										// xCursor forward one character
+		}
+				 break;
+		}
+
+}
+
+void PiConsole_WriteText (char* Txt) {
+	while ((Txt) && (*Txt)) {									// For each character
+		PiConsole_WriteChar(*Txt);								// Write the character
+		Txt++;													// Next text character
 	}
 }
 
@@ -253,74 +505,28 @@ Draws given string in BitFont Characters in the colour specified starting at
 (X,Y) on the screen. It just redirects each character write to WriteChar.
 25Nov16 LdB
 --------------------------------------------------------------------------*/
-void WriteText (int X, int Y, char* Txt, FRAMEBUFFER* Fb) {
+void WriteText (int X, int Y, char* Txt) {
 	if (Txt) {														// Check pointer valid
 		size_t count = strlen(Txt);									// Fetch string length
 		while (count) {												// For each character
-			Fb->WriteChar(Fb, X, Y, Txt[0]);						// Write the character
+			con.fb.WriteChar(&con.fb, X, Y, Txt[0]);				// Write the character
 			count--;												// Decrement count
 			Txt++;													// Next text character
-			X += Fb->fontWth;										// Advance x text position
+			X += con.fb.fontWth;									// Advance x text position
 		}
 	}
 }
 
-#include "Font8x16.h"
-bool allocFrameBuffer (int width, int height, int depth, FRAMEBUFFER* fb) {
-	uint32_t __attribute__((aligned(16))) mailbox_message[22];
-	if (!fb) return false;											// No framebuffer provided fail out
-	mailbox_message[0] = sizeof(mailbox_message);
-	mailbox_message[1] = 0;
 
-	mailbox_message[2] = MAILBOX_TAG_SET_PHYSICAL_WIDTH_HEIGHT;
-	mailbox_message[3] = 8;
-	mailbox_message[4] = 8;
-	mailbox_message[5] = width;
-	mailbox_message[6] = height;
-
-	mailbox_message[7] = MAILBOX_TAG_SET_VIRTUAL_WIDTH_HEIGHT;
-	mailbox_message[8] = 8;
-	mailbox_message[9] = 8;
-	mailbox_message[10] = width;
-	mailbox_message[11] = height;
-
-	mailbox_message[12] = MAILBOX_TAG_SET_COLOUR_DEPTH;
-	mailbox_message[13] = 4;
-	mailbox_message[14] = 4;
-	mailbox_message[15] = depth;
-
-	mailbox_message[16] = MAILBOX_TAG_ALLOCATE_FRAMEBUFFER;
-	mailbox_message[17] = 8;
-	mailbox_message[18] = 4;
-	mailbox_message[19] = 16;
-	mailbox_message[20] = 0;
-
-	mailbox_message[21] = 0;
-
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
-	mailbox_read(MB_CHANNEL_TAGS);
-
-	fb->buffer = mailbox_VC_to_ARM(mailbox_message[19]);
-	fb->width = width;
-	fb->height = height;
-	fb->depth = depth;
-	fb->bitfont = &BitFont[0];
-	fb->fontWth = 8;
-	fb->fontHt = 16;
+/* Overrides stdio printf */
+#include "printf_64.inc"
+//int printf(const char *fmt, ...) {
+//	return 0;
+//}
 
 
-	fb->TxtColor = 0xFFFFFFFF;
-	fb->BkColor = 0x00000000;
 
-	fb->clipMinX = 0;
-	fb->clipMaxX = width;
-	fb->clipMinY = 0;
-	fb->clipMaxY = height;
 
-	fb->WriteChar = WriteChar32;
-
-	return true;
-}
 
 
 

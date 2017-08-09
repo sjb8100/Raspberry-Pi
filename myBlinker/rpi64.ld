@@ -64,24 +64,61 @@ SECTIONS
 
 .stack :
     {
-        . = ALIGN(16);  /* Stack must always be aligned to 16 byte boundary AAPCS64 call standard */
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS64 call standard */
         __stack_start__ = .;
-        . = . + 512;    /* fiq stack size */
-        __fiq_stack = .;
-        . = . + 16384;   /* usr & sys stack size (common) */
-        __usrsys_stack = .;
-        . = . + 16384;  /* svc stack size (start-up) */
-        __svc_stack = .;
-        . = . + 4096;   /* irq stack size */
-        __irq_stack = .;
-        . = . + 512;    /* mon stack size */
-        __mon_stack = .;
-        . = . + 512;    /* hyp stack size */
-        __hyp_stack = .;
-        . = . + 512;    /* und stack size */
-        __und_stack = .;
+        . = . + 512;    /* EL0 stack size */
+        __EL0_stack_core0 = .;
+        . = . + 32768;    /* EL1 stack size */
+        __EL1_stack_core0 = .;
+        . = . + 16384;  /* EL2 stack size (start-up) */
+        __EL2_stack_core0 = .;
         . = ALIGN(16);
         __stack_end__ = .;  
+         
+    } > RAM
+
+.stack_core1 :
+    {
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS64 call standard */
+        __stack_start_core1__ = .;
+        . = . + 512;    /* EL0 stack size */
+        __EL0_stack_core1 = .;
+        . = . + 512;    /* EL1 stack size */
+        __EL1_stack_core1 = .;
+        . = . + 4096;  /* EL2 stack size (start-up) */
+        __EL2_stack_core1 = .;
+        . = ALIGN(16);
+        __stack_end_core1__ = .;  
+         
+    } > RAM
+
+.stack_core2 :
+    {
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS call standard */
+        __stack_start_core2__ = .;
+        . = . + 512;    /* EL0 stack size */
+        __EL0_stack_core2 = .;
+        . = . + 512;    /* EL1 stack size */
+        __EL1_stack_core2 = .;
+        . = . + 4096;  /* EL2 stack size (start-up) */
+        __EL2_stack_core2 = .;
+        . = ALIGN(16);
+        __stack_end_core2__ = .;  
+         
+    } > RAM
+
+.stack_core3 :
+    {
+        . = ALIGN(16);  /* Stack must always be aligned to 8 byte boundary AAPCS call standard */
+        __stack_start_core3__ = .;
+        . = . + 512;    /* EL0 stack size */
+        __EL0_stack_core3 = .;
+        . = . + 512;    /* EL1 stack size */
+        __EL1_stack_core3 = .;
+        . = . + 4096;  /* EL2 stack size (start-up) */
+        __EL2_stack_core3 = .;
+        . = ALIGN(16);
+        __stack_end_core3__ = .;  
          
     } > RAM
 
@@ -90,6 +127,7 @@ SECTIONS
 .Heap :
     {
      . = ALIGN(4);
+     __heap_start__ = .;
      _end = .; PROVIDE (end = .); /* Any memory from here is free to use so this is end of code and start of heap */
     } > RAM
 
@@ -114,9 +152,9 @@ SECTIONS
         *(.shstrtab .shstrtab.*)
 
         /* remove any standard library hang over bits */
-        libc.a ( * )
-        libm.a ( * )
-        libgcc.a ( * )
+       /* libc.a ( * )*/
+       /* libm.a ( * )*/
+        /* libgcc.a ( * ) */
         *(.note.GNU-stack)
         *(.gnu_debuglink) 
         *(.gnu.lto_*)
