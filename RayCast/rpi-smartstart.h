@@ -47,6 +47,10 @@ extern "C" {									// Put extern C directive wrapper around
 #define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0])) 
 #endif
 
+/* Often I define In and Out for routine interfaces as per MSC */
+#define _In_							// Swallow any _In_ declaration
+#define _Out_							// Swallow any _Out_ declaration
+
 /* As we are compiling for Raspberry Pi if main, winmain make them kernel_main */
 #define WinMain(...) kernel_main (uint32_t r0, uint32_t r1, uint32_t atags)
 #define main(...) kernel_main (uint32_t r0, uint32_t r1, uint32_t atags)
@@ -122,7 +126,6 @@ extern CPU_ID RPi_CpuId;						// RPI CPU type auto-detected by SmartStartxx.S
 extern CODE_TYPE RPi_CompileMode;				// RPI code type that compiler produced
 extern uint32_t RPi_CPUBootMode;				// RPI cpu mode it was in when it booted
 extern uint32_t RPi_CPUCurrentMode;				// RPI cpu current operation mode
-
 
 /***************************************************************************}
 {                       PUBLIC C INTERFACE ROUTINES                         }

@@ -586,4 +586,3 @@ RPi_CpuId : .4byte 0;					// CPU Id is 4 byte variable in 32bit mode
 
 .globl RPi_CompileMode;					// Make sure RPi_CompileMode label is global
 RPi_CompileMode : .4byte 0;				// Compile mode is 4 byte variable in 32bit mode
-

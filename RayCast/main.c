@@ -87,19 +87,181 @@ int worldMap[mapWidth][mapHeight]=
 };
 
 
-RGBACOLOR Buffer[2000 * 1400];
+/* We may wish to change between float type  this makes it easy */
+#define CFLOAT double				// We may choose float, double, long double etc
+#define CFLOAT_ZERO ((CFLOAT)0.0)
+#define CFLOAT_ONE ((CFLOAT)1.0)
 
+/*-LineIntersect2D----------------------------------------------------------}
+{																			}
+{ REF: http://paulbourke.net/geometry/pointlineplane/						}
+{																			}
+{ Given two line segments (x1,y1)-(x2,y2) &  (x3,y3)-(x4,y4) we calculate   }
+{ the intersection point of the two lines. If line segment only flag set    }
+{ the intersection must be within the line segments, otherwise interesction }
+{ assumes each line is extended to infinite length and returns intersection }
+{																			}
+{ The pointers to results intersect Ipx, Ipy, can be NULL if that result    }
+{ is not required.															}
+{																			}
+{ RETURN FALSE:																}
+{	If the two lines are parallel.											}
+{	If the two lines are coincident (one and the same line).				}
+{	Line segment flag set and intersection point is outside the segments	}
+{																			}
+{ RETURN TRUE:																}
+{	Ipx, Ipy will be the intersection point returned						}
+{																			}
+{ 8aug2017 LdB																}
+---------------------------------------------------------------------------*/
+bool LineIntersect2D (_In_ int32_t x1, _In_ int32_t y1,				// First line segement first coord
+					  _In_ int32_t x2, _In_ int32_t y2,				// First line segement second coord
+					  _In_ int32_t x3, _In_	int32_t y3,				// Second line segment first coord
+					  _In_ int32_t x4, _In_ int32_t y4, 			// Second line segment second cord
+					  _Out_ int32_t* Ipx, _Out_ int32_t* Ipy,		// Interection point return
+					  bool LineSegmentOnly) 						// Line segment intersect only flag
+{
+	int_fast32_t UaNum, Denom, Xa, Xb, Xc, Ya, Yb, Yc;
+	CFLOAT Ua;
+
+	Xa = x4 - x3;													// Line 2 dx
+	Xc = x2 - x1;													// Line 1 dx
+	Yb = y4 - y3;													// Line 2 dy
+	Yc = y2 - y1;													// Line 2 dy
+	Denom = (Yb*Xc) - (Xa*Yc);										// Denominator of two equations
+	if (Denom == 0) return (false);									// The two lines are parallel and/or coincident
+	Xb = x1 - x3;													// Dx between first x coord of each line
+	Ya = y1 - y3;													// Dy between first y corrd of each line
+	UaNum = (Xa*Ya) - (Yb*Xb);										// Ua numerator
+	Ua = (CFLOAT)UaNum / (CFLOAT)Denom;								// Calculate Ua
+	if (LineSegmentOnly) {											// Want intersect point of line segments
+		int_fast32_t  UbNum;
+		CFLOAT Ub;
+		if (Ua < CFLOAT_ZERO || Ua > CFLOAT_ONE) return (false);	// Line intersection outside line segement 1
+		UbNum = (Xc*Ya) - (Yc*Xb);									// Ub numerator 
+		Ub = (CFLOAT)UbNum / (CFLOAT)Denom;							// Calculate Ub
+		if (Ub < CFLOAT_ZERO || Ub > CFLOAT_ONE) return (false);	// Line intersection outside line segement 2
+	}
+	if (Ipx) (*Ipx) = x1 + (int_fast32_t)(Ua*Xc);					// Calculate and return intersect x point		
+	if (Ipy) (*Ipy) = y1 + (int_fast32_t)(Ua*Yc);					// Calculate and return intersect y point
+	return (true);													// return true for success
+}
+
+/*-VERTEX_TYPE--------------------------------------------------------------}
+{  Units your vertex points are in typically int32_t, uint64_t or doubles.  }
+{--------------------------------------------------------------------------*/
+typedef int_fast32_t VERTEX_TYPE;									// For our example we are 32 bit ints
+
+/*-VERTEX FLAGS-------------------------------------------------------------}
+{ These are flags for our vertex points above so our shape is made of lines }
+{ and bezier linked up (IE exactly what Win32 GetGlyphOutline returns).		}
+{--------------------------------------------------------------------------*/
+#define VF_NORMAL 			0x00
+
+#define VF_DIRECTIONS		0x07									// Lower 3 bits = direction flags (0-7)
+#define VF_LIFTCLOSE 		0x08									// Open contour .. close vertexes in air
+
+#define VF_BEZONGRID 		0x10									// Bezier on grid point
+#define VF_QUADBEZOFFGRID 	0x20									// Quad bezier off grid point
+#define VF_CUBICBEZOFFGRID 	0x40									// Cubic bezier off grid point
+
+#define VF_BEZOFFGRID 		0x60									// Any bezier off grid point
+#define VF_BEZIER 			0x70									// Any bezier on or off grid point
+
+#define VF_JOINEDCONTOUR 	0x80									// Contour joins to next
+
+/*-CONTOUR DIRECTION--------------------------------------------------------}
+{                        Contour direction enumeration						}
+{--------------------------------------------------------------------------*/
+enum CONTOUR_DIR {
+	CW_DIR = 0,														// Clockwise contour direction
+	CCW_DIR = 1,													// Counter clockwise contour direction
+	UNKNOWN_DIR = 2													// Unknown contour direction
+};
+
+/*---------------------------------------------------------------------------}
+{                        VERTEX2D RECORD DEFINITION                          }
+{---------------------------------------------------------------------------*/
+typedef struct Vertex2D {
+	uint_fast32_t v_flags;											// Vertex flags
+	VERTEX_TYPE x;													// Vertex x co-ord
+	VERTEX_TYPE y;													// Vertex y co-ord
+	struct Vertex2D* next;											// Next vertex
+	struct Vertex2D* prev;											// Prev vertex
+} VERTEX2D, *PVERTEX2D;
+
+
+/*--------------------------------------------------------------------------}
+{                       CONTOUR2D RECORD DEFINITION							}
+{--------------------------------------------------------------------------*/
+typedef struct Contour2D {
+	enum CONTOUR_DIR dir;											// Direction of contour
+	uint32_t index;													// Label index of contour 
+	VERTEX_TYPE xmin;												// Contour min x value
+	VERTEX_TYPE ymin;												// Contour min y value
+	VERTEX_TYPE xmax;												// Contour max x value
+	VERTEX_TYPE ymax;												// Contour max y value
+	PVERTEX2D firstvertex;											// First vertex on this contour
+	struct Contour2D* inside_contours;								// Inside paired contours
+	struct Contour2D* nextpeer;										// Next peer contour
+	struct Contour2D* prevpeer;										// Prev peer contour
+} CONTOUR2D, *PCONTOUR2D;
+
+
+VERTEX2D InBox1[4] = {
+	{ .x = 6, .y = 5, .next = &InBox1[1], .prev = &InBox1[3] },
+	{ .x = 10, .y = 5, .next = &InBox1[2], .prev = &InBox1[0] },
+	{ .x = 10, .y = 9, .next = &InBox1[3], .prev = &InBox1[1] },
+	{ .x = 6, .y = 9, .next = &InBox1[0], .prev = &InBox1[2] }
+};
+
+CONTOUR2D InnerBox = {
+	.dir = CW_DIR,
+	.index = 1,
+	.xmin = 6,
+	.ymin = 5,
+	.xmax = 10,
+	.ymax = 9,
+	.firstvertex = &InBox1[1],
+	.inside_contours = 0,
+	.nextpeer = 0,
+	.prevpeer = 0,
+};
+
+VERTEX2D Box[4] = {
+	{.x =0, .y= 0, .next=&Box[1], .prev=&Box[3]},
+	{.x =23, .y=0, .next=&Box[2], .prev=&Box[0]},
+	{.x =23, .y=23, .next=&Box[3], .prev=&Box[1]},
+	{.x =0,	 .y=23, .next=&Box[0], .prev=&Box[2]}
+};
+
+CONTOUR2D Level = {
+	.dir = CW_DIR,
+	.index = 0,
+	.xmin = 0,
+	.ymin = 0,
+	.xmax = 23,
+	.ymax = 23,
+	.firstvertex = &Box[1],
+	.inside_contours = &InnerBox,
+	.nextpeer = 0,
+	.prevpeer = 0,
+};
+
+
+#define CFLOAT double
 
 int grWth = 1280;
 int grHt = 1024;
 int main (void) {
+	if (SetMaxCPUSpeed() == false) DeadLoop();
 	PiConsole_Init(grWth, grHt, 32);
 	printf("SmartStart compiled for Arm%d, AARCH%d with %u core s/w support\n",
 		RPi_CompileMode.CodeType, RPi_CompileMode.AArchMode * 32 + 32,
 		(unsigned int)RPi_CompileMode.CoresSupported);							// Write text
-	double posX = 22, posY = 12;  //x and y start position
-	double dirX = -1, dirY = 0; //initial direction vector
-	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	int posX = 12, posY = 16;  //x and y start position
+	CFLOAT dirX = -1, dirY = -1; //initial direction vector
+	CFLOAT planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
 
 	//double time = 0; //time of current frame
 	//double oldTime = 0; //time of previous frame
@@ -120,78 +282,81 @@ int main (void) {
     /* Enable interrupts! */
     EnableInterrupts();
 
-	int w = 1280; //800;
-	int h = 600;  //400;
 	while (1) {
 
-		for(int x = 0; x < w; x++) {
+		for (uint_fast32_t x = 0; x < grWth; x++) {
+
 			//calculate ray position and direction
-			double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-			double rayPosX = posX;
-			double rayPosY = posY;
-			double rayDirX = dirX + planeX * cameraX;
-			double rayDirY = dirY + planeY * cameraX;
-			//which box of the map we're in
-			int mapX = (int)rayPosX;
-			int mapY = (int)rayPosY;
+			CFLOAT cameraX = 2 * x / (CFLOAT)grWth - 1; //x-coordinate in camera space
+			int_fast32_t rayPosX = posX;
+			int_fast32_t rayPosY = posY;
+			CFLOAT rayDirX = dirX + planeX * cameraX;
+			CFLOAT rayDirY = dirY + planeY * cameraX;
+			
+			// box of the map we start in
+			int_fast32_t mapX = rayPosX;
+			int_fast32_t mapY = rayPosY;
 
 			//length of ray from current position to next x or y-side
-			double sideDistX;
-			double sideDistY;
+			CFLOAT sideDistX;
+			CFLOAT sideDistY;
 
 			//length of ray from one x or y-side to next x or y-side
-			double deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-			double deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-			double perpWallDist;
+			CFLOAT deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
+			CFLOAT deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
+
 
 			//what direction to step in x or y-direction (either +1 or -1)
-			int stepX;
-			int stepY;
+			int_fast8_t stepX;
+			int_fast8_t stepY;
 
-			int hit = 0; //was there a wall hit?
-			int side; //was a NS or a EW wall hit?
-			//calculate step and initial sideDist
+
+					  //calculate step and initial sideDist
 			if (rayDirX < 0){
 				stepX = -1;
 				sideDistX = (rayPosX - mapX) * deltaDistX;
 			} else {
 				stepX = 1;
-				sideDistX = (mapX + 1.0 - rayPosX) * deltaDistX;
+				sideDistX = (mapX + 1 - rayPosX) * deltaDistX;
 			}
 			if (rayDirY < 0) {
 				stepY = -1;
 				sideDistY = (rayPosY - mapY) * deltaDistY;
 			} else {
 				stepY = 1;
-				sideDistY = (mapY + 1.0 - rayPosY) * deltaDistY;
+				sideDistY = (mapY + 1 - rayPosY) * deltaDistY;
 			}
+
+			
+
 			//perform DDA
-			while (hit == 0) {
+			bool hit = false;	// was there a wall hit?
+			bool hit_NS;		//was a NS or a EW wall hit?
+			while (!hit) {
 				//jump to next map square, OR in x-direction, OR in y-direction
 				if (sideDistX < sideDistY) {
 					sideDistX += deltaDistX;
 					mapX += stepX;
-					side = 0;
+					hit_NS = false;
 				} else {
 					sideDistY += deltaDistY;
 					mapY += stepY;
-					side = 1;
+					hit_NS = true;
 				}
 				//Check if ray has hit a wall
-				if (worldMap[mapX][mapY] > 0) hit = 1;
+				if (worldMap[mapX][mapY] > 0) hit = true;
 			}
+	
 			//Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
-			if (side == 0) perpWallDist = (mapX - rayPosX + (1 - stepX) / 2) / rayDirX;
-			else           perpWallDist = (mapY - rayPosY + (1 - stepY) / 2) / rayDirY;
-
-			//Calculate height of line to draw on screen
-			int lineHeight = (int)(h / perpWallDist);
+			int lineHeight;
+			if (hit_NS) lineHeight = grHt / ((CFLOAT)(mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
+				else lineHeight = grHt/((CFLOAT)(mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
 
 			//calculate lowest and highest pixel to fill in current stripe
-			int drawStart = -lineHeight / 2 + h / 2;
+			int drawStart = -lineHeight / 2 + grHt / 2;
 			if(drawStart < 0)drawStart = 0;
-			int drawEnd = lineHeight / 2 + h / 2;
-			if(drawEnd >= h)drawEnd = h - 1;
+			int drawEnd = lineHeight / 2 + grHt / 2;
+			if(drawEnd >= grHt)drawEnd = grHt - 1;
 
 			//choose wall color
 			RGBACOLOR color;
@@ -204,7 +369,7 @@ int main (void) {
 			}
 
 			//give x and y sides different brightness
-			if (side == 1) {color.R = color.R / 2; color.G = color.G / 2; color.B = color.B / 2; }
+			if (hit_NS) {color.R = color.R / 2; color.G = color.G / 2; color.B = color.B / 2; }
 
 			//draw the pixels of the stripe as a vertical line
 			//verLine(x, drawStart, drawEnd, color);
@@ -232,7 +397,7 @@ int main (void) {
 
 		//speed modifiers
 		//double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-		double rotSpeed = 0.02; // frameTime * 3.0; //the constant value is in radians/second
+		CFLOAT rotSpeed = 0.02; // frameTime * 3.0; //the constant value is in radians/second
 		
 
 		//readKeys();
@@ -252,12 +417,16 @@ int main (void) {
 		//if (keyDown(SDLK_RIGHT))
 		//{
 			//both camera direction and camera plane must be rotated
-			double oldDirX = dirX;
-			dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-			dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-			double oldPlaneX = planeX;
-			planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-			planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+			CFLOAT oldDirX = dirX;
+			CFLOAT cf, sf;
+			cf = cos(-rotSpeed);
+			sf = sin(-rotSpeed);
+
+			dirX = dirX * cf - dirY * sf;
+			dirY = oldDirX * sf + dirY * cf;
+			CFLOAT oldPlaneX = planeX;
+			planeX = planeX * cf - planeY * sf;
+			planeY = oldPlaneX * sf + planeY * cf;
 		//}
 		//rotate to the left
 		//if (keyDown(SDLK_LEFT))

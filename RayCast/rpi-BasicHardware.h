@@ -702,6 +702,8 @@ uint32_t mailbox_read (MAILBOX_CHANNEL channel);
 {--------------------------------------------------------------------------*/
 bool set_Activity_LED (bool on);
 
+bool SetMaxCPUSpeed(void);
+
 void DeadLoop (void);
 
 bool PiConsole_Init (int Width, int Height, int Depth);
@@ -709,9 +711,7 @@ void PiConsole_WriteChar (char Ch);
 void PiConsole_VertLine (int X1, int Y1, int Y2, uint32_t col);
 void WriteText (int x, int y, char* txt);
 
-#ifdef __aarch64__
 int printf(const char *fmt, ...);
-#endif
 
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper

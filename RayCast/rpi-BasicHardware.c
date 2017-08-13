@@ -295,6 +295,35 @@ bool set_Activity_LED (bool on) {
 	return false;
 }
 
+bool SetMaxCPUSpeed (void) {
+	uint32_t __attribute__((aligned(16))) message[8];
+	message[0] = sizeof(message);									// Set total message size
+	message[1] = 0;													// Zero response message
+	message[2] = MAILBOX_TAG_GET_MAX_CLOCK_RATE;					// Get max clock rate
+	message[3] = 8;													// Response Buffer length is 8 bytes
+	message[4] = 4;													// Request length data length = 4
+	message[5] = 0x000000003;										// ARM clock
+	message[6] = 0;													// Value
+	message[7] = 0;													// END no more tags
+	mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
+	mailbox_read(MB_CHANNEL_TAGS);									// Write message and clear response
+	if ((message[1] == 0x80000000) && (message[4] == 0x80000008)) {
+		message[0] = sizeof(message);								// Set total message size
+		message[1] = 0;												// Zero response message
+		message[2] = MAILBOX_TAG_SET_CLOCK_RATE;					// Set clock rate
+		message[3] = 8;												// Response Buffer length is 8 bytes
+		message[4] = 8;												// Request length data length = 8
+		message[5] = 0x000000003;									// ARM clock
+		message[7] = 0;												// END no more tags
+		mailbox_write(MB_CHANNEL_TAGS, ARMaddrToGPUaddr(&message[0]));
+		mailbox_read(MB_CHANNEL_TAGS);									// Write message and clear response
+		if ((message[1] == 0x80000000) && (message[4] == 0x80000008))
+			return true;											// CPU taken to max speed
+	}
+	return false;													// CPU set failed
+}
+
+
 void DeadLoop(void) {
 	while (1) {
 		set_Activity_LED(true);
@@ -309,7 +338,7 @@ void DeadLoop(void) {
 
 static void VertLine32 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint32_t Y2, uint32_t col) {
 	uint32_t* __attribute__((aligned(4))) video_wr_ptr = (uint32_t*)(uintptr_t)(Fb->buffer + (Y1 * Fb->width * 4) + (X1 * 4));
-	for (int y = 0; y < Y2-Y1; y++) {
+	for (uint_fast32_t y = 0; y < Y2-Y1; y++) {
 		video_wr_ptr[0] = col;
 		video_wr_ptr += Fb->width;
 	}
@@ -318,9 +347,9 @@ static void VertLine32 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint32_t Y2, 
 
 static void WriteChar32 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint8_t Ch) {
 	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(Fb->buffer + (Y1 * Fb->width * 4) + (X1 * 4));
-	for (int y = 0; y < 4; y++) {
+	for (uint_fast32_t y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];
-		for (int i = 0; i < 32; i++) {
+		for (uint_fast32_t i = 0; i < 32; i++) {
 			RGBA col = Fb->BkColor;
 			int xoffs = i % 8;
 			if ((b & 0x80000000) != 0) col = Fb->TxtColor;
@@ -347,7 +376,7 @@ static void WriteChar24 (FRAMEBUFFER* Fb, uint32_t X1, uint32_t Y1, uint8_t Ch) 
 			   .B = Fb->BkColor.B };
 	for (int y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];
-		for (int i = 0; i < 32; i++) {
+		for (uint_fast8_t i = 0; i < 32; i++) {
 			RGB col = Bc;
 			int xoffs = i % 8;
 			if ((b & 0x80000000) != 0) col = Fc;
