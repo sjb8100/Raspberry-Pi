@@ -7,6 +7,7 @@ set "linkflags=-Wl,--print-gc -Wl,-Bdynamic -Wl,-Map,kernel.map -Wl,--build-id=n
 set "outflags=-Wa,-a=list.txt -o kernel.elf"
 set "libflags=-lc -lg -lm -lgcc"
 @echo on
+@REM THIS IS THE ACTUAL COMPILER COMMAND LINE IT JUST TEXT JOINS ALL THE STUFF ABOVE
 %bindir%arm-none-eabi-gcc  %cflags% %sflags% %linkflags% -Wl,-T,rpi32.ld main.c  SmartStart32.S rpi-BasicHardware.c %outflags% %libflags%
 @echo off
 if %errorlevel% EQU 1 (goto build_fail)
