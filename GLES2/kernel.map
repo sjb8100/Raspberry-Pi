@@ -1,11 +1,11 @@
 Archive member included to satisfy reference by file (symbol)
 
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o (memcpy)
+                              C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o (memcpy)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o (errno)
+                              C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o (errno)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o (strlen)
+                              C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o (strlen)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
                               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o) (_free_r)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
@@ -19,7 +19,7 @@ g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/li
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
                               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o) (__retarget_lock_acquire_recursive)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
-                              C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o (__aeabi_uidiv)
+                              C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o (__aeabi_uidiv)
 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
                               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
 
@@ -30,7 +30,7 @@ __lock___atexit_recursive_mutex
                     0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
 __lock___arc4random_mutex
                     0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
-__errno             0x4               C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+__errno             0x4               C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
 errno               0x4               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
 __lock___env_recursive_mutex
                     0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
@@ -48,21 +48,21 @@ __lock___sfp_recursive_mutex
 
 Discarded input sections
 
- .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
- .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
- .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
- COMMON         0x00000000        0x4 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
- .text          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
- .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
- .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
- .text._sbrk    0x00000000       0x2c C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
- .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
- .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
- .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
- .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
- .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
- .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
- .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
+ COMMON         0x00000000        0x4 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
+ .text          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+ .text._sbrk    0x00000000       0x2c C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
  .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
  .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
  .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
@@ -180,28 +180,28 @@ RAM              0x00008000         0x08000000         xrw
 Linker script and memory map
 
 
-.text           0x00008000     0x4798
+.text           0x00008000     0x49d0
                 0x00008000                . = ALIGN (0x4)
                 0x00008000                __text_start__ = .
                 0x00008000                _start = .
  *(.text.startup)
- .text.startup  0x00008000      0x43c C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
+ .text.startup  0x00008000      0x43c C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
                 0x0000839c                RPi_CpuIdString
                 0x000083f4                EnableInterrupts
                 0x000083fc                DisableInterrupts
                 0x00008404                CoreExecute
  *(.text .text.* .gnu.linkonce.t.*)
- .text          0x0000843c       0x9c C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+ .text          0x0000843c       0x9c C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
                 0x0000843c                kernel_main
  .text.ARMaddrToGPUaddr
-                0x000084d8       0x14 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
+                0x000084d8       0x14 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
                 0x000084d8                ARMaddrToGPUaddr
  .text.GPUaddrToARMaddr
-                0x000084ec       0x5c C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
+                0x000084ec       0x5c C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
                 0x000084ec                GPUaddrToARMaddr
                 0x00008500                c_irq_handler
                 0x00008504                c_irq_identify_and_clear_source
- .text          0x00008548     0x1f64 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
+ .text          0x00008548     0x1f64 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
                 0x00009450                gpio_setup
                 0x000094bc                gpio_output
                 0x00009528                gpio_input
@@ -241,12 +241,12 @@ Linker script and memory map
                 0x0000a3d0                _fstat
                 0x0000a3e0                _exit
                 0x0000a3e4                _write
- .text          0x0000a4ac     0x13e8 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
+ .text          0x0000a4ac     0x13e8 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
                 0x0000ab94                strnlen
                 0x0000abdc                emb_vsprintf
                 0x0000b804                emb_sprintf
                 0x0000b834                printf
- .text          0x0000b894      0xc78 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
+ .text          0x0000b894      0xeb0 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
                 0x0000b894                InitV3D
                 0x0000b920                V3D_mem_alloc
                 0x0000b958                V3D_mem_free
@@ -255,188 +255,188 @@ Linker script and memory map
                 0x0000b9f0                V3D_execute_code
                 0x0000ba3c                V3D_execute_qpu
                 0x0000ba70                testTriangle
- .text.memcpy   0x0000c50c      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
-                0x0000c50c                memcpy
- .text.strlen   0x0000c620       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
-                0x0000c620                strlen
- .text          0x0000c680      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
-                0x0000c680                __aeabi_uidiv
-                0x0000c680                __udivsi3
-                0x0000c774                __aeabi_uidivmod
- .text          0x0000c794        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
-                0x0000c794                __aeabi_idiv0
-                0x0000c794                __aeabi_ldiv0
+ .text.memcpy   0x0000c744      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+                0x0000c744                memcpy
+ .text.strlen   0x0000c858       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+                0x0000c858                strlen
+ .text          0x0000c8b8      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+                0x0000c8b8                __aeabi_uidiv
+                0x0000c8b8                __udivsi3
+                0x0000c9ac                __aeabi_uidivmod
+ .text          0x0000c9cc        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+                0x0000c9cc                __aeabi_idiv0
+                0x0000c9cc                __aeabi_ldiv0
  *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
  *(.init .init.*)
-                0x0000c798                . = ALIGN (0x4)
-                0x0000c798                __text_end__ = .
+                0x0000c9d0                . = ALIGN (0x4)
+                0x0000c9d0                __text_end__ = .
 
-.glue_7         0x0000c798        0x0
- .glue_7        0x0000c798        0x0 linker stubs
+.glue_7         0x0000c9d0        0x0
+ .glue_7        0x0000c9d0        0x0 linker stubs
 
-.glue_7t        0x0000c798        0x0
- .glue_7t       0x0000c798        0x0 linker stubs
+.glue_7t        0x0000c9d0        0x0
+ .glue_7t       0x0000c9d0        0x0 linker stubs
 
-.vfp11_veneer   0x0000c798        0x0
- .vfp11_veneer  0x0000c798        0x0 linker stubs
+.vfp11_veneer   0x0000c9d0        0x0
+ .vfp11_veneer  0x0000c9d0        0x0 linker stubs
 
-.v4_bx          0x0000c798        0x0
- .v4_bx         0x0000c798        0x0 linker stubs
+.v4_bx          0x0000c9d0        0x0
+ .v4_bx         0x0000c9d0        0x0 linker stubs
 
-.iplt           0x0000c798        0x0
- .iplt          0x0000c798        0x0 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+.iplt           0x0000c9d0        0x0
+ .iplt          0x0000c9d0        0x0 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
 
-.bss            0x0000c798       0x50
-                0x0000c798                . = ALIGN (0x4)
-                0x0000c798                __bss_start__ = .
+.bss            0x0000c9d0       0x50
+                0x0000c9d0                . = ALIGN (0x4)
+                0x0000c9d0                __bss_start__ = .
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x0000c798       0x4c C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
-                0x0000c79c                console
+ .bss           0x0000c9d0       0x4c C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
+                0x0000c9d4                console
  *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
  *(COMMON)
- COMMON         0x0000c7e4        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
-                0x0000c7e4                errno
-                0x0000c7e8                . = ALIGN (0x4)
-                0x0000c7e8                __bss_end__ = .
+ COMMON         0x0000ca1c        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+                0x0000ca1c                errno
+                0x0000ca20                . = ALIGN (0x4)
+                0x0000ca20                __bss_end__ = .
 
-.rodata         0x0000c7e8     0x113c
-                0x0000c7e8                . = ALIGN (0x4)
-                0x0000c7e8                __rodata_start__ = .
+.rodata         0x0000ca20     0x113c
+                0x0000ca20                . = ALIGN (0x4)
+                0x0000ca20                __rodata_start__ = .
  *(.rodata .rodata.*)
- .rodata.cpuid  0x0000c7e8       0x36 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
- *fill*         0x0000c81e        0x2 
- .rodata        0x0000c820     0x1000 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
+ .rodata.cpuid  0x0000ca20       0x36 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+ *fill*         0x0000ca56        0x2 
+ .rodata        0x0000ca58     0x1000 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
  .rodata.str1.4
-                0x0000d820       0xd0 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
- .rodata        0x0000d8f0       0x10 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
+                0x0000da58       0xd0 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
+ .rodata        0x0000db28       0x10 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
  .rodata.str1.4
-                0x0000d900       0x24 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
+                0x0000db38       0x24 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
                                  0x21 (size before relaxing)
  *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
-                0x0000d924                . = ALIGN (0x4)
-                0x0000d924                __rodata_end__ = .
+                0x0000db5c                . = ALIGN (0x4)
+                0x0000db5c                __rodata_end__ = .
 
-.rel.dyn        0x0000d924        0x0
- .rel.iplt      0x0000d924        0x0 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+.rel.dyn        0x0000db5c        0x0
+ .rel.iplt      0x0000db5c        0x0 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
 
-.data           0x0000d924       0x28
-                0x0000d924                . = ALIGN (0x4)
-                0x0000d924                __data_start__ = .
+.data           0x0000db5c       0x28
+                0x0000db5c                . = ALIGN (0x4)
+                0x0000db5c                __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.smartstart
-                0x0000d924        0xc C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
-                0x0000d928                RPi_CPUCurrentMode
-                0x0000d92c                RPi_Heap
+                0x0000db5c        0xc C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+                0x0000db60                RPi_CPUCurrentMode
+                0x0000db64                RPi_Heap
  .data.smartstart32
-                0x0000d930       0x18 C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
-                0x0000d930                RPi_IO_Base_Addr
-                0x0000d934                RPi_BootAddr
-                0x0000d938                RPi_CoresReady
-                0x0000d93c                RPi_CPUBootMode
-                0x0000d940                RPi_CpuId
-                0x0000d944                RPi_CompileMode
- .data          0x0000d948        0x4 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
+                0x0000db68       0x18 C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+                0x0000db68                RPi_IO_Base_Addr
+                0x0000db6c                RPi_BootAddr
+                0x0000db70                RPi_CoresReady
+                0x0000db74                RPi_CPUBootMode
+                0x0000db78                RPi_CpuId
+                0x0000db7c                RPi_CompileMode
+ .data          0x0000db80        0x4 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
  *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
-                0x0000d94c                . = ALIGN (0x4)
-                0x0000d94c                __data_end__ = .
+                0x0000db84                . = ALIGN (0x4)
+                0x0000db84                __data_end__ = .
 
-.igot.plt       0x0000d94c        0x0
- .igot.plt      0x0000d94c        0x0 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+.igot.plt       0x0000db84        0x0
+ .igot.plt      0x0000db84        0x0 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
 
-.data1          0x0000d94c        0x4
-                0x0000d950                . = ALIGN (0x10)
- *fill*         0x0000d94c        0x4 
-                0x0000d950                __data1_start__ = .
+.data1          0x0000db84        0xc
+                0x0000db90                . = ALIGN (0x10)
+ *fill*         0x0000db84        0xc 
+                0x0000db90                __data1_start__ = .
  *(.data1 .data1.*)
  *(.rel.data1 .rel.data1.*)
-                0x0000d950                . = ALIGN (0x10)
-                0x0000d950                __data1_end__ = .
+                0x0000db90                . = ALIGN (0x10)
+                0x0000db90                __data1_end__ = .
 
-.stack          0x0000d950     0xa200
-                0x0000d950                . = ALIGN (0x8)
-                0x0000d950                __stack_start__core0 = .
-                0x0000db50                . = (. + 0x200)
- *fill*         0x0000d950      0x200 
-                0x0000db50                __HYP_stack_core0 = .
-                0x00015b50                . = (. + 0x8000)
- *fill*         0x0000db50     0x8000 
-                0x00015b50                __SVC_stack_core0 = .
-                0x00016b50                . = (. + 0x1000)
- *fill*         0x00015b50     0x1000 
-                0x00016b50                __IRQ_stack_core0 = .
-                0x00017b50                . = (. + 0x1000)
- *fill*         0x00016b50     0x1000 
-                0x00017b50                __FIQ_stack_core0 = .
-                0x00017b50                . = ALIGN (0x8)
-                0x00017b50                __stack_end__core0 = .
+.stack          0x0000db90     0xa200
+                0x0000db90                . = ALIGN (0x8)
+                0x0000db90                __stack_start__core0 = .
+                0x0000dd90                . = (. + 0x200)
+ *fill*         0x0000db90      0x200 
+                0x0000dd90                __HYP_stack_core0 = .
+                0x00015d90                . = (. + 0x8000)
+ *fill*         0x0000dd90     0x8000 
+                0x00015d90                __SVC_stack_core0 = .
+                0x00016d90                . = (. + 0x1000)
+ *fill*         0x00015d90     0x1000 
+                0x00016d90                __IRQ_stack_core0 = .
+                0x00017d90                . = (. + 0x1000)
+ *fill*         0x00016d90     0x1000 
+                0x00017d90                __FIQ_stack_core0 = .
+                0x00017d90                . = ALIGN (0x8)
+                0x00017d90                __stack_end__core0 = .
 
-.stack_core1    0x00017b50     0x1600
-                0x00017b50                . = ALIGN (0x8)
-                0x00017b50                __stack_start__core1 = .
-                0x00017d50                . = (. + 0x200)
- *fill*         0x00017b50      0x200 
-                0x00017d50                __HYP_stack_core1 = .
-                0x00018d50                . = (. + 0x1000)
- *fill*         0x00017d50     0x1000 
-                0x00018d50                __SVC_stack_core1 = .
-                0x00018f50                . = (. + 0x200)
- *fill*         0x00018d50      0x200 
-                0x00018f50                __IRQ_stack_core1 = .
-                0x00019150                . = (. + 0x200)
- *fill*         0x00018f50      0x200 
-                0x00019150                __FIQ_stack_core1 = .
-                0x00019150                . = ALIGN (0x8)
-                0x00019150                __stack_end__core1 = .
+.stack_core1    0x00017d90     0x1600
+                0x00017d90                . = ALIGN (0x8)
+                0x00017d90                __stack_start__core1 = .
+                0x00017f90                . = (. + 0x200)
+ *fill*         0x00017d90      0x200 
+                0x00017f90                __HYP_stack_core1 = .
+                0x00018f90                . = (. + 0x1000)
+ *fill*         0x00017f90     0x1000 
+                0x00018f90                __SVC_stack_core1 = .
+                0x00019190                . = (. + 0x200)
+ *fill*         0x00018f90      0x200 
+                0x00019190                __IRQ_stack_core1 = .
+                0x00019390                . = (. + 0x200)
+ *fill*         0x00019190      0x200 
+                0x00019390                __FIQ_stack_core1 = .
+                0x00019390                . = ALIGN (0x8)
+                0x00019390                __stack_end__core1 = .
 
-.stack_core2    0x00019150     0x1600
-                0x00019150                . = ALIGN (0x8)
-                0x00019150                __stack_start__core2 = .
-                0x00019350                . = (. + 0x200)
- *fill*         0x00019150      0x200 
-                0x00019350                __HYP_stack_core2 = .
-                0x0001a350                . = (. + 0x1000)
- *fill*         0x00019350     0x1000 
-                0x0001a350                __SVC_stack_core2 = .
-                0x0001a550                . = (. + 0x200)
- *fill*         0x0001a350      0x200 
-                0x0001a550                __IRQ_stack_core2 = .
-                0x0001a750                . = (. + 0x200)
- *fill*         0x0001a550      0x200 
-                0x0001a750                __FIQ_stack_core2 = .
-                0x0001a750                . = ALIGN (0x8)
-                0x0001a750                __stack_end__core2 = .
+.stack_core2    0x00019390     0x1600
+                0x00019390                . = ALIGN (0x8)
+                0x00019390                __stack_start__core2 = .
+                0x00019590                . = (. + 0x200)
+ *fill*         0x00019390      0x200 
+                0x00019590                __HYP_stack_core2 = .
+                0x0001a590                . = (. + 0x1000)
+ *fill*         0x00019590     0x1000 
+                0x0001a590                __SVC_stack_core2 = .
+                0x0001a790                . = (. + 0x200)
+ *fill*         0x0001a590      0x200 
+                0x0001a790                __IRQ_stack_core2 = .
+                0x0001a990                . = (. + 0x200)
+ *fill*         0x0001a790      0x200 
+                0x0001a990                __FIQ_stack_core2 = .
+                0x0001a990                . = ALIGN (0x8)
+                0x0001a990                __stack_end__core2 = .
 
-.stack_core3    0x0001a750     0x1600
-                0x0001a750                . = ALIGN (0x8)
-                0x0001a750                __stack_start__core3 = .
-                0x0001a950                . = (. + 0x200)
- *fill*         0x0001a750      0x200 
-                0x0001a950                __HYP_stack_core3 = .
-                0x0001b950                . = (. + 0x1000)
- *fill*         0x0001a950     0x1000 
-                0x0001b950                __SVC_stack_core3 = .
-                0x0001bb50                . = (. + 0x200)
- *fill*         0x0001b950      0x200 
-                0x0001bb50                __IRQ_stack_core3 = .
-                0x0001bd50                . = (. + 0x200)
- *fill*         0x0001bb50      0x200 
-                0x0001bd50                __FIQ_stack_core3 = .
-                0x0001bd50                . = ALIGN (0x8)
-                0x0001bd50                __stack_end__core3 = .
+.stack_core3    0x0001a990     0x1600
+                0x0001a990                . = ALIGN (0x8)
+                0x0001a990                __stack_start__core3 = .
+                0x0001ab90                . = (. + 0x200)
+ *fill*         0x0001a990      0x200 
+                0x0001ab90                __HYP_stack_core3 = .
+                0x0001bb90                . = (. + 0x1000)
+ *fill*         0x0001ab90     0x1000 
+                0x0001bb90                __SVC_stack_core3 = .
+                0x0001bd90                . = (. + 0x200)
+ *fill*         0x0001bb90      0x200 
+                0x0001bd90                __IRQ_stack_core3 = .
+                0x0001bf90                . = (. + 0x200)
+ *fill*         0x0001bd90      0x200 
+                0x0001bf90                __FIQ_stack_core3 = .
+                0x0001bf90                . = ALIGN (0x8)
+                0x0001bf90                __stack_end__core3 = .
 
 .ARM.attributes
                 0x00000000       0x2f
  *(.ARM.attributes)
  .ARM.attributes
-                0x00000000       0x31 C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
+                0x00000000       0x31 C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
  .ARM.attributes
-                0x00000031       0x1f C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
+                0x00000031       0x1f C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
  .ARM.attributes
-                0x00000050       0x31 C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
+                0x00000050       0x31 C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
  .ARM.attributes
-                0x00000081       0x31 C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
+                0x00000081       0x31 C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
  .ARM.attributes
-                0x000000b2       0x31 C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
+                0x000000b2       0x31 C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
  .ARM.attributes
                 0x000000e3       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
  .ARM.attributes
@@ -448,10 +448,10 @@ Linker script and memory map
  .ARM.attributes
                 0x00000197       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
 
-.Heap           0x0001bd50        0x0
-                0x0001bd50                . = ALIGN (0x4)
-                0x0001bd50                __heap_start__ = .
-                0x0001bd50                _end = .
+.Heap           0x0001bf90        0x0
+                0x0001bf90                . = ALIGN (0x4)
+                0x0001bf90                __heap_start__ = .
+                0x0001bf90                _end = .
                 [!provide]                PROVIDE (end, .)
 
 /DISCARD/
@@ -468,11 +468,11 @@ Linker script and memory map
  *(.note.GNU-stack)
  *(.gnu_debuglink)
  *(.gnu.lto_*)
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccAFsSRi.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccUqCkc3.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\cceb0IfW.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccNy4URh.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccANQZ2h.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\cckxX1iv.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccYDDxrP.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccZjIH9S.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\cceLfg4r.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\cckBqFDz.o
 LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a
 LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libm.a
 LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libg.a

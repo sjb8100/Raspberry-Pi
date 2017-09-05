@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 1
 
 
    1              		.arch armv6zk
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   55 0078 FEFFFFEB 		bl	timer_wait
   56 007c 0600A0E1 		mov	r0, r6
   57 0080 FEFFFFEB 		bl	set_Activity_LED
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 2
 
 
   58 0084 0400A0E1 		mov	r0, r4
@@ -73,14 +73,14 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   67              		.size	kernel_main, .-kernel_main
   68              		.comm	__errno,4,4
   69              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:14     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:20     .text:00000000 kernel_main
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:65     .text:00000094 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:14     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:20     .text:00000000 kernel_main
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:65     .text:00000094 $d
                             *COM*:00000004 __errno
 
 UNDEFINED SYMBOLS
@@ -96,7 +96,7 @@ displaySmartStart
 set_Activity_LED
 timer_wait
 printf
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 1
 
 
    1              	# 1 "SmartStart32.S"
@@ -156,7 +156,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   52              	;@"========================================================================="
   53              	#define I_Bit  (1 << 7)							// Irq flag bit in cpsr (CPUMODE register)
   54              	#define F_Bit  (1 << 6)							// Fiq flag bit in cpsr (CPUMODE register)
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 2
 
 
   55              	
@@ -216,7 +216,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  109              	.NotInHypMode:
  110              	;@"================================================================"
  111              	;@  Setup stack pointers for each core and each CPU operation mode
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 3
 
 
  112              	;@"================================================================"
@@ -276,7 +276,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  166 00e0 500F01EE 		mcr p15,0,r0,c1,c0, #2					;@ Access Control Register = R0
  167 00e4 0101A0E3 		mov r0, #0x40000000						;@ R0 = Enable VFP
  168 00e8 100AE8EE 		vmsr fpexc, r0							;@ FPEXC = R0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 4
 
 
  169              	;@"================================================================"
@@ -336,7 +336,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  223 0154 1F2002E2 		and r2, r2, #0x1F						;@ Clear all but CPU mode bits in register r2
  224 0158 68119FE5 		ldr r1, =RPi_CPUCurrentMode
  225 015c 002081E5 		str r2, [r1]							;@ Hold the changed CPU mode
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 5
 
 
  226              	;@"================================================================"
@@ -396,7 +396,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  280 01c0 FEFFFFEA 	    b .pi_detect_fail
  281              	;@"================================================================"
  282              	;@  Raspberry PI IO base address was detected as 0x3f000000
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 6
 
 
  283              	;@  RPi_IO_Base_Addr => 0x3f000000
@@ -456,7 +456,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  337 0254 0111A0E3 	 	mov	r1, #1073741824						;@ 0x40000000
  338 0258 94209FE5 	    ldr r2, =multicore_start				;@ Address of CoreSetup call
  339 025c AC2081E5 		str	r2, [r1, #172]						;@ Write ExtraCoreSetup to 0x400000AC which signals core2 to jump
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 7
 
 
  340              	.WaitCore2ACK:
@@ -516,7 +516,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  390 034c 405085E2 		add	r5, #(0x400000CC-0x4000008C)	@ mbox
  391              	SecondarySpinLoop:
  392 0350 004295E7 		ldr	r4, [r5, r0, lsl #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 8
 
 
  393 0354 030054E1 		cmp	r4, r3
@@ -576,7 +576,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  440 0400 1EFF2FE1 		bx  lr									;@ Return
  441              	
  442              	
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 9
 
 
  443              	.globl CoreExecute
@@ -636,7 +636,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  496              	;@ C Function: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);
  497              	;@ Entry: R0 will have GPUAddress value
  498              	;@"================================================================"
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 10
 
 
  499              	GPUaddrToARMaddr:
@@ -696,7 +696,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  553 000c 000053E3 	        cmp     r3, #0
  554 0010 0130A001 	        moveq   r3, r1
  555 0014 000083E0 	        add     r0, r3, r0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 11
 
 
  556 0018 000082E5 	        str     r0, [r2]
@@ -751,7 +751,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  593              	
  594              	.globl RPi_CompileMode;					// Make sure RPi_CompileMode label is global
  595 0014 00000000 	RPi_CompileMode : .4byte 0;				// Compile mode is 4 byte variable in 32bit mode...
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 12
 
 
 DEFINED SYMBOLS
@@ -811,7 +811,7 @@ DEFINED SYMBOLS
       SmartStart32.S:376    .text.startup:00000330 _interrupt_vector_h
       SmartStart32.S:377    .text.startup:00000334 _fast_interrupt_vector_h
       SmartStart32.S:370    .text.startup:00000318 $d
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 13
 
 
       SmartStart32.S:520    .text.GPUaddrToARMaddr:0000001c _irq_handler_stub
@@ -868,7 +868,7 @@ __bss_start__
 __bss_end__
 kernel_main
 _end
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 1
 
 
    1              		.arch armv6zk
@@ -928,7 +928,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   55 007c 000053E1 		cmp	r3, r0
   56 0080 F8FFFF1A 		bne	.L4
   57 0084 017087E2 		add	r7, r7, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 2
 
 
   58 0088 090057E1 		cmp	r7, r9
@@ -988,7 +988,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  112 0130 05C086E1 		orr	ip, r6, r5
  113 0134 040051E1 		cmp	r1, r4
  114 0138 00E0C3E5 		strb	lr, [r3]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 3
 
 
  115 013c 01C0C3E5 		strb	ip, [r3, #1]
@@ -1048,7 +1048,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  169              		.fpu vfp
  170              		.type	_ZL10DiagLine16P8tagINTDCjjii, %function
  171              	_ZL10DiagLine16P8tagINTDCjjii:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 4
 
 
  172              		@ args = 4, pretend = 0, frame = 24
@@ -1108,7 +1108,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  226 02a4 0630A091 		movls	r3, r6
  227 02a8 0EC0A081 		movhi	ip, lr
  228 02ac 05C0A091 		movls	ip, r5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 5
 
 
  229 02b0 040051E1 		cmp	r1, r4
@@ -1168,7 +1168,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  283 035c A661A0E1 		lsr	r6, r6, #3
  284 0360 04208DE5 		str	r2, [sp, #4]
  285 0364 00308DE5 		str	r3, [sp]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 6
 
 
  286              	.L39:
@@ -1228,7 +1228,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  340 0404 8990A0E1 		lsl	r9, r9, #1
  341 0408 9C090CE0 		mul	ip, ip, r9
  342 040c 0CD04DE2 		sub	sp, sp, #12
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 7
 
 
  343 0410 10E090E5 		ldr	lr, [r0, #16]
@@ -1288,7 +1288,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  397              		.type	_ZL11ClearArea24P8tagINTDCjjjj, %function
  398              	_ZL11ClearArea24P8tagINTDCjjjj:
  399              		@ args = 4, pretend = 0, frame = 0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 8
 
 
  400              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1348,7 +1348,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  454 0564 010052E3 		cmp	r2, #1
  455 0568 00B0A0E3 		mov	fp, #0
  456 056c 0370A0E3 		mov	r7, #3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 9
 
 
  457 0570 206088E2 		add	r6, r8, #32
@@ -1408,7 +1408,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  511 0614 0510A0E1 		mov	r1, r5
  512 0618 FEFFFFEB 		bl	memcpy
  513 061c 01B08BE2 		add	fp, fp, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 10
 
 
  514 0620 0B0054E1 		cmp	r4, fp
@@ -1468,7 +1468,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  568 06cc 093080E0 		add	r3, r0, r9
  569 06d0 040055E1 		cmp	r5, r4
  570 06d4 01B08BE2 		add	fp, fp, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 11
 
 
  571 06d8 061083E0 		add	r1, r3, r6
@@ -1528,7 +1528,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  625 077c 82E082E0 		add	lr, r2, r2, lsl #1
  626 0780 070052E3 		cmp	r2, #7
  627 0784 013083E2 		add	r3, r3, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 12
 
 
  628 0788 0EC084E0 		add	ip, r4, lr
@@ -1588,7 +1588,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  682 0828 06005BE1 		cmp	fp, r6
  683 082c F8FFFF1A 		bne	.L102
  684 0830 04309DE5 		ldr	r3, [sp, #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 13
 
 
  685 0834 018088E2 		add	r8, r8, #1
@@ -1648,7 +1648,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  739              		.size	_ZL11ClearArea32P8tagINTDCjjjj, .-_ZL11ClearArea32P8tagINTDCjjjj
  740              		.align	2
  741              		.syntax unified
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 14
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 14
 
 
  742              		.arm
@@ -1708,7 +1708,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  796 0960 0431A0E1 		lsl	r3, r4, #2
  797 0964 0CC1A0E1 		lsl	ip, ip, #2
  798 0968 9E3C2CE0 		mla	ip, lr, ip, r3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 15
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 15
 
 
  799 096c 003090E5 		ldr	r3, [r0]
@@ -1768,7 +1768,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  853 0a14 040051E1 		cmp	r1, r4
  854 0a18 F3FFFF1A 		bne	.L140
  855              	.L139:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 16
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 16
 
 
  856 0a1c 915321E0 		mla	r1, r1, r3, r5
@@ -1828,7 +1828,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  910              		.align	2
  911              	.L153:
  912 0ac0 00000000 		.word	.LANCHOR0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 17
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 17
 
 
  913              		.size	_ZL11WriteChar32P8tagINTDCh, .-_ZL11WriteChar32P8tagINTDCh
@@ -1888,7 +1888,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  967              	mailbox_tag_message.constprop.4:
  968              		@ args = 4, pretend = 12, frame = 8
  969              		@ frame_needed = 1, uses_anonymous_args = 1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 18
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 18
 
 
  970 0b54 0E002DE9 		push	{r1, r2, r3}
@@ -1948,7 +1948,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1024              	.L176:
  1025              		.align	2
  1026              	.L175:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 19
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 19
 
 
  1027 0c20 00000000 		.word	RPi_IO_Base_Addr
@@ -2008,7 +2008,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1081 0ccc 080052E3 		cmp	r2, #8
  1082 0cd0 F8FFFF1A 		bne	.L179
  1083 0cd4 043094E5 		ldr	r3, [r4, #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 20
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 20
 
 
  1084 0cd8 020153E3 		cmp	r3, #-2147483648
@@ -2068,7 +2068,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1138 0d70 0CE084E5 		str	lr, [r4, #12]
  1139 0d74 10C084E5 		str	ip, [r4, #16]
  1140 0d78 182084E5 		str	r2, [r4, #24]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 21
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 21
 
 
  1141 0d7c 042084E5 		str	r2, [r4, #4]
@@ -2128,7 +2128,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1195              		@ frame_needed = 1, uses_anonymous_args = 1
  1196 0e10 0E002DE9 		push	{r1, r2, r3}
  1197 0e14 F0482DE9 		push	{r4, r5, r6, r7, fp, lr}
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 22
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 22
 
 
  1198 0e18 14B08DE2 		add	fp, sp, #20
@@ -2188,7 +2188,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1252 0edc 0300000A 		beq	.L214
  1253              	.L215:
  1254 0ee0 043096E4 		ldr	r3, [r6], #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 23
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 23
 
 
  1255 0ee4 040056E1 		cmp	r6, r4
@@ -2248,7 +2248,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1309 0f70 00000000 		.word	RPi_IO_Base_Addr
  1310              		.size	gpio_setup, .-gpio_setup
  1311              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 24
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 24
 
 
  1312              		.global	gpio_output
@@ -2308,7 +2308,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1366 0fe8 0110A0E3 		mov	r1, #1
  1367 0fec 30309FE5 		ldr	r3, .L245
  1368 0ff0 A022A0E1 		lsr	r2, r0, #5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 25
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 25
 
 
  1369 0ff4 003093E5 		ldr	r3, [r3]
@@ -2368,7 +2368,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1423              		.fpu vfp
  1424              		.type	gpio_clearEvent, %function
  1425              	gpio_clearEvent:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 26
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 26
 
 
  1426              		@ args = 0, pretend = 0, frame = 0
@@ -2428,7 +2428,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1480 10fc 1200001A 		bne	.L267
  1481 1100 64209FE5 		ldr	r2, .L268
  1482 1104 A032A0E1 		lsr	r3, r0, #5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 27
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 27
 
 
  1483 1108 002092E5 		ldr	r2, [r2]
@@ -2488,7 +2488,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1537 119c 0030A0E3 		mov	r3, #0
  1538 11a0 0010A0E3 		mov	r1, #0
  1539 11a4 08209CE5 		ldr	r2, [ip, #8]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 28
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 28
 
 
  1540 11a8 04E09CE5 		ldr	lr, [ip, #4]
@@ -2548,7 +2548,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1594 1274 050057E1 		cmp	r7, r5
  1595 1278 082084E1 		orr	r2, r4, r8
  1596 127c 02005601 		cmpeq	r6, r2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 29
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 29
 
 
  1597 1280 F1FFFF8A 		bhi	.L276
@@ -2608,7 +2608,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1651              	timer_wait:
  1652              		@ args = 0, pretend = 0, frame = 0
  1653              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 30
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 30
 
 
  1654 12f0 74309FE5 		ldr	r3, .L306
@@ -2668,7 +2668,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1708              		.syntax unified
  1709              		.arm
  1710              		.fpu vfp
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 31
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 31
 
 
  1711              		.type	mailbox_write, %function
@@ -2728,7 +2728,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1765 13f8 F8FFFF1A 		bne	.L318
  1766 13fc 0F00C3E3 		bic	r0, r3, #15
  1767 1400 1EFF2FE1 		bx	lr
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 32
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 32
 
 
  1768              	.L325:
@@ -2788,7 +2788,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1822 149c 382093E5 		ldr	r2, [r3, #56]
  1823 14a0 000052E3 		cmp	r2, #0
  1824 14a4 FCFFFFBA 		blt	.L328
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 33
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 33
 
 
  1825 14a8 201083E5 		str	r1, [r3, #32]
@@ -2848,7 +2848,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1879 1534 001092E5 		ldr	r1, [r2]
  1880 1538 48219FE5 		ldr	r2, .L373+8
  1881 153c 213203E0 		and	r3, r3, r1, lsr #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 34
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 34
 
 
  1882 1540 020053E1 		cmp	r3, r2
@@ -2908,7 +2908,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1936              		@ sp needed
  1937 1600 1080BDE8 		pop	{r4, pc}
  1938              	.L352:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 35
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 35
 
 
  1939 1604 0229A0E3 		mov	r2, #32768
@@ -2968,7 +2968,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1993 16a4 70402DE9 		push	{r4, r5, r6, lr}
  1994 16a8 0030A0E3 		mov	r3, #0
  1995 16ac 0840A0E3 		mov	r4, #8
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 36
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 36
 
 
  1996 16b0 0350A0E3 		mov	r5, #3
@@ -3028,7 +3028,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2050              		@ frame_needed = 0, uses_anonymous_args = 0
  2051 1744 10402DE9 		push	{r4, lr}
  2052 1748 004050E2 		subs	r4, r0, #0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 37
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 37
 
 
  2053 174c 1080BD08 		popeq	{r4, pc}
@@ -3088,7 +3088,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2107 17f0 1C2094E5 		ldr	r2, [r4, #28]
  2108 17f4 203094E5 		ldr	r3, [r4, #32]
  2109 17f8 8221A0E1 		lsl	r2, r2, #3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 38
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 38
 
 
  2110 17fc 0332A0E1 		lsl	r3, r3, #4
@@ -3148,7 +3148,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2164 1894 0400A0E1 		mov	r0, r4
  2165 1898 1C3085E5 		str	r3, [r5, #28]
  2166 189c 201085E5 		str	r1, [r5, #32]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 39
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 39
 
 
  2167 18a0 FEFFFFEB 		bl	strlen
@@ -3208,7 +3208,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2221 1958 00000000 		.word	.LANCHOR1
  2222              		.size	WriteText, .-WriteText
  2223              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 40
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 40
 
 
  2224              		.global	SetDCPenColor
@@ -3268,7 +3268,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2278 19b8 1EFF2FE1 		bx	lr
  2279              		.size	MoveToEx, .-MoveToEx
  2280              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 41
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 41
 
 
  2281              		.global	LineTo
@@ -3328,7 +3328,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2335              		.align	2
  2336              		.global	TextOut
  2337              		.syntax unified
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 42
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 42
 
 
  2338              		.arm
@@ -3388,7 +3388,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2392 1ae0 10108CE5 		str	r1, [ip, #16]
  2393 1ae4 0E2082E0 		add	r2, r2, lr
  2394 1ae8 0310A0E1 		mov	r1, r3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 43
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 43
 
 
  2395 1aec 1C309DE5 		ldr	r3, [sp, #28]
@@ -3448,7 +3448,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2449 1b64 0380A0E1 		mov	r8, r3
  2450 1b68 0050A0E1 		mov	r5, r0
  2451 1b6c 0160A0E1 		mov	r6, r1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 44
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 44
 
 
  2452 1b70 4C908D12 		addne	r9, sp, #76
@@ -3508,7 +3508,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2506 1c30 0010E0E3 		mvn	r1, #0
  2507 1c34 4C319FE5 		ldr	r3, .L509+12
  2508 1c38 4C219FE5 		ldr	r2, .L509+16
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 45
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 45
 
 
  2509 1c3c 180054E3 		cmp	r4, #24
@@ -3568,7 +3568,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2563 1d08 9AFFFF1A 		bne	.L483
  2564              	.L486:
  2565 1d0c 5C609DE5 		ldr	r6, [sp, #92]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 46
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 46
 
 
  2566 1d10 98FFFFEA 		b	.L483
@@ -3628,7 +3628,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2620 1dd4 00000000 		.word	_ZL10DiagLine24P8tagINTDCjjii
  2621 1dd8 00000000 		.word	_ZL11WriteChar24P8tagINTDCh
  2622 1ddc 00000000 		.word	_ZL10PutImage24P8tagINTDCjj12tagIMAGE_PTRb
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 47
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 47
 
 
  2623              		.size	PiConsole_Init, .-PiConsole_Init
@@ -3688,7 +3688,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2677              		.align	2
  2678              		.global	GetConsole_Height
  2679              		.syntax unified
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 48
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 48
 
 
  2680              		.arm
@@ -3748,7 +3748,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2734 1e58 1EFF2FE1 		bx	lr
  2735              	.L530:
  2736              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 49
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 49
 
 
  2737              	.L529:
@@ -3808,7 +3808,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2791              		.size	_lseek, .-_lseek
  2792              		.align	2
  2793              		.weak	_isatty
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 50
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 50
 
 
  2794              		.syntax unified
@@ -3868,7 +3868,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2848 1eb4 078081E0 		add	r8, r1, r7
  2849 1eb8 046084E2 		add	r6, r4, #4
  2850 1ebc 120000EA 		b	.L547
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 51
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 51
 
 
  2851              	.L553:
@@ -3928,7 +3928,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2905              		.type	_ZL7BitFont, %object
  2906              		.size	_ZL7BitFont, 4096
  2907              	_ZL7BitFont:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 52
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 52
 
 
  2908 0000 00000000 		.word	0
@@ -3988,7 +3988,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  2962 00d8 E0F07030 		.word	812708064
  2963 00dc 00000000 		.word	0
  2964 00e0 637F0000 		.word	32611
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 53
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 53
 
 
  2965 00e4 6363637F 		.word	2137219939
@@ -4048,7 +4048,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3019 01bc 00000000 		.word	0
  3020 01c0 00000000 		.word	0
  3021 01c4 C0C00000 		.word	49344
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 54
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 54
 
 
  3022 01c8 0000FEC0 		.word	-1057095680
@@ -4108,7 +4108,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3076 02a0 00000000 		.word	0
  3077 02a4 FF3C6600 		.word	6700287
  3078 02a8 0000663C 		.word	1013317632
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 55
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 55
 
 
  3079 02ac 00000000 		.word	0
@@ -4168,7 +4168,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3133 0384 C67CC6C6 		.word	-960070458
  3134 0388 7CC6C6C6 		.word	-960051588
  3135 038c 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 56
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 56
 
 
  3136 0390 C67C0000 		.word	31942
@@ -4228,7 +4228,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3190 0468 F0606060 		.word	1616929008
  3191 046c 00000000 		.word	0
  3192 0470 663C0000 		.word	15462
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 57
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 57
 
 
  3193 0474 DEC0C0C2 		.word	-1027555106
@@ -4288,7 +4288,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3247 054c 00000000 		.word	0
  3248 0550 C6C60000 		.word	50886
  3249 0554 C6C6C6C6 		.word	-960051514
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 58
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 58
 
 
  3250 0558 7CC6C6C6 		.word	-960051588
@@ -4348,7 +4348,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3304 0630 00000000 		.word	0
  3305 0634 C0C67C00 		.word	8177344
  3306 0638 7CC6C0C0 		.word	-1061108100
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 59
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 59
 
 
  3307 063c 00000000 		.word	0
@@ -4408,7 +4408,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3361 0714 CCCC7600 		.word	7785676
  3362 0718 7CCCCCCC 		.word	-858993540
  3363 071c 001E0C0C 		.word	202120704
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 60
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 60
 
 
  3364 0720 00000000 		.word	0
@@ -4468,7 +4468,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3418 07f8 00FEC6C6 		.word	-960037376
  3419 07fc 00000000 		.word	0
  3420 0800 663C0000 		.word	15462
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 61
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 61
 
 
  3421 0804 C0C0C0C2 		.word	-1027555136
@@ -4528,7 +4528,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3475 08dc 00000000 		.word	0
  3476 08e0 1000C600 		.word	12976144
  3477 08e4 C6C66C38 		.word	946652870
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 62
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 62
 
 
  3478 08e8 C6C6C6FE 		.word	-20527418
@@ -4588,7 +4588,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3532 09c0 646C3800 		.word	3697764
  3533 09c4 6060F060 		.word	1626366048
  3534 09c8 FCE66060 		.word	1616963324
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 63
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 63
 
 
  3535 09cc 00000000 		.word	0
@@ -4648,7 +4648,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3589 0aa4 06FE0000 		.word	65030
  3590 0aa8 00060606 		.word	101058048
  3591 0aac 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 64
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 64
 
 
  3592 0ab0 C2C0C000 		.word	12632258
@@ -4708,7 +4708,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3646 0b88 18181818 		.word	404232216
  3647 0b8c 18181818 		.word	404232216
  3648 0b90 36363636 		.word	909522486
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 65
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 65
 
 
  3649 0b94 F606F636 		.word	922093302
@@ -4768,7 +4768,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3703 0c6c 18181818 		.word	404232216
  3704 0c70 36363636 		.word	909522486
  3705 0c74 37363636 		.word	909522487
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 66
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 66
 
 
  3706 0c78 36363636 		.word	909522486
@@ -4828,7 +4828,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3760 0d50 00000000 		.word	0
  3761 0d54 1F181F00 		.word	2037791
  3762 0d58 18181818 		.word	404232216
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 67
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 67
 
 
  3763 0d5c 18181818 		.word	404232216
@@ -4888,7 +4888,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3817 0e34 6C6C6CFE 		.word	-26448788
  3818 0e38 6C6C6C6C 		.word	1819044972
  3819 0e3c 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 68
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 68
 
 
  3820 0e40 FE000000 		.word	254
@@ -4948,7 +4948,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3874 0f18 FF000018 		.word	402653439
  3875 0f1c 00000000 		.word	0
  3876 0f20 30000000 		.word	48
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 69
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 69
 
 
  3877 0f24 0C060C18 		.word	403441164
@@ -5008,7 +5008,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3931 0ffc 00000000 		.word	0
  3932              		.data
  3933              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 70
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 70
 
 
  3934              		.set	.LANCHOR2,. + 0
@@ -5068,7 +5068,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3965      00
  3966              	.LC3:
  3967 00a4 53637265 		.ascii	"Screen resolution %i x %i Colour Depth: %i\012\000"
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 71
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 71
 
 
  3967      656E2072 
@@ -5076,154 +5076,154 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  3967      7574696F 
  3967      6E202569 
  3968              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 72
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 72
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 rpi-SmartStart.C
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:14     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:19     .text:00000000 _ZL11ClearArea16P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:68     .text:00000098 _ZL10VertLine16P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:125    .text:0000014c _ZL10HorzLine16P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:171    .text:000001d8 _ZL10DiagLine16P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:250    .text:000002e4 _ZL11WriteChar16P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:327    .text:000003f4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:329    .text:000003f8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:334    .text:000003f8 _ZL10PutImage16P8tagINTDCjj12tagIMAGE_PTRb
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:398    .text:000004bc _ZL11ClearArea24P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:438    .text:00000530 _ZL10VertLine24P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:488    .text:000005c8 _ZL10HorzLine24P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:527    .text:00000638 _ZL10DiagLine24P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:596    .text:0000071c _ZL11WriteChar24P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:644    .text:000007bc $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:646    .text:000007c0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:651    .text:000007c0 _ZL10PutImage24P8tagINTDCjj12tagIMAGE_PTRb
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:710    .text:00000870 _ZL11ClearArea32P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:745    .text:000008d0 _ZL10VertLine32P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:789    .text:00000950 _ZL10HorzLine32P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:821    .text:000009a4 _ZL10DiagLine32P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:867    .text:00000a30 _ZL11WriteChar32P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:912    .text:00000ac0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:914    .text:00000ac4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:919    .text:00000ac4 _ZL10PutImage32P8tagINTDCjj12tagIMAGE_PTRb
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:967    .text:00000b54 mailbox_tag_message.constprop.4
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1027   .text:00000c20 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1029   .text:00000c24 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1034   .text:00000c24 mailbox_tag_message.constprop.5
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1109   .text:00000d20 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1111   .text:00000d24 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1116   .text:00000d24 mailbox_tag_message.constprop.6
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1186   .text:00000e0c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1188   .text:00000e10 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1193   .text:00000e10 mailbox_tag_message.constprop.7
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1268   .text:00000f04 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1270   .text:00000f08 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1276   .text:00000f08 gpio_setup
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1308   .text:00000f6c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1311   .text:00000f74 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1317   .text:00000f74 gpio_output
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1352   .text:00000fdc $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1354   .text:00000fe0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1360   .text:00000fe0 gpio_input
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1385   .text:00001024 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1387   .text:00001028 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1393   .text:00001028 gpio_checkEvent
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1417   .text:00001068 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1419   .text:0000106c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1425   .text:0000106c gpio_clearEvent
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1448   .text:000010a8 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1450   .text:000010ac $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1456   .text:000010ac gpio_edgeDetect
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1514   .text:0000116c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1516   .text:00001170 $a
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 73
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:14     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:19     .text:00000000 _ZL11ClearArea16P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:68     .text:00000098 _ZL10VertLine16P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:125    .text:0000014c _ZL10HorzLine16P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:171    .text:000001d8 _ZL10DiagLine16P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:250    .text:000002e4 _ZL11WriteChar16P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:327    .text:000003f4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:329    .text:000003f8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:334    .text:000003f8 _ZL10PutImage16P8tagINTDCjj12tagIMAGE_PTRb
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:398    .text:000004bc _ZL11ClearArea24P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:438    .text:00000530 _ZL10VertLine24P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:488    .text:000005c8 _ZL10HorzLine24P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:527    .text:00000638 _ZL10DiagLine24P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:596    .text:0000071c _ZL11WriteChar24P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:644    .text:000007bc $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:646    .text:000007c0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:651    .text:000007c0 _ZL10PutImage24P8tagINTDCjj12tagIMAGE_PTRb
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:710    .text:00000870 _ZL11ClearArea32P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:745    .text:000008d0 _ZL10VertLine32P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:789    .text:00000950 _ZL10HorzLine32P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:821    .text:000009a4 _ZL10DiagLine32P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:867    .text:00000a30 _ZL11WriteChar32P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:912    .text:00000ac0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:914    .text:00000ac4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:919    .text:00000ac4 _ZL10PutImage32P8tagINTDCjj12tagIMAGE_PTRb
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:967    .text:00000b54 mailbox_tag_message.constprop.4
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1027   .text:00000c20 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1029   .text:00000c24 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1034   .text:00000c24 mailbox_tag_message.constprop.5
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1109   .text:00000d20 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1111   .text:00000d24 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1116   .text:00000d24 mailbox_tag_message.constprop.6
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1186   .text:00000e0c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1188   .text:00000e10 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1193   .text:00000e10 mailbox_tag_message.constprop.7
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1268   .text:00000f04 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1270   .text:00000f08 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1276   .text:00000f08 gpio_setup
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1308   .text:00000f6c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1311   .text:00000f74 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1317   .text:00000f74 gpio_output
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1352   .text:00000fdc $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1354   .text:00000fe0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1360   .text:00000fe0 gpio_input
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1385   .text:00001024 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1387   .text:00001028 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1393   .text:00001028 gpio_checkEvent
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1417   .text:00001068 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1419   .text:0000106c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1425   .text:0000106c gpio_clearEvent
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1448   .text:000010a8 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1450   .text:000010ac $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1456   .text:000010ac gpio_edgeDetect
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1514   .text:0000116c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1516   .text:00001170 $a
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 73
 
 
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1522   .text:00001170 gpio_fixResistor
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1608   .text:0000129c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1610   .text:000012a0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1616   .text:000012a0 timer_getTickCount
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1643   .text:000012ec $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1645   .text:000012f0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1651   .text:000012f0 timer_wait
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1690   .text:0000136c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1692   .text:00001370 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1698   .text:00001370 tick_difference
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1712   .text:0000137c mailbox_write
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1737   .text:000013bc $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1739   .text:000013c0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1745   .text:000013c0 mailbox_read
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1771   .text:00001404 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1774   .text:0000140c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1780   .text:0000140c mailbox_tag_message
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1866   .text:00001528 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1868   .text:0000152c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1874   .text:0000152c set_Activity_LED
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1974   .text:00001680 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1984   .text:000016a4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1990   .text:000016a4 ARM_setmaxspeed
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2038   .text:00001738 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2042   .text:00001744 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2048   .text:00001744 displaySmartStart
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2082   .text:000017b4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2089   .text:000017cc $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2095   .text:000017cc Embedded_Console_WriteChar
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2148   .text:0000187c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2150   .text:00001880 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2156   .text:00001880 WriteText
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2221   .text:00001958 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2223   .text:0000195c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2229   .text:0000195c SetDCPenColor
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2245   .text:00001970 SetDCBrushColor
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2261   .text:00001984 MoveToEx
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2286   .text:000019bc LineTo
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2341   .text:00001a5c TextOut
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2375   .text:00001ac4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2377   .text:00001ac8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2383   .text:00001ac8 BmpOut
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2416   .text:00001b1c Rectangle
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2441   .text:00001b50 PiConsole_Init
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2598   .text:00001d7c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2624   .text:00001de0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2630   .text:00001de0 GetConsoleDC
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2639   .text:00001de8 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2641   .text:00001dec $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2647   .text:00001dec GetConsole_FrameBuffer
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2657   .text:00001df8 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2659   .text:00001dfc $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2665   .text:00001dfc GetConsole_Width
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2675   .text:00001e08 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2677   .text:00001e0c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2683   .text:00001e0c GetConsole_Height
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2693   .text:00001e18 $d
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 74
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1522   .text:00001170 gpio_fixResistor
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1608   .text:0000129c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1610   .text:000012a0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1616   .text:000012a0 timer_getTickCount
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1643   .text:000012ec $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1645   .text:000012f0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1651   .text:000012f0 timer_wait
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1690   .text:0000136c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1692   .text:00001370 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1698   .text:00001370 tick_difference
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1712   .text:0000137c mailbox_write
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1737   .text:000013bc $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1739   .text:000013c0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1745   .text:000013c0 mailbox_read
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1771   .text:00001404 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1774   .text:0000140c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1780   .text:0000140c mailbox_tag_message
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1866   .text:00001528 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1868   .text:0000152c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1874   .text:0000152c set_Activity_LED
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1974   .text:00001680 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1984   .text:000016a4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1990   .text:000016a4 ARM_setmaxspeed
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2038   .text:00001738 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2042   .text:00001744 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2048   .text:00001744 displaySmartStart
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2082   .text:000017b4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2089   .text:000017cc $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2095   .text:000017cc Embedded_Console_WriteChar
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2148   .text:0000187c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2150   .text:00001880 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2156   .text:00001880 WriteText
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2221   .text:00001958 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2223   .text:0000195c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2229   .text:0000195c SetDCPenColor
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2245   .text:00001970 SetDCBrushColor
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2261   .text:00001984 MoveToEx
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2286   .text:000019bc LineTo
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2341   .text:00001a5c TextOut
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2375   .text:00001ac4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2377   .text:00001ac8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2383   .text:00001ac8 BmpOut
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2416   .text:00001b1c Rectangle
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2441   .text:00001b50 PiConsole_Init
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2598   .text:00001d7c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2624   .text:00001de0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2630   .text:00001de0 GetConsoleDC
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2639   .text:00001de8 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2641   .text:00001dec $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2647   .text:00001dec GetConsole_FrameBuffer
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2657   .text:00001df8 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2659   .text:00001dfc $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2665   .text:00001dfc GetConsole_Width
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2675   .text:00001e08 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2677   .text:00001e0c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2683   .text:00001e0c GetConsole_Height
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2693   .text:00001e18 $d
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 74
 
 
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2695   .text:00001e1c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2701   .text:00001e1c _sbrk
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2717   .text:00001e40 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2720   .text:00001e48 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2726   .text:00001e48 _kill
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2738   .text:00001e5c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2740   .text:00001e60 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2746   .text:00001e60 _getpid
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2759   .text:00001e68 _read
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2772   .text:00001e70 _close
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2785   .text:00001e78 _lseek
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2798   .text:00001e80 _isatty
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2811   .text:00001e88 _fstat
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2826   .text:00001e98 _exit
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2839   .text:00001e9c _write
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2899   .text:00001f60 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3949   .bss:00000004 console
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2903   .rodata:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:2907   .rodata:00000000 _ZL7BitFont
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3933   .data:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3937   .data:00000000 _ZL16ActivityGPIOPort
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3940   .bss:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3944   .bss:00000000 _ZL16ModelCheckHasRun
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3953   .bss:00000048 _ZZ5_sbrkE8heap_end
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:3956   .rodata.str1.4:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2695   .text:00001e1c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2701   .text:00001e1c _sbrk
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2717   .text:00001e40 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2720   .text:00001e48 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2726   .text:00001e48 _kill
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2738   .text:00001e5c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2740   .text:00001e60 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2746   .text:00001e60 _getpid
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2759   .text:00001e68 _read
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2772   .text:00001e70 _close
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2785   .text:00001e78 _lseek
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2798   .text:00001e80 _isatty
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2811   .text:00001e88 _fstat
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2826   .text:00001e98 _exit
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2839   .text:00001e9c _write
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2899   .text:00001f60 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3949   .bss:00000004 console
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2903   .rodata:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:2907   .rodata:00000000 _ZL7BitFont
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3933   .data:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3937   .data:00000000 _ZL16ActivityGPIOPort
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3940   .bss:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3944   .bss:00000000 _ZL16ModelCheckHasRun
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3953   .bss:00000048 _ZZ5_sbrkE8heap_end
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:3956   .rodata.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 memcpy
@@ -5237,7 +5237,7 @@ strlen
 GPUaddrToARMaddr
 _end
 errno
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 1
 
 
    1              		.arch armv6zk
@@ -5297,7 +5297,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   55 007c 013043E2 		sub	r3, r3, #1
   56 0080 00308DE5 		str	r3, [sp]
   57 0084 2030A0E3 		mov	r3, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 2
 
 
   58 0088 0C308DE5 		str	r3, [sp, #12]
@@ -5357,7 +5357,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  112 0148 1000000A 		beq	.L16
  113 014c 030051E3 		cmp	r1, #3
  114 0150 02C0CAE5 		strb	ip, [r10, #2]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 3
 
 
  115 0154 03808AE2 		add	r8, r10, #3
@@ -5417,7 +5417,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  169 0214 000051E3 		cmp	r1, #0
  170 0218 0010CA15 		strbne	r1, [r10]
  171 021c 08109DE5 		ldr	r1, [sp, #8]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 4
 
 
  172 0220 01A08A12 		addne	r10, r10, #1
@@ -5477,7 +5477,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  226 02f0 07004902 		subeq	r0, r9, #7
  227              	.L29:
  228 02f4 010059E1 		cmp	r9, r1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 5
 
 
  229 02f8 1D00000A 		beq	.L30
@@ -5537,7 +5537,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  283 03bc 02C042E2 		sub	ip, r2, #2
  284 03c0 1500000A 		beq	.L39
  285 03c4 020051E3 		cmp	r1, #2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 6
 
 
  286 03c8 0100CAE5 		strb	r0, [r10, #1]
@@ -5597,7 +5597,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  340 0490 0210C5B5 		strblt	r1, [r5, #2]
  341              	.L40:
  342 0494 0EA08AE0 		add	r10, r10, lr
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 7
 
 
  343              	.L36:
@@ -5657,7 +5657,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  397              	.L48:
  398 0560 035049E0 		sub	r5, r9, r3
  399 0564 042045E2 		sub	r2, r5, #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 8
 
 
  400 0568 03E04EE0 		sub	lr, lr, r3
@@ -5717,7 +5717,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  454 0620 000053E3 		cmp	r3, #0
  455 0624 0010A001 		moveq	r1, r0
  456 0628 CCFFFF0A 		beq	.L48
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 9
 
 
  457 062c ADFFFFEA 		b	.L47
@@ -5777,7 +5777,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  511 06d8 27FFFFEA 		b	.L26
  512              	.L157:
  513              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 10
 
 
  514              	.L156:
@@ -5837,7 +5837,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  568 0750 00B0A0E1 		mov	fp, r0
  569 0754 0070E0E3 		mvn	r7, #0
  570 0758 F4AB9FE5 		ldr	r10, .L375
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 11
 
 
  571 075c 050000EA 		b	.L255
@@ -5897,7 +5897,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  625 0808 F5FFFFEA 		b	.L177
  626              	.L170:
  627 080c 303042E2 		sub	r3, r2, #48
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 12
 
 
  628 0810 090053E3 		cmp	r3, #9
@@ -5957,7 +5957,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  682 08d8 980B0000 		.word	.L186
  683 08dc 980B0000 		.word	.L186
  684 08e0 980B0000 		.word	.L186
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 13
 
 
  685 08e4 980B0000 		.word	.L186
@@ -6017,7 +6017,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  739 09b8 0030E013 		mvnne	r3, #0
  740 09bc 9DFFFF1A 		bne	.L181
  741 09c0 003096E5 		ldr	r3, [r6]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 14
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 14
 
 
  742 09c4 0220D8E5 		ldrb	r2, [r8, #2]	@ zero_extendqisi2
@@ -6077,7 +6077,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  796 0a8c 940B0000 		.word	.L264
  797 0a90 940B0000 		.word	.L264
  798 0a94 940B0000 		.word	.L264
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 15
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 15
 
 
  799 0a98 940B0000 		.word	.L264
@@ -6137,7 +6137,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  853 0b70 040F0000 		.word	.L270
  854 0b74 940B0000 		.word	.L264
  855 0b78 940B0000 		.word	.L264
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 16
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 16
 
 
  856 0b7c D80B0000 		.word	.L271
@@ -6197,7 +6197,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  910 0c34 2060A0E3 		mov	r6, #32
  911 0c38 010052E3 		cmp	r2, #1
  912 0c3c 0060C5E5 		strb	r6, [r5]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 17
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 17
 
 
  913 0c40 01E085E2 		add	lr, r5, #1
@@ -6257,7 +6257,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  967 0d08 0030CEE5 		strb	r3, [lr]
  968 0d0c 011041E2 		sub	r1, r1, #1
  969 0d10 020000AA 		bge	.L222
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 18
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 18
 
 
  970 0d14 010050E1 		cmp	r0, r1
@@ -6317,7 +6317,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1024              	.L228:
  1025 0ddc 000053E1 		cmp	r3, r0
  1026 0de0 011043E2 		sub	r1, r3, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 19
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 19
 
 
  1027 0de4 420000DA 		ble	.L360
@@ -6377,7 +6377,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1081 0eb0 016086E2 		add	r6, r6, #1
  1082 0eb4 060053E1 		cmp	r3, r6
  1083 0eb8 04A082E4 		str	r10, [r2], #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 20
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 20
 
 
  1084 0ebc FBFFFF8A 		bhi	.L242
@@ -6437,7 +6437,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1138 0f74 0180A0E1 		mov	r8, r1
  1139 0f78 EE00000A 		beq	.L274
  1140 0f7c 20C0A0E3 		mov	ip, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 21
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 21
 
 
  1141 0f80 029043E2 		sub	r9, r3, #2
@@ -6497,7 +6497,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1195 104c 0700000A 		beq	.L202
  1196              	.L203:
  1197 1050 2020A0E3 		mov	r2, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 22
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 22
 
 
  1198 1054 01C041E2 		sub	ip, r1, #1
@@ -6557,7 +6557,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1252 1124 05C0C5E5 		strb	ip, [r5, #5]
  1253 1128 06C0C505 		strbeq	ip, [r5, #6]
  1254 112c 07008502 		addeq	r0, r5, #7
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 23
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 23
 
 
  1255 1130 07104302 		subeq	r1, r3, #7
@@ -6617,7 +6617,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1309              	.L251:
  1310 11e4 0500A0E1 		mov	r0, r5
  1311 11e8 04908DE5 		str	r9, [sp, #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 24
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 24
 
 
  1312 11ec 00C08DE5 		str	ip, [sp]
@@ -6677,7 +6677,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1366              	.L268:
  1367 1294 0840A0E1 		mov	r4, r8
  1368 1298 D9FFFFEA 		b	.L191
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 25
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 25
 
 
  1369              	.L269:
@@ -6737,7 +6737,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1423              	.L275:
  1424 1344 0130A0E1 		mov	r3, r1
  1425 1348 76FEFFEA 		b	.L218
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 26
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 26
 
 
  1426              	.L273:
@@ -6797,7 +6797,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1480 13c0 014043E2 		sub	r4, r3, #1
  1481              	.L381:
  1482 13c4 0100F4E5 		ldrb	r0, [r4, #1]!	@ zero_extendqisi2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 27
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 27
 
 
  1483 13c8 FEFFFFEB 		bl	Embedded_Console_WriteChar
@@ -6823,36 +6823,36 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  1501      38394142 
  1501      43444546 
  1502              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 28
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 28
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 emb-stdio.c
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:16     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:21     .text:00000000 number
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:515    .text:000006dc $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:519    .text:000006e8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:525    .text:000006e8 strnlen
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:557    .text:00000730 emb_vsprintf
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:592    .text:0000079c $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:610    .text:000007e0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:653    .text:00000864 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:738    .text:000009b4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:778    .text:00000a44 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:863    .text:00000b94 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1432   .text:00001354 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1434   .text:00001358 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1440   .text:00001358 emb_sprintf
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1463   .text:00001388 printf
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:16     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:21     .text:00000000 number
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:515    .text:000006dc $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:519    .text:000006e8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:525    .text:000006e8 strnlen
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:557    .text:00000730 emb_vsprintf
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:592    .text:0000079c $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:610    .text:000007e0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:653    .text:00000864 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:738    .text:000009b4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:778    .text:00000a44 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:863    .text:00000b94 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1432   .text:00001354 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1434   .text:00001358 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1440   .text:00001358 emb_sprintf
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1463   .text:00001388 printf
                             *COM*:00000004 __errno
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1496   .rodata:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:1500   .rodata:00000000 digits.5807
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1496   .rodata:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1500   .rodata:00000000 digits.5807
 
 UNDEFINED SYMBOLS
 __aeabi_uidiv
 __aeabi_uidivmod
 Embedded_Console_WriteChar
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 1
 
 
    1              		.arch armv6zk
@@ -6912,7 +6912,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
   55              	.L9:
   56              		.align	2
   57              	.L8:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 2
 
 
   58 0078 12000300 		.word	196626
@@ -6972,7 +6972,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  112 00ec 04F09DE4 		ldr	pc, [sp], #4
  113              	.L19:
  114              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 3
 
 
  115              	.L18:
@@ -7032,7 +7032,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  169              	.L28:
  170 0158 0E000300 		.word	196622
  171              		.size	V3D_mem_unlock, .-V3D_mem_unlock
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 4
 
 
  172              		.align	2
@@ -7092,7 +7092,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  226 01d4 04F09DE4 		ldr	pc, [sp], #4
  227              	.L37:
  228              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 5
 
 
  229              	.L36:
@@ -7105,39 +7105,39 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  236              		.fpu vfp
  237              		.type	testTriangle, %function
  238              	testTriangle:
- 239              		@ args = 0, pretend = 0, frame = 104
+ 239              		@ args = 0, pretend = 0, frame = 120
  240              		@ frame_needed = 0, uses_anonymous_args = 0
  241 01dc F04F2DE9 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
  242 01e0 0CC0A0E3 		mov	ip, #12
  243 01e4 02E5A0E3 		mov	lr, #8388608
- 244 01e8 1870A0E3 		mov	r7, #24
- 245 01ec 016AA0E3 		mov	r6, #4096
- 246 01f0 7CD04DE2 		sub	sp, sp, #124
+ 244 01e8 1860A0E3 		mov	r6, #24
+ 245 01ec 015AA0E3 		mov	r5, #4096
+ 246 01f0 8CD04DE2 		sub	sp, sp, #140
  247 01f4 1C008DE5 		str	r0, [sp, #28]
- 248 01f8 20208DE5 		str	r2, [sp, #32]
- 249 01fc 0140A0E1 		mov	r4, r1
- 250 0200 0350A0E1 		mov	r5, r3
- 251 0204 0C708DE5 		str	r7, [sp, #12]
- 252 0208 08608DE5 		str	r6, [sp, #8]
+ 248 01f8 20108DE5 		str	r1, [sp, #32]
+ 249 01fc 24208DE5 		str	r2, [sp, #36]
+ 250 0200 0340A0E1 		mov	r4, r3
+ 251 0204 0C608DE5 		str	r6, [sp, #12]
+ 252 0208 08508DE5 		str	r5, [sp, #8]
  253 020c 00508DE8 		stm	sp, {ip, lr}
  254 0210 0C30A0E1 		mov	r3, ip
- 255 0214 60008DE2 		add	r0, sp, #96
+ 255 0214 70008DE2 		add	r0, sp, #112
  256 0218 34209FE5 		ldr	r2, .L78
  257 021c 0610A0E3 		mov	r1, #6
  258 0220 FEFFFFEB 		bl	mailbox_tag_message
  259 0224 000050E3 		cmp	r0, #0
  260 0228 0300000A 		beq	.L55
- 261 022c 6C309DE5 		ldr	r3, [sp, #108]
+ 261 022c 7C309DE5 		ldr	r3, [sp, #124]
  262 0230 000053E3 		cmp	r3, #0
- 263 0234 24308DE5 		str	r3, [sp, #36]
- 264 0238 2500001A 		bne	.L40
+ 263 0234 28308DE5 		str	r3, [sp, #40]
+ 264 0238 2B00001A 		bne	.L40
  265              	.L55:
- 266 023c 000055E3 		cmp	r5, #0
+ 266 023c 000054E3 		cmp	r4, #0
  267 0240 0100000A 		beq	.L38
  268 0244 0C009FE5 		ldr	r0, .L78+4
- 269 0248 35FF2FE1 		blx	r5
+ 269 0248 34FF2FE1 		blx	r4
  270              	.L38:
- 271 024c 7CD08DE2 		add	sp, sp, #124
+ 271 024c 8CD08DE2 		add	sp, sp, #140
  272              		@ sp needed
  273 0250 F08FBDE8 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
  274              	.L79:
@@ -7146,744 +7146,895 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 1
  277 0254 0C000300 		.word	196620
  278 0258 00000000 		.word	.LC0
  279 025c 0D000300 		.word	196621
- 280 0260 0D8E9500 		.word	9801229
- 281 0264 234872D1 		.word	-781039581
- 282 0268 8E950000 		.word	38286
- 283 026c 4872D100 		.word	13726280
- 284 0270 72D10000 		.word	53618
+ 280 0260 BF0D8E95 		.word	-1785852481
+ 281 0264 0D8E9500 		.word	9801229
+ 282 0268 234872D1 		.word	-781039581
+ 283 026c 72D10000 		.word	53618
+ 284 0270 4872D100 		.word	13726280
  285 0274 718E8100 		.word	8490609
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 6
 
 
- 286 0278 BF0D8E95 		.word	-1785852481
- 287 027c 21480240 		.word	1073891361
- 288 0280 738E8100 		.word	8490611
- 289 0284 62480210 		.word	268585058
- 290 0288 759E8100 		.word	8494709
- 291 028c 9E810000 		.word	33182
- 292 0290 42110000 		.word	4418
- 293 0294 76718E81 		.word	-2121371274
- 294 0298 A3484211 		.word	289556643
- 295 029c E3495011 		.word	290474467
- 296 02a0 49501100 		.word	1134665
- 297 02a4 09709E80 		.word	-2137100279
- 298 02a8 50110000 		.word	4432
- 299 02ac C0769E15 		.word	362706624
- 300 02b0 0B023000 		.word	3146251
- 301 02b4 12709E80 		.word	-2137100270
- 302 02b8 E7090010 		.word	268437991
- 303 02bc A70B0230 		.word	805440423
- 304 02c0 00000000 		.word	RPi_IO_Base_Addr
- 305 02c4 0E000300 		.word	196622
- 306 02c8 0F000300 		.word	196623
- 307 02cc CDCCCC3E 		.word	1053609165
- 308 02d0 9A99993E 		.word	1050253722
- 309              	.L40:
- 310 02d4 0320A0E1 		mov	r2, r3
- 311 02d8 0430A0E3 		mov	r3, #4
- 312 02dc 04208DE5 		str	r2, [sp, #4]
- 313 02e0 60008DE2 		add	r0, sp, #96
- 314 02e4 00308DE5 		str	r3, [sp]
- 315 02e8 0310A0E1 		mov	r1, r3
- 316 02ec 98201FE5 		ldr	r2, .L78+8
- 317 02f0 FEFFFFEB 		bl	mailbox_tag_message
- 318 02f4 000050E3 		cmp	r0, #0
- 319 02f8 3702000A 		beq	.L56
- 320 02fc 6C309DE5 		ldr	r3, [sp, #108]
- 321 0300 062A83E2 		add	r2, r3, #24576
- 322 0304 14208DE5 		str	r2, [sp, #20]
- 323 0308 FE2C83E2 		add	r2, r3, #65024
- 324 030c 2C308DE5 		str	r3, [sp, #44]
- 325 0310 38208DE5 		str	r2, [sp, #56]
- 326 0314 FF2C83E2 		add	r2, r3, #65280
- 327 0318 025C83E2 		add	r5, r3, #512
- 328 031c 809083E2 		add	r9, r3, #128
- 329 0320 707083E2 		add	r7, r3, #112
- 330 0324 30208DE5 		str	r2, [sp, #48]
- 331 0328 2C009DE5 		ldr	r0, [sp, #44]
- 332 032c 012C83E2 		add	r2, r3, #256
- 333 0330 E23C83E2 		add	r3, r3, #57856
- 334 0334 34208DE5 		str	r2, [sp, #52]
- 335 0338 3C308DE5 		str	r3, [sp, #60]
- 336              	.L42:
- 337 033c FEFFFFEB 		bl	GPUaddrToARMaddr
- 338 0340 3210A0E3 		mov	r1, #50
- 339 0344 6630A0E3 		mov	r3, #102
- 340 0348 1210C0E5 		strb	r1, [r0, #18]
- 341 034c A410A0E1 		lsr	r1, r4, #1
- 342 0350 901A07EE 		vmov	s15, r1	@ int
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 7
+ 286 0278 21480240 		.word	1073891361
+ 287 027c 738E8100 		.word	8490611
+ 288 0280 62480210 		.word	268585058
+ 289 0284 759E8100 		.word	8494709
+ 290 0288 8E950000 		.word	38286
+ 291 028c 76718E81 		.word	-2121371274
+ 292 0290 9E810000 		.word	33182
+ 293 0294 A3484211 		.word	289556643
+ 294 0298 42110000 		.word	4418
+ 295 029c 9E800000 		.word	32926
+ 296 02a0 12709E80 		.word	-2137100270
+ 297 02a4 709E8000 		.word	8429168
+ 298 02a8 769E1500 		.word	1416822
+ 299 02ac 02300000 		.word	12290
+ 300 02b0 60110000 		.word	4448
+ 301 02b4 49501100 		.word	1134665
+ 302 02b8 A70B0230 		.word	805440423
+ 303 02bc E3495011 		.word	290474467
+ 304 02c0 E7090010 		.word	268437991
+ 305 02c4 C0769E15 		.word	362706624
+ 306 02c8 09001000 		.word	1048585
+ 307 02cc 0B023000 		.word	3146251
+ 308 02d0 50110000 		.word	4432
+ 309 02d4 00000000 		.word	RPi_IO_Base_Addr
+ 310 02d8 0E000300 		.word	196622
+ 311 02dc 0F000300 		.word	196623
+ 312 02e0 CDCCCC3E 		.word	1053609165
+ 313 02e4 9A99993E 		.word	1050253722
+ 314 02e8 CDCCAC3F 		.word	1068289229
+ 315              	.L40:
+ 316 02ec 0320A0E1 		mov	r2, r3
+ 317 02f0 0430A0E3 		mov	r3, #4
+ 318 02f4 04208DE5 		str	r2, [sp, #4]
+ 319 02f8 70008DE2 		add	r0, sp, #112
+ 320 02fc 00308DE5 		str	r3, [sp]
+ 321 0300 0310A0E1 		mov	r1, r3
+ 322 0304 B0201FE5 		ldr	r2, .L78+8
+ 323 0308 FEFFFFEB 		bl	mailbox_tag_message
+ 324 030c 000050E3 		cmp	r0, #0
+ 325 0310 C202000A 		beq	.L56
+ 326 0314 7C309DE5 		ldr	r3, [sp, #124]
+ 327 0318 2C308DE5 		str	r3, [sp, #44]
+ 328 031c 062A83E2 		add	r2, r3, #24576
+ 329 0320 027C83E2 		add	r7, r3, #512
+ 330 0324 804083E2 		add	r4, r3, #128
+ 331 0328 705083E2 		add	r5, r3, #112
+ 332 032c FE6C83E2 		add	r6, r3, #65024
+ 333 0330 FF9C83E2 		add	r9, r3, #65280
+ 334 0334 01AC83E2 		add	r10, r3, #256
+ 335 0338 2C009DE5 		ldr	r0, [sp, #44]
+ 336 033c E23C83E2 		add	r3, r3, #57856
+ 337 0340 14208DE5 		str	r2, [sp, #20]
+ 338 0344 3C308DE5 		str	r3, [sp, #60]
+ 339              	.L42:
+ 340 0348 FEFFFFEB 		bl	GPUaddrToARMaddr
+ 341 034c 38C0A0E3 		mov	ip, #56
+ 342 0350 14309DE5 		ldr	r3, [sp, #20]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 7
 
 
- 343 0354 14B09DE5 		ldr	fp, [sp, #20]
- 344 0358 0950C0E5 		strb	r5, [r0, #9]
- 345 035c 2B64A0E1 		lsr	r6, fp, #8
- 346 0360 0260C0E5 		strb	r6, [r0, #2]
- 347 0364 2B68A0E1 		lsr	r6, fp, #16
- 348 0368 0360C0E5 		strb	r6, [r0, #3]
- 349 036c 2B6CA0E1 		lsr	r6, fp, #24
- 350 0370 0460C0E5 		strb	r6, [r0, #4]
- 351 0374 2564A0E1 		lsr	r6, r5, #8
- 352 0378 0A60C0E5 		strb	r6, [r0, #10]
- 353 037c 2568A0E1 		lsr	r6, r5, #16
- 354 0380 255CA0E1 		lsr	r5, r5, #24
- 355 0384 0C50C0E5 		strb	r5, [r0, #12]
- 356 0388 1C509DE5 		ldr	r5, [sp, #28]
- 357 038c 1330C0E5 		strb	r3, [r0, #19]
- 358 0390 A510A0E1 		lsr	r1, r5, #1
- 359 0394 7030A0E3 		mov	r3, #112
- 360 0398 356A5FED 		vldr.32	s13, .L78+120
- 361 039c E77AF8EE 		vcvt.f32.s32	s15, s15
- 362 03a0 101A07EE 		vmov	s14, r1	@ int
- 363 03a4 375A5FED 		vldr.32	s11, .L78+124
- 364 03a8 38C0A0E3 		mov	ip, #56
- 365 03ac 06E0A0E3 		mov	lr, #6
- 366 03b0 0030C0E5 		strb	r3, [r0]
- 367 03b4 4030A0E3 		mov	r3, #64
- 368 03b8 A66A27EE 		vmul.f32	s12, s15, s13
- 369 03bc C77AB8EE 		vcvt.f32.s32	s14, s14
- 370 03c0 A57A67EE 		vmul.f32	s15, s15, s11
- 371 03c4 11C0C0E5 		strb	ip, [r0, #17]
- 372 03c8 3FC085E2 		add	ip, r5, #63
- 373 03cc 5CCEA0E1 		asr	ip, ip, lr
- 374 03d0 0129A0E3 		mov	r2, #16384
- 375 03d4 10E0C0E5 		strb	lr, [r0, #16]
- 376 03d8 0630C0E5 		strb	r3, [r0, #6]
- 377 03dc 0CE0A0E1 		mov	lr, ip
- 378 03e0 0430A0E3 		mov	r3, #4
- 379 03e4 01A0A0E1 		mov	r10, r1
- 380 03e8 267A27EE 		vmul.f32	s14, s14, s13
- 381 03ec E77AFCEE 		vcvt.u32.f32	s15, s15
- 382 03f0 6010A0E3 		mov	r1, #96
- 383 03f4 C66AFCEE 		vcvt.u32.f32	s13, s12
- 384 03f8 18C08DE5 		str	ip, [sp, #24]
- 385 03fc 3FC084E2 		add	ip, r4, #63
- 386 0400 4CC3A0E1 		asr	ip, ip, #6
- 387 0404 01B0C0E5 		strb	fp, [r0, #1]
- 388 0408 0B60C0E5 		strb	r6, [r0, #11]
- 389 040c 0520C0E5 		strb	r2, [r0, #5]
- 390 0410 0720C0E5 		strb	r2, [r0, #7]
- 391 0414 0820C0E5 		strb	r2, [r0, #8]
- 392 0418 1420C0E5 		strb	r2, [r0, #20]
- 393 041c 1520C0E5 		strb	r2, [r0, #21]
- 394 0420 1620C0E5 		strb	r2, [r0, #22]
- 395 0424 1720C0E5 		strb	r2, [r0, #23]
- 396 0428 0DE0C0E5 		strb	lr, [r0, #13]
- 397 042c 0EC0C0E5 		strb	ip, [r0, #14]
- 398 0430 0F30C0E5 		strb	r3, [r0, #15]
- 399 0434 B056CDE1 		strh	r5, [sp, #96]	@ movhi
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 8
+ 343 0354 3210A0E3 		mov	r1, #50
+ 344 0358 0130C0E5 		strb	r3, [r0, #1]
+ 345 035c 23E4A0E1 		lsr	lr, r3, #8
+ 346 0360 14309DE5 		ldr	r3, [sp, #20]
+ 347 0364 02E0C0E5 		strb	lr, [r0, #2]
+ 348 0368 23E8A0E1 		lsr	lr, r3, #16
+ 349 036c 03E0C0E5 		strb	lr, [r0, #3]
+ 350 0370 23ECA0E1 		lsr	lr, r3, #24
+ 351 0374 04E0C0E5 		strb	lr, [r0, #4]
+ 352 0378 27E4A0E1 		lsr	lr, r7, #8
+ 353 037c 0AE0C0E5 		strb	lr, [r0, #10]
+ 354 0380 27E8A0E1 		lsr	lr, r7, #16
+ 355 0384 0BE0C0E5 		strb	lr, [r0, #11]
+ 356 0388 1CE09DE5 		ldr	lr, [sp, #28]
+ 357 038c 11C0C0E5 		strb	ip, [r0, #17]
+ 358 0390 3FC08EE2 		add	ip, lr, #63
+ 359 0394 0970C0E5 		strb	r7, [r0, #9]
+ 360 0398 4CC3A0E1 		asr	ip, ip, #6
+ 361 039c 277CA0E1 		lsr	r7, r7, #24
+ 362 03a0 0C70C0E5 		strb	r7, [r0, #12]
+ 363 03a4 0C70A0E1 		mov	r7, ip
+ 364 03a8 1210C0E5 		strb	r1, [r0, #18]
+ 365 03ac 20109DE5 		ldr	r1, [sp, #32]
+ 366 03b0 18C08DE5 		str	ip, [sp, #24]
+ 367 03b4 3FC081E2 		add	ip, r1, #63
+ 368 03b8 4C33A0E1 		asr	r3, ip, #6
+ 369 03bc 0D70C0E5 		strb	r7, [r0, #13]
+ 370 03c0 03C0A0E1 		mov	ip, r3
+ 371 03c4 30308DE5 		str	r3, [sp, #48]
+ 372 03c8 000057E3 		cmp	r7, #0
+ 373 03cc 6630A0E3 		mov	r3, #102
+ 374 03d0 AE70A0E1 		lsr	r7, lr, #1
+ 375 03d4 907A07EE 		vmov	s15, r7	@ int
+ 376 03d8 1330C0E5 		strb	r3, [r0, #19]
+ 377 03dc 0EC0C0E5 		strb	ip, [r0, #14]
+ 378 03e0 7030A0E3 		mov	r3, #112
+ 379 03e4 A1C0A0E1 		lsr	ip, r1, #1
+ 380 03e8 E76AF8EE 		vcvt.f32.s32	s13, s15
+ 381 03ec 90CA07EE 		vmov	s15, ip	@ int
+ 382 03f0 0030C0E5 		strb	r3, [r0]
+ 383 03f4 4030A0E3 		mov	r3, #64
+ 384 03f8 E77AF8EE 		vcvt.f32.s32	s15, s15
+ 385 03fc 497A1FED 		vldr.32	s14, .L78+140
+ 386 0400 0630C0E5 		strb	r3, [r0, #6]
+ 387 0404 0430A0E3 		mov	r3, #4
+ 388 0408 876A66EE 		vmul.f32	s13, s13, s14
+ 389 040c 4C6A1FED 		vldr.32	s12, .L78+144
+ 390 0410 877A27EE 		vmul.f32	s14, s15, s14
+ 391 0414 0129A0E3 		mov	r2, #16384
+ 392 0418 0F30C0E5 		strb	r3, [r0, #15]
+ 393 041c 0630A0E3 		mov	r3, #6
+ 394 0420 866A27EE 		vmul.f32	s12, s15, s12
+ 395 0424 C77ABCEE 		vcvt.u32.f32	s14, s14
+ 396 0428 0520C0E5 		strb	r2, [r0, #5]
+ 397 042c 0720C0E5 		strb	r2, [r0, #7]
+ 398 0430 0820C0E5 		strb	r2, [r0, #8]
+ 399 0434 1420C0E5 		strb	r2, [r0, #20]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 8
 
 
- 400 0438 1850C0E5 		strb	r5, [r0, #24]
- 401 043c 6130DDE5 		ldrb	r3, [sp, #97]	@ zero_extendqisi2
- 402 0440 BE45CDE1 		strh	r4, [sp, #94]	@ movhi
- 403 0444 0A6ACDED 		vstr.32	s13, [sp, #40]	@ int
- 404 0448 107ACDED 		vstr.32	s15, [sp, #64]	@ int
- 405 044c 1C10C0E5 		strb	r1, [r0, #28]
- 406 0450 0310A0E3 		mov	r1, #3
- 407 0454 1D10C0E5 		strb	r1, [r0, #29]
- 408 0458 0410A0E3 		mov	r1, #4
- 409 045c 2B10C0E5 		strb	r1, [r0, #43]
- 410 0460 0310A0E3 		mov	r1, #3
- 411 0464 2C10C0E5 		strb	r1, [r0, #44]
- 412 0468 4110A0E3 		mov	r1, #65
- 413 046c 6780A0E3 		mov	r8, #103
- 414 0470 2510C0E5 		strb	r1, [r0, #37]
- 415 0474 2914A0E1 		lsr	r1, r9, #8
- 416 0478 2710C0E5 		strb	r1, [r0, #39]
- 417 047c 291CA0E1 		lsr	r1, r9, #24
- 418 0480 2910C0E5 		strb	r1, [r0, #41]
- 419 0484 2010A0E3 		mov	r1, #32
- 420 0488 2690C0E5 		strb	r9, [r0, #38]
- 421 048c 2080C0E5 		strb	r8, [r0, #32]
- 422 0490 C77AFCEE 		vcvt.u32.f32	s15, s14
- 423 0494 2988A0E1 		lsr	r8, r9, #16
- 424 0498 0290A0E3 		mov	r9, #2
- 425 049c 2A10C0E5 		strb	r1, [r0, #42]
- 426 04a0 2714A0E1 		lsr	r1, r7, #8
+ 400 0438 1520C0E5 		strb	r2, [r0, #21]
+ 401 043c 1620C0E5 		strb	r2, [r0, #22]
+ 402 0440 1720C0E5 		strb	r2, [r0, #23]
+ 403 0444 1030C0E5 		strb	r3, [r0, #16]
+ 404 0448 B0E7CDE1 		strh	lr, [sp, #112]	@ movhi
+ 405 044c 18E0C0E5 		strb	lr, [r0, #24]
+ 406 0450 7130DDE5 		ldrb	r3, [sp, #113]	@ zero_extendqisi2
+ 407 0454 0E7A8DED 		vstr.32	s14, [sp, #56]	@ int
+ 408 0458 C67ABCEE 		vcvt.u32.f32	s14, s12
+ 409 045c 107A8DED 		vstr.32	s14, [sp, #64]	@ int
+ 410 0460 E67ABCEE 		vcvt.u32.f32	s14, s13
+ 411 0464 117A8DED 		vstr.32	s14, [sp, #68]	@ int
+ 412 0468 34708DE5 		str	r7, [sp, #52]
+ 413 046c B474DDE1 		ldrh	r7, [sp, #68]
+ 414 0470 647A1FED 		vldr.32	s14, .L78+148
+ 415 0474 07C0A0E1 		mov	ip, r7
+ 416 0478 0370A0E3 		mov	r7, #3
+ 417 047c 1D70C0E5 		strb	r7, [r0, #29]
+ 418 0480 0470A0E3 		mov	r7, #4
+ 419 0484 877A67EE 		vmul.f32	s15, s15, s14
+ 420 0488 2B70C0E5 		strb	r7, [r0, #43]
+ 421 048c 0670A0E3 		mov	r7, #6
+ 422 0490 6080A0E3 		mov	r8, #96
+ 423 0494 3470C0E5 		strb	r7, [r0, #52]
+ 424 0498 67B0A0E3 		mov	fp, #103
+ 425 049c 4170A0E3 		mov	r7, #65
+ 426 04a0 E77AFCEE 		vcvt.u32.f32	s15, s15
  427 04a4 1930C0E5 		strb	r3, [r0, #25]
- 428 04a8 2880C0E5 		strb	r8, [r0, #40]
- 429 04ac 3110C0E5 		strb	r1, [r0, #49]
- 430 04b0 2788A0E1 		lsr	r8, r7, #16
- 431 04b4 271CA0E1 		lsr	r1, r7, #24
- 432 04b8 2434A0E1 		lsr	r3, r4, #8
- 433 04bc 1B30C0E5 		strb	r3, [r0, #27]
- 434 04c0 1E20C0E5 		strb	r2, [r0, #30]
- 435 04c4 B832DDE1 		ldrh	r3, [sp, #40]
- 436 04c8 2120C0E5 		strb	r2, [r0, #33]
- 437 04cc 2220C0E5 		strb	r2, [r0, #34]
- 438 04d0 2320C0E5 		strb	r2, [r0, #35]
- 439 04d4 2420C0E5 		strb	r2, [r0, #36]
+ 428 04a8 2134A0E1 		lsr	r3, r1, #8
+ 429 04ac 1B30C0E5 		strb	r3, [r0, #27]
+ 430 04b0 B833DDE1 		ldrh	r3, [sp, #56]
+ 431 04b4 1A10C0E5 		strb	r1, [r0, #26]
+ 432 04b8 1C80C0E5 		strb	r8, [r0, #28]
+ 433 04bc 1E20C0E5 		strb	r2, [r0, #30]
+ 434 04c0 B084DDE1 		ldrh	r8, [sp, #64]
+ 435 04c4 2120C0E5 		strb	r2, [r0, #33]
+ 436 04c8 2220C0E5 		strb	r2, [r0, #34]
+ 437 04cc 2320C0E5 		strb	r2, [r0, #35]
+ 438 04d0 2420C0E5 		strb	r2, [r0, #36]
+ 439 04d4 2640C0E5 		strb	r4, [r0, #38]
  440 04d8 2D20C0E5 		strb	r2, [r0, #45]
  441 04dc 2E20C0E5 		strb	r2, [r0, #46]
  442 04e0 2F20C0E5 		strb	r2, [r0, #47]
- 443 04e4 3070C0E5 		strb	r7, [r0, #48]
+ 443 04e4 3050C0E5 		strb	r5, [r0, #48]
  444 04e8 3520C0E5 		strb	r2, [r0, #53]
  445 04ec 3620C0E5 		strb	r2, [r0, #54]
  446 04f0 3720C0E5 		strb	r2, [r0, #55]
  447 04f4 3A20C0E5 		strb	r2, [r0, #58]
- 448 04f8 3280C0E5 		strb	r8, [r0, #50]
- 449 04fc 1A40C0E5 		strb	r4, [r0, #26]
- 450 0500 00005EE3 		cmp	lr, #0
- 451 0504 117ACDED 		vstr.32	s15, [sp, #68]	@ int
- 452 0508 B0E4DDE1 		ldrh	lr, [sp, #64]
- 453 050c 3310C0E5 		strb	r1, [r0, #51]
- 454 0510 1F90C0E5 		strb	r9, [r0, #31]
- 455 0514 3490C0E5 		strb	r9, [r0, #52]
- 456 0518 0190A0E3 		mov	r9, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 9
+ 448 04f8 BE16CDE1 		strh	r1, [sp, #110]	@ movhi
+ 449 04fc 38308DE5 		str	r3, [sp, #56]
+ 450 0500 107ACDED 		vstr.32	s15, [sp, #64]	@ int
+ 451 0504 20B0C0E5 		strb	fp, [r0, #32]
+ 452 0508 2570C0E5 		strb	r7, [r0, #37]
+ 453 050c 2474A0E1 		lsr	r7, r4, #8
+ 454 0510 2770C0E5 		strb	r7, [r0, #39]
+ 455 0514 2478A0E1 		lsr	r7, r4, #16
+ 456 0518 2870C0E5 		strb	r7, [r0, #40]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 9
 
 
- 457 051c 3990C0E5 		strb	r9, [r0, #57]
- 458 0520 8090C0E5 		strb	r9, [r0, #128]
- 459 0524 1890A0E3 		mov	r9, #24
- 460 0528 0510A0E3 		mov	r1, #5
- 461 052c 8190C0E5 		strb	r9, [r0, #129]
- 462 0530 0390A0E3 		mov	r9, #3
- 463 0534 3810C0E5 		strb	r1, [r0, #56]
- 464 0538 0E1083E0 		add	r1, r3, lr
- 465 053c 0EE043E0 		sub	lr, r3, lr
- 466 0540 0132A0E1 		lsl	r3, r1, #4
- 467 0544 B414DDE1 		ldrh	r1, [sp, #68]
- 468 0548 8390C0E5 		strb	r9, [r0, #131]
- 469 054c 01808AE0 		add	r8, r10, r1
- 470 0550 38909DE5 		ldr	r9, [sp, #56]
- 471 0554 0882A0E1 		lsl	r8, r8, #4
- 472 0558 28808DE5 		str	r8, [sp, #40]
- 473 055c 2984A0E1 		lsr	r8, r9, #8
- 474 0560 8580C0E5 		strb	r8, [r0, #133]
- 475 0564 0980A0E1 		mov	r8, r9
- 476 0568 8490C0E5 		strb	r9, [r0, #132]
- 477 056c 2998A0E1 		lsr	r9, r9, #16
- 478 0570 8690C0E5 		strb	r9, [r0, #134]
- 479 0574 30909DE5 		ldr	r9, [sp, #48]
- 480 0578 288CA0E1 		lsr	r8, r8, #24
- 481 057c 8780C0E5 		strb	r8, [r0, #135]
- 482 0580 2984A0E1 		lsr	r8, r9, #8
- 483 0584 8980C0E5 		strb	r8, [r0, #137]
- 484 0588 0980A0E1 		mov	r8, r9
- 485 058c 2998A0E1 		lsr	r9, r9, #16
- 486 0590 8A90C0E5 		strb	r9, [r0, #138]
- 487 0594 3370E0E3 		mvn	r7, #51
- 488 0598 34909DE5 		ldr	r9, [sp, #52]
- 489 059c 288CA0E1 		lsr	r8, r8, #24
- 490 05a0 8B80C0E5 		strb	r8, [r0, #139]
- 491 05a4 2984A0E1 		lsr	r8, r9, #8
- 492 05a8 8D80C0E5 		strb	r8, [r0, #141]
- 493 05ac 0980A0E1 		mov	r8, r9
- 494 05b0 0060A0E3 		mov	r6, #0
- 495 05b4 80B0A0E3 		mov	fp, #128
- 496 05b8 3F50A0E3 		mov	r5, #63
- 497 05bc 8270C0E5 		strb	r7, [r0, #130]
- 498 05c0 01104AE0 		sub	r1, r10, r1
- 499 05c4 0A72A0E1 		lsl	r7, r10, #4
- 500 05c8 30A0DDE5 		ldrb	r10, [sp, #48]	@ zero_extendqisi2
- 501 05cc 2998A0E1 		lsr	r9, r9, #16
- 502 05d0 88A0C0E5 		strb	r10, [r0, #136]
- 503 05d4 34A0DDE5 		ldrb	r10, [sp, #52]	@ zero_extendqisi2
- 504 05d8 288CA0E1 		lsr	r8, r8, #24
- 505 05dc 7330FFE6 		uxth	r3, r3
- 506 05e0 0EE2A0E1 		lsl	lr, lr, #4
- 507 05e4 0112A0E1 		lsl	r1, r1, #4
- 508 05e8 8CA0C0E5 		strb	r10, [r0, #140]
- 509 05ec 0421C0E5 		strb	r2, [r0, #260]
- 510 05f0 0821C0E5 		strb	r2, [r0, #264]
- 511 05f4 0C21C0E5 		strb	r2, [r0, #268]
- 512 05f8 1021C0E5 		strb	r2, [r0, #272]
- 513 05fc 8E90C0E5 		strb	r9, [r0, #142]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 10
+ 457 051c 0270A0E3 		mov	r7, #2
+ 458 0520 1F70C0E5 		strb	r7, [r0, #31]
+ 459 0524 0970A0E3 		mov	r7, #9
+ 460 0528 2C70C0E5 		strb	r7, [r0, #44]
+ 461 052c 0570A0E3 		mov	r7, #5
+ 462 0530 3870C0E5 		strb	r7, [r0, #56]
+ 463 0534 0170A0E3 		mov	r7, #1
+ 464 0538 244CA0E1 		lsr	r4, r4, #24
+ 465 053c 2940C0E5 		strb	r4, [r0, #41]
+ 466 0540 2040A0E3 		mov	r4, #32
+ 467 0544 3970C0E5 		strb	r7, [r0, #57]
+ 468 0548 8070C0E5 		strb	r7, [r0, #128]
+ 469 054c 1870A0E3 		mov	r7, #24
+ 470 0550 2A40C0E5 		strb	r4, [r0, #42]
+ 471 0554 2544A0E1 		lsr	r4, r5, #8
+ 472 0558 3140C0E5 		strb	r4, [r0, #49]
+ 473 055c 2548A0E1 		lsr	r4, r5, #16
+ 474 0560 3240C0E5 		strb	r4, [r0, #50]
+ 475 0564 3340E0E3 		mvn	r4, #51
+ 476 0568 8170C0E5 		strb	r7, [r0, #129]
+ 477 056c 0370A0E3 		mov	r7, #3
+ 478 0570 0030A0E3 		mov	r3, #0
+ 479 0574 8010A0E3 		mov	r1, #128
+ 480 0578 3FE0A0E3 		mov	lr, #63
+ 481 057c 8240C0E5 		strb	r4, [r0, #130]
+ 482 0580 2644A0E1 		lsr	r4, r6, #8
+ 483 0584 8540C0E5 		strb	r4, [r0, #133]
+ 484 0588 2648A0E1 		lsr	r4, r6, #16
+ 485 058c 8640C0E5 		strb	r4, [r0, #134]
+ 486 0590 2944A0E1 		lsr	r4, r9, #8
+ 487 0594 8940C0E5 		strb	r4, [r0, #137]
+ 488 0598 294CA0E1 		lsr	r4, r9, #24
+ 489 059c 8B40C0E5 		strb	r4, [r0, #139]
+ 490 05a0 255CA0E1 		lsr	r5, r5, #24
+ 491 05a4 2A44A0E1 		lsr	r4, r10, #8
+ 492 05a8 3350C0E5 		strb	r5, [r0, #51]
+ 493 05ac 8460C0E5 		strb	r6, [r0, #132]
+ 494 05b0 2958A0E1 		lsr	r5, r9, #16
+ 495 05b4 8D40C0E5 		strb	r4, [r0, #141]
+ 496 05b8 266CA0E1 		lsr	r6, r6, #24
+ 497 05bc 2A48A0E1 		lsr	r4, r10, #16
+ 498 05c0 B0B4DDE1 		ldrh	fp, [sp, #64]
+ 499 05c4 8370C0E5 		strb	r7, [r0, #131]
+ 500 05c8 8890C0E5 		strb	r9, [r0, #136]
+ 501 05cc 8CA0C0E5 		strb	r10, [r0, #140]
+ 502 05d0 0421C0E5 		strb	r2, [r0, #260]
+ 503 05d4 0821C0E5 		strb	r2, [r0, #264]
+ 504 05d8 0C21C0E5 		strb	r2, [r0, #268]
+ 505 05dc 1021C0E5 		strb	r2, [r0, #272]
+ 506 05e0 8760C0E5 		strb	r6, [r0, #135]
+ 507 05e4 8A50C0E5 		strb	r5, [r0, #138]
+ 508 05e8 2A6CA0E1 		lsr	r6, r10, #24
+ 509 05ec 38509DE5 		ldr	r5, [sp, #56]
+ 510 05f0 8E40C0E5 		strb	r4, [r0, #142]
+ 511 05f4 34A09DE5 		ldr	r10, [sp, #52]
+ 512 05f8 087085E0 		add	r7, r5, r8
+ 513 05fc 089045E0 		sub	r9, r5, r8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 10
 
 
- 514 0600 8F80C0E5 		strb	r8, [r0, #143]
- 515 0604 BC75CDE1 		strh	r7, [sp, #92]	@ movhi
- 516 0608 0071C0E5 		strb	r7, [r0, #256]
- 517 060c 28A09DE5 		ldr	r10, [sp, #40]
- 518 0610 2794A0E1 		lsr	r9, r7, #8
- 519 0614 2E84A0E1 		lsr	r8, lr, #8
- 520 0618 02E1C0E5 		strb	lr, [r0, #258]
- 521 061c 1811C0E5 		strb	r1, [r0, #280]
- 522 0620 BAE5CDE1 		strh	lr, [sp, #90]	@ movhi
- 523 0624 B815CDE1 		strh	r1, [sp, #88]	@ movhi
- 524 0628 21E4A0E1 		lsr	lr, r1, #8
- 525 062c 2314A0E1 		lsr	r1, r3, #8
- 526 0630 0191C0E5 		strb	r9, [r0, #257]
- 527 0634 0381C0E5 		strb	r8, [r0, #259]
- 528 0638 06B1C0E5 		strb	fp, [r0, #262]
- 529 063c 0AB1C0E5 		strb	fp, [r0, #266]
- 530 0640 0EB1C0E5 		strb	fp, [r0, #270]
- 531 0644 0751C0E5 		strb	r5, [r0, #263]
- 532 0648 0B51C0E5 		strb	r5, [r0, #267]
- 533 064c 0F51C0E5 		strb	r5, [r0, #271]
- 534 0650 19E1C0E5 		strb	lr, [r0, #281]
- 535 0654 1A31C0E5 		strb	r3, [r0, #282]
- 536 0658 1321C0E5 		strb	r2, [r0, #275]
- 537 065c 1421C0E5 		strb	r2, [r0, #276]
- 538 0660 1721C0E5 		strb	r2, [r0, #279]
- 539 0664 1C21C0E5 		strb	r2, [r0, #284]
- 540 0668 1EB1C0E5 		strb	fp, [r0, #286]
- 541 066c 1F51C0E5 		strb	r5, [r0, #287]
- 542 0670 2021C0E5 		strb	r2, [r0, #288]
- 543 0674 0561C0E5 		strb	r6, [r0, #261]
- 544 0678 0961C0E5 		strb	r6, [r0, #265]
- 545 067c 0D61C0E5 		strb	r6, [r0, #269]
- 546 0680 1161C0E5 		strb	r6, [r0, #273]
- 547 0684 1261C0E5 		strb	r6, [r0, #274]
- 548 0688 B635CDE1 		strh	r3, [sp, #86]	@ movhi
- 549 068c B4A5CDE1 		strh	r10, [sp, #84]	@ movhi
- 550 0690 1561C0E5 		strb	r6, [r0, #277]
- 551 0694 1661C0E5 		strb	r6, [r0, #278]
- 552 0698 1D61C0E5 		strb	r6, [r0, #285]
- 553 069c 2161C0E5 		strb	r6, [r0, #289]
- 554 06a0 1B11C0E5 		strb	r1, [r0, #283]
- 555 06a4 2810DDE5 		ldrb	r1, [sp, #40]	@ zero_extendqisi2
- 556 06a8 2A74A0E1 		lsr	r7, r10, #8
- 557 06ac 3011C0E5 		strb	r1, [r0, #304]
- 558 06b0 0110A0E3 		mov	r1, #1
- 559 06b4 22B1C0E5 		strb	fp, [r0, #290]
- 560 06b8 2351C0E5 		strb	r5, [r0, #291]
- 561 06bc 2421C0E5 		strb	r2, [r0, #292]
- 562 06c0 2721C0E5 		strb	r2, [r0, #295]
- 563 06c4 2821C0E5 		strb	r2, [r0, #296]
- 564 06c8 2AB1C0E5 		strb	fp, [r0, #298]
- 565 06cc 2B51C0E5 		strb	r5, [r0, #299]
- 566 06d0 2C21C0E5 		strb	r2, [r0, #300]
- 567 06d4 2F21C0E5 		strb	r2, [r0, #303]
- 568 06d8 3171C0E5 		strb	r7, [r0, #305]
- 569 06dc 3231C0E5 		strb	r3, [r0, #306]
- 570 06e0 3421C0E5 		strb	r2, [r0, #308]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 11
+ 514 0600 0C504AE0 		sub	r5, r10, ip
+ 515 0604 0C408AE0 		add	r4, r10, ip
+ 516 0608 8F60C0E5 		strb	r6, [r0, #143]
+ 517 060c 0552A0E1 		lsl	r5, r5, #4
+ 518 0610 08604BE0 		sub	r6, fp, r8
+ 519 0614 0B8088E0 		add	r8, r8, fp
+ 520 0618 7550FFE6 		uxth	r5, r5
+ 521 061c 0992A0E1 		lsl	r9, r9, #4
+ 522 0620 0AA2A0E1 		lsl	r10, r10, #4
+ 523 0624 0882A0E1 		lsl	r8, r8, #4
+ 524 0628 0772A0E1 		lsl	r7, r7, #4
+ 525 062c 0442A0E1 		lsl	r4, r4, #4
+ 526 0630 7440FFE6 		uxth	r4, r4
+ 527 0634 78B0FFE6 		uxth	fp, r8
+ 528 0638 7770FFE6 		uxth	r7, r7
+ 529 063c 00A1C0E5 		strb	r10, [r0, #256]
+ 530 0640 0291C0E5 		strb	r9, [r0, #258]
+ 531 0644 2584A0E1 		lsr	r8, r5, #8
+ 532 0648 BCA6CDE1 		strh	r10, [sp, #108]	@ movhi
+ 533 064c BA96CDE1 		strh	r9, [sp, #106]	@ movhi
+ 534 0650 2AA4A0E1 		lsr	r10, r10, #8
+ 535 0654 2994A0E1 		lsr	r9, r9, #8
+ 536 0658 0662A0E1 		lsl	r6, r6, #4
+ 537 065c 7660FFE6 		uxth	r6, r6
+ 538 0660 01A1C0E5 		strb	r10, [r0, #257]
+ 539 0664 0391C0E5 		strb	r9, [r0, #259]
+ 540 0668 0611C0E5 		strb	r1, [r0, #262]
+ 541 066c 0A11C0E5 		strb	r1, [r0, #266]
+ 542 0670 0E11C0E5 		strb	r1, [r0, #270]
+ 543 0674 07E1C0E5 		strb	lr, [r0, #263]
+ 544 0678 0BE1C0E5 		strb	lr, [r0, #267]
+ 545 067c 0FE1C0E5 		strb	lr, [r0, #271]
+ 546 0680 1981C0E5 		strb	r8, [r0, #281]
+ 547 0684 1851C0E5 		strb	r5, [r0, #280]
+ 548 0688 2784A0E1 		lsr	r8, r7, #8
+ 549 068c 1A71C0E5 		strb	r7, [r0, #282]
+ 550 0690 1321C0E5 		strb	r2, [r0, #275]
+ 551 0694 1421C0E5 		strb	r2, [r0, #276]
+ 552 0698 1721C0E5 		strb	r2, [r0, #279]
+ 553 069c 1C21C0E5 		strb	r2, [r0, #284]
+ 554 06a0 0531C0E5 		strb	r3, [r0, #261]
+ 555 06a4 0931C0E5 		strb	r3, [r0, #265]
+ 556 06a8 0D31C0E5 		strb	r3, [r0, #269]
+ 557 06ac 1131C0E5 		strb	r3, [r0, #273]
+ 558 06b0 1231C0E5 		strb	r3, [r0, #274]
+ 559 06b4 B856CDE1 		strh	r5, [sp, #104]	@ movhi
+ 560 06b8 B676CDE1 		strh	r7, [sp, #102]	@ movhi
+ 561 06bc B446CDE1 		strh	r4, [sp, #100]	@ movhi
+ 562 06c0 1531C0E5 		strb	r3, [r0, #277]
+ 563 06c4 1631C0E5 		strb	r3, [r0, #278]
+ 564 06c8 1D31C0E5 		strb	r3, [r0, #285]
+ 565 06cc 1E11C0E5 		strb	r1, [r0, #286]
+ 566 06d0 3271C0E5 		strb	r7, [r0, #306]
+ 567 06d4 B276CDE1 		strh	r7, [sp, #98]	@ movhi
+ 568 06d8 2474A0E1 		lsr	r7, r4, #8
+ 569 06dc 1FE1C0E5 		strb	lr, [r0, #287]
+ 570 06e0 2021C0E5 		strb	r2, [r0, #288]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 11
 
 
- 571 06e4 36B1C0E5 		strb	fp, [r0, #310]
- 572 06e8 3751C0E5 		strb	r5, [r0, #311]
- 573 06ec 3821C0E5 		strb	r2, [r0, #312]
- 574 06f0 3AB1C0E5 		strb	fp, [r0, #314]
- 575 06f4 3B51C0E5 		strb	r5, [r0, #315]
- 576 06f8 3C21C0E5 		strb	r2, [r0, #316]
- 577 06fc 3F21C0E5 		strb	r2, [r0, #319]
- 578 0700 2561C0E5 		strb	r6, [r0, #293]
- 579 0704 2661C0E5 		strb	r6, [r0, #294]
- 580 0708 2961C0E5 		strb	r6, [r0, #297]
- 581 070c 2D61C0E5 		strb	r6, [r0, #301]
- 582 0710 2E61C0E5 		strb	r6, [r0, #302]
- 583 0714 B235CDE1 		strh	r3, [sp, #82]	@ movhi
- 584 0718 3561C0E5 		strb	r6, [r0, #309]
- 585 071c 3961C0E5 		strb	r6, [r0, #313]
- 586 0720 3D61C0E5 		strb	r6, [r0, #317]
- 587 0724 3E61C0E5 		strb	r6, [r0, #318]
- 588 0728 4021C0E5 		strb	r2, [r0, #320]
- 589 072c 7110C0E5 		strb	r1, [r0, #113]
- 590 0730 0210A0E3 		mov	r1, #2
- 591 0734 DCE41FE5 		ldr	lr, .L78+12
- 592 0738 2334A0E1 		lsr	r3, r3, #8
- 593 073c 3331C0E5 		strb	r3, [r0, #307]
- 594 0740 0F3A80E2 		add	r3, r0, #61440
- 595 0744 4321C0E5 		strb	r2, [r0, #323]
- 596 0748 4421C0E5 		strb	r2, [r0, #324]
- 597 074c 46B1C0E5 		strb	fp, [r0, #326]
- 598 0750 4751C0E5 		strb	r5, [r0, #327]
- 599 0754 7020C0E5 		strb	r2, [r0, #112]
- 600 0758 7210C0E5 		strb	r1, [r0, #114]
- 601 075c 4161C0E5 		strb	r6, [r0, #321]
- 602 0760 4261C0E5 		strb	r6, [r0, #322]
- 603 0764 4561C0E5 		strb	r6, [r0, #325]
- 604 0768 01EEC3E5 		strb	lr, [r3, #3585]
- 605 076c 10E51FE5 		ldr	lr, .L78+16
- 606 0770 6A10E0E3 		mvn	r1, #106
- 607 0774 04EEC3E5 		strb	lr, [r3, #3588]
- 608 0778 02E0A0E3 		mov	lr, #2
- 609 077c 0EEEC3E5 		strb	lr, [r3, #3598]
- 610 0780 40E0A0E3 		mov	lr, #64
- 611 0784 0FEEC3E5 		strb	lr, [r3, #3599]
- 612 0788 02E0A0E3 		mov	lr, #2
- 613 078c 16EEC3E5 		strb	lr, [r3, #3606]
- 614 0790 40E0A0E3 		mov	lr, #64
- 615 0794 7070A0E3 		mov	r7, #112
- 616 0798 D180A0E3 		mov	r8, #209
- 617 079c 031EC3E5 		strb	r1, [r3, #3587]
- 618 07a0 40151FE5 		ldr	r1, .L78+20
- 619 07a4 40551FE5 		ldr	r5, .L78+24
- 620 07a8 021EC3E5 		strb	r1, [r3, #3586]
- 621 07ac 0A1EC3E5 		strb	r1, [r3, #3594]
- 622 07b0 121EC3E5 		strb	r1, [r3, #3602]
- 623 07b4 18EEC3E5 		strb	lr, [r3, #3608]
- 624 07b8 50151FE5 		ldr	r1, .L78+28
- 625 07bc 50E51FE5 		ldr	lr, .L78+32
- 626 07c0 055EC3E5 		strb	r5, [r3, #3589]
- 627 07c4 0D5EC3E5 		strb	r5, [r3, #3597]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 12
+ 571 06e4 2211C0E5 		strb	r1, [r0, #290]
+ 572 06e8 23E1C0E5 		strb	lr, [r0, #291]
+ 573 06ec 2421C0E5 		strb	r2, [r0, #292]
+ 574 06f0 2721C0E5 		strb	r2, [r0, #295]
+ 575 06f4 2821C0E5 		strb	r2, [r0, #296]
+ 576 06f8 2B21C0E5 		strb	r2, [r0, #299]
+ 577 06fc 2C21C0E5 		strb	r2, [r0, #300]
+ 578 0700 2E11C0E5 		strb	r1, [r0, #302]
+ 579 0704 2FE1C0E5 		strb	lr, [r0, #303]
+ 580 0708 1B81C0E5 		strb	r8, [r0, #283]
+ 581 070c 3041C0E5 		strb	r4, [r0, #304]
+ 582 0710 3381C0E5 		strb	r8, [r0, #307]
+ 583 0714 4851C0E5 		strb	r5, [r0, #328]
+ 584 0718 2584A0E1 		lsr	r8, r5, #8
+ 585 071c 3421C0E5 		strb	r2, [r0, #308]
+ 586 0720 3611C0E5 		strb	r1, [r0, #310]
+ 587 0724 37E1C0E5 		strb	lr, [r0, #311]
+ 588 0728 3821C0E5 		strb	r2, [r0, #312]
+ 589 072c 3A11C0E5 		strb	r1, [r0, #314]
+ 590 0730 3BE1C0E5 		strb	lr, [r0, #315]
+ 591 0734 2131C0E5 		strb	r3, [r0, #289]
+ 592 0738 2531C0E5 		strb	r3, [r0, #293]
+ 593 073c 2631C0E5 		strb	r3, [r0, #294]
+ 594 0740 2931C0E5 		strb	r3, [r0, #297]
+ 595 0744 2A31C0E5 		strb	r3, [r0, #298]
+ 596 0748 2D31C0E5 		strb	r3, [r0, #301]
+ 597 074c B056CDE1 		strh	r5, [sp, #96]	@ movhi
+ 598 0750 3531C0E5 		strb	r3, [r0, #309]
+ 599 0754 3931C0E5 		strb	r3, [r0, #313]
+ 600 0758 3C21C0E5 		strb	r2, [r0, #316]
+ 601 075c 3171C0E5 		strb	r7, [r0, #305]
+ 602 0760 2674A0E1 		lsr	r7, r6, #8
+ 603 0764 4981C0E5 		strb	r8, [r0, #329]
+ 604 0768 4B71C0E5 		strb	r7, [r0, #331]
+ 605 076c 6051C0E5 		strb	r5, [r0, #352]
+ 606 0770 2B74A0E1 		lsr	r7, fp, #8
+ 607 0774 6181C0E5 		strb	r8, [r0, #353]
+ 608 0778 BC55CDE1 		strh	r5, [sp, #92]	@ movhi
+ 609 077c 2484A0E1 		lsr	r8, r4, #8
+ 610 0780 2654A0E1 		lsr	r5, r6, #8
+ 611 0784 3F21C0E5 		strb	r2, [r0, #319]
+ 612 0788 4021C0E5 		strb	r2, [r0, #320]
+ 613 078c 4211C0E5 		strb	r1, [r0, #322]
+ 614 0790 43E1C0E5 		strb	lr, [r0, #323]
+ 615 0794 4421C0E5 		strb	r2, [r0, #324]
+ 616 0798 4721C0E5 		strb	r2, [r0, #327]
+ 617 079c 4C21C0E5 		strb	r2, [r0, #332]
+ 618 07a0 4A61C0E5 		strb	r6, [r0, #330]
+ 619 07a4 4E11C0E5 		strb	r1, [r0, #334]
+ 620 07a8 62B1C0E5 		strb	fp, [r0, #354]
+ 621 07ac 4FE1C0E5 		strb	lr, [r0, #335]
+ 622 07b0 5021C0E5 		strb	r2, [r0, #336]
+ 623 07b4 5211C0E5 		strb	r1, [r0, #338]
+ 624 07b8 53E1C0E5 		strb	lr, [r0, #339]
+ 625 07bc 5421C0E5 		strb	r2, [r0, #340]
+ 626 07c0 3D31C0E5 		strb	r3, [r0, #317]
+ 627 07c4 3E31C0E5 		strb	r3, [r0, #318]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 12
 
 
- 628 07c8 155EC3E5 		strb	r5, [r3, #3605]
- 629 07cc 1D5EC3E5 		strb	r5, [r3, #3613]
- 630 07d0 217EC3E5 		strb	r7, [r3, #3617]
- 631 07d4 061EC3E5 		strb	r1, [r3, #3590]
- 632 07d8 09EEC3E5 		strb	lr, [r3, #3593]
- 633 07dc 6C951FE5 		ldr	r9, .L78+36
- 634 07e0 6C551FE5 		ldr	r5, .L78+40
- 635 07e4 6C151FE5 		ldr	r1, .L78+44
- 636 07e8 6C751FE5 		ldr	r7, .L78+48
- 637 07ec 6CE51FE5 		ldr	lr, .L78+52
- 638 07f0 009EC3E5 		strb	r9, [r3, #3584]
- 639 07f4 078EC3E5 		strb	r8, [r3, #3591]
- 640 07f8 0C5EC3E5 		strb	r5, [r3, #3596]
- 641 07fc 111EC3E5 		strb	r1, [r3, #3601]
- 642 0800 147EC3E5 		strb	r7, [r3, #3604]
- 643 0804 19EEC3E5 		strb	lr, [r3, #3609]
- 644 0808 84E51FE5 		ldr	lr, .L78+56
- 645 080c 84151FE5 		ldr	r1, .L78+60
- 646 0810 1AEEC3E5 		strb	lr, [r3, #3610]
- 647 0814 22EEC3E5 		strb	lr, [r3, #3618]
- 648 0818 2AEEC3E5 		strb	lr, [r3, #3626]
- 649 081c 32EEC3E5 		strb	lr, [r3, #3634]
- 650 0820 42EEC3E5 		strb	lr, [r3, #3650]
- 651 0824 60E0A0E3 		mov	lr, #96
- 652 0828 2EEEC3E5 		strb	lr, [r3, #3630]
- 653 082c 70E0A0E3 		mov	lr, #112
- 654 0830 1E1EC3E5 		strb	r1, [r3, #3614]
- 655 0834 7F10E0E3 		mvn	r1, #127
- 656 0838 29EEC3E5 		strb	lr, [r3, #3625]
- 657 083c 10A0A0E3 		mov	r10, #16
- 658 0840 02E0A0E3 		mov	lr, #2
- 659 0844 B8751FE5 		ldr	r7, .L78+64
- 660 0848 231EC3E5 		strb	r1, [r3, #3619]
- 661 084c 7E10E0E3 		mvn	r1, #126
- 662 0850 087EC3E5 		strb	r7, [r3, #3592]
- 663 0854 107EC3E5 		strb	r7, [r3, #3600]
- 664 0858 17AEC3E5 		strb	r10, [r3, #3607]
- 665 085c 317EC3E5 		strb	r7, [r3, #3633]
- 666 0860 11A0A0E3 		mov	r10, #17
- 667 0864 36EEC3E5 		strb	lr, [r3, #3638]
- 668 0868 1070A0E3 		mov	r7, #16
- 669 086c 70E0A0E3 		mov	lr, #112
- 670 0870 E0551FE5 		ldr	r5, .L78+68
- 671 0874 E0951FE5 		ldr	r9, .L78+72
- 672 0878 1C5EC3E5 		strb	r5, [r3, #3612]
- 673 087c E4851FE5 		ldr	r8, .L78+76
- 674 0880 E4551FE5 		ldr	r5, .L78+80
- 675 0884 0B1EC3E5 		strb	r1, [r3, #3595]
- 676 0888 131EC3E5 		strb	r1, [r3, #3603]
- 677 088c 1B1EC3E5 		strb	r1, [r3, #3611]
- 678 0890 F0151FE5 		ldr	r1, .L78+84
- 679 0894 1FAEC3E5 		strb	r10, [r3, #3615]
- 680 0898 205EC3E5 		strb	r5, [r3, #3616]
- 681 089c 249EC3E5 		strb	r9, [r3, #3620]
- 682 08a0 258EC3E5 		strb	r8, [r3, #3621]
- 683 08a4 261EC3E5 		strb	r1, [r3, #3622]
- 684 08a8 27AEC3E5 		strb	r10, [r3, #3623]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 13
+ 628 07c8 4131C0E5 		strb	r3, [r0, #321]
+ 629 07cc 4531C0E5 		strb	r3, [r0, #325]
+ 630 07d0 4631C0E5 		strb	r3, [r0, #326]
+ 631 07d4 4D31C0E5 		strb	r3, [r0, #333]
+ 632 07d8 BE65CDE1 		strh	r6, [sp, #94]	@ movhi
+ 633 07dc BAB5CDE1 		strh	fp, [sp, #90]	@ movhi
+ 634 07e0 5131C0E5 		strb	r3, [r0, #337]
+ 635 07e4 5531C0E5 		strb	r3, [r0, #341]
+ 636 07e8 5631C0E5 		strb	r3, [r0, #342]
+ 637 07ec 5721C0E5 		strb	r2, [r0, #343]
+ 638 07f0 5821C0E5 		strb	r2, [r0, #344]
+ 639 07f4 5B21C0E5 		strb	r2, [r0, #347]
+ 640 07f8 5C21C0E5 		strb	r2, [r0, #348]
+ 641 07fc 5E11C0E5 		strb	r1, [r0, #350]
+ 642 0800 5FE1C0E5 		strb	lr, [r0, #351]
+ 643 0804 6421C0E5 		strb	r2, [r0, #356]
+ 644 0808 6611C0E5 		strb	r1, [r0, #358]
+ 645 080c 67E1C0E5 		strb	lr, [r0, #359]
+ 646 0810 6821C0E5 		strb	r2, [r0, #360]
+ 647 0814 6A11C0E5 		strb	r1, [r0, #362]
+ 648 0818 6BE1C0E5 		strb	lr, [r0, #363]
+ 649 081c 6C21C0E5 		strb	r2, [r0, #364]
+ 650 0820 6371C0E5 		strb	r7, [r0, #355]
+ 651 0824 7841C0E5 		strb	r4, [r0, #376]
+ 652 0828 7A61C0E5 		strb	r6, [r0, #378]
+ 653 082c 7B51C0E5 		strb	r5, [r0, #379]
+ 654 0830 6F21C0E5 		strb	r2, [r0, #367]
+ 655 0834 7021C0E5 		strb	r2, [r0, #368]
+ 656 0838 7211C0E5 		strb	r1, [r0, #370]
+ 657 083c 73E1C0E5 		strb	lr, [r0, #371]
+ 658 0840 7421C0E5 		strb	r2, [r0, #372]
+ 659 0844 5931C0E5 		strb	r3, [r0, #345]
+ 660 0848 5A31C0E5 		strb	r3, [r0, #346]
+ 661 084c 5D31C0E5 		strb	r3, [r0, #349]
+ 662 0850 6531C0E5 		strb	r3, [r0, #357]
+ 663 0854 6931C0E5 		strb	r3, [r0, #361]
+ 664 0858 6D31C0E5 		strb	r3, [r0, #365]
+ 665 085c B845CDE1 		strh	r4, [sp, #88]	@ movhi
+ 666 0860 B665CDE1 		strh	r6, [sp, #86]	@ movhi
+ 667 0864 6E31C0E5 		strb	r3, [r0, #366]
+ 668 0868 7131C0E5 		strb	r3, [r0, #369]
+ 669 086c 7531C0E5 		strb	r3, [r0, #373]
+ 670 0870 7631C0E5 		strb	r3, [r0, #374]
+ 671 0874 7721C0E5 		strb	r2, [r0, #375]
+ 672 0878 7C21C0E5 		strb	r2, [r0, #380]
+ 673 087c 7E11C0E5 		strb	r1, [r0, #382]
+ 674 0880 7FE1C0E5 		strb	lr, [r0, #383]
+ 675 0884 8021C0E5 		strb	r2, [r0, #384]
+ 676 0888 8211C0E5 		strb	r1, [r0, #386]
+ 677 088c 83E1C0E5 		strb	lr, [r0, #387]
+ 678 0890 8421C0E5 		strb	r2, [r0, #388]
+ 679 0894 8611C0E5 		strb	r1, [r0, #390]
+ 680 0898 87E1C0E5 		strb	lr, [r0, #391]
+ 681 089c 8821C0E5 		strb	r2, [r0, #392]
+ 682 08a0 8B21C0E5 		strb	r2, [r0, #395]
+ 683 08a4 7981C0E5 		strb	r8, [r0, #377]
+ 684 08a8 8C21C0E5 		strb	r2, [r0, #396]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 13
 
 
- 685 08ac 2BBEC3E5 		strb	fp, [r3, #3627]
- 686 08b0 2C9EC3E5 		strb	r9, [r3, #3628]
- 687 08b4 2D8EC3E5 		strb	r8, [r3, #3629]
- 688 08b8 2FAEC3E5 		strb	r10, [r3, #3631]
- 689 08bc 3D5EC3E5 		strb	r5, [r3, #3645]
- 690 08c0 3F7EC3E5 		strb	r7, [r3, #3647]
- 691 08c4 455EC3E5 		strb	r5, [r3, #3653]
- 692 08c8 24761FE5 		ldr	r7, .L78+88
- 693 08cc 382EC3E5 		strb	r2, [r3, #3640]
- 694 08d0 39EEC3E5 		strb	lr, [r3, #3641]
- 695 08d4 41EEC3E5 		strb	lr, [r3, #3649]
- 696 08d8 30E61FE5 		ldr	lr, .L78+92
- 697 08dc 307EC3E5 		strb	r7, [r3, #3632]
- 698 08e0 35EEC3E5 		strb	lr, [r3, #3637]
- 699 08e4 1570A0E3 		mov	r7, #21
- 700 08e8 30E0A0E3 		mov	lr, #48
- 701 08ec 61A0E0E3 		mvn	r10, #97
- 702 08f0 44861FE5 		ldr	r8, .L78+96
- 703 08f4 3B2EC3E5 		strb	r2, [r3, #3643]
- 704 08f8 3E2EC3E5 		strb	r2, [r3, #3646]
- 705 08fc 402EC3E5 		strb	r2, [r3, #3648]
- 706 0900 432EC3E5 		strb	r2, [r3, #3651]
- 707 0904 462EC3E5 		strb	r2, [r3, #3654]
- 708 0908 288EC3E5 		strb	r8, [r3, #3624]
- 709 090c 0E2A80E2 		add	r2, r0, #57344
- 710 0910 60861FE5 		ldr	r8, .L78+100
- 711 0914 60561FE5 		ldr	r5, .L78+104
- 712 0918 E20C80E2 		add	r0, r0, #57856
- 713 091c 28008DE5 		str	r0, [sp, #40]
- 714 0920 337EC3E5 		strb	r7, [r3, #3635]
- 715 0924 345EC3E5 		strb	r5, [r3, #3636]
- 716 0928 37EEC3E5 		strb	lr, [r3, #3639]
- 717 092c 3C8EC3E5 		strb	r8, [r3, #3644]
- 718 0930 448EC3E5 		strb	r8, [r3, #3652]
- 719 0934 471EC3E5 		strb	r1, [r3, #3655]
- 720 0938 3AAEC3E5 		strb	r10, [r3, #3642]
- 721 093c 28309DE5 		ldr	r3, [sp, #40]
- 722 0940 1C109DE5 		ldr	r1, [sp, #28]
- 723 0944 238083E2 		add	r8, r3, #35
- 724 0948 0430A0E3 		mov	r3, #4
- 725 094c 1732C2E5 		strb	r3, [r2, #535]
- 726 0950 7230A0E3 		mov	r3, #114
- 727 0954 20B09DE5 		ldr	fp, [sp, #32]
- 728 0958 1C009DE5 		ldr	r0, [sp, #28]
- 729 095c B015CDE1 		strh	r1, [sp, #80]	@ movhi
- 730 0960 BE44CDE1 		strh	r4, [sp, #78]	@ movhi
- 731 0964 0162C2E5 		strb	r6, [r2, #513]
- 732 0968 0262C2E5 		strb	r6, [r2, #514]
- 733 096c 0362C2E5 		strb	r6, [r2, #515]
- 734 0970 0562C2E5 		strb	r6, [r2, #517]
- 735 0974 0662C2E5 		strb	r6, [r2, #518]
- 736 0978 0762C2E5 		strb	r6, [r2, #519]
- 737 097c 0962C2E5 		strb	r6, [r2, #521]
- 738 0980 0A62C2E5 		strb	r6, [r2, #522]
- 739 0984 0032C2E5 		strb	r3, [r2, #512]
- 740 0988 7130A0E3 		mov	r3, #113
- 741 098c 0E32C2E5 		strb	r3, [r2, #526]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 14
+ 685 08ac 9041C0E5 		strb	r4, [r0, #400]
+ 686 08b0 9181C0E5 		strb	r8, [r0, #401]
+ 687 08b4 92B1C0E5 		strb	fp, [r0, #402]
+ 688 08b8 9371C0E5 		strb	r7, [r0, #403]
+ 689 08bc 8F21C0E5 		strb	r2, [r0, #399]
+ 690 08c0 9421C0E5 		strb	r2, [r0, #404]
+ 691 08c4 9611C0E5 		strb	r1, [r0, #406]
+ 692 08c8 97E1C0E5 		strb	lr, [r0, #407]
+ 693 08cc 7D31C0E5 		strb	r3, [r0, #381]
+ 694 08d0 8131C0E5 		strb	r3, [r0, #385]
+ 695 08d4 8531C0E5 		strb	r3, [r0, #389]
+ 696 08d8 8931C0E5 		strb	r3, [r0, #393]
+ 697 08dc 8A31C0E5 		strb	r3, [r0, #394]
+ 698 08e0 B445CDE1 		strh	r4, [sp, #84]	@ movhi
+ 699 08e4 B2B5CDE1 		strh	fp, [sp, #82]	@ movhi
+ 700 08e8 8D31C0E5 		strb	r3, [r0, #397]
+ 701 08ec 8E31C0E5 		strb	r3, [r0, #398]
+ 702 08f0 9531C0E5 		strb	r3, [r0, #405]
+ 703 08f4 9821C0E5 		strb	r2, [r0, #408]
+ 704 08f8 9C21C0E5 		strb	r2, [r0, #412]
+ 705 08fc 9F21C0E5 		strb	r2, [r0, #415]
+ 706 0900 A021C0E5 		strb	r2, [r0, #416]
+ 707 0904 A421C0E5 		strb	r2, [r0, #420]
+ 708 0908 7020C0E5 		strb	r2, [r0, #112]
+ 709 090c 0120A0E3 		mov	r2, #1
+ 710 0910 7120C0E5 		strb	r2, [r0, #113]
+ 711 0914 0220A0E3 		mov	r2, #2
+ 712 0918 7220C0E5 		strb	r2, [r0, #114]
+ 713 091c 0320A0E3 		mov	r2, #3
+ 714 0920 7320C0E5 		strb	r2, [r0, #115]
+ 715 0924 0420A0E3 		mov	r2, #4
+ 716 0928 7420C0E5 		strb	r2, [r0, #116]
+ 717 092c 0520A0E3 		mov	r2, #5
+ 718 0930 7520C0E5 		strb	r2, [r0, #117]
+ 719 0934 0420A0E3 		mov	r2, #4
+ 720 0938 7620C0E5 		strb	r2, [r0, #118]
+ 721 093c 0620A0E3 		mov	r2, #6
+ 722 0940 7720C0E5 		strb	r2, [r0, #119]
+ 723 0944 0520A0E3 		mov	r2, #5
+ 724 0948 02C0A0E3 		mov	ip, #2
+ 725 094c 7820C0E5 		strb	r2, [r0, #120]
+ 726 0950 0F2A80E2 		add	r2, r0, #61440
+ 727 0954 9A11C0E5 		strb	r1, [r0, #410]
+ 728 0958 9BE1C0E5 		strb	lr, [r0, #411]
+ 729 095c A211C0E5 		strb	r1, [r0, #418]
+ 730 0960 A3E1C0E5 		strb	lr, [r0, #419]
+ 731 0964 A611C0E5 		strb	r1, [r0, #422]
+ 732 0968 A7E1C0E5 		strb	lr, [r0, #423]
+ 733 096c 9931C0E5 		strb	r3, [r0, #409]
+ 734 0970 9D31C0E5 		strb	r3, [r0, #413]
+ 735 0974 9E31C0E5 		strb	r3, [r0, #414]
+ 736 0978 A131C0E5 		strb	r3, [r0, #417]
+ 737 097c A531C0E5 		strb	r3, [r0, #421]
+ 738 0980 0ECEC2E5 		strb	ip, [r2, #3598]
+ 739 0984 40C0A0E3 		mov	ip, #64
+ 740 0988 0FCEC2E5 		strb	ip, [r2, #3599]
+ 741 098c 02C0A0E3 		mov	ip, #2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 14
 
 
- 742 0990 1C30A0E3 		mov	r3, #28
- 743 0994 1C32C2E5 		strb	r3, [r2, #540]
- 744 0998 0030E0E3 		mvn	r3, #0
- 745 099c 0432C2E5 		strb	r3, [r2, #516]
- 746 09a0 0832C2E5 		strb	r3, [r2, #520]
- 747 09a4 7330A0E3 		mov	r3, #115
- 748 09a8 2094A0E1 		lsr	r9, r0, #8
- 749 09ac 2474A0E1 		lsr	r7, r4, #8
- 750 09b0 2B54A0E1 		lsr	r5, fp, #8
- 751 09b4 2BE8A0E1 		lsr	lr, fp, #16
- 752 09b8 2B0CA0E1 		lsr	r0, fp, #24
- 753 09bc 0B62C2E5 		strb	r6, [r2, #523]
- 754 09c0 0C62C2E5 		strb	r6, [r2, #524]
- 755 09c4 0D62C2E5 		strb	r6, [r2, #525]
- 756 09c8 0FB2C2E5 		strb	fp, [r2, #527]
- 757 09cc 1312C2E5 		strb	r1, [r2, #531]
- 758 09d0 1542C2E5 		strb	r4, [r2, #533]
- 759 09d4 1862C2E5 		strb	r6, [r2, #536]
- 760 09d8 1A62C2E5 		strb	r6, [r2, #538]
- 761 09dc 1B62C2E5 		strb	r6, [r2, #539]
- 762 09e0 1D62C2E5 		strb	r6, [r2, #541]
- 763 09e4 1492C2E5 		strb	r9, [r2, #532]
- 764 09e8 1672C2E5 		strb	r7, [r2, #534]
- 765 09ec 1052C2E5 		strb	r5, [r2, #528]
- 766 09f0 11E2C2E5 		strb	lr, [r2, #529]
- 767 09f4 1202C2E5 		strb	r0, [r2, #530]
- 768 09f8 1932C2E5 		strb	r3, [r2, #537]
- 769 09fc 1E62C2E5 		strb	r6, [r2, #542]
- 770 0a00 1F62C2E5 		strb	r6, [r2, #543]
- 771 0a04 2062C2E5 		strb	r6, [r2, #544]
- 772 0a08 2162C2E5 		strb	r6, [r2, #545]
- 773 0a0c 2262C2E5 		strb	r6, [r2, #546]
- 774 0a10 2C00000A 		beq	.L44
- 775 0a14 7350A0E3 		mov	r5, #115
- 776 0a18 1140A0E3 		mov	r4, #17
- 777 0a1c 1870A0E3 		mov	r7, #24
- 778 0a20 18309DE5 		ldr	r3, [sp, #24]
- 779 0a24 8C218CE0 		add	r2, ip, ip, lsl #3
- 780 0a28 83E2A0E1 		lsl	lr, r3, #5
- 781 0a2c 013043E2 		sub	r3, r3, #1
- 782 0a30 1C208DE5 		str	r2, [sp, #28]
- 783 0a34 20308DE5 		str	r3, [sp, #32]
- 784 0a38 01904CE2 		sub	r9, ip, #1
- 785              	.L46:
- 786 0a3c 00005CE3 		cmp	ip, #0
- 787 0a40 1900000A 		beq	.L47
- 788 0a44 20309DE5 		ldr	r3, [sp, #32]
- 789 0a48 7600EFE6 		uxtb	r0, r6
- 790 0a4c 060053E1 		cmp	r3, r6
- 791 0a50 7000000A 		beq	.L77
- 792 0a54 0010A0E3 		mov	r1, #0
- 793 0a58 14209DE5 		ldr	r2, [sp, #20]
- 794 0a5c 093088E2 		add	r3, r8, #9
- 795              	.L49:
- 796 0a60 22A4A0E1 		lsr	r10, r2, #8
- 797 0a64 071043E5 		strb	r1, [r3, #-7]
- 798 0a68 011081E2 		add	r1, r1, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 15
+ 742 0990 16CEC2E5 		strb	ip, [r2, #3606]
+ 743 0994 40C0A0E3 		mov	ip, #64
+ 744 0998 18CEC2E5 		strb	ip, [r2, #3608]
+ 745 099c 6AC0E0E3 		mvn	ip, #106
+ 746 09a0 03CEC2E5 		strb	ip, [r2, #3587]
+ 747 09a4 2EC0E0E3 		mvn	ip, #46
+ 748 09a8 50971FE5 		ldr	r9, .L78+12
+ 749 09ac 50771FE5 		ldr	r7, .L78+16
+ 750 09b0 50571FE5 		ldr	r5, .L78+20
+ 751 09b4 50471FE5 		ldr	r4, .L78+24
+ 752 09b8 009EC2E5 		strb	r9, [r2, #3584]
+ 753 09bc 017EC2E5 		strb	r7, [r2, #3585]
+ 754 09c0 045EC2E5 		strb	r5, [r2, #3588]
+ 755 09c4 064EC2E5 		strb	r4, [r2, #3590]
+ 756 09c8 07CEC2E5 		strb	ip, [r2, #3591]
+ 757 09cc 7EC0E0E3 		mvn	ip, #126
+ 758 09d0 0BCEC2E5 		strb	ip, [r2, #3595]
+ 759 09d4 13CEC2E5 		strb	ip, [r2, #3603]
+ 760 09d8 10C0A0E3 		mov	ip, #16
+ 761 09dc 17CEC2E5 		strb	ip, [r2, #3607]
+ 762 09e0 7EC0E0E3 		mvn	ip, #126
+ 763 09e4 1BCEC2E5 		strb	ip, [r2, #3611]
+ 764 09e8 09C0A0E3 		mov	ip, #9
+ 765 09ec 20CEC2E5 		strb	ip, [r2, #3616]
+ 766 09f0 70C0A0E3 		mov	ip, #112
+ 767 09f4 21CEC2E5 		strb	ip, [r2, #3617]
+ 768 09f8 39CEC2E5 		strb	ip, [r2, #3641]
+ 769 09fc 15C0A0E3 		mov	ip, #21
+ 770 0a00 98471FE5 		ldr	r4, .L78+28
+ 771 0a04 98671FE5 		ldr	r6, .L78+32
+ 772 0a08 98E71FE5 		ldr	lr, .L78+36
+ 773 0a0c 98971FE5 		ldr	r9, .L78+40
+ 774 0a10 98871FE5 		ldr	r8, .L78+44
+ 775 0a14 98771FE5 		ldr	r7, .L78+48
+ 776 0a18 98571FE5 		ldr	r5, .L78+52
+ 777 0a1c 096EC2E5 		strb	r6, [r2, #3593]
+ 778 0a20 0CEEC2E5 		strb	lr, [r2, #3596]
+ 779 0a24 A0671FE5 		ldr	r6, .L78+56
+ 780 0a28 A0E71FE5 		ldr	lr, .L78+60
+ 781 0a2c 119EC2E5 		strb	r9, [r2, #3601]
+ 782 0a30 148EC2E5 		strb	r8, [r2, #3604]
+ 783 0a34 197EC2E5 		strb	r7, [r2, #3609]
+ 784 0a38 054EC2E5 		strb	r4, [r2, #3589]
+ 785 0a3c 0D4EC2E5 		strb	r4, [r2, #3597]
+ 786 0a40 154EC2E5 		strb	r4, [r2, #3605]
+ 787 0a44 1D4EC2E5 		strb	r4, [r2, #3613]
+ 788 0a48 BC971FE5 		ldr	r9, .L78+64
+ 789 0a4c BC871FE5 		ldr	r8, .L78+68
+ 790 0a50 BC771FE5 		ldr	r7, .L78+72
+ 791 0a54 BC471FE5 		ldr	r4, .L78+76
+ 792 0a58 025EC2E5 		strb	r5, [r2, #3586]
+ 793 0a5c 0A5EC2E5 		strb	r5, [r2, #3594]
+ 794 0a60 125EC2E5 		strb	r5, [r2, #3602]
+ 795 0a64 086EC2E5 		strb	r6, [r2, #3592]
+ 796 0a68 106EC2E5 		strb	r6, [r2, #3600]
+ 797 0a6c 1AEEC2E5 		strb	lr, [r2, #3610]
+ 798 0a70 231EC2E5 		strb	r1, [r2, #3619]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 15
 
 
- 799 0a6c 22B8A0E1 		lsr	fp, r2, #16
- 800 0a70 04A043E5 		strb	r10, [r3, #-4]
- 801 0a74 01005CE1 		cmp	ip, r1
- 802 0a78 22ACA0E1 		lsr	r10, r2, #24
- 803 0a7c 052043E5 		strb	r2, [r3, #-5]
- 804 0a80 095043E5 		strb	r5, [r3, #-9]
- 805 0a84 080043E5 		strb	r0, [r3, #-8]
- 806 0a88 064043E5 		strb	r4, [r3, #-6]
- 807 0a8c 017043E5 		strb	r7, [r3, #-1]
- 808 0a90 03B043E5 		strb	fp, [r3, #-3]
- 809 0a94 02A043E5 		strb	r10, [r3, #-2]
- 810 0a98 0E2082E0 		add	r2, r2, lr
- 811 0a9c 093083E2 		add	r3, r3, #9
- 812 0aa0 EEFFFF1A 		bne	.L49
- 813              	.L76:
- 814 0aa4 1C309DE5 		ldr	r3, [sp, #28]
- 815 0aa8 038088E0 		add	r8, r8, r3
- 816              	.L47:
- 817 0aac 18309DE5 		ldr	r3, [sp, #24]
- 818 0ab0 016086E2 		add	r6, r6, #1
- 819 0ab4 060053E1 		cmp	r3, r6
- 820 0ab8 14309DE5 		ldr	r3, [sp, #20]
- 821 0abc 203083E2 		add	r3, r3, #32
- 822 0ac0 14308DE5 		str	r3, [sp, #20]
- 823 0ac4 DCFFFF1A 		bne	.L46
- 824              	.L44:
- 825 0ac8 0100A0E3 		mov	r0, #1
- 826 0acc 14181FE5 		ldr	r1, .L78+108
- 827 0ad0 2CC09DE5 		ldr	ip, [sp, #44]
- 828 0ad4 003091E5 		ldr	r3, [r1]
- 829 0ad8 3B208CE2 		add	r2, ip, #59
- 830 0adc 033583E2 		add	r3, r3, #12582912
- 831 0ae0 340183E5 		str	r0, [r3, #308]
- 832 0ae4 003091E5 		ldr	r3, [r1]
- 833 0ae8 28E09DE5 		ldr	lr, [sp, #40]
- 834 0aec 033583E2 		add	r3, r3, #12582912
- 835 0af0 10C183E5 		str	ip, [r3, #272]
- 836 0af4 003091E5 		ldr	r3, [r1]
- 837 0af8 0E8048E0 		sub	r8, r8, lr
- 838 0afc 033583E2 		add	r3, r3, #12582912
- 839 0b00 082183E5 		str	r2, [r3, #264]
- 840 0b04 000091E5 		ldr	r0, [r1]
- 841 0b08 030580E2 		add	r0, r0, #12582912
- 842 0b0c 012C80E2 		add	r2, r0, #256
- 843              	.L51:
- 844 0b10 003092E5 		ldr	r3, [r2]
- 845 0b14 200013E3 		tst	r3, #32
- 846 0b18 FCFFFF1A 		bne	.L51
- 847 0b1c 4D2F80E2 		add	r2, r0, #308
- 848              	.L52:
- 849 0b20 003092E5 		ldr	r3, [r2]
- 850 0b24 000053E3 		cmp	r3, #0
- 851 0b28 FCFFFF0A 		beq	.L52
- 852 0b2c 2030A0E3 		mov	r3, #32
- 853 0b30 01C0A0E3 		mov	ip, #1
- 854 0b34 003180E5 		str	r3, [r0, #256]
- 855 0b38 003091E5 		ldr	r3, [r1]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 16
+ 799 0a74 2AEEC2E5 		strb	lr, [r2, #3626]
+ 800 0a78 2B1EC2E5 		strb	r1, [r2, #3627]
+ 801 0a7c 32EEC2E5 		strb	lr, [r2, #3634]
+ 802 0a80 1C9EC2E5 		strb	r9, [r2, #3612]
+ 803 0a84 1E8EC2E5 		strb	r8, [r2, #3614]
+ 804 0a88 227EC2E5 		strb	r7, [r2, #3618]
+ 805 0a8c 383EC2E5 		strb	r3, [r2, #3640]
+ 806 0a90 3B3EC2E5 		strb	r3, [r2, #3643]
+ 807 0a94 284EC2E5 		strb	r4, [r2, #3624]
+ 808 0a98 33CEC2E5 		strb	ip, [r2, #3635]
+ 809 0a9c 30C0A0E3 		mov	ip, #48
+ 810 0aa0 37CEC2E5 		strb	ip, [r2, #3639]
+ 811 0aa4 61C0E0E3 		mvn	ip, #97
+ 812 0aa8 0C181FE5 		ldr	r1, .L78+80
+ 813 0aac 3ACEC2E5 		strb	ip, [r2, #3642]
+ 814 0ab0 291EC2E5 		strb	r1, [r2, #3625]
+ 815 0ab4 14181FE5 		ldr	r1, .L78+84
+ 816 0ab8 E2CC80E2 		add	ip, r0, #57856
+ 817 0abc 311EC2E5 		strb	r1, [r2, #3633]
+ 818 0ac0 1C181FE5 		ldr	r1, .L78+88
+ 819 0ac4 1C581FE5 		ldr	r5, .L78+92
+ 820 0ac8 361EC2E5 		strb	r1, [r2, #3638]
+ 821 0acc 0E1A80E2 		add	r1, r0, #57344
+ 822 0ad0 1C009DE5 		ldr	r0, [sp, #28]
+ 823 0ad4 28681FE5 		ldr	r6, .L78+96
+ 824 0ad8 2094A0E1 		lsr	r9, r0, #8
+ 825 0adc 1000A0E3 		mov	r0, #16
+ 826 0ae0 2E5EC2E5 		strb	r5, [r2, #3630]
+ 827 0ae4 34581FE5 		ldr	r5, .L78+100
+ 828 0ae8 34781FE5 		ldr	r7, .L78+104
+ 829 0aec 256EC2E5 		strb	r6, [r2, #3621]
+ 830 0af0 2D6EC2E5 		strb	r6, [r2, #3629]
+ 831 0af4 24609DE5 		ldr	r6, [sp, #36]
+ 832 0af8 345EC2E5 		strb	r5, [r2, #3636]
+ 833 0afc 44581FE5 		ldr	r5, .L78+108
+ 834 0b00 247EC2E5 		strb	r7, [r2, #3620]
+ 835 0b04 2C7EC2E5 		strb	r7, [r2, #3628]
+ 836 0b08 3F0EC2E5 		strb	r0, [r2, #3647]
+ 837 0b0c 2674A0E1 		lsr	r7, r6, #8
+ 838 0b10 0600A0E1 		mov	r0, r6
+ 839 0b14 2668A0E1 		lsr	r6, r6, #16
+ 840 0b18 11A0A0E3 		mov	r10, #17
+ 841 0b1c 3C5EC2E5 		strb	r5, [r2, #3644]
+ 842 0b20 445EC2E5 		strb	r5, [r2, #3652]
+ 843 0b24 38608DE5 		str	r6, [sp, #56]
+ 844 0b28 0950A0E3 		mov	r5, #9
+ 845 0b2c 7060A0E3 		mov	r6, #112
+ 846 0b30 74481FE5 		ldr	r4, .L78+112
+ 847 0b34 74881FE5 		ldr	r8, .L78+116
+ 848 0b38 304EC2E5 		strb	r4, [r2, #3632]
+ 849 0b3c 78481FE5 		ldr	r4, .L78+120
+ 850 0b40 416EC2E5 		strb	r6, [r2, #3649]
+ 851 0b44 354EC2E5 		strb	r4, [r2, #3637]
+ 852 0b48 80481FE5 		ldr	r4, .L78+124
+ 853 0b4c 20609DE5 		ldr	r6, [sp, #32]
+ 854 0b50 264EC2E5 		strb	r4, [r2, #3622]
+ 855 0b54 42EEC2E5 		strb	lr, [r2, #3650]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 16
 
 
- 856 0b3c 3C009DE5 		ldr	r0, [sp, #60]
- 857 0b40 033583E2 		add	r3, r3, #12582912
- 858 0b44 38C183E5 		str	ip, [r3, #312]
- 859 0b48 003091E5 		ldr	r3, [r1]
- 860 0b4c 002088E0 		add	r2, r8, r0
- 861 0b50 033583E2 		add	r3, r3, #12582912
- 862 0b54 140183E5 		str	r0, [r3, #276]
- 863 0b58 003091E5 		ldr	r3, [r1]
- 864 0b5c 033583E2 		add	r3, r3, #12582912
- 865 0b60 0C2183E5 		str	r2, [r3, #268]
- 866 0b64 001091E5 		ldr	r1, [r1]
- 867 0b68 031581E2 		add	r1, r1, #12582912
- 868 0b6c 412F81E2 		add	r2, r1, #260
- 869              	.L53:
- 870 0b70 003092E5 		ldr	r3, [r2]
- 871 0b74 200013E3 		tst	r3, #32
- 872 0b78 FCFFFF1A 		bne	.L53
- 873 0b7c 4E2F81E2 		add	r2, r1, #312
- 874              	.L54:
- 875 0b80 003092E5 		ldr	r3, [r2]
- 876 0b84 000053E3 		cmp	r3, #0
- 877 0b88 FCFFFF0A 		beq	.L54
- 878 0b8c 0440A0E3 		mov	r4, #4
- 879 0b90 2030A0E3 		mov	r3, #32
- 880 0b94 24509DE5 		ldr	r5, [sp, #36]
- 881 0b98 043181E5 		str	r3, [r1, #260]
- 882 0b9c E0281FE5 		ldr	r2, .L78+112
- 883 0ba0 0430A0E1 		mov	r3, r4
- 884 0ba4 0410A0E1 		mov	r1, r4
- 885 0ba8 04508DE5 		str	r5, [sp, #4]
- 886 0bac 00408DE5 		str	r4, [sp]
- 887 0bb0 0000A0E3 		mov	r0, #0
- 888 0bb4 FEFFFFEB 		bl	mailbox_tag_message
- 889 0bb8 00408DE5 		str	r4, [sp]
- 890 0bbc 04508DE5 		str	r5, [sp, #4]
- 891 0bc0 0430A0E1 		mov	r3, r4
- 892 0bc4 0410A0E1 		mov	r1, r4
- 893 0bc8 08291FE5 		ldr	r2, .L78+116
- 894 0bcc 0000A0E3 		mov	r0, #0
- 895 0bd0 FEFFFFEB 		bl	mailbox_tag_message
- 896 0bd4 7CD08DE2 		add	sp, sp, #124
- 897              		@ sp needed
- 898 0bd8 F08FBDE8 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
- 899              	.L56:
- 900 0bdc E23CA0E3 		mov	r3, #57856
- 901 0be0 3C308DE5 		str	r3, [sp, #60]
- 902 0be4 013CA0E3 		mov	r3, #256
- 903 0be8 34308DE5 		str	r3, [sp, #52]
- 904 0bec FF3CA0E3 		mov	r3, #65280
- 905 0bf0 30308DE5 		str	r3, [sp, #48]
- 906 0bf4 FE3CA0E3 		mov	r3, #65024
- 907 0bf8 38308DE5 		str	r3, [sp, #56]
- 908 0bfc 063AA0E3 		mov	r3, #24576
- 909 0c00 2C008DE5 		str	r0, [sp, #44]
- 910 0c04 7070A0E3 		mov	r7, #112
- 911 0c08 8090A0E3 		mov	r9, #128
- 912 0c0c 025CA0E3 		mov	r5, #512
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 17
+ 856 0b58 34C08DE5 		str	ip, [sp, #52]
+ 857 0b5c 1FAEC2E5 		strb	r10, [r2, #3615]
+ 858 0b60 27AEC2E5 		strb	r10, [r2, #3623]
+ 859 0b64 2FAEC2E5 		strb	r10, [r2, #3631]
+ 860 0b68 3E3EC2E5 		strb	r3, [r2, #3646]
+ 861 0b6c 403EC2E5 		strb	r3, [r2, #3648]
+ 862 0b70 433EC2E5 		strb	r3, [r2, #3651]
+ 863 0b74 455EC2E5 		strb	r5, [r2, #3653]
+ 864 0b78 463EC2E5 		strb	r3, [r2, #3654]
+ 865 0b7c 3D8EC2E5 		strb	r8, [r2, #3645]
+ 866 0b80 23808CE2 		add	r8, ip, #35
+ 867 0b84 24C0DDE5 		ldrb	ip, [sp, #36]	@ zero_extendqisi2
+ 868 0b88 474EC2E5 		strb	r4, [r2, #3655]
+ 869 0b8c 0FC2C1E5 		strb	ip, [r1, #527]
+ 870 0b90 72C0A0E3 		mov	ip, #114
+ 871 0b94 3820DDE5 		ldrb	r2, [sp, #56]	@ zero_extendqisi2
+ 872 0b98 200CA0E1 		lsr	r0, r0, #24
+ 873 0b9c FFB0A0E3 		mov	fp, #255
+ 874 0ba0 00C2C1E5 		strb	ip, [r1, #512]
+ 875 0ba4 1122C1E5 		strb	r2, [r1, #529]
+ 876 0ba8 1202C1E5 		strb	r0, [r1, #530]
+ 877 0bac 1C20A0E3 		mov	r2, #28
+ 878 0bb0 71C0A0E3 		mov	ip, #113
+ 879 0bb4 0400A0E3 		mov	r0, #4
+ 880 0bb8 1C409DE5 		ldr	r4, [sp, #28]
+ 881 0bbc 0132C1E5 		strb	r3, [r1, #513]
+ 882 0bc0 B045CDE1 		strh	r4, [sp, #80]	@ movhi
+ 883 0bc4 0232C1E5 		strb	r3, [r1, #514]
+ 884 0bc8 0332C1E5 		strb	r3, [r1, #515]
+ 885 0bcc 0532C1E5 		strb	r3, [r1, #517]
+ 886 0bd0 0632C1E5 		strb	r3, [r1, #518]
+ 887 0bd4 0732C1E5 		strb	r3, [r1, #519]
+ 888 0bd8 0932C1E5 		strb	r3, [r1, #521]
+ 889 0bdc 0A32C1E5 		strb	r3, [r1, #522]
+ 890 0be0 0B32C1E5 		strb	r3, [r1, #523]
+ 891 0be4 0C32C1E5 		strb	r3, [r1, #524]
+ 892 0be8 0D32C1E5 		strb	r3, [r1, #525]
+ 893 0bec 1342C1E5 		strb	r4, [r1, #531]
+ 894 0bf0 0EC2C1E5 		strb	ip, [r1, #526]
+ 895 0bf4 1072C1E5 		strb	r7, [r1, #528]
+ 896 0bf8 04B2C1E5 		strb	fp, [r1, #516]
+ 897 0bfc 08B2C1E5 		strb	fp, [r1, #520]
+ 898 0c00 1492C1E5 		strb	r9, [r1, #532]
+ 899 0c04 1702C1E5 		strb	r0, [r1, #535]
+ 900 0c08 1562C1E5 		strb	r6, [r1, #533]
+ 901 0c0c 1832C1E5 		strb	r3, [r1, #536]
+ 902 0c10 1A32C1E5 		strb	r3, [r1, #538]
+ 903 0c14 1B32C1E5 		strb	r3, [r1, #539]
+ 904 0c18 1D32C1E5 		strb	r3, [r1, #541]
+ 905 0c1c 1C22C1E5 		strb	r2, [r1, #540]
+ 906 0c20 7320A0E3 		mov	r2, #115
+ 907 0c24 26E4A0E1 		lsr	lr, r6, #8
+ 908 0c28 1E32C1E5 		strb	r3, [r1, #542]
+ 909 0c2c 1F32C1E5 		strb	r3, [r1, #543]
+ 910 0c30 2032C1E5 		strb	r3, [r1, #544]
+ 911 0c34 2132C1E5 		strb	r3, [r1, #545]
+ 912 0c38 2232C1E5 		strb	r3, [r1, #546]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 17
 
 
- 913 0c10 14308DE5 		str	r3, [sp, #20]
- 914 0c14 C8FDFFEA 		b	.L42
- 915              	.L77:
- 916 0c18 0010A0E3 		mov	r1, #0
- 917 0c1c 14209DE5 		ldr	r2, [sp, #20]
- 918 0c20 093088E2 		add	r3, r8, #9
- 919              	.L45:
- 920 0c24 010059E1 		cmp	r9, r1
- 921 0c28 19B0A003 		moveq	fp, #25
- 922 0c2c 18B0A013 		movne	fp, #24
- 923 0c30 22A4A0E1 		lsr	r10, r2, #8
- 924 0c34 071043E5 		strb	r1, [r3, #-7]
- 925 0c38 011081E2 		add	r1, r1, #1
- 926 0c3c 01B043E5 		strb	fp, [r3, #-1]
- 927 0c40 04A043E5 		strb	r10, [r3, #-4]
- 928 0c44 22B8A0E1 		lsr	fp, r2, #16
- 929 0c48 22ACA0E1 		lsr	r10, r2, #24
- 930 0c4c 01005CE1 		cmp	ip, r1
- 931 0c50 052043E5 		strb	r2, [r3, #-5]
- 932 0c54 095043E5 		strb	r5, [r3, #-9]
- 933 0c58 080043E5 		strb	r0, [r3, #-8]
- 934 0c5c 064043E5 		strb	r4, [r3, #-6]
- 935 0c60 03B043E5 		strb	fp, [r3, #-3]
- 936 0c64 02A043E5 		strb	r10, [r3, #-2]
- 937 0c68 0E2082E0 		add	r2, r2, lr
- 938 0c6c 093083E2 		add	r3, r3, #9
- 939 0c70 EBFFFF1A 		bne	.L45
- 940 0c74 8AFFFFEA 		b	.L76
- 941              		.size	testTriangle, .-testTriangle
- 942              		.section	.rodata.str1.4,"aMS",%progbits,1
- 943              		.align	2
- 944              	.LC0:
- 945 0000 4572726F 		.ascii	"Error: Unable to allocate memory\000"
- 945      723A2055 
- 945      6E61626C 
- 945      6520746F 
- 945      20616C6C 
- 946              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s 			page 18
+ 913 0c3c BE64CDE1 		strh	r6, [sp, #78]	@ movhi
+ 914 0c40 16E2C1E5 		strb	lr, [r1, #534]
+ 915 0c44 1922C1E5 		strb	r2, [r1, #537]
+ 916 0c48 2F00000A 		beq	.L44
+ 917 0c4c 30109DE5 		ldr	r1, [sp, #48]
+ 918 0c50 7360A0E3 		mov	r6, #115
+ 919 0c54 0A50A0E1 		mov	r5, r10
+ 920 0c58 1870A0E3 		mov	r7, #24
+ 921 0c5c 01C0A0E1 		mov	ip, r1
+ 922 0c60 0300A0E1 		mov	r0, r3
+ 923 0c64 18309DE5 		ldr	r3, [sp, #24]
+ 924 0c68 812181E0 		add	r2, r1, r1, lsl #3
+ 925 0c6c 8342A0E1 		lsl	r4, r3, #5
+ 926 0c70 013043E2 		sub	r3, r3, #1
+ 927 0c74 1C208DE5 		str	r2, [sp, #28]
+ 928 0c78 20308DE5 		str	r3, [sp, #32]
+ 929 0c7c 019041E2 		sub	r9, r1, #1
+ 930              	.L46:
+ 931 0c80 00005CE3 		cmp	ip, #0
+ 932 0c84 1900000A 		beq	.L47
+ 933 0c88 20309DE5 		ldr	r3, [sp, #32]
+ 934 0c8c 70E0EFE6 		uxtb	lr, r0
+ 935 0c90 000053E1 		cmp	r3, r0
+ 936 0c94 6D00000A 		beq	.L77
+ 937 0c98 0010A0E3 		mov	r1, #0
+ 938 0c9c 14209DE5 		ldr	r2, [sp, #20]
+ 939 0ca0 093088E2 		add	r3, r8, #9
+ 940              	.L49:
+ 941 0ca4 22A4A0E1 		lsr	r10, r2, #8
+ 942 0ca8 071043E5 		strb	r1, [r3, #-7]
+ 943 0cac 011081E2 		add	r1, r1, #1
+ 944 0cb0 22B8A0E1 		lsr	fp, r2, #16
+ 945 0cb4 04A043E5 		strb	r10, [r3, #-4]
+ 946 0cb8 01005CE1 		cmp	ip, r1
+ 947 0cbc 22ACA0E1 		lsr	r10, r2, #24
+ 948 0cc0 052043E5 		strb	r2, [r3, #-5]
+ 949 0cc4 096043E5 		strb	r6, [r3, #-9]
+ 950 0cc8 08E043E5 		strb	lr, [r3, #-8]
+ 951 0ccc 065043E5 		strb	r5, [r3, #-6]
+ 952 0cd0 017043E5 		strb	r7, [r3, #-1]
+ 953 0cd4 03B043E5 		strb	fp, [r3, #-3]
+ 954 0cd8 02A043E5 		strb	r10, [r3, #-2]
+ 955 0cdc 042082E0 		add	r2, r2, r4
+ 956 0ce0 093083E2 		add	r3, r3, #9
+ 957 0ce4 EEFFFF1A 		bne	.L49
+ 958              	.L76:
+ 959 0ce8 1C309DE5 		ldr	r3, [sp, #28]
+ 960 0cec 038088E0 		add	r8, r8, r3
+ 961              	.L47:
+ 962 0cf0 18309DE5 		ldr	r3, [sp, #24]
+ 963 0cf4 010080E2 		add	r0, r0, #1
+ 964 0cf8 000053E1 		cmp	r3, r0
+ 965 0cfc 14309DE5 		ldr	r3, [sp, #20]
+ 966 0d00 203083E2 		add	r3, r3, #32
+ 967 0d04 14308DE5 		str	r3, [sp, #20]
+ 968 0d08 DCFFFF1A 		bne	.L46
+ 969              	.L44:
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 18
+
+
+ 970 0d0c 0100A0E3 		mov	r0, #1
+ 971 0d10 441A1FE5 		ldr	r1, .L78+128
+ 972 0d14 2CC09DE5 		ldr	ip, [sp, #44]
+ 973 0d18 003091E5 		ldr	r3, [r1]
+ 974 0d1c 3B208CE2 		add	r2, ip, #59
+ 975 0d20 033583E2 		add	r3, r3, #12582912
+ 976 0d24 340183E5 		str	r0, [r3, #308]
+ 977 0d28 003091E5 		ldr	r3, [r1]
+ 978 0d2c 34E09DE5 		ldr	lr, [sp, #52]
+ 979 0d30 033583E2 		add	r3, r3, #12582912
+ 980 0d34 10C183E5 		str	ip, [r3, #272]
+ 981 0d38 003091E5 		ldr	r3, [r1]
+ 982 0d3c 0E8048E0 		sub	r8, r8, lr
+ 983 0d40 033583E2 		add	r3, r3, #12582912
+ 984 0d44 082183E5 		str	r2, [r3, #264]
+ 985 0d48 000091E5 		ldr	r0, [r1]
+ 986 0d4c 030580E2 		add	r0, r0, #12582912
+ 987 0d50 012C80E2 		add	r2, r0, #256
+ 988              	.L51:
+ 989 0d54 003092E5 		ldr	r3, [r2]
+ 990 0d58 200013E3 		tst	r3, #32
+ 991 0d5c FCFFFF1A 		bne	.L51
+ 992 0d60 4D2F80E2 		add	r2, r0, #308
+ 993              	.L52:
+ 994 0d64 003092E5 		ldr	r3, [r2]
+ 995 0d68 000053E3 		cmp	r3, #0
+ 996 0d6c FCFFFF0A 		beq	.L52
+ 997 0d70 2030A0E3 		mov	r3, #32
+ 998 0d74 01C0A0E3 		mov	ip, #1
+ 999 0d78 003180E5 		str	r3, [r0, #256]
+ 1000 0d7c 003091E5 		ldr	r3, [r1]
+ 1001 0d80 3C009DE5 		ldr	r0, [sp, #60]
+ 1002 0d84 033583E2 		add	r3, r3, #12582912
+ 1003 0d88 38C183E5 		str	ip, [r3, #312]
+ 1004 0d8c 003091E5 		ldr	r3, [r1]
+ 1005 0d90 002088E0 		add	r2, r8, r0
+ 1006 0d94 033583E2 		add	r3, r3, #12582912
+ 1007 0d98 140183E5 		str	r0, [r3, #276]
+ 1008 0d9c 003091E5 		ldr	r3, [r1]
+ 1009 0da0 033583E2 		add	r3, r3, #12582912
+ 1010 0da4 0C2183E5 		str	r2, [r3, #268]
+ 1011 0da8 001091E5 		ldr	r1, [r1]
+ 1012 0dac 031581E2 		add	r1, r1, #12582912
+ 1013 0db0 412F81E2 		add	r2, r1, #260
+ 1014              	.L53:
+ 1015 0db4 003092E5 		ldr	r3, [r2]
+ 1016 0db8 200013E3 		tst	r3, #32
+ 1017 0dbc FCFFFF1A 		bne	.L53
+ 1018 0dc0 4E2F81E2 		add	r2, r1, #312
+ 1019              	.L54:
+ 1020 0dc4 003092E5 		ldr	r3, [r2]
+ 1021 0dc8 000053E3 		cmp	r3, #0
+ 1022 0dcc FCFFFF0A 		beq	.L54
+ 1023 0dd0 0440A0E3 		mov	r4, #4
+ 1024 0dd4 2030A0E3 		mov	r3, #32
+ 1025 0dd8 28509DE5 		ldr	r5, [sp, #40]
+ 1026 0ddc 043181E5 		str	r3, [r1, #260]
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 19
+
+
+ 1027 0de0 102B1FE5 		ldr	r2, .L78+132
+ 1028 0de4 0430A0E1 		mov	r3, r4
+ 1029 0de8 0410A0E1 		mov	r1, r4
+ 1030 0dec 04508DE5 		str	r5, [sp, #4]
+ 1031 0df0 00408DE5 		str	r4, [sp]
+ 1032 0df4 0000A0E3 		mov	r0, #0
+ 1033 0df8 FEFFFFEB 		bl	mailbox_tag_message
+ 1034 0dfc 00408DE5 		str	r4, [sp]
+ 1035 0e00 04508DE5 		str	r5, [sp, #4]
+ 1036 0e04 0430A0E1 		mov	r3, r4
+ 1037 0e08 0410A0E1 		mov	r1, r4
+ 1038 0e0c 382B1FE5 		ldr	r2, .L78+136
+ 1039 0e10 0000A0E3 		mov	r0, #0
+ 1040 0e14 FEFFFFEB 		bl	mailbox_tag_message
+ 1041 0e18 8CD08DE2 		add	sp, sp, #140
+ 1042              		@ sp needed
+ 1043 0e1c F08FBDE8 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1044              	.L56:
+ 1045 0e20 E23CA0E3 		mov	r3, #57856
+ 1046 0e24 3C308DE5 		str	r3, [sp, #60]
+ 1047 0e28 063AA0E3 		mov	r3, #24576
+ 1048 0e2c 2C008DE5 		str	r0, [sp, #44]
+ 1049 0e30 01ACA0E3 		mov	r10, #256
+ 1050 0e34 FF9CA0E3 		mov	r9, #65280
+ 1051 0e38 FE6CA0E3 		mov	r6, #65024
+ 1052 0e3c 7050A0E3 		mov	r5, #112
+ 1053 0e40 8040A0E3 		mov	r4, #128
+ 1054 0e44 027CA0E3 		mov	r7, #512
+ 1055 0e48 14308DE5 		str	r3, [sp, #20]
+ 1056 0e4c 3DFDFFEA 		b	.L42
+ 1057              	.L77:
+ 1058 0e50 0010A0E3 		mov	r1, #0
+ 1059 0e54 14209DE5 		ldr	r2, [sp, #20]
+ 1060 0e58 093088E2 		add	r3, r8, #9
+ 1061              	.L45:
+ 1062 0e5c 010059E1 		cmp	r9, r1
+ 1063 0e60 19B0A003 		moveq	fp, #25
+ 1064 0e64 18B0A013 		movne	fp, #24
+ 1065 0e68 22A4A0E1 		lsr	r10, r2, #8
+ 1066 0e6c 071043E5 		strb	r1, [r3, #-7]
+ 1067 0e70 011081E2 		add	r1, r1, #1
+ 1068 0e74 01B043E5 		strb	fp, [r3, #-1]
+ 1069 0e78 04A043E5 		strb	r10, [r3, #-4]
+ 1070 0e7c 22B8A0E1 		lsr	fp, r2, #16
+ 1071 0e80 22ACA0E1 		lsr	r10, r2, #24
+ 1072 0e84 01005CE1 		cmp	ip, r1
+ 1073 0e88 052043E5 		strb	r2, [r3, #-5]
+ 1074 0e8c 096043E5 		strb	r6, [r3, #-9]
+ 1075 0e90 08E043E5 		strb	lr, [r3, #-8]
+ 1076 0e94 065043E5 		strb	r5, [r3, #-6]
+ 1077 0e98 03B043E5 		strb	fp, [r3, #-3]
+ 1078 0e9c 02A043E5 		strb	r10, [r3, #-2]
+ 1079 0ea0 042082E0 		add	r2, r2, r4
+ 1080 0ea4 093083E2 		add	r3, r3, #9
+ 1081 0ea8 EBFFFF1A 		bne	.L45
+ 1082 0eac 8DFFFFEA 		b	.L76
+ 1083              		.size	testTriangle, .-testTriangle
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 20
+
+
+ 1084              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1085              		.align	2
+ 1086              	.LC0:
+ 1087 0000 4572726F 		.ascii	"Error: Unable to allocate memory\000"
+ 1087      723A2055 
+ 1087      6E61626C 
+ 1087      6520746F 
+ 1087      20616C6C 
+ 1088              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s 			page 21
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 rpi-GLES.c
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:14     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:20     .text:00000000 InitV3D
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:58     .text:00000078 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:64     .text:0000008c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:70     .text:0000008c V3D_mem_alloc
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:90     .text:000000c0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:92     .text:000000c4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:98     .text:000000c4 V3D_mem_free
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:116    .text:000000f0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:118    .text:000000f4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:124    .text:000000f4 V3D_mem_lock
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:144    .text:00000128 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:146    .text:0000012c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:152    .text:0000012c V3D_mem_unlock
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:170    .text:00000158 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:172    .text:0000015c $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:178    .text:0000015c V3D_execute_code
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:203    .text:000001a4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:205    .text:000001a8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:211    .text:000001a8 V3D_execute_qpu
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:230    .text:000001d8 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:232    .text:000001dc $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:238    .text:000001dc testTriangle
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:277    .text:00000254 $d
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:310    .text:000002d4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccIMDGtE.s:943    .rodata.str1.4:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:14     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:20     .text:00000000 InitV3D
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:58     .text:00000078 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:64     .text:0000008c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:70     .text:0000008c V3D_mem_alloc
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:90     .text:000000c0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:92     .text:000000c4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:98     .text:000000c4 V3D_mem_free
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:116    .text:000000f0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:118    .text:000000f4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:124    .text:000000f4 V3D_mem_lock
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:144    .text:00000128 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:146    .text:0000012c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:152    .text:0000012c V3D_mem_unlock
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:170    .text:00000158 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:172    .text:0000015c $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:178    .text:0000015c V3D_execute_code
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:203    .text:000001a4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:205    .text:000001a8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:211    .text:000001a8 V3D_execute_qpu
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:230    .text:000001d8 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:232    .text:000001dc $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:238    .text:000001dc testTriangle
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:277    .text:00000254 $d
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:316    .text:000002ec $a
+C:\Users\ldebo\AppData\Local\Temp\ccyuPdxf.s:1085   .rodata.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 mailbox_tag_message

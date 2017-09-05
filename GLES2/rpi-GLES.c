@@ -309,8 +309,8 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 	emit_uint32_t(&p, bus_addr + BUFFER_TILE_DATA);					// tile allocation memory address
 	emit_uint32_t(&p, 0x4000);										// tile allocation memory size
 	emit_uint32_t(&p, bus_addr + BUFFER_TILE_STATE);				// Tile state data address
-	emit_uint8_t(&p, binWth);										// scrWidth/64
-	emit_uint8_t(&p, binHt);										// scrHt/64
+	emit_uint8_t(&p, binWth);										// renderWidth/64
+	emit_uint8_t(&p, binHt);										// renderHt/64
 	emit_uint8_t(&p, 0x04);											// config
 
 	// Start tile binning.
@@ -339,16 +339,16 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 	emit_uint16_t(&p, 0);											// 0
 
 	// The triangle
-	// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.
+	// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
 	emit_uint8_t(&p, GL_NV_SHADER_STATE);
 	emit_uint32_t(&p, bus_addr + BUFFER_SHADER_OFFSET);				// Shader Record
 
 	// primitive index list
 	emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
 	emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
-	emit_uint32_t(&p, 3);											// Length
+	emit_uint32_t(&p, 9);											// Length
 	emit_uint32_t(&p, bus_addr + BUFFER_VERTEX_INDEX);				// address
-	emit_uint32_t(&p, 2);											// Maximum index
+	emit_uint32_t(&p, 6);											// Maximum index
 
 
 	// End of bin list
@@ -383,7 +383,7 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 
 	// Vertex Data
 	p = list + BUFFER_VERTEX_DATA;
-	// Vertex: Top, red
+	// Vertex: Top, vary red
 	emit_uint16_t(&p, (centreX) << 4);								// X in 12.4 fixed point
 	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
 	emit_float(&p, 1.0f);											// Z
@@ -392,7 +392,42 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 	emit_float(&p, 0.0f);											// Varying 1 (Green)
 	emit_float(&p, 0.0f);											// Varying 2 (Blue)
 
-	// Vertex: bottom left, Green
+	// Vertex: bottom left, vary blue
+	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
+	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+	emit_float(&p, 1.0f);											// Z
+	emit_float(&p, 1.0f);											// 1/W
+	emit_float(&p, 0.0f);											// Varying 0 (Red)
+	emit_float(&p, 0.0f);											// Varying 1 (Green)
+	emit_float(&p, 1.0f);											// Varying 2 (Blue)
+
+	// Vertex: bottom right, vary green 
+	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
+	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+	emit_float(&p, 1.0f);											// Z
+	emit_float(&p, 1.0f);											// 1/W
+	emit_float(&p, 0.0f);											// Varying 0 (Red)
+	emit_float(&p, 1.0f);											// Varying 1 (Green)
+	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+
+
+    /* Setup triangle vertices from OpenGL tutorial which used this */
+	// fQuad[0] = -0.2f; fQuad[1] = -0.1f; fQuad[2] = 0.0f;
+	// fQuad[3] = -0.2f; fQuad[4] = -0.6f; fQuad[5] = 0.0f;
+	// fQuad[6] = 0.2f; fQuad[7] = -0.1f; fQuad[8] = 0.0f;
+	// fQuad[9] = 0.2f; fQuad[10] = -0.6f; fQuad[11] = 0.0f;
+	centreY = (uint_fast32_t)(1.35f * (renderHt / 2));				// quad centre y
+
+	// Vertex: Top, left  vary blue
+	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
+	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
+	emit_float(&p, 1.0f);											// Z
+	emit_float(&p, 1.0f);											// 1/W
+	emit_float(&p, 0.0f);											// Varying 0 (Red)
+	emit_float(&p, 0.0f);											// Varying 1 (Green)
+	emit_float(&p, 1.0f);											// Varying 2 (Blue)
+
+	// Vertex: bottom left, vary Green
 	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
 	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
 	emit_float(&p, 1.0f);											// Z
@@ -401,22 +436,37 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 	emit_float(&p, 1.0f);											// Varying 1 (Green)
 	emit_float(&p, 0.0f);											// Varying 2 (Blue)
 
-	// Vertex: bottom right, Blue
+	// Vertex: top right, vary red
+	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
+	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
+	emit_float(&p, 1.0f);											// Z
+	emit_float(&p, 1.0f);											// 1/W
+	emit_float(&p, 1.0f);											// Varying 0 (Red)
+	emit_float(&p, 0.0f);											// Varying 1 (Green)
+	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+
+	// Vertex: bottom right, vary yellow
 	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
 	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
 	emit_float(&p, 1.0f);											// Z
 	emit_float(&p, 1.0f);											// 1/W
 	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 0.0f);											// Varying 1 (Green)
+	emit_float(&p, 1.0f);											// Varying 1 (Green)
 	emit_float(&p, 1.0f);											// Varying 2 (Blue)
-
 
 	// Vertex list
 	p = list + BUFFER_VERTEX_INDEX;
-	emit_uint8_t(&p, 0);											// top
-	emit_uint8_t(&p, 1);											// bottom left
-	emit_uint8_t(&p, 2);											// bottom right
+	emit_uint8_t(&p, 0);											// tri - top
+	emit_uint8_t(&p, 1);											// tri - bottom left
+	emit_uint8_t(&p, 2);											// tri - bottom right
 
+	emit_uint8_t(&p, 3);											// quad - top left
+	emit_uint8_t(&p, 4);											// quad - bottom left
+	emit_uint8_t(&p, 5);											// quad - top right
+
+	emit_uint8_t(&p, 4);											// quad - bottom left
+	emit_uint8_t(&p, 6);											// quad - bottom right
+	emit_uint8_t(&p, 5);											// quad - top right
 
 	// fragment shader
 	p = list + BUFFER_FRAGMENT_SHADER;
@@ -469,7 +519,7 @@ void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferA
 	emit_uint16_t(&p, 0);					// Store nothing (just clear)
 	emit_uint32_t(&p, 0);					// no address is needed
 
-											// Link all binned lists together
+	// Link all binned lists together
 	for (int x = 0; x < binWth; x++) {
 		for (int y = 0; y < binHt; y++) {
 
