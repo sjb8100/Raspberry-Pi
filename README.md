@@ -42,6 +42,9 @@ This will be my ongoing work to try to build a baremetal GLES interface of some 
 >
 I have not yet settled on an interface format but more going to try to follow a tutorial series on OpenGL 3.3 and develop a baremetal interface as I go.
 >
+Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=tutorials&series=1
+>
+>
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code2.jpg?raw=true)
 
