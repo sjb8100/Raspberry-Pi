@@ -13,7 +13,7 @@ What I am going to do and I suggest you do the same is setup the virtual screen 
 You can control which half currently displayed by the mailbox Set virtual offset Tag: 0x00048009. So you should be flip-flopping between rendering and displaying the 
 different halfs of the virtual screen the new render always going to the non displayed half.
 
-As we get a bit further I will do more of a right feel free to ask questions on the Raspberry forum
+As we get a bit further I will do more of a write-up, feel free to ask questions on the Raspberry forum
 https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code2.jpg?raw=true)
