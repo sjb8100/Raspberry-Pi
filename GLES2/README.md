@@ -14,4 +14,4 @@ You can control which half currently displayed by the mailbox Set virtual offset
 different halfs of the virtual screen the new render always going to the non displayed half.
 >
 As we get a bit further I will do more of a right feel free to ask questions on the Raspberry forum
-https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
+>https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
