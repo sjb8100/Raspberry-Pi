@@ -17,5 +17,5 @@ As we get a bit further I will do more writeup. For now feel free to ask questio
 >https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
 
 Also be aware there is a new Pi coming with a VC5. It is going to follow along the same path from what has been reeleased.
-https://anholt.github.io/twivc4/2017/08/28/twiv/
-https://www.phoronix.com/scan.php?page=news_item&px=VC5-Broadcom-Gallium3D
+>https://anholt.github.io/twivc4/2017/08/28/twiv/
+>https://www.phoronix.com/scan.php?page=news_item&px=VC5-Broadcom-Gallium3D
