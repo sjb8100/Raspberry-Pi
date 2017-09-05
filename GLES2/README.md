@@ -15,3 +15,6 @@ different halfs of the virtual screen the new render always going to the non dis
 >
 As we get a bit further I will do more writeup. For now feel free to ask questions on the Raspberry forum
 >https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
+
+Also be aware there is a new Pi coming with a VC5. It is going to follow along the same path from what has been reeleased.
+https://anholt.github.io/twivc4/2017/08/28/twiv/
