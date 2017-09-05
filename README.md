@@ -40,7 +40,7 @@ Yes it's the boring old interrupt timer and blinking LED this time in either 32B
 >
 This will be my ongoing work to try to build a baremetal GLES interface of some kind. Having gone thru the firmware blob via a VCOS shim this time I am going to try going direct onto the VC4. The reason for the new attempt is the GL pipleine details are finally being really exposed by Eric AnHolt in his work on the OpenGL and his current work on the VC5 successor from Broadcom.
 >
-I have not yet settled on a format but more goign to try to follow a tutorial series on OpenGL 3.3 and develop a baremetal interface in response.
+I have not yet settled on an interface format but more going to try to follow a tutorial series on OpenGL 3.3 and develop a baremetal interface as I go.
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code1.jpg?raw=true)
