@@ -2,6 +2,7 @@
 >
 Code background: 
 http://latchup.blogspot.com.au/2016/02/life-of-triangle.html
+>
 You will require this reference
 https://docs.broadcom.com/docs/12358545
 >
