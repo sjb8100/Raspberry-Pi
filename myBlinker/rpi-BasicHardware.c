@@ -44,7 +44,7 @@ static_assert(sizeof(struct ArmTimerRegisters) == 0x1C, "Register/Structure shou
 bool gpio_setup (int gpio, GPIOMODE mode) {
 	if (gpio < 0 || gpio > 54) return false;						// Check GPIO pin number valid, return false if invalid
 	if (mode < 0 || mode > ALTFUNC3) return false;					// Check requested mode is valid, return false if invalid
-	uint32_t bit = 1 << ((gpio % 10) * 3);							// Create bit mask
+	uint32_t bit = ((gpio % 10) * 3);							// Create bit mask
 	uint32_t mem = GPIO->GPFSEL[gpio / 10];							// Read register
 	mem &= ~(7 << bit);												// Clear GPIO mode bits for that port
 	mem |= (mode << bit);											// Logical OR GPIO mode bits
