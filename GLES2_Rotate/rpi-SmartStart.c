@@ -319,7 +319,7 @@ INTDC __attribute__((aligned(4))) console = { 0 };
 bool gpio_setup (uint_fast8_t gpio, GPIOMODE mode) {
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	if (mode < 0 || mode > GPIO_ALTFUNC3) return false;				// Check requested mode is valid, return false if invalid
-	uint_fast32_t bit = 1 << ((gpio % 10) * 3);						// Create bit mask
+	uint_fast32_t bit = ((gpio % 10) * 3);						// Create bit mask
 	uint32_t mem = GPIO->GPFSEL[gpio / 10];							// Read register
 	mem &= ~(7 << bit);												// Clear GPIO mode bits for that port
 	mem |= (mode << bit);											// Logical OR GPIO mode bits
