@@ -12,6 +12,7 @@ Note the displayed bitmap file is in a subdirectory "bitmaps" which is in the Di
 
 Please be aware although I freely release the code, Microsoft has patents on the FAT32 format and use of them commercially requires a license from Microsoft even on embedded systems.
 I refer you to 
+>
 https://en.wikipedia.org/wiki/Microsoft_Corp._v._TomTom_Inc.
 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/SD_FAT32.jpg?raw=true)
