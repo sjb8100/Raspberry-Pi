@@ -1,6 +1,6 @@
 # SD CARD + FAT32 (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
 >
-In trying to take accelerated graphics further I find I am in need of being able to read files for both models and shaders.
+In trying to take accelerated graphics further I find I am in need of being able to read files for both 3D mesh models and shaders.
 
 I had done SD Card and FAT32 a while ago for for a CodeProject article but it was very rough and did not do simple things like deal with sub directories. I use commercial libraries for most of this stuff for work code but wanting to release public domain samples I am forced to having to write functions.
 
