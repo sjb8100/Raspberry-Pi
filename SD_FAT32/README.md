@@ -8,7 +8,7 @@ Now at this stage I have completed only the search and read file functionality. 
 
 The bitmap display is very rough it is there just for me to check the read operations. I am still trying to work out a robust and flexible interface for bitmaps on the smartstart interface. The big issue is the bitmaps are in XYZ colour depth and your screen can be in ZYX colour depth and you need to be able to quickly organize exchange between the two colour formats. I will probably do it the same way as Windows but I have so much on at the moment it may be a few weeks before I get to it.
 
-Note the displayed bitmap file is in a subdirectory "bitmaps" which is in the DiskImg directory. So if you want to just test the sampel you need to make sure you copy all the contents of the DiskImg directory onto the SD Card.
+Note the displayed bitmap file is in a subdirectory "bitmaps" which is in the DiskImg directory. So if you want to just test the sample you need to make sure you copy all the contents of the DiskImg directory onto the SD Card.
 
 Please be aware although I freely release the code, Microsoft has patents on the FAT32 format and use of them commercially requires a license from Microsoft even on embedded systems.
 I refer you to 
