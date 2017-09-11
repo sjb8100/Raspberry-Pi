@@ -47,4 +47,12 @@ Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code2.jpg?raw=true)
+>
+# ***New SD + FAT32 (Pi1,2,3 32Bit .. Pi3 AARCH64)
+>https://github.com/LdB-ECM/Raspberry-Pi/tree/master/SD_FAT32
+>
+To take my accelerated graphics further I found I was in need of the ability to Read Files from the SD Card. I reworked some old code I had done for an article, simplifying it to something that meets the requirements. At this stage the code is strictly READ file only and the API calls mimic the standard file functions from the Windows API.
+>
+As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card (make sure this includes the subdirectory "Bitmaps") and place in Pi to test 
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/SD_FAT32.jpg?raw=true)
 
