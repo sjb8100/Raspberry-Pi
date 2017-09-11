@@ -7,6 +7,26 @@
 #include "emb-stdio.h"							// Provides printf functionality
 #include "SDCard.h"								// This units header
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{																			}
+{       Filename: SDCard.c													}
+{       Copyright(c): Leon de Boer(LdB) 2017								}
+{       Version: 1.01														}
+{       Original start code from Holdswrthy use from the Pi Forum           }
+{																			}
+{***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
+{																            }
+{     This sourcecode is released for the purpose to promote programming    }
+{  on the Raspberry Pi. You may redistribute it and/or modify with the      }
+{  following disclaimer and condition.                                      }
+{																            }
+{      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO      }
+{   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.            }
+{   Redistributions of source code must retain the copyright notices to     }
+{   maintain the author credit (attribution) .								}
+{																			}
+{***************************************************************************/
+
 /*--------------------------------------------------------------------------}
 {    These are SmartStart functions we use. If you wish to port this code   }
 {  you will need to provide equivalent 3 functions on any new system.       }
@@ -1329,8 +1349,10 @@ static SDRESULT sdAppSendOpCond (uint32_t arg )
 	return SD_OK;
 }
 
-
-/* Transfer multiple contiguous blocks between the given address on the card and the buffer. */
+/*-[sdTransferBlocks]-------------------------------------------------------}
+. Transfer the count blocks starting at given block to/from SD Card.
+. 21Aug17 LdB
+.--------------------------------------------------------------------------*/
 SDRESULT sdTransferBlocks (uint32_t startBlock, uint32_t numBlocks, uint8_t* buffer, bool write )
 {
 	if ( sdCard.type == SD_TYPE_UNKNOWN ) return SD_NO_RESP;		// If card not known return error
@@ -1436,7 +1458,10 @@ SDRESULT sdTransferBlocks (uint32_t startBlock, uint32_t numBlocks, uint8_t* buf
 	return SD_OK;
 }
 
-/* Clear multiple contiguous blocks. Assumes that the erase operation writes zeros to the file. */
+/*-[sdClearBlocks]----------------------------------------------------------}
+. Clears the count blocks starting at given block from SD Card.
+. 21Aug17 LdB
+.--------------------------------------------------------------------------*/
 SDRESULT sdClearBlocks(uint32_t startBlock , uint32_t numBlocks)
 {
 	if (sdCard.type == SD_TYPE_UNKNOWN) return SD_NO_RESP;
@@ -2404,9 +2429,4 @@ SDRESULT sdInitCard (printhandler prn_basic, printhandler prn_error, bool mount)
 struct CSD* sdCardCSD (void) {
 	if (sdCard.type != SD_TYPE_UNKNOWN) return (&sdCard.csd);		// Card success so return structure pointer
 		else return NULL;											// Return fail result of null
-}
-
-
-uint32_t sdGetFirstDataSector(void) {
-	return (sdCard.partition.firstDataSector);
 }

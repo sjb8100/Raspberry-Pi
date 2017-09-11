@@ -3,6 +3,26 @@
 #include <time.h>										// C standard for time needed for that and struct tm
 #include "rpi-smartstart.h"								// Provides all basic hardware access and printhandler definition and HANDLE type
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{																			}
+{       Filename: SDCard.h													}
+{       Copyright(c): Leon de Boer(LdB) 2017								}
+{       Version: 1.01														}
+{       Original start code from Holdswrthy use from the Pi Forum           }
+{																			}
+{***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
+{																            }
+{     This sourcecode is released for the purpose to promote programming    }
+{  on the Raspberry Pi. You may redistribute it and/or modify with the      }
+{  following disclaimer and condition.                                      }
+{																            }
+{      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO      }
+{   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.            }
+{   Redistributions of source code must retain the copyright notices to     }
+{   maintain the author credit (attribution) .								}
+{																			}
+{***************************************************************************/
+
 /***************************************************************************}
 {                    PUBLIC ENUMERATIONS FOR THIS UNIT					    }
 ****************************************************************************/
@@ -127,6 +147,10 @@ struct __attribute__((__packed__, aligned(4))) CSD {
 {					      PUBLIC INTERFACE ROUTINES			                }
 ****************************************************************************/
 
+/*==========================================================================}
+{						 PUBLIC RAW SD CARD ROUTINES						}
+{==========================================================================*/
+
 /*-[sdInitCard]-------------------------------------------------------------}
 . Attempts to initializes current SD Card and returns success/error status.
 . This call should be done before any attempt to do anything with a SD card.
@@ -144,13 +168,17 @@ SDRESULT sdInitCard (printhandler prn_basic, printhandler prn_error, bool mount)
 .--------------------------------------------------------------------------*/
 struct CSD* sdCardCSD (void);
 
-
+/*-[sdTransferBlocks]-------------------------------------------------------}
+. Transfer the count blocks starting at given block to/from SD Card.
+. 21Aug17 LdB
+.--------------------------------------------------------------------------*/
 SDRESULT sdTransferBlocks (uint32_t startBlock, uint32_t numBlocks, uint8_t* buffer, bool write );
 
+/*-[sdClearBlocks]----------------------------------------------------------}
+. Clears the count blocks starting at given block from SD Card.
+. 21Aug17 LdB
+.--------------------------------------------------------------------------*/
 SDRESULT sdClearBlocks (uint32_t startBlock, uint32_t numBlocks);
-
-uint32_t sdGetFirstDataSector(void);
-
 
 
 /*==========================================================================}
