@@ -1720,13 +1720,12 @@ uint32_t getSetNextCluster (uint32_t clusterNumber, bool set, uint32_t clusterEn
 {                         PRIVATE SEARCH DATA STRUCTURE			            }
 {--------------------------------------------------------------------------*/
 struct __attribute__((packed, aligned(4))) PRIV_SEARCH_DATA {
-	uint32_t fileStart;												// File start sector (IO use only.. not used by search)
 	uint32_t cluster;												// Current cluster
 	uint32_t firstSector;											// First sector
 	uint32_t sector;												// Current sector
 	uint32_t bPos;													// Buffer position
 	uint8_t buffer[512] __attribute__((aligned(4)));				// Data buffer
-	LFN_NAME searchPattern;											// Serach pattern find was started with
+	LFN_NAME searchPattern;											// Search pattern find was started with
 };
 
 /*--------------------------------------------------------------------------}
@@ -2096,11 +2095,22 @@ bool sdFindClose (HANDLE hFindFile)
 {						 PUBLIC FILE IO ROUTINES							}
 {==========================================================================*/
 
+
+/*--------------------------------------------------------------------------}
+{                        PRIVATE FILE IO DATA STRUCTURE		            }
+{--------------------------------------------------------------------------*/
+struct __attribute__((packed, aligned(4))) PRIV_FILE_IO_DATA {
+	struct PRIV_SEARCH_DATA srec;									// Search record
+	uint32_t fileStart;												// File start sector
+	uint32_t filePos;												// Current file position
+	uint32_t fileSize;												// Current file size
+};
+
 /*--------------------------------------------------------------------------}
 {               INTERNAL FILE IO THAT ARE CURRENTLY RUNNING		            }
 {--------------------------------------------------------------------------*/
 #define MAX_FILE_IO_RECORDS 8										// Maximum number of file IO that can occur at same time
-static struct PRIV_SEARCH_DATA __attribute__((aligned(4))) intFileIORecord[MAX_FILE_IO_RECORDS] = { 0 };
+static struct PRIV_FILE_IO_DATA __attribute__((aligned(4))) intFileIORecord[MAX_FILE_IO_RECORDS] = { 0 };
 
 /*-[sdCreateFile]-----------------------------------------------------------}
 . Creates or opens a file or I/O device. The function returns a handle that 
@@ -2123,52 +2133,54 @@ HANDLE sdCreateFile (const char* lpFileName,						// Filename or device to open
 	const char* searchStr = lpFileName;								// Search string starts as lpFilename
 	if (lpFileName == 0) return 0;									// Name pointer is invalid so fail
 	if (searchStr[0] == '\\') searchStr++;							// We sometimes write root directory with lead slash .. remove it
-	while ((intFileIORecord[i].firstSector != 0) && i < MAX_FILE_IO_RECORDS) i++;
+	while ((intFileIORecord[i].srec.firstSector != 0) && i < MAX_FILE_IO_RECORDS) i++;
 	if (i != MAX_FILE_IO_RECORDS) {									// Empty search record found
-		intFileIORecord[i].cluster = sdCard.partition.rootCluster;
-		intFileIORecord[i].firstSector = getFirstSector(
+		intFileIORecord[i].srec.cluster = sdCard.partition.rootCluster;
+		intFileIORecord[i].srec.firstSector = getFirstSector(
 			sdCard.partition.rootCluster,
 			sdCard.partition.sectorPerCluster,
 			sdCard.partition.firstDataSector);						// Hold the first sector
-		intFileIORecord[i].sector = 0;								// Zero sector count
-		intFileIORecord[i].bPos = 0;								// Zero buffer position
-		if (sdTransferBlocks(intFileIORecord[i].firstSector, 1,
-			&intFileIORecord[i].buffer[0], false) == SD_OK)			// Read a sector of data
+		intFileIORecord[i].srec.sector = 0;							// Zero sector count
+		intFileIORecord[i].srec.bPos = 0;							// Zero buffer position
+		if (sdTransferBlocks(intFileIORecord[i].srec.firstSector, 1,
+			&intFileIORecord[i].srec.buffer[0], false) == SD_OK)	// Read a sector of data
 		{
 			char* p;
 			do {
 				p = strchr(searchStr, '\\');						// Check for sub-directory slash
 				if (p) {											// Directory slash found	
 					*p = '\0';										// Turn the slash into a terminate
-					dir = LocateFATEntry(searchStr, &intFileIORecord[i],
+					dir = LocateFATEntry(searchStr, &intFileIORecord[i].srec,
 						true, openName, &errID);					// Locate directory FAT entry
 					if (dir == NULL) return 0;						// Did not find subdirectory
-					intFileIORecord[i].cluster = (((uint32_t)dir->firstClusterHI) << 16) | dir->firstClusterLO;
-					intFileIORecord[i].firstSector = getFirstSector(
-						intFileIORecord[i].cluster,
+					intFileIORecord[i].srec.cluster = (((uint32_t)dir->firstClusterHI) << 16) | dir->firstClusterLO;
+					intFileIORecord[i].srec.firstSector = getFirstSector(
+						intFileIORecord[i].srec.cluster,
 						sdCard.partition.sectorPerCluster,
 						sdCard.partition.firstDataSector);			// Hold the first sector
-					intFileIORecord[i].sector = 0;					// Zero sector count
-					intFileIORecord[i].bPos = 0;					// Buffer pos starts at top of buffer
-					if (sdTransferBlocks(intFileIORecord[i].firstSector, 1,
-						&intFileIORecord[i].buffer[0], false) != SD_OK)
+					intFileIORecord[i].srec.sector = 0;				// Zero sector count
+					intFileIORecord[i].srec.bPos = 0;				// Buffer pos starts at top of buffer
+					if (sdTransferBlocks(intFileIORecord[i].srec.firstSector, 1,
+						&intFileIORecord[i].srec.buffer[0], false) != SD_OK)
 						return 0;									// Some read error occured
 					searchStr = p + 1;								// Search string now starts after directory
 				}
 			} while (p != NULL);
-			dir = LocateFATEntry(searchStr, &intFileIORecord[i],
+			dir = LocateFATEntry(searchStr, &intFileIORecord[i].srec,
 				false, openName, &errID);							// Locate file first FAT entry
 			if ((errID == FAT_RESULT_OK) && (dir)) {				// First FAT matching entry returned
 				intFileIORecord[i].fileStart = (((uint32_t)dir->firstClusterHI) << 16) | dir->firstClusterLO;
-				intFileIORecord[i].cluster = intFileIORecord[i].fileStart;
-				intFileIORecord[i].firstSector = getFirstSector(
-					intFileIORecord[i].cluster,
+				intFileIORecord[i].filePos = 0;						// Zero file position
+				intFileIORecord[i].fileSize = dir->fileSize;		// Transfer file size
+				intFileIORecord[i].srec.cluster = intFileIORecord[i].fileStart;
+				intFileIORecord[i].srec.firstSector = getFirstSector(
+					intFileIORecord[i].srec.cluster,
 					sdCard.partition.sectorPerCluster,
 					sdCard.partition.firstDataSector);				// Hold the first sector
-				intFileIORecord[i].sector = 0;						// Zero sector count
-				intFileIORecord[i].bPos = 0;						// Buffer pos starts at top of buffer		
-				if (sdTransferBlocks(intFileIORecord[i].firstSector,
-					1, &intFileIORecord[i].buffer[0], false) == SD_OK) 
+				intFileIORecord[i].srec.sector = 0;					// Zero sector count
+				intFileIORecord[i].srec.bPos = 0;					// Buffer pos starts at top of buffer		
+				if (sdTransferBlocks(intFileIORecord[i].srec.firstSector,
+					1, &intFileIORecord[i].srec.buffer[0], false) == SD_OK) 
 				{
 					return (i + 1);									// Return internal file io record index as handle
 				}
@@ -2191,45 +2203,51 @@ bool sdReadFile (HANDLE hFile,										// Handle as returned from CreateFile
 				 void* lpOverlapped)								// Currently not supported (use 0)
 {
 	if ((hFile > 0) && (hFile <= MAX_FILE_IO_RECORDS) &&
-		(intFileIORecord[hFile - 1].firstSector != 0)) {			// File handle maps to an internal file io record in use 
+		(intFileIORecord[hFile - 1].srec.firstSector != 0)) {		// File handle maps to an internal file io record in use 
 		uint32_t bytesRead = 0;										// Zero bytes read
 		uint32_t retErrId = FAT_RESULT_OK;							// Preset error id clear
 
-		while ((retErrId == FAT_RESULT_OK) && (intFileIORecord[hFile - 1].cluster < 0x0ffffff6)
-			&& (intFileIORecord[hFile - 1].cluster != 0)) {			// Check cluster valid and read successful	
+		while ((retErrId == FAT_RESULT_OK) && (intFileIORecord[hFile - 1].srec.cluster < 0x0ffffff6)
+			&& (intFileIORecord[hFile - 1].srec.cluster != 0)) {	// Check cluster valid and read successful	
 
-			while (intFileIORecord[hFile - 1].sector < sdCard.partition.sectorPerCluster) {
-				while ((nNumberOfBytesToRead > bytesRead) && (intFileIORecord[hFile - 1].bPos <  512)) {	// While not a buffer end
-					((uint8_t*)lpBuffer)[bytesRead] = intFileIORecord[hFile - 1].buffer[intFileIORecord[hFile - 1].bPos++]; // Transfer byte and increment pointer
-					bytesRead++;									// Increment bytes read					
-				}
-				if (nNumberOfBytesToRead == bytesRead) {			// Finished
-					if (lpNumberOfBytesRead) *lpNumberOfBytesRead = bytesRead;
-					return true;									// Read completed successfully
-				}
+			while (	(nNumberOfBytesToRead > bytesRead) &&			// Still more bytes to read
+				(intFileIORecord[hFile - 1].filePos < intFileIORecord[hFile - 1].fileSize) && // Still inside fileSize
+				(intFileIORecord[hFile - 1].srec.bPos <  512) )		// While not a buffer end
+			{
+				((uint8_t*)lpBuffer)[bytesRead] = intFileIORecord[hFile - 1].srec.buffer[intFileIORecord[hFile - 1].srec.bPos++]; // Transfer byte and increment pointer
+				bytesRead++;										// Increment bytes read	
+				intFileIORecord[hFile - 1].filePos++;				// Increment file position
+			}
+			if (nNumberOfBytesToRead == bytesRead) {				// Finished
+				if (lpNumberOfBytesRead) *lpNumberOfBytesRead = bytesRead;
+				return true;										// Read completed successfully
+			}
+			if (intFileIORecord[hFile - 1].filePos >= intFileIORecord[hFile - 1].fileSize) 
+			{														// File end reached
+				if (lpNumberOfBytesRead) *lpNumberOfBytesRead = bytesRead;
+				return false;										// Read ended as file ran out of data
+			}
 
-				intFileIORecord[hFile - 1].sector++;				// Increment sector
-				if (intFileIORecord[hFile - 1].sector < sdCard.partition.sectorPerCluster) // Next sector still in current cluster
-				{
-					intFileIORecord[hFile - 1].bPos = 0;			// Reset buffer position to top of buffer
-					if (sdTransferBlocks(intFileIORecord[hFile - 1].firstSector + intFileIORecord[hFile - 1].sector,
-						1, &intFileIORecord[hFile - 1].buffer[0], false) != SD_OK) {
-						return false;								// Return read failure
-					}
+			intFileIORecord[hFile - 1].srec.sector++;				// Increment sector
+			if (intFileIORecord[hFile - 1].srec.sector < sdCard.partition.sectorPerCluster) // Next sector still in current cluster
+			{
+				intFileIORecord[hFile - 1].srec.bPos = 0;			// Reset buffer position to top of buffer
+				if (sdTransferBlocks(intFileIORecord[hFile - 1].srec.firstSector + intFileIORecord[hFile - 1].srec.sector,
+					1, &intFileIORecord[hFile - 1].srec.buffer[0], false) != SD_OK) {
+					return false;									// Return read failure
 				}
-				else {												// Need to move to next cluster
-					intFileIORecord[hFile - 1].cluster = getSetNextCluster(
-						intFileIORecord[hFile - 1].cluster, false, 0);  // Fetch the next cluster
-					intFileIORecord[hFile - 1].firstSector = getFirstSector(
-						intFileIORecord[hFile - 1].cluster,
-						sdCard.partition.sectorPerCluster,
-						sdCard.partition.firstDataSector);			// Hold the first sector of this new cluster
-					intFileIORecord[hFile - 1].sector = 0;			// Zero the sector count 
-					intFileIORecord[hFile - 1].bPos = 0;			// Reset buffer position to top of buffer
-					if (sdTransferBlocks(intFileIORecord[hFile - 1].firstSector + intFileIORecord[hFile - 1].sector,
-						1, &intFileIORecord[hFile - 1].buffer[0], false) != SD_OK) {
-						return false;								// Return read failure
-					}
+			} else {												// Need to move to next cluster
+				intFileIORecord[hFile - 1].srec.cluster = getSetNextCluster(
+					intFileIORecord[hFile - 1].srec.cluster, false, 0);// Fetch the next cluster
+				intFileIORecord[hFile - 1].srec.firstSector = getFirstSector(
+					intFileIORecord[hFile - 1].srec.cluster,
+					sdCard.partition.sectorPerCluster,
+					sdCard.partition.firstDataSector);				// Hold the first sector of this new cluster
+				intFileIORecord[hFile - 1].srec.sector = 0;			// Zero the sector count 
+				intFileIORecord[hFile - 1].srec.bPos = 0;			// Reset buffer position to top of buffer
+				if (sdTransferBlocks(intFileIORecord[hFile - 1].srec.firstSector + intFileIORecord[hFile - 1].srec.sector,
+					1, &intFileIORecord[hFile - 1].srec.buffer[0], false) != SD_OK) {
+					return false;									// Return read failure
 				}
 			}
 		}
@@ -2244,8 +2262,8 @@ bool sdReadFile (HANDLE hFile,										// Handle as returned from CreateFile
 bool sdCloseHandle (HANDLE hFile)
 {
 	if ((hFile > 0) && (hFile <= MAX_FILE_IO_RECORDS) &&
-		(intFileIORecord[hFile - 1].firstSector != 0)) {			// File handle maps to an internal file io record in use 
-		intFileIORecord[hFile - 1].firstSector = 0;					// Clear first sector which is used to mark in use
+		(intFileIORecord[hFile - 1].srec.firstSector != 0)) {		// File handle maps to an internal file io record in use 
+		intFileIORecord[hFile - 1].srec.firstSector = 0;			// Clear first sector which is used to mark in use
 		return true;												// Return handle successfully closed
 	}
 	return false;													// Return handle did not close
@@ -2262,55 +2280,57 @@ uint32_t sdSetFilePointer (HANDLE hFile,							// Handle as returned from Create
 						   uint32_t* lpDistanceToMoveHigh,			// A pointer to high order 32-bits of the signed 64-bit distance to move
 						   uint32_t dwMoveMethod)					// FILE_BEGIN, FILE_CURRENT, FILE_END
 {
-	uint32_t filePos = 0;
 	if ((hFile > 0) && (hFile <= MAX_FILE_IO_RECORDS) &&
-		(intFileIORecord[hFile - 1].firstSector != 0)) {			// File handle maps to an internal file io record in use 
+		(intFileIORecord[hFile - 1].srec.firstSector != 0)) {		// File handle maps to an internal file io record in use 
 
-		intFileIORecord[hFile - 1].cluster = intFileIORecord[hFile - 1].fileStart;
-		intFileIORecord[hFile - 1].firstSector = getFirstSector(
-			intFileIORecord[hFile - 1].cluster,
+		if (lDistanceToMove > intFileIORecord[hFile - 1].fileSize)	// You cant request a move larger than filesize
+			return INVALID_SET_FILE_POINTER;						// Return set file position failure
+
+		intFileIORecord[hFile - 1].srec.cluster = intFileIORecord[hFile - 1].fileStart;
+		intFileIORecord[hFile - 1].srec.firstSector = getFirstSector(
+			intFileIORecord[hFile - 1].srec.cluster,
 			sdCard.partition.sectorPerCluster,
 			sdCard.partition.firstDataSector);						// Hold the first sector
-		intFileIORecord[hFile - 1].sector = 0;						// Zero sector count
-		intFileIORecord[hFile - 1].bPos = 0;						// Buffer pos starts at top of buffer		
-		if (sdTransferBlocks(intFileIORecord[hFile - 1].firstSector,
-			1, &intFileIORecord[hFile - 1].buffer[0], false) != SD_OK) {
+		intFileIORecord[hFile - 1].srec.sector = 0;					// Zero sector count
+		intFileIORecord[hFile - 1].srec.bPos = 0;					// Buffer pos starts at top of buffer	
+		intFileIORecord[hFile - 1].filePos = 0;						// Zero file position
+		if (sdTransferBlocks(intFileIORecord[hFile - 1].srec.firstSector,
+			1, &intFileIORecord[hFile - 1].srec.buffer[0], false) != SD_OK) {
 			return INVALID_SET_FILE_POINTER;						// Return set file position failure
 		}
 
 		while (lDistanceToMove > 512) {								// Position not in current sector
-			intFileIORecord[hFile - 1].sector++;					// Increment sector
-			if (intFileIORecord[hFile - 1].sector < sdCard.partition.sectorPerCluster) // Next sector still in current cluster
+			intFileIORecord[hFile - 1].srec.sector++;				// Increment sector
+			if (intFileIORecord[hFile - 1].srec.sector < sdCard.partition.sectorPerCluster) // Next sector still in current cluster
 			{
-				intFileIORecord[hFile - 1].bPos = 0;				// Reset buffer position to top of buffer
-				if (sdTransferBlocks(intFileIORecord[hFile - 1].firstSector + intFileIORecord[hFile - 1].sector,
-					1, &intFileIORecord[hFile - 1].buffer[0], false) != SD_OK) {
+				intFileIORecord[hFile - 1].srec.bPos = 0;			// Reset buffer position to top of buffer
+				if (sdTransferBlocks(intFileIORecord[hFile - 1].srec.firstSector + intFileIORecord[hFile - 1].srec.sector,
+					1, &intFileIORecord[hFile - 1].srec.buffer[0], false) != SD_OK) {
 					return INVALID_SET_FILE_POINTER;				// Return set file position failure
 				}
 			} else {												// Need to move to next cluster
-				intFileIORecord[hFile - 1].cluster = getSetNextCluster(
-					intFileIORecord[hFile - 1].cluster, false, 0);  // Fetch the next cluster
-				intFileIORecord[hFile - 1].firstSector = getFirstSector(
-					intFileIORecord[hFile - 1].cluster, 
+				intFileIORecord[hFile - 1].srec.cluster = getSetNextCluster(
+					intFileIORecord[hFile - 1].srec.cluster, false, 0);  // Fetch the next cluster
+				intFileIORecord[hFile - 1].srec.firstSector = getFirstSector(
+					intFileIORecord[hFile - 1].srec.cluster, 
 					sdCard.partition.sectorPerCluster, 
 					sdCard.partition.firstDataSector);				// Hold the first sector of this new cluster
-				intFileIORecord[hFile - 1].sector = 0;				// Zero the sector count 
-				intFileIORecord[hFile - 1].bPos = 0;				// Reset buffer position to top of buffer
-				if (sdTransferBlocks(intFileIORecord[hFile - 1].firstSector + intFileIORecord[hFile - 1].sector,
-					1, &intFileIORecord[hFile - 1].buffer[0], false) != SD_OK) {
+				intFileIORecord[hFile - 1].srec.sector = 0;			// Zero the sector count 
+				intFileIORecord[hFile - 1].srec.bPos = 0;			// Reset buffer position to top of buffer
+				if (sdTransferBlocks(intFileIORecord[hFile - 1].srec.firstSector + intFileIORecord[hFile - 1].srec.sector,
+					1, &intFileIORecord[hFile - 1].srec.buffer[0], false) != SD_OK) {
 					return INVALID_SET_FILE_POINTER;				// Return set file position failure
 				}
 			}
 			lDistanceToMove -= 512;									// We have moved 512 bytes
-			filePos += 512;											// Increment file position
+			intFileIORecord[hFile - 1].filePos += 512;				// Increment file position
 		}
-		intFileIORecord[hFile - 1].bPos = lDistanceToMove;			// Buffer position is whatever is left below 512
-		filePos += lDistanceToMove;									// Add left over movement to file position
-		lDistanceToMove = 0;										// Zero it just for good measure
-
+		intFileIORecord[hFile - 1].srec.bPos = lDistanceToMove;		// Buffer position is whatever is left below 512
+		intFileIORecord[hFile - 1].filePos += lDistanceToMove;		// Add left over movement to file position
+		if (lpDistanceToMoveHigh) *lpDistanceToMoveHigh = 0;		// We don't use this
+		return (intFileIORecord[hFile - 1].filePos);				// Return the file position
 	}
-	if (lpDistanceToMoveHigh) *lpDistanceToMoveHigh = 0;			// We don't this
-	return (filePos);												// Return the file position
+	return INVALID_SET_FILE_POINTER;								// Return set file position failure
 }
 
 
