@@ -2283,8 +2283,22 @@ uint32_t sdSetFilePointer (HANDLE hFile,							// Handle as returned from Create
 	if ((hFile > 0) && (hFile <= MAX_FILE_IO_RECORDS) &&
 		(intFileIORecord[hFile - 1].srec.firstSector != 0)) {		// File handle maps to an internal file io record in use 
 
+		switch (dwMoveMethod) {
+			case FILE_CURRENT:										// Movement from current position
+				lDistanceToMove += intFileIORecord[hFile - 1].filePos;// So simply add current position
+				break;
+			case FILE_END:											// Movement from end of file
+				lDistanceToMove += intFileIORecord[hFile - 1].fileSize;// So simply add filesize
+				break;
+			default:												// Default will be file begin and do nothing
+				break;
+		}
+
 		if (lDistanceToMove > intFileIORecord[hFile - 1].fileSize)	// You cant request a move larger than filesize
 			return INVALID_SET_FILE_POINTER;						// Return set file position failure
+
+		if (lDistanceToMove == intFileIORecord[hFile - 1].filePos)  // Request move is where we already are
+			return (intFileIORecord[hFile - 1].filePos);			// So return position as if we did something
 
 		intFileIORecord[hFile - 1].srec.cluster = intFileIORecord[hFile - 1].fileStart;
 		intFileIORecord[hFile - 1].srec.firstSector = getFirstSector(
@@ -2333,6 +2347,20 @@ uint32_t sdSetFilePointer (HANDLE hFile,							// Handle as returned from Create
 	return INVALID_SET_FILE_POINTER;								// Return set file position failure
 }
 
+
+/*-[sdGetFileSize]----------------------------------------------------------}
+. Retrieves the size of the specified file, in bytes. As we don't support
+. individual file size beyond 4GB lpFileSizeHigh is unused.
+. 23Feb17 LdB
+.--------------------------------------------------------------------------*/
+uint32_t sdGetFileSize (HANDLE  hFile, uint32_t* lpFileSizeHigh) {
+	if ((hFile > 0) && (hFile <= MAX_FILE_IO_RECORDS) &&
+		(intFileIORecord[hFile - 1].srec.firstSector != 0)) 		// File handle maps to an internal file io record in use
+	{
+		return(intFileIORecord[hFile - 1].fileSize);				// Return the file size
+	}
+	return 0;														// Function failed
+}
 
 
 /*-[sdInitCard]-------------------------------------------------------------}

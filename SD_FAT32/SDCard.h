@@ -299,4 +299,11 @@ uint32_t sdSetFilePointer (HANDLE hFile,							// Handle as returned from Create
 						   uint32_t* lpDistanceToMoveHigh,			// A pointer to high order 32-bits of the signed 64-bit distance to move
 						   uint32_t dwMoveMethod);					// FILE_BEGIN, FILE_CURRENT, FILE_END
 
+/*-[sdGetFileSize]----------------------------------------------------------}
+. Retrieves the size of the specified file, in bytes. As we don't support
+. individual file size beyond 4GB lpFileSizeHigh is unused.
+. 23Feb17 LdB
+.--------------------------------------------------------------------------*/
+uint32_t sdGetFileSize (HANDLE  hFile, uint32_t* lpFileSizeHigh);
+
 #endif // SDCARD_H
