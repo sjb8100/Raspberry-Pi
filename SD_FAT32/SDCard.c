@@ -1987,6 +1987,18 @@ static struct dir_Structure* LocateFATEntry (const char* searchPat, struct PRIV_
 	return NULL;													// Find FAT entry failed
 }
 
+/*-[CopyUnAlignedString]----------------------------------------------------}
+. Copy a string byte by byte allowing for unaligned allocation
+. 23Feb17 LdB
+.--------------------------------------------------------------------------*/
+static bool CopyUnAlignedString (char* Dest, const char* Src) {
+	if ((Src) && (Dest)) {
+		while (*Src) *Dest++ = *Src++;								// Transfer source byte to dest and increment pointers
+		*Dest = '\0';												// Make sure Dest is terminated
+		return true;												// Return success
+	}
+	return false;													// One of the pointers was invalid
+}
 
 
 /*==========================================================================}
@@ -1999,12 +2011,14 @@ static struct dir_Structure* LocateFATEntry (const char* searchPat, struct PRIV_
 . 23Feb17 LdB
 .--------------------------------------------------------------------------*/
 HANDLE sdFindFirstFile (const char* lpFileName, FIND_DATA* lpFFData) 
-{
+{												
 	uint32_t errID = FAT_RESULT_OK;
 	struct dir_Structure* dir;
 	int i = 0;
-	const char* searchStr = lpFileName;								// Search string starts as lpFilename
+	LFN_NAME tempName;												// We will cut and chop name so we need local copy
 	if ((lpFileName == 0) || (lpFFData == 0)) return 0;				// One of the pointers is invalid so fail
+	CopyUnAlignedString(&tempName[0], lpFileName);					// Copy the name string as we will chop and change it
+	const char* searchStr = &tempName[0];							// Search string starts as lpFilename
 	if (searchStr[0] == '\\') searchStr++;							// We sometimes write root directory with leadslash .. remove it
 	while ((intSearchRecord[i].firstSector != 0) && i < MAX_SEARCH_RECORDS) i++;
 	if (i != MAX_SEARCH_RECORDS) {									// Empty search record found
@@ -2130,8 +2144,10 @@ HANDLE sdCreateFile (const char* lpFileName,						// Filename or device to open
 	struct dir_Structure* dir;
 	LFN_NAME openName;
 	int i = 0;
-	const char* searchStr = lpFileName;								// Search string starts as lpFilename
+	LFN_NAME tempName;												// We will cut and chop name so we need local copy
 	if (lpFileName == 0) return 0;									// Name pointer is invalid so fail
+	CopyUnAlignedString(&tempName[0], lpFileName);					// Make local copy of name as we will chop and change it
+	const char* searchStr = &tempName[0];							// Search string starts as lpFilename
 	if (searchStr[0] == '\\') searchStr++;							// We sometimes write root directory with lead slash .. remove it
 	while ((intFileIORecord[i].srec.firstSector != 0) && i < MAX_FILE_IO_RECORDS) i++;
 	if (i != MAX_FILE_IO_RECORDS) {									// Empty search record found
