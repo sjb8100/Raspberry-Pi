@@ -14,5 +14,7 @@ Please be aware although I freely release the code, Microsoft has patents on the
 I refer you to 
 >
 https://en.wikipedia.org/wiki/Microsoft_Corp._v._TomTom_Inc.
+>
+Note: I fell into a problem that I forgot to mount the SDCard via the sdInitCard and quikly found out the sdCreateFile and sdFindFirst behave rather strangely rather than immeditaley failing. It's a bug which I will fix tonight :-)
 
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/SD_FAT32.jpg?raw=true)
