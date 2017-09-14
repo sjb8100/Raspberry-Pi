@@ -1,11 +1,6 @@
-# ACCELERATED GRAPHICS (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
+# ACCELERATED GRAPHICS - ROTATE MODEL (Pi1, 2, 3 - AARCH32)
 >
-Code background: 
-http://latchup.blogspot.com.au/2016/02/life-of-triangle.html
-You will require this reference
-https://docs.broadcom.com/docs/12358545
->
-I currently have the C file called rpi-GLES.C we have no GLES framework yet we are beating up the GL pipe inside the VC4 directly.
+So we continue to beat up the GL pipe inside the VC4 directly. Now we have add sdCard with FAT32 support and code to load a lightwave OBJ 3D mesh file. The DiskImg directory has a subdirectory
 
 The first sample here passes in the raw active onscreen framebuffer. As we start to animate stuff I strongly suggest you don't do this as the render will produce screen tear. 
 What I am going to do and I suggest you do the same is setup the virtual screen size to twice that of the screen. You render to the half the framebuffer that isn't visible.
