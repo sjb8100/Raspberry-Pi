@@ -45,8 +45,21 @@ I have not yet settled on an interface format but more going to try to follow a 
 Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=tutorials&series=1
 >
 >
+# ROTATE MODEL - (Pi1, 2, 3 - AARCH32)
+>https://github.com/LdB-ECM/Raspberry-Pi/tree/master/GLES_Model
+>
+So we continue our GL pipe adventure slowly crawling towards something that ressemblesminimal OpenGL.
+>
+So we work on rotating an actual LightWave OBJ 3D mesh model:
+>
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/spacecraft.jpg?raw=true)
+
+Streaming video of output:
+>
+https://streamable.com/yte1n
+>
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
-![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code2.jpg?raw=true)
+
 >
 # ***New SD + FAT32 (Pi1,2,3 32Bit .. Pi3 AARCH64)
 >https://github.com/LdB-ECM/Raspberry-Pi/tree/master/SD_FAT32
