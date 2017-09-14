@@ -1,4 +1,6 @@
-# ACCELERATED GRAPHICS - ROTATE MODEL (Pi1, 2, 3 - AARCH32)
+# ACCELERATED GRAPHICS - ROTATE MODEL
+>
+#(Pi1, 2, 3 - AARCH32)
 >
 So we continue to beat up the GL pipe inside the VC4 directly. Now we have add sdCard with FAT32 support and code to load a lightwave OBJ 3D mesh file. The DiskImg directory has a subdirectory
 
