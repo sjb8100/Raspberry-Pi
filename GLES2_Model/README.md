@@ -10,3 +10,7 @@ Very hard to get a screen cap of this you might be better just trying it. Simply
 
 As we get a bit further I will do more of a right feel free to ask questions on the Raspberry forum
 https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
+
+Streaming video of output:
+>
+https://streamable.com/yte1n
