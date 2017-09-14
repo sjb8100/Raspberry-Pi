@@ -1,0 +1,1535 @@
+Archive member included to satisfy reference by file (symbol)
+
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (fprintf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (_impure_ptr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o (__locale_ctype_ptr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o) (__ascii_mbtowc)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memcpy.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o (memcpy)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o (errno)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (sscanf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o) (__seofread)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (strchr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o) (strcmp)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o (strlen)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o) (__ssvfscanf_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o) (_vfprintf_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o (wctob)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o) (__ascii_wctomb)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o) (_write_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (__swsetup_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o) (_close_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o) (_ctype_)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (_dtoa_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (_fflush_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (__sinit)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o) (_free_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o) (_fwalk)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (iswspace)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_localeconv_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (__retarget_lock_init_recursive)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o) (_lseek_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o) (__smakebuf_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o) (_malloc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_mbrtowc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (memchr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (memset)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o) (__malloc_lock)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o) (_Balloc)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o) (_read_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o) (_sbrk_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (__sccl)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (nanf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (sprintf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_strtod_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_strtol_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_strtoll_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_strtoul_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_strtoull_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o) (_sungetc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o) (_svfprintf_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o) (__submore)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (__sprint_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o) (_calloc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o) (_fclose_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o) (_fputwc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o) (_fstat_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o) (__sfvwrite_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o) (__gethex)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o) (__match)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o) (_isatty_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o) (memmove)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o) (_realloc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o) (strncmp)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o) (__ssprint_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o) (__swbuf_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o) (_wcrtomb_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (cosf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o (sinf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o) (__ieee754_rem_pio2f)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o) (__kernel_cosf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o) (__kernel_rem_pio2f)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o) (__kernel_sinf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o) (fabsf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o) (floorf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o) (scalbnf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o) (copysignf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o) (__aeabi_uidiv)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o) (__aeabi_idiv)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_dvmd_tls.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o) (__aeabi_uldivmod)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o) (__udivmoddi4)
+
+Allocating common symbols
+Common symbol       size              file
+
+__lock___atexit_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___arc4random_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__errno             0x4               C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+errno               0x4               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+__lock___env_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___sinit_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___malloc_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+rotMat              0x40              C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+__lock___at_quick_exit_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___dd_hash_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___tz_mutex   0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+__lock___sfp_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+
+Discarded input sections
+
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+ COMMON         0x00000000        0x4 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+ .text          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+ .data          0x00000000      0x28d C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .text._fprintf_r
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .debug_frame   0x00000000       0x74 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .text._setlocale_r
+                0x00000000       0x54 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .text.setlocale
+                0x00000000       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .bss._PathLocale
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .debug_frame   0x00000000       0x6c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .text._mbtowc_r
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .debug_frame   0x00000000       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memcpy.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memcpy.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .text.cleanup_glue
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .text._reclaim_reent
+                0x00000000       0x8c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .debug_frame   0x00000000       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .text._sscanf_r
+                0x00000000       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .debug_frame   0x00000000       0x80 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+ .debug_frame   0x00000000       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+ .debug_frame   0x00000000       0x50 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+ .text          0x00000000      0x1bc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+ .ARM.attributes
+                0x00000000       0x19 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strcmp.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ .debug_frame   0x00000000       0x50 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .text.vfprintf
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .debug_frame   0x00000000       0xc4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .text._wctomb_r
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .debug_frame   0x00000000       0x74 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .text.fflush   0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .debug_frame   0x00000000       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__fp_lock
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__fp_unlock
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__sfmoreglue
+                0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text._cleanup
+                0x00000000       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__sfp    0x00000000       0xb8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__sinit_lock_acquire
+                0x00000000        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__sinit_lock_release
+                0x00000000        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__fp_lock_all
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__fp_unlock_all
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .debug_frame   0x00000000      0x150 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+ .debug_frame   0x00000000       0x74 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .text._fwalk   0x00000000       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .debug_frame   0x00000000       0x54 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+ .debug_frame   0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .text.localeconv
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_init
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_close
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_acquire
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_try_acquire
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_try_acquire_recursive
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_release
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .debug_frame   0x00000000       0xb0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+ .debug_frame   0x00000000       0x68 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+ .debug_frame   0x00000000       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .text.mbrtowc  0x00000000       0x6c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .debug_frame   0x00000000       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+ .debug_frame   0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .text._mprec_log10
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .rodata.__mprec_tinytens
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .debug_frame   0x00000000      0x24c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+ .debug_frame   0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .text._sprintf_r
+                0x00000000       0x44 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .debug_frame   0x00000000       0x84 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .text.strtod_l
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .text.strtod   0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .text.strtof_l
+                0x00000000       0x6c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .text.strtof   0x00000000       0x7c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .debug_frame   0x00000000      0x154 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .text.strtol_l
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .text.strtol   0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .debug_frame   0x00000000       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .text.strtoll_l
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .text.strtoll  0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .debug_frame   0x00000000       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .text.strtoul_l
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .text.strtoul  0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .debug_frame   0x00000000       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .text.strtoull_l
+                0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .text.strtoull
+                0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .debug_frame   0x00000000       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .text.__ssvfiscanf_r
+                0x00000000      0xa04 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .rodata.basefix.7919
+                0x00000000       0x22 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .debug_frame   0x00000000       0xb8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .debug_frame   0x00000000       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .text._ungetc_r
+                0x00000000      0x138 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .text.ungetc   0x00000000       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .debug_frame   0x00000000       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .text._vfiprintf_r
+                0x00000000      0xc98 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .text.vfiprintf
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .text.__sbprintf
+                0x00000000       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .rodata._vfiprintf_r.str1.4
+                0x00000000       0x2f g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .rodata.blanks.8340
+                0x00000000       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .rodata.zeroes.8341
+                0x00000000       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .debug_frame   0x00000000       0xd4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+ .debug_frame   0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .text.fclose   0x00000000       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .text.fputwc   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .debug_frame   0x00000000       0x90 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+ .debug_frame   0x00000000       0x68 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .debug_frame   0x00000000       0x6c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .debug_frame   0x00000000       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+ .debug_frame   0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+ .debug_frame   0x00000000       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+ .debug_frame   0x00000000       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .text._svfiprintf_r
+                0x00000000      0xaa8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .rodata._svfiprintf_r.str1.4
+                0x00000000       0x2f g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .rodata.blanks.8326
+                0x00000000       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .rodata.zeroes.8327
+                0x00000000       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .debug_frame   0x00000000       0x78 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .text.__swbuf  0x00000000       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .text.wcrtomb  0x00000000       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .debug_frame   0x00000000       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .debug_frame   0x00000000       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+ .debug_frame   0x00000000       0x44 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_dvmd_tls.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.extab     0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x00000000        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x00008000         0x08000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00008000    0x132c0
+                0x00008000                . = ALIGN (0x4)
+                0x00008000                __text_start__ = .
+                0x00008000                _start = .
+ *(.text.startup)
+ .text.startup  0x00008000      0x43c C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x0000839c                RPi_CpuIdString
+                0x000083f4                EnableInterrupts
+                0x000083fc                DisableInterrupts
+                0x00008404                CoreExecute
+ *(.text .text.* .gnu.linkonce.t.*)
+ .text          0x0000843c       0xdc C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+                0x0000843c                kernel_main
+ .text.ARMaddrToGPUaddr
+                0x00008518       0x14 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x00008518                ARMaddrToGPUaddr
+ .text.GPUaddrToARMaddr
+                0x0000852c       0x5c C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x0000852c                GPUaddrToARMaddr
+                0x00008540                c_irq_handler
+                0x00008544                c_irq_identify_and_clear_source
+ .text._sbrk    0x00008588       0x2c C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x00008588                _sbrk
+ .text          0x000085b4     0x220c C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+                0x00009490                gpio_setup
+                0x000094fc                gpio_output
+                0x00009564                gpio_input
+                0x000095ac                gpio_checkEvent
+                0x000095f0                gpio_clearEvent
+                0x00009630                gpio_edgeDetect
+                0x000096f4                gpio_fixResistor
+                0x00009828                timer_getTickCount
+                0x00009878                timer_wait
+                0x000098fc                tick_difference
+                0x00009908                mailbox_write
+                0x0000994c                mailbox_read
+                0x00009998                mailbox_tag_message
+                0x00009ab8                set_Activity_LED
+                0x00009c3c                ARM_setmaxspeed
+                0x00009ce0                displaySmartStart
+                0x00009d58                Embedded_Console_WriteChar
+                0x00009e14                WriteText
+                0x00009ef0                SetDCPenColor
+                0x00009f04                SetDCBrushColor
+                0x00009f18                MoveToEx
+                0x00009f50                LineTo
+                0x00009fec                TextOut
+                0x0000a058                BmpOut
+                0x0000a0ac                CvtBmpLine
+                0x0000a368                Rectangle
+                0x0000a39c                PiConsole_Init
+                0x0000a63c                GetConsoleDC
+                0x0000a648                GetConsole_FrameBuffer
+                0x0000a658                GetConsole_Width
+                0x0000a668                GetConsole_Height
+                0x0000a6a4                _kill
+                0x0000a6bc                _getpid
+                0x0000a6c4                _read
+                0x0000a6cc                _close
+                0x0000a6d4                _lseek
+                0x0000a6dc                _isatty
+                0x0000a6e4                _fstat
+                0x0000a6f4                _exit
+                0x0000a6f8                _write
+ .text          0x0000a7c0      0xa0c C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+                0x0000a9d0                strnlen
+                0x0000aa18                emb_vsprintf
+                0x0000b144                emb_sprintf
+                0x0000b170                printf
+ *fill*         0x0000b1cc        0x4 
+ .text          0x0000b1d0     0x2010 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+                0x0000b9f8                XRotationMatrix3D
+                0x0000ba64                YRotationMatrix3D
+                0x0000bad0                ZRotationMatrix3D
+                0x0000bb3c                MultiplyMatrix3D
+                0x0000bd5c                TransformPoint3D
+                0x0000be44                InitV3D
+                0x0000bed8                V3D_mem_alloc
+                0x0000bf1c                V3D_mem_free
+                0x0000bf4c                V3D_mem_lock
+                0x0000bf84                V3D_mem_unlock
+                0x0000bfb4                V3D_execute_code
+                0x0000c00c                V3D_execute_qpu
+                0x0000c04c                DoRotate
+                0x0000c140                RenderModel
+                0x0000cd80                CreateVertexData
+ .text          0x0000d1e0     0x38ec C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+                0x0000e504                sdTransferBlocks
+                0x0000e560                sdClearBlocks
+                0x0000e6a0                getSetNextCluster
+                0x0000e88c                WildcardMatch
+                0x0000f67c                sdFindFirstFile
+                0x0000fa30                sdFindNextFile
+                0x0000faec                sdFindClose
+                0x0000fb28                sdCreateFile
+                0x0000fffc                sdReadFile
+                0x00010300                sdCloseHandle
+                0x0001033c                sdSetFilePointer
+                0x00010640                sdGetFileSize
+                0x00010674                sdInitCard
+                0x00010ab0                sdCardCSD
+ .text.unlikely
+                0x00010acc      0x3a4 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ .text.fprintf  0x00010e70       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+                0x00010e70                fprintf
+ .text.__locale_mb_cur_max
+                0x00010e9c       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                0x00010e9c                __locale_mb_cur_max
+ .text.__locale_ctype_ptr_l
+                0x00010ebc        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                0x00010ebc                __locale_ctype_ptr_l
+ .text.__locale_ctype_ptr
+                0x00010ec4       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                0x00010ec4                __locale_ctype_ptr
+ .text.__ascii_mbtowc
+                0x00010ee4       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+                0x00010ee4                __ascii_mbtowc
+ .text          0x00010f10       0xec g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memcpy.o)
+                0x00010f10                memcpy
+ .text.sscanf   0x00010ffc       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+                0x00010ffc                sscanf
+ .text.__sread  0x00011058       0x24 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                0x00011058                __sread
+ .text.__seofread
+                0x0001107c        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                0x0001107c                __seofread
+ .text.__swrite
+                0x00011080       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                0x00011080                __swrite
+ .text.__sseek  0x000110bc       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                0x000110bc                __sseek
+ .text.__sclose
+                0x000110dc        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+                0x000110dc                __sclose
+ .text.strchr   0x000110e4       0xe8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+                0x000110e4                strchr
+ .text.strlen   0x000111cc       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+                0x000111cc                strlen
+ .text.__ssvfscanf_r
+                0x00011228      0xe48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+                0x00011228                __ssvfscanf_r
+ .text._vfprintf_r
+                0x00012070     0x158c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+                0x00012070                _vfprintf_r
+ .text.__sbprintf
+                0x000135fc       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .text.wctob    0x00013684       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+                0x00013684                wctob
+ .text.__ascii_wctomb
+                0x000136dc       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+                0x000136dc                __ascii_wctomb
+ .text._write_r
+                0x000136f4       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+                0x000136f4                _write_r
+ .text.__swsetup_r
+                0x00013720       0xc8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+                0x00013720                __swsetup_r
+ .text._close_r
+                0x000137e8       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+                0x000137e8                _close_r
+ .text.quorem   0x00013810      0x140 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .text._dtoa_r  0x00013950      0xce4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+                0x00013950                _dtoa_r
+ .text.__sflush_r
+                0x00014634      0x140 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+                0x00014634                __sflush_r
+ .text._fflush_r
+                0x00014774       0x54 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+                0x00014774                _fflush_r
+ .text._cleanup_r
+                0x000147c8        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+                0x000147c8                _cleanup_r
+ .text.std.isra.0
+                0x000147d4       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .text.__sinit  0x0001482c       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+                0x0001482c                __sinit
+ .text.__sfp_lock_acquire
+                0x0001489c        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+                0x0001489c                __sfp_lock_acquire
+ .text.__sfp_lock_release
+                0x000148a8        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+                0x000148a8                __sfp_lock_release
+ .text._malloc_trim_r
+                0x000148b4       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+                0x000148b4                _malloc_trim_r
+ .text._free_r  0x00014960      0x1e0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+                0x00014960                _free_r
+ .text._fwalk_reent
+                0x00014b40       0x50 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+                0x00014b40                _fwalk_reent
+ .text.iswspace
+                0x00014b90       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+                0x00014b90                iswspace
+ .text.__localeconv_l
+                0x00014bac        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+                0x00014bac                __localeconv_l
+ .text._localeconv_r
+                0x00014bb0       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+                0x00014bb0                _localeconv_r
+ .text.__retarget_lock_init_recursive
+                0x00014bd0        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                0x00014bd0                __retarget_lock_init_recursive
+ .text.__retarget_lock_close_recursive
+                0x00014bd4        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                0x00014bd4                __retarget_lock_close_recursive
+ .text.__retarget_lock_acquire_recursive
+                0x00014bd8        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                0x00014bd8                __retarget_lock_acquire_recursive
+ .text.__retarget_lock_release_recursive
+                0x00014bdc        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                0x00014bdc                __retarget_lock_release_recursive
+ .text._lseek_r
+                0x00014be0       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+                0x00014be0                _lseek_r
+ .text.__swhatbuf_r
+                0x00014c0c       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+                0x00014c0c                __swhatbuf_r
+ .text.__smakebuf_r
+                0x00014c68       0x9c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+                0x00014c68                __smakebuf_r
+ .text._malloc_r
+                0x00014d04      0x58c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x00014d04                _malloc_r
+ .text._mbrtowc_r
+                0x00015290       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+                0x00015290                _mbrtowc_r
+ .text.memchr   0x00015300       0x8c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+                0x00015300                memchr
+ .text.memset   0x0001538c       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+                0x0001538c                memset
+ .text.__malloc_lock
+                0x00015430        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+                0x00015430                __malloc_lock
+ .text.__malloc_unlock
+                0x0001543c        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+                0x0001543c                __malloc_unlock
+ .text._Balloc  0x00015448       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015448                _Balloc
+ .text._Bfree   0x00015494       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015494                _Bfree
+ .text.__multadd
+                0x000154a8       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x000154a8                __multadd
+ .text.__s2b    0x00015530       0x9c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015530                __s2b
+ .text.__hi0bits
+                0x000155cc       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x000155cc                __hi0bits
+ .text.__lo0bits
+                0x0001560c       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x0001560c                __lo0bits
+ .text.__i2b    0x00015668       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015668                __i2b
+ .text.__multiply
+                0x0001567c      0x130 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x0001567c                __multiply
+ .text.__pow5mult
+                0x000157ac       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x000157ac                __pow5mult
+ .text.__lshift
+                0x00015850       0xa4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015850                __lshift
+ .text.__mcmp   0x000158f4       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x000158f4                __mcmp
+ .text.__mdiff  0x0001592c      0x11c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x0001592c                __mdiff
+ .text.__ulp    0x00015a48       0x54 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015a48                __ulp
+ .text.__b2d    0x00015a9c       0xc4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015a9c                __b2d
+ .text.__d2b    0x00015b60       0xbc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015b60                __d2b
+ .text.__ratio  0x00015c1c       0x5c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015c1c                __ratio
+ .text.__copybits
+                0x00015c78       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015c78                __copybits
+ .text.__any_on
+                0x00015cc0       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x00015cc0                __any_on
+ .text._read_r  0x00015d20       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+                0x00015d20                _read_r
+ .text._sbrk_r  0x00015d4c       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+                0x00015d4c                _sbrk_r
+ .text.__sccl   0x00015d74       0x78 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+                0x00015d74                __sccl
+ .text.nanf     0x00015dec        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+                0x00015dec                nanf
+ .text.sprintf  0x00015df8       0x50 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+                0x00015df8                sprintf
+ .text.unlikely.sulp
+                0x00015e48       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ *fill*         0x00015e7c        0x4 
+ .text._strtod_l
+                0x00015e80      0xeac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+                0x00015e80                _strtod_l
+ .text._strtod_r
+                0x00016d2c       0x24 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+                0x00016d2c                _strtod_r
+ .text._strtol_l.isra.0
+                0x00016d50      0x16c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .text._strtol_r
+                0x00016ebc       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+                0x00016ebc                _strtol_r
+ .text._strtoll_l.isra.0
+                0x00016ee4      0x1d4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .text._strtoll_r
+                0x000170b8       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+                0x000170b8                _strtoll_r
+ .text._strtoul_l.isra.0
+                0x000170e0      0x13c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .text._strtoul_r
+                0x0001721c       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+                0x0001721c                _strtoul_r
+ .text._strtoull_l.isra.0
+                0x00017244      0x1a4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .text._strtoull_r
+                0x000173e8       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+                0x000173e8                _strtoull_r
+ .text._sungetc_r
+                0x00017410       0x80 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+                0x00017410                _sungetc_r
+ .text.__ssrefill_r
+                0x00017490       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+                0x00017490                __ssrefill_r
+ .text._sfread_r
+                0x000174cc       0x7c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+                0x000174cc                _sfread_r
+ .text._svfprintf_r
+                0x00017548     0x145c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+                0x00017548                _svfprintf_r
+ .text.__submore
+                0x000189a4       0x7c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+                0x000189a4                __submore
+ .text.__sprint_r.part.0
+                0x00018a20       0x80 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .text.__sprint_r
+                0x00018aa0       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+                0x00018aa0                __sprint_r
+ .text._calloc_r
+                0x00018ab4       0x64 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+                0x00018ab4                _calloc_r
+ .text._fclose_r
+                0x00018b18       0xc4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+                0x00018b18                _fclose_r
+ .text.__fputwc
+                0x00018bdc       0xa0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+                0x00018bdc                __fputwc
+ .text._fputwc_r
+                0x00018c7c       0x68 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+                0x00018c7c                _fputwc_r
+ .text._fstat_r
+                0x00018ce4       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+                0x00018ce4                _fstat_r
+ .text.__sfvwrite_r
+                0x00018d10      0x31c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+                0x00018d10                __sfvwrite_r
+ .text.rshift   0x0001902c       0x9c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text.__gethex
+                0x000190c8      0x528 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+                0x000190c8                __gethex
+ .text.__match  0x000195f0       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                0x000195f0                __match
+ .text.__hexnan
+                0x00019624      0x190 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                0x00019624                __hexnan
+ .text._isatty_r
+                0x000197b4       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+                0x000197b4                _isatty_r
+ .text.memmove  0x000197dc       0xd4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+                0x000197dc                memmove
+ .text._realloc_r
+                0x000198b0      0x3f0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+                0x000198b0                _realloc_r
+ .text.strncmp  0x00019ca0       0x9c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+                0x00019ca0                strncmp
+ .text.__ssprint_r
+                0x00019d3c       0xf8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+                0x00019d3c                __ssprint_r
+ .text.__swbuf_r
+                0x00019e34       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+                0x00019e34                __swbuf_r
+ .text._wcrtomb_r
+                0x00019ee0       0x64 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+                0x00019ee0                _wcrtomb_r
+ .text.cosf     0x00019f44       0x90 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+                0x00019f44                cosf
+ .text.sinf     0x00019fd4       0x94 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+                0x00019fd4                sinf
+ .text.__ieee754_rem_pio2f
+                0x0001a068      0x274 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+                0x0001a068                __ieee754_rem_pio2f
+ .text.__kernel_cosf
+                0x0001a2dc      0x108 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+                0x0001a2dc                __kernel_cosf
+ .text.__kernel_rem_pio2f
+                0x0001a3e4      0x658 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+                0x0001a3e4                __kernel_rem_pio2f
+ .text.__kernel_sinf
+                0x0001aa3c       0x8c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+                0x0001aa3c                __kernel_sinf
+ .text.fabsf    0x0001aac8       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+                0x0001aac8                fabsf
+ .text.floorf   0x0001aad8       0x90 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+                0x0001aad8                floorf
+ .text.scalbnf  0x0001ab68       0xd0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+                0x0001ab68                scalbnf
+ .text.copysignf
+                0x0001ac38       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+                0x0001ac38                copysignf
+ .text          0x0001ac50      0x278 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+                0x0001ac50                __aeabi_uidiv
+                0x0001ac50                __udivsi3
+                0x0001aeac                __aeabi_uidivmod
+ .text          0x0001aec8      0x2b0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+                0x0001aec8                __divsi3
+                0x0001aec8                __aeabi_idiv
+                0x0001b15c                __aeabi_idivmod
+ .text          0x0001b178        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_dvmd_tls.o)
+                0x0001b178                __aeabi_idiv0
+                0x0001b178                __aeabi_ldiv0
+ .text          0x0001b17c       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+                0x0001b17c                __aeabi_uldivmod
+ .text          0x0001b1ac      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+                0x0001b1ac                __udivmoddi4
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ *(.init .init.*)
+                0x0001b2c0                . = ALIGN (0x4)
+                0x0001b2c0                __text_end__ = .
+
+.glue_7         0x0001b2c0        0x0
+ .glue_7        0x0001b2c0        0x0 linker stubs
+
+.glue_7t        0x0001b2c0        0x0
+ .glue_7t       0x0001b2c0        0x0 linker stubs
+
+.vfp11_veneer   0x0001b2c0        0x0
+ .vfp11_veneer  0x0001b2c0        0x0 linker stubs
+
+.v4_bx          0x0001b2c0        0x0
+ .v4_bx         0x0001b2c0        0x0 linker stubs
+
+.iplt           0x0001b2c0        0x0
+ .iplt          0x0001b2c0        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+
+.bss            0x0001b2c0     0x2714
+                0x0001b2c0                . = ALIGN (0x4)
+                0x0001b2c0                __bss_start__ = .
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x0001b2c0       0x84 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+                0x0001b2c0                model
+ .bss           0x0001b344       0x4c C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+                0x0001b348                console
+ .bss           0x0001b390        0x4 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+                0x0001b390                angle
+ *fill*         0x0001b394        0x4 
+ .bss           0x0001b398     0x25a0 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+                0x0001b398                LOG_ERROR
+ .bss.__malloc_current_mallinfo
+                0x0001d938       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x0001d938                __malloc_current_mallinfo
+ .bss.__malloc_max_sbrked_mem
+                0x0001d960        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x0001d960                __malloc_max_sbrked_mem
+ .bss.__malloc_max_total_mem
+                0x0001d964        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x0001d964                __malloc_max_total_mem
+ .bss.__malloc_top_pad
+                0x0001d968        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x0001d968                __malloc_top_pad
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+ *(COMMON)
+ COMMON         0x0001d96c       0x40 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+                0x0001d96c                rotMat
+ COMMON         0x0001d9ac        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+                0x0001d9ac                errno
+ COMMON         0x0001d9b0       0x21 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+                0x0001d9b0                __lock___atexit_recursive_mutex
+                0x0001d9b4                __lock___arc4random_mutex
+                0x0001d9b8                __lock___env_recursive_mutex
+                0x0001d9bc                __lock___sinit_recursive_mutex
+                0x0001d9c0                __lock___malloc_recursive_mutex
+                0x0001d9c4                __lock___at_quick_exit_mutex
+                0x0001d9c8                __lock___dd_hash_mutex
+                0x0001d9cc                __lock___tz_mutex
+                0x0001d9d0                __lock___sfp_recursive_mutex
+                0x0001d9d4                . = ALIGN (0x4)
+ *fill*         0x0001d9d1        0x3 
+                0x0001d9d4                __bss_end__ = .
+
+.rodata         0x0001d9d8     0x1f50
+                0x0001d9d8                . = ALIGN (0x4)
+                0x0001d9d8                __rodata_start__ = .
+ *(.rodata .rodata.*)
+ .rodata.str1.4
+                0x0001d9d8       0x22 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+ *fill*         0x0001d9fa        0x2 
+ .rodata.cpuid  0x0001d9fc       0x36 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+ *fill*         0x0001da32        0x2 
+ .rodata        0x0001da34     0x1004 C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+                0x0001ea34                BitFontEnd
+ .rodata.str1.4
+                0x0001ea38       0xd0 C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+ .rodata        0x0001eb08       0x10 C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+ .rodata        0x0001eb18       0x40 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+                0x0001eb18                IdentityMatrix3D
+ .rodata.str1.4
+                0x0001eb58      0x24d C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+                                0x251 (size before relaxing)
+ *fill*         0x0001eda5        0x3 
+ .rodata        0x0001eda8       0x14 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ .rodata.str1.4
+                0x0001edbc      0x36a C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ *fill*         0x0001f126        0x2 
+ .rodata._setlocale_r.str1.4
+                0x0001f128        0x6 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                                  0xd (size before relaxing)
+ *fill*         0x0001f12e        0x2 
+ .rodata.str1.4
+                0x0001f130        0x2 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ *fill*         0x0001f132        0x2 
+ .rodata.__ssvfscanf_r.str1.4
+                0x0001f134        0x5 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ *fill*         0x0001f139        0x3 
+ .rodata.basefix.8417
+                0x0001f13c       0x22 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ *fill*         0x0001f15e        0x2 
+ .rodata._vfprintf_r.str1.4
+                0x0001f160       0x42 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ *fill*         0x0001f1a2        0x2 
+ .rodata.blanks.8361
+                0x0001f1a4       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .rodata.zeroes.8362
+                0x0001f1b4       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .rodata._ctype_
+                0x0001f1c4      0x101 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+                0x0001f1c4                _ctype_
+ *fill*         0x0001f2c5        0x3 
+ .rodata._dtoa_r.str1.4
+                0x0001f2c8       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+                                 0x12 (size before relaxing)
+ .rodata._mbrtowc_r.str1.4
+                0x0001f2d8        0x1 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .rodata.__mprec_bigtens
+                0x0001f2d8       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x0001f2d8                __mprec_bigtens
+ .rodata.__mprec_tens
+                0x0001f300       0xc8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+                0x0001f300                __mprec_tens
+ .rodata.p05.7178
+                0x0001f3c8        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .rodata._strtod_l.str1.4
+                0x0001f3d4       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+                                  0xf (size before relaxing)
+ .rodata.fpi.7264
+                0x0001f3e4       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .rodata.fpinan.7300
+                0x0001f3f8       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ *fill*         0x0001f40c        0x4 
+ .rodata.tinytens
+                0x0001f410       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .rodata._svfprintf_r.str1.4
+                0x0001f438       0x42 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .rodata.blanks.8346
+                0x0001f438       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .rodata.zeroes.8347
+                0x0001f448       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .rodata.__hexdig
+                0x0001f458      0x100 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+                0x0001f458                __hexdig
+ .rodata.npio2_hw
+                0x0001f558       0x80 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .rodata.two_over_pi
+                0x0001f5d8      0x318 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .rodata.PIo2   0x0001f8f0       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .rodata.init_jk
+                0x0001f91c        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+                0x0001f928                . = ALIGN (0x4)
+                0x0001f928                __rodata_end__ = .
+
+.rel.dyn        0x0001f928        0x0
+ .rel.iplt      0x0001f928        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+
+.data           0x0001f928      0xd7c
+                0x0001f928                . = ALIGN (0x4)
+                0x0001f928                __data_start__ = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data.smartstart
+                0x0001f928        0xc C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x0001f92c                RPi_CPUCurrentMode
+                0x0001f930                RPi_Heap
+ .data.smartstart32
+                0x0001f934       0x18 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+                0x0001f934                RPi_IO_Base_Addr
+                0x0001f938                RPi_BootAddr
+                0x0001f93c                RPi_CoresReady
+                0x0001f940                RPi_CPUBootMode
+                0x0001f944                RPi_CpuId
+                0x0001f948                RPi_CompileMode
+ .data          0x0001f94c        0x4 C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+ .data          0x0001f950      0x3a8 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ .data._impure_ptr
+                0x0001fcf8        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+                0x0001fcf8                _impure_ptr
+ *fill*         0x0001fcfc        0x4 
+ .data.impure_data
+                0x0001fd00      0x428 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .data.__global_locale
+                0x00020128      0x16c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+                0x00020128                __global_locale
+ .data.__malloc_av_
+                0x00020294      0x408 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x00020294                __malloc_av_
+ .data.__malloc_sbrk_base
+                0x0002069c        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x0002069c                __malloc_sbrk_base
+ .data.__malloc_trim_threshold
+                0x000206a0        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+                0x000206a0                __malloc_trim_threshold
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+                0x000206a4                . = ALIGN (0x4)
+                0x000206a4                __data_end__ = .
+
+.igot.plt       0x000206a4        0x0
+ .igot.plt      0x000206a4        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+
+.data1          0x000206a4        0xc
+                0x000206b0                . = ALIGN (0x10)
+ *fill*         0x000206a4        0xc 
+                0x000206b0                __data1_start__ = .
+ *(.data1 .data1.*)
+ *(.rel.data1 .rel.data1.*)
+                0x000206b0                . = ALIGN (0x10)
+                0x000206b0                __data1_end__ = .
+
+.stack          0x000206b0     0xa200
+                0x000206b0                . = ALIGN (0x8)
+                0x000206b0                __stack_start__core0 = .
+                0x000208b0                . = (. + 0x200)
+ *fill*         0x000206b0      0x200 
+                0x000208b0                __HYP_stack_core0 = .
+                0x000288b0                . = (. + 0x8000)
+ *fill*         0x000208b0     0x8000 
+                0x000288b0                __SVC_stack_core0 = .
+                0x000298b0                . = (. + 0x1000)
+ *fill*         0x000288b0     0x1000 
+                0x000298b0                __IRQ_stack_core0 = .
+                0x0002a8b0                . = (. + 0x1000)
+ *fill*         0x000298b0     0x1000 
+                0x0002a8b0                __FIQ_stack_core0 = .
+                0x0002a8b0                . = ALIGN (0x8)
+                0x0002a8b0                __stack_end__core0 = .
+
+.stack_core1    0x0002a8b0     0x1600
+                0x0002a8b0                . = ALIGN (0x8)
+                0x0002a8b0                __stack_start__core1 = .
+                0x0002aab0                . = (. + 0x200)
+ *fill*         0x0002a8b0      0x200 
+                0x0002aab0                __HYP_stack_core1 = .
+                0x0002bab0                . = (. + 0x1000)
+ *fill*         0x0002aab0     0x1000 
+                0x0002bab0                __SVC_stack_core1 = .
+                0x0002bcb0                . = (. + 0x200)
+ *fill*         0x0002bab0      0x200 
+                0x0002bcb0                __IRQ_stack_core1 = .
+                0x0002beb0                . = (. + 0x200)
+ *fill*         0x0002bcb0      0x200 
+                0x0002beb0                __FIQ_stack_core1 = .
+                0x0002beb0                . = ALIGN (0x8)
+                0x0002beb0                __stack_end__core1 = .
+
+.stack_core2    0x0002beb0     0x1600
+                0x0002beb0                . = ALIGN (0x8)
+                0x0002beb0                __stack_start__core2 = .
+                0x0002c0b0                . = (. + 0x200)
+ *fill*         0x0002beb0      0x200 
+                0x0002c0b0                __HYP_stack_core2 = .
+                0x0002d0b0                . = (. + 0x1000)
+ *fill*         0x0002c0b0     0x1000 
+                0x0002d0b0                __SVC_stack_core2 = .
+                0x0002d2b0                . = (. + 0x200)
+ *fill*         0x0002d0b0      0x200 
+                0x0002d2b0                __IRQ_stack_core2 = .
+                0x0002d4b0                . = (. + 0x200)
+ *fill*         0x0002d2b0      0x200 
+                0x0002d4b0                __FIQ_stack_core2 = .
+                0x0002d4b0                . = ALIGN (0x8)
+                0x0002d4b0                __stack_end__core2 = .
+
+.stack_core3    0x0002d4b0     0x1600
+                0x0002d4b0                . = ALIGN (0x8)
+                0x0002d4b0                __stack_start__core3 = .
+                0x0002d6b0                . = (. + 0x200)
+ *fill*         0x0002d4b0      0x200 
+                0x0002d6b0                __HYP_stack_core3 = .
+                0x0002e6b0                . = (. + 0x1000)
+ *fill*         0x0002d6b0     0x1000 
+                0x0002e6b0                __SVC_stack_core3 = .
+                0x0002e8b0                . = (. + 0x200)
+ *fill*         0x0002e6b0      0x200 
+                0x0002e8b0                __IRQ_stack_core3 = .
+                0x0002eab0                . = (. + 0x200)
+ *fill*         0x0002e8b0      0x200 
+                0x0002eab0                __FIQ_stack_core3 = .
+                0x0002eab0                . = ALIGN (0x8)
+                0x0002eab0                __stack_end__core3 = .
+
+.ARM.attributes
+                0x00000000       0x39
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x39 C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+ .ARM.attributes
+                0x00000039       0x27 C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+ .ARM.attributes
+                0x00000060       0x39 C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+ .ARM.attributes
+                0x00000099       0x39 C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+ .ARM.attributes
+                0x000000d2       0x39 C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+ .ARM.attributes
+                0x0000010b       0x39 C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+ .ARM.attributes
+                0x00000144       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fprintf.o)
+ .ARM.attributes
+                0x00000171       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-impure.o)
+ .ARM.attributes
+                0x0000019e       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-locale.o)
+ .ARM.attributes
+                0x000001cb       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbtowc_r.o)
+ .ARM.attributes
+                0x000001f8       0x19 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x00000211       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reent.o)
+ .ARM.attributes
+                0x0000023e       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sscanf.o)
+ .ARM.attributes
+                0x0000026b       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-stdio.o)
+ .ARM.attributes
+                0x00000298       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strchr.o)
+ .ARM.attributes
+                0x000002c5       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strlen-stub.o)
+ .ARM.attributes
+                0x000002f2       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfscanf.o)
+ .ARM.attributes
+                0x0000031f       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfprintf.o)
+ .ARM.attributes
+                0x0000034c       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctob.o)
+ .ARM.attributes
+                0x00000379       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wctomb_r.o)
+ .ARM.attributes
+                0x000003a6       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-writer.o)
+ .ARM.attributes
+                0x000003d3       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wsetup.o)
+ .ARM.attributes
+                0x00000400       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-closer.o)
+ .ARM.attributes
+                0x0000042d       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ctype_.o)
+ .ARM.attributes
+                0x0000045a       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-dtoa.o)
+ .ARM.attributes
+                0x00000487       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fflush.o)
+ .ARM.attributes
+                0x000004b4       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-findfp.o)
+ .ARM.attributes
+                0x000004e1       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-freer.o)
+ .ARM.attributes
+                0x0000050e       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fwalk.o)
+ .ARM.attributes
+                0x0000053b       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-iswspace.o)
+ .ARM.attributes
+                0x00000568       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-localeconv.o)
+ .ARM.attributes
+                0x00000595       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lock.o)
+ .ARM.attributes
+                0x000005c2       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-lseekr.o)
+ .ARM.attributes
+                0x000005ef       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-makebuf.o)
+ .ARM.attributes
+                0x0000061c       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mallocr.o)
+ .ARM.attributes
+                0x00000649       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mbrtowc.o)
+ .ARM.attributes
+                0x00000676       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memchr-stub.o)
+ .ARM.attributes
+                0x000006a3       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x000006d0       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mlock.o)
+ .ARM.attributes
+                0x000006fd       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-mprec.o)
+ .ARM.attributes
+                0x0000072a       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-readr.o)
+ .ARM.attributes
+                0x00000757       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sbrkr.o)
+ .ARM.attributes
+                0x00000784       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sccl.o)
+ .ARM.attributes
+                0x000007b1       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sf_nan.o)
+ .ARM.attributes
+                0x000007de       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-sprintf.o)
+ .ARM.attributes
+                0x0000080b       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtod.o)
+ .ARM.attributes
+                0x00000838       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtol.o)
+ .ARM.attributes
+                0x00000865       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoll.o)
+ .ARM.attributes
+                0x00000892       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoul.o)
+ .ARM.attributes
+                0x000008bf       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strtoull.o)
+ .ARM.attributes
+                0x000008ec       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiscanf.o)
+ .ARM.attributes
+                0x00000919       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfprintf.o)
+ .ARM.attributes
+                0x00000946       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-ungetc.o)
+ .ARM.attributes
+                0x00000973       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-vfiprintf.o)
+ .ARM.attributes
+                0x000009a0       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-callocr.o)
+ .ARM.attributes
+                0x000009cd       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fclose.o)
+ .ARM.attributes
+                0x000009fa       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fputwc.o)
+ .ARM.attributes
+                0x00000a27       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fstatr.o)
+ .ARM.attributes
+                0x00000a54       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-fvwrite.o)
+ .ARM.attributes
+                0x00000a81       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .ARM.attributes
+                0x00000aae       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .ARM.attributes
+                0x00000adb       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-isattyr.o)
+ .ARM.attributes
+                0x00000b08       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-memmove.o)
+ .ARM.attributes
+                0x00000b35       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-reallocr.o)
+ .ARM.attributes
+                0x00000b62       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-strncmp.o)
+ .ARM.attributes
+                0x00000b8f       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-svfiprintf.o)
+ .ARM.attributes
+                0x00000bbc       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wbuf.o)
+ .ARM.attributes
+                0x00000be9       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a(lib_a-wcrtomb.o)
+ .ARM.attributes
+                0x00000c16       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_cos.o)
+ .ARM.attributes
+                0x00000c43       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_sin.o)
+ .ARM.attributes
+                0x00000c70       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-ef_rem_pio2.o)
+ .ARM.attributes
+                0x00000c9d       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_cos.o)
+ .ARM.attributes
+                0x00000cca       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_rem_pio2.o)
+ .ARM.attributes
+                0x00000cf7       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-kf_sin.o)
+ .ARM.attributes
+                0x00000d24       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_fabs.o)
+ .ARM.attributes
+                0x00000d51       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_floor.o)
+ .ARM.attributes
+                0x00000d7e       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_scalbn.o)
+ .ARM.attributes
+                0x00000dab       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a(lib_a-sf_copysign.o)
+ .ARM.attributes
+                0x00000dd8       0x1b g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x00000df3       0x1b g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x00000e0e       0x1b g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x00000e29       0x1b g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_aeabi_uldivmod.o)
+ .ARM.attributes
+                0x00000e44       0x2d g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a(_udivmoddi4.o)
+
+.Heap           0x0002eab0        0x0
+                0x0002eab0                . = ALIGN (0x4)
+                0x0002eab0                __heap_start__ = .
+                0x0002eab0                _end = .
+                [!provide]                PROVIDE (end, .)
+
+/DISCARD/
+ *(.ARM.exidx .ARM.exidx.*)
+ *(.rel.ARM.exidx .rel.ARM.exidx.* .gnu.linkonce.armexidx.*)
+ *(.debug_frame .debug_frame.*)
+ *(.comment *.comment.*)
+ *(.symtab .symtab.*)
+ *(.strtab .strtab.*)
+ *(.shstrtab .shstrtab.*)
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+ *(.note.GNU-stack)
+ *(.gnu_debuglink)
+ *(.gnu.lto_*)
+LOAD C:\Users\ldebo\AppData\Local\Temp\cc6euBxd.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccCiHxUd.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccerpd19.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\cchhzjkj.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccwXEDrh.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccJLt5fn.o
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libc.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libm.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-ar/fpv3/hard\libg.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v7-ar/fpv3/hard\libgcc.a
+OUTPUT(kernel.elf elf32-littlearm)
