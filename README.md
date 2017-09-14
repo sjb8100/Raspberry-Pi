@@ -51,7 +51,7 @@ Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=
 >
 Note: No 64Bit version at the moment as there are issues with C standard string unit I need to look at.
 >
-So we continue our GL pipe adventure slowly crawling towards something that ressemblesminimal OpenGL.
+So we continue our GL pipe adventure slowly crawling towards something that ressembles minimal OpenGL.
 >
 So we work on rotating an actual LightWave OBJ 3D mesh model:
 >
