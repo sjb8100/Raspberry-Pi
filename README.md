@@ -44,9 +44,10 @@ I have not yet settled on an interface format but more going to try to follow a 
 >
 Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=tutorials&series=1
 >
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GLES2.jpg?raw=true)
 >
 # ROTATE MODEL - (Pi1, 2, 3 - AARCH32)
->https://github.com/LdB-ECM/Raspberry-Pi/tree/master/GLES_Model
+>https://github.com/LdB-ECM/Raspberry-Pi/tree/master/GLES2_Model
 >
 So we continue our GL pipe adventure slowly crawling towards something that ressemblesminimal OpenGL.
 >
