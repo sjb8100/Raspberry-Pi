@@ -2,7 +2,7 @@
 >
 Update: 64Bit version solved sscanf was bugged in newlib, I had to rewrite the function. I am getting so fed up with stdio.h in newlib 64bit I might just complete the job and replace all the functions. I had already put up a partial for Printf which was also bugged on 64 bit. The change in integer size from 4 to 8 byte + va-args in AARCH64 had not been dealt with properly.
 >
-Update: All memory allocation now removed from render call and render speed now goes well over 800fps so I timed the rotation speed. You will notice rotation is alot smoother.
+Update: All memory allocation now removed from render call and render speed now goes well over 800fps so I timed the rotation speed. You will notice rotation is alot smoother. Got textures working just writing a quick texture loader for files and we should have colored model.
 >
 So we continue our GL pipe adventure slowly crawling towards something that ressembles minimal OpenGL.
 >
