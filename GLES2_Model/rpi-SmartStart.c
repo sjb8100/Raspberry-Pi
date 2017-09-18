@@ -299,6 +299,7 @@ typedef struct __attribute__((__packed__, aligned(4))) tagINTDC {
 	void(*HorzLine) (struct tagINTDC* dc, uint_fast32_t cx, int_fast8_t dir);
 	void(*DiagLine) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir);
 	void(*WriteChar) (struct tagINTDC* dc, uint8_t Ch);
+	void(*TransparentWriteChar) (struct tagINTDC* dc, uint8_t Ch);
 	void(*PutImage) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, IMAGE_PTR imgSrc, bool BottomUp);
 } INTDC;
 
@@ -771,6 +772,20 @@ BOOL TextOut(HDC hdc,
 }
 
 
+bool TransparentTextOut(int nXStart, int nYStart, const char* lpString)
+{
+	if (lpString){
+		while (*lpString != '\0') {								// Check text data valid
+			console.curPos.x = nXStart;
+			console.curPos.y = nYStart;
+			console.TransparentWriteChar(&console, *lpString++);// Write the character
+			nXStart += BitFontWth;								// Advance x text position
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
 BOOL BmpOut(HDC hdc,
 	uint32_t nXStart,
 	uint32_t nYStart,
@@ -1026,6 +1041,31 @@ static void WriteChar16 (INTDC* dc, uint8_t Ch) {
 	dc->curPos.x += BitFontWth;										// Increment x position
 }
 
+/*-[INTERNAL: TransparentWriteChar16]---------------------------------------}
+. 16 Bit colour version of the text character draw. The given character is
+. drawn at the current position in the current text coloyr but with current 
+. background colour.
+. 10Aug17 LdB
+.--------------------------------------------------------------------------*/
+static void TransparentWriteChar16 (INTDC* dc, uint8_t Ch) {
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565 Fc;
+	Fc.R = dc->TxtColor.rgbRed >> 3;
+	Fc.G = dc->TxtColor.rgbGreen >> 2;
+	Fc.B = dc->TxtColor.rgbBlue >> 3;								// Colour for text
+	for (uint_fast32_t y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
+		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
+			int xoffs = i % 8;										// X offset
+			if ((b & 0x80000000) != 0) 								// If bit set take text colour
+				video_wr_ptr[xoffs] = Fc;							// Write pixel
+			b <<= 1;												// Roll font bits left
+			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+		}
+	}
+	dc->curPos.x += BitFontWth;										// Increment x position
+}
+
 /*-[INTERNAL: PutImage16]---------------------------------------------------}
 . 16 Bit colour version of the put image draw. The image is transferred from
 . the source position and drawn to screen. The source and destination format
@@ -1138,6 +1178,27 @@ static void WriteChar24 (INTDC* dc, uint8_t Ch) {
 			int xoffs = i % 8;										// X offset
 			if ((b & 0x80000000) != 0) col = dc->TxtColor.rgb;		// If bit set take text colour
 			video_wr_ptr[xoffs] = col;								// Write pixel
+			b <<= 1;												// Roll font bits left
+			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+		}
+	}
+	dc->curPos.x += BitFontWth;										// Increment x position
+}
+
+/*-[INTERNAL: TransparentWriteChar24]---------------------------------------}
+. 24 Bit colour version of the text character draw. The given character is
+. drawn at the current position in the current text colour but the background 
+. colours remains unchanged
+. 10Aug17 LdB
+.--------------------------------------------------------------------------*/
+static void TransparentWriteChar24 (INTDC* dc, uint8_t Ch) {
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	for (uint_fast32_t y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
+		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
+			int xoffs = i % 8;										// X offset
+			if ((b & 0x80000000) != 0)								// If bit set take text colour
+			   video_wr_ptr[xoffs] = dc->TxtColor.rgb;				// Write pixel
 			b <<= 1;												// Roll font bits left
 			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
 		}
@@ -1264,6 +1325,27 @@ static void WriteChar32 (INTDC* dc, uint8_t Ch) {
 	dc->curPos.x += BitFontWth;										// Increment x position
 }
 
+/*-[INTERNAL: TransparentWriteChar32]---------------------------------------}
+. 32 Bit colour version of the text character draw. The given character is
+. drawn at the current position in the current text colour but the background 
+. colours remains unchanged
+. 10Aug17 LdB
+.--------------------------------------------------------------------------*/
+static void TransparentWriteChar32(INTDC* dc, uint8_t Ch) {
+	RGBA* __attribute__((__packed__, aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	for (uint_fast32_t y = 0; y < 4; y++) {
+		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
+		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
+			uint_fast8_t xoffs = i % 8;								// X offset
+			if ((b & 0x80000000) != 0)								// If bit set take text colour
+				video_wr_ptr[xoffs] = dc->TxtColor;					// Write pixel
+			b <<= 1;												// Roll font bits left
+			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+		}
+	}
+	dc->curPos.x += BitFontWth;										// Increment x position
+}
+
 /*-[INTERNAL: PutImage32]---------------------------------------------------}
 . 32 Bit colour version of the put image draw. The image is transferred from
 . the source position and drawn to screen. The source and destination format
@@ -1337,6 +1419,7 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.HorzLine = HorzLine32;								// Set console function ptr to 32bit colour version of horizontal line
 		console.DiagLine = DiagLine32;								// Set console function ptr to 32bit colour version of diagonal line
 		console.WriteChar = WriteChar32;							// Set console function ptr to 32bit colour version of write character
+		console.TransparentWriteChar = TransparentWriteChar32;		// Set console function ptr to 32bit colour version of transparent write character
 		console.PutImage = PutImage32;								// Set console function ptr to 32bit colour version of put bitmap image
 		break;
 	case 24:														/* 24 bit colour screen mode */
@@ -1345,6 +1428,7 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.HorzLine = HorzLine24;								// Set console function ptr to 24bit colour version of horizontal line
 		console.DiagLine = DiagLine24;								// Set console function ptr to 24bit colour version of diagonal line
 		console.WriteChar = WriteChar24;							// Set console function ptr to 24bit colour version of write character
+		console.TransparentWriteChar = TransparentWriteChar24;		// Set console function ptr to 24bit colour version of transparent write character
 		console.PutImage = PutImage24;								// Set console function ptr to 24bit colour version of put bitmap image
 		break;
 	case 16:														/* 16 bit colour screen mode */
@@ -1353,6 +1437,7 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.HorzLine = HorzLine16;								// Set console function ptr to 16bit colour version of horizontal line
 		console.DiagLine = DiagLine16;								// Set console function ptr to 16bit colour version of diagonal line
 		console.WriteChar = WriteChar16;							// Set console function ptr to 16bit colour version of write character
+		console.TransparentWriteChar = TransparentWriteChar16;		// Set console function ptr to 16bit colour version of transparent write character
 		console.PutImage = PutImage16;								// Set console function ptr to 16bit colour version of put bitmap image
 		break;
 	}

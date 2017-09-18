@@ -2,7 +2,7 @@
 #include <stdint.h>								// Needed for uint8_t, uint32_t, etc
 #include <math.h>
 #include <string.h>
-#include <stdio.h>
+#include "emb-stdio.h"
 #include "rpi-smartstart.h"						// Need for mailbox
 #include "rpi-GLES.h"
 #include "SDCard.h"
@@ -392,23 +392,7 @@ static void emit_uint32_t(uint8_t **list, uint32_t d) {
 	*((*list)++) = (*data).byte4;
 }
 
-/*static void emit_float(uint8_t **list, float f) {
-	struct EMITDATA* data = (struct EMITDATA*)&f;
-	*((*list)++) = (*data).byte1;
-	*((*list)++) = (*data).byte2;
-	*((*list)++) = (*data).byte3;
-	*((*list)++) = (*data).byte4;
-}*/
 
-
-GLfloat angle = 0.0f;
-MATRIX3D rotMat;  
-
-void DoRotate (float delta) {
-	angle += delta;
-	if (angle >= (6.2831852)) angle -= (6.2831852);   // 2 * Pi = 360 degree rotation
-	rotMat = ZRotationMatrix3D(angle);
-}
 
 struct __attribute__((__packed__, aligned(1))) EmitVertex {
 	uint16_t  x;													// X in 12.4 fixed point
@@ -426,8 +410,43 @@ struct __attribute__((__packed__, aligned(1))) OriginalVertex {
 	float	  z;													// Z
 };
 
+struct __attribute__((__packed__, aligned(1))) TileListEntry {
+	uint8_t   coord_cmd;											// cmd = GL_TILE_COORDINATES
+	uint8_t	  x;													// x
+	uint8_t	  y;													// y
+	uint8_t   sublist_cmd;											// cmd = GL_BRANCH_TO_SUBLIST
+	uint32_t  sublist_ptr;											// ptr to next sublist
+	uint8_t   tile_endcmd;											// GL_STORE_MULTISAMPLE or GL_STORE_MULTISAMPLE_END
+};
+
+static GLfloat angle = 0.0f;
+static MATRIX3D rotMat = { 0 };
+
+void DoRotate(float delta, int screenCentreX, int screenCentreY, struct obj_model_t* model) {
+	angle += delta;
+	if (angle >= (6.2831852)) angle -= (6.2831852);   // 2 * Pi = 360 degree rotation
+	rotMat = ZRotationMatrix3D(angle);
+
+	if ((model) && (model->vertexARM) && (model->originalVertexARM)) {
+		MATRIX3D a = MultiplyMatrix3D(model->viewMatrix, rotMat);
+		// Vertex Data 1
+		struct EmitVertex* v = model->vertexARM;
+		struct OriginalVertex* ov = model->originalVertexARM;
+		for (int i = 0; i < model->num_verts; i++) {
+			GLfloat dx, dy, dz;
+			TransformPoint3D(ov->x, ov->y, ov->z, a, &dx, &dy, &dz);
+			v->x = (uint32_t)(dx + screenCentreX) << 4;// X in 12.4 fixed point
+			v->y = (uint32_t)(dy + screenCentreY) << 4;// Y in 12.4 fixed point
+			v->z = 1.0f;
+			v++;	// Next vertex
+			ov++;
+		}
+	}
+}
+
+
 // Render a single triangle to memory.
-void RenderModel (uint16_t screenCentreX, uint16_t screenCentreY, uint32_t renderBufferAddr, struct obj_model_t* model, printhandler prn_handler) {
+void RenderModel (struct obj_model_t* model, printhandler prn_handler) {
 	//  We allocate/lock some videocore memory
 	// I'm just shoving everything in a single buffer because I'm lazy 8Mb, 4k alignment
 	// Normally you would do individual allocations but not sure of interface I want yet
@@ -440,197 +459,11 @@ void RenderModel (uint16_t screenCentreX, uint16_t screenCentreY, uint32_t rende
 	#define BUFFER_FRAGMENT_SHADER	0xfe00
 	#define BUFFER_FRAGMENT_UNIFORM	0xff00
 	if (!model) return;
-	uint32_t handle = V3D_mem_alloc(0x800000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
-	if (!handle) {
-		if (prn_handler) prn_handler("Error: Unable to allocate memory");
-		return;
-	}
-	uint32_t bus_addr = V3D_mem_lock(handle);
-	uint8_t *list = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(bus_addr);
-
-	uint8_t *p = list;
-
-	
-
-	// Configuration stuff
-	// Tile Binning Configuration.
-	//   Tile state data is 48 bytes per tile, I think it can be thrown away
-	//   as soon as binning is finished.
-	//   A tile itself is 64 x 64 pixels 
-	//   we will need binWth of them across to cover the render width
-	//   we will need binHt of them down to cover the render height
-	//   we add 63 before the division because any fraction at end must have a bin
-	uint_fast32_t binWth = ((screenCentreX * 2) + 63) / 64;			// Tiles across 
-	uint_fast32_t binHt = ((screenCentreY * 2) + 63) / 64;			// Tiles down 
-
-	emit_uint8_t(&p, GL_TILE_BINNING_CONFIG);						// tile binning config control 
-	emit_uint32_t(&p, bus_addr + BUFFER_TILE_DATA);					// tile allocation memory address
-	emit_uint32_t(&p, 0x4000);										// tile allocation memory size
-	emit_uint32_t(&p, bus_addr + BUFFER_TILE_STATE);				// Tile state data address
-	emit_uint8_t(&p, binWth);										// renderWidth/64
-	emit_uint8_t(&p, binHt);										// renderHt/64
-	emit_uint8_t(&p, 0x04);											// config
-
-	// Start tile binning.
-	emit_uint8_t(&p, GL_START_TILE_BINNING);						// Start binning command
-
-	// Primitive type
-	emit_uint8_t(&p, GL_PRIMITIVE_LIST_FORMAT);
-	emit_uint8_t(&p, 0x32);											// 16 bit triangle
-
-	// Clip Window
-	emit_uint8_t(&p, GL_CLIP_WINDOW);								// Clip window 
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, (screenCentreX * 2));							// width
-	emit_uint16_t(&p, (screenCentreY * 2));							// height
-
-	// GL State
-	emit_uint8_t(&p, GL_CONFIG_STATE);
-	emit_uint8_t(&p, 0x03);											// enable both foward and back facing polygons
-	emit_uint8_t(&p, 0x00);											// depth testing disabled
-	emit_uint8_t(&p, 0x02);											// enable early depth write
-
-	// Viewport offset
-	emit_uint8_t(&p, GL_VIEWPORT_OFFSET);							// Viewport offset
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, 0);											// 0
-
-	// The triangle
-	// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
-	emit_uint8_t(&p, GL_NV_SHADER_STATE);
-	emit_uint32_t(&p, bus_addr + BUFFER_SHADER_OFFSET);				// Shader Record
-
-	// primitive index list
-	emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
-	emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
-	emit_uint32_t(&p, model->IndexVertexCt);						// Length
-	emit_uint32_t(&p, model->modelDataVC4);							// address of vertex data
-	emit_uint32_t(&p, model->MaxIndexVertex+2);						// Maximum index
-
-	// End of bin list
-	// So Flush
-	emit_uint8_t(&p, GL_FLUSH_ALL_STATE);
-	// Nop
-	emit_uint8_t(&p, GL_NOP);
-	// Halt
-	emit_uint8_t(&p, GL_HALT);
-
-	int length = p - list;
-
-	// Okay now we need Shader Record to buffer
-	p = list + BUFFER_SHADER_OFFSET;
-	emit_uint8_t(&p, 0x01);											// flags
-	emit_uint8_t(&p, 6 * 4);										// stride
-	emit_uint8_t(&p, 0xcc);											// num uniforms (not used)
-	emit_uint8_t(&p, 3);											// num varyings
-	emit_uint32_t(&p, bus_addr + BUFFER_FRAGMENT_SHADER);			// Fragment shader code
-	emit_uint32_t(&p, bus_addr + BUFFER_FRAGMENT_UNIFORM);			// Fragment shader uniforms
-	emit_uint32_t(&p, model->vertexVC4);							// Vertex with VC4 address
-
-
-
-
-
-	MATRIX3D a = MultiplyMatrix3D(model->viewMatrix, rotMat);
-
-	// Vertex Data 1
-	struct EmitVertex* v = model->vertexARM;
-	struct OriginalVertex* ov = model->originalVertexARM;
-	for (int i = 0; i < model->num_verts; i++) {
-		GLfloat dx, dy, dz;
-		TransformPoint3D(ov->x, ov->y, ov->z, a, &dx, &dy, &dz);
-		v->x = (uint32_t)(dx + screenCentreX) << 4;// X in 12.4 fixed point
-		v->y = (uint32_t)(dy + screenCentreY) << 4;// Y in 12.4 fixed point
-		v->z = 1.0f;
-		v++;	// Next vertex
-		ov++;
-	}
-
-	// fragment shader
-	p = list + BUFFER_FRAGMENT_SHADER;
-	emit_uint32_t(&p, 0x958e0dbf);
-	emit_uint32_t(&p, 0xd1724823); /* mov r0, vary; mov r3.8d, 1.0 */
-	emit_uint32_t(&p, 0x818e7176);
-	emit_uint32_t(&p, 0x40024821); /* fadd r0, r0, r5; mov r1, vary */
-	emit_uint32_t(&p, 0x818e7376);
-	emit_uint32_t(&p, 0x10024862); /* fadd r1, r1, r5; mov r2, vary */
-	emit_uint32_t(&p, 0x819e7540);
-	emit_uint32_t(&p, 0x114248a3); /* fadd r2, r2, r5; mov r3.8a, r0 */
-	emit_uint32_t(&p, 0x809e7009);
-	emit_uint32_t(&p, 0x115049e3); /* nop; mov r3.8b, r1 */
-	emit_uint32_t(&p, 0x809e7012);
-	emit_uint32_t(&p, 0x116049e3); /* nop; mov r3.8c, r2 */
-	emit_uint32_t(&p, 0x159e76c0);
-	emit_uint32_t(&p, 0x30020ba7); /* mov tlbc, r3; nop; thrend */
-	emit_uint32_t(&p, 0x009e7000);
-	emit_uint32_t(&p, 0x100009e7); /* nop; nop; nop */
-	emit_uint32_t(&p, 0x009e7000);
-	emit_uint32_t(&p, 0x500009e7); /* nop; nop; sbdone */
-
-	// Render control list
-	p = list + BUFFER_RENDER_CONTROL;
-
-	// Clear colors
-	emit_uint8_t(&p, GL_CLEAR_COLORS);
-	emit_uint32_t(&p, 0xff000000);			// Opaque Black
-	emit_uint32_t(&p, 0xff000000);			// 32 bit clear colours need to be repeated twice
-	emit_uint32_t(&p, 0);
-	emit_uint8_t(&p, 0);
-
-	// Tile Rendering Mode Configuration
-	emit_uint8_t(&p, GL_TILE_RENDER_CONFIG);
-
-	emit_uint32_t(&p, renderBufferAddr);	// render address
-
-	emit_uint16_t(&p, (screenCentreX * 2));	// width
-	emit_uint16_t(&p, (screenCentreY * 2));	// height
-	emit_uint8_t(&p, 0x04);					// framebuffer mode (linear rgba8888)
-	emit_uint8_t(&p, 0x00);
-
-	// Do a store of the first tile to force the tile buffer to be cleared
-	// Tile Coordinates
-	emit_uint8_t(&p, GL_TILE_COORDINATES);
-	emit_uint8_t(&p, 0);
-	emit_uint8_t(&p, 0);
-	// Store Tile Buffer General
-	emit_uint8_t(&p, GL_STORE_TILE_BUFFER);
-	emit_uint16_t(&p, 0);					// Store nothing (just clear)
-	emit_uint32_t(&p, 0);					// no address is needed
-
-	// Link all binned lists together
-	for (int x = 0; x < binWth; x++) {
-		for (int y = 0; y < binHt; y++) {
-
-			// Tile Coordinates
-			emit_uint8_t(&p, GL_TILE_COORDINATES);
-			emit_uint8_t(&p, x);
-			emit_uint8_t(&p, y);
-
-			// Call Tile sublist
-			emit_uint8_t(&p, GL_BRANCH_TO_SUBLIST);
-			emit_uint32_t(&p, bus_addr + BUFFER_TILE_DATA + (y * binWth + x) * 32);
-
-			// Last tile needs a special store instruction
-			if (x == (binWth - 1) && (y == binHt - 1)) {
-				// Store resolved tile color buffer and signal end of frame
-				emit_uint8_t(&p, GL_STORE_MULTISAMPLE_END);
-			}
-			else {
-				// Store resolved tile color buffer
-				emit_uint8_t(&p, GL_STORE_MULTISAMPLE);
-			}
-		}
-	}
-
-
-	int render_length = p - (list + BUFFER_RENDER_CONTROL);
-
 
 	// Run our control list
 	v3d[V3D_BFC] = 1;                         // reset binning frame count
-	v3d[V3D_CT0CA] = bus_addr;
-	v3d[V3D_CT0EA] = bus_addr + length;
+	v3d[V3D_CT0CA] = model->rendererDataVC4;
+	v3d[V3D_CT0EA] = model->rendererDataVC4 + model->binningConfigLength;
 
 	// Wait for control list to execute
 	while (v3d[V3D_CT0CS] & 0x20);
@@ -643,8 +476,8 @@ void RenderModel (uint16_t screenCentreX, uint16_t screenCentreY, uint32_t rende
 
 	// Run our render
 	v3d[V3D_RFC] = 1;						// reset rendering frame count
-	v3d[V3D_CT1CA] = bus_addr + BUFFER_RENDER_CONTROL;
-	v3d[V3D_CT1EA] = bus_addr + BUFFER_RENDER_CONTROL + render_length;
+	v3d[V3D_CT1CA] = model->rendererDataVC4 + BUFFER_RENDER_CONTROL;
+	v3d[V3D_CT1EA] = model->rendererDataVC4 + BUFFER_RENDER_CONTROL + model->renderLength;
 
 	// Wait for render to execute
 	while (v3d[V3D_CT1CS] & 0x20);
@@ -654,11 +487,6 @@ void RenderModel (uint16_t screenCentreX, uint16_t screenCentreY, uint32_t rende
 
 	// stop the thread
 	v3d[V3D_CT1CS] = 0x20;
-
-	// Release resources
-	V3D_mem_unlock(handle);
-	V3D_mem_free(handle);
-
 }
 
 
@@ -711,7 +539,7 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 					{
 						if (sscanf(&buf[2], "%f %f %f", &x, &y, &z) != 3)
 						{
-							fprintf(stderr, "Error reading vertex data!\n");
+							printf("Error reading vertex data!\n");
 							return false;
 						}
 						else {
@@ -805,7 +633,7 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 				/* Select primitive type */
 				if (num_elems < 3 || num_elems > 5)
 				{
-					fprintf(stderr, "Error: faces can only be triangles or quads !\n");
+					printf("Error: faces can only be triangles or quads !\n");
 					return 0;
 				}
 				else if (num_elems == 3)
@@ -947,7 +775,116 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 
 
 
+bool SetupRenderer (struct obj_model_t* model, uint32_t renderWth, uint32_t renderHt, uint32_t renderBufferAddr)
+{
+	if (model) {
+		model->rendererHandle = V3D_mem_alloc(0x800000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
+		if (!model->rendererHandle)	return false;
 
+		model->rendererDataVC4 = V3D_mem_lock(model->rendererHandle);
+		model->rendererDataARM = GPUaddrToARMaddr(model->rendererDataVC4);
+
+		model->renderWth = renderWth;
+		model->renderHt = renderHt;
+		model->binWth = (renderWth + 63) / 64;							// Tiles across 
+		model->binHt = (renderHt + 63) / 64;							// Tiles down 
+		uint8_t *p; // = (uint8_t*)(uintptr_t)model->rendererDataARM;
+
+		// fragment shader
+		p = (uint8_t*)(uintptr_t)model->rendererDataARM + BUFFER_FRAGMENT_SHADER;
+		emit_uint32_t(&p, 0x958e0dbf);
+		emit_uint32_t(&p, 0xd1724823); /* mov r0, vary; mov r3.8d, 1.0 */
+		emit_uint32_t(&p, 0x818e7176);
+		emit_uint32_t(&p, 0x40024821); /* fadd r0, r0, r5; mov r1, vary */
+		emit_uint32_t(&p, 0x818e7376);
+		emit_uint32_t(&p, 0x10024862); /* fadd r1, r1, r5; mov r2, vary */
+		emit_uint32_t(&p, 0x819e7540);
+		emit_uint32_t(&p, 0x114248a3); /* fadd r2, r2, r5; mov r3.8a, r0 */
+		emit_uint32_t(&p, 0x809e7009);
+		emit_uint32_t(&p, 0x115049e3); /* nop; mov r3.8b, r1 */
+		emit_uint32_t(&p, 0x809e7012);
+		emit_uint32_t(&p, 0x116049e3); /* nop; mov r3.8c, r2 */
+		emit_uint32_t(&p, 0x159e76c0);
+		emit_uint32_t(&p, 0x30020ba7); /* mov tlbc, r3; nop; thrend */
+		emit_uint32_t(&p, 0x009e7000);
+		emit_uint32_t(&p, 0x100009e7); /* nop; nop; nop */
+		emit_uint32_t(&p, 0x009e7000);
+		emit_uint32_t(&p, 0x500009e7); /* nop; nop; sbdone */
+
+		// Render control list
+		p = (uint8_t*)(uintptr_t)model->rendererDataARM + BUFFER_RENDER_CONTROL;
+
+		// Clear colors
+		emit_uint8_t(&p, GL_CLEAR_COLORS);
+		emit_uint32_t(&p, 0xff000000);			// Opaque Black
+		emit_uint32_t(&p, 0xff000000);			// 32 bit clear colours need to be repeated twice
+		emit_uint32_t(&p, 0);
+		emit_uint8_t(&p, 0);
+
+		// Tile Rendering Mode Configuration
+		emit_uint8_t(&p, GL_TILE_RENDER_CONFIG);
+
+		emit_uint32_t(&p, renderBufferAddr);	// render address
+
+		emit_uint16_t(&p, model->renderWth);	// width
+		emit_uint16_t(&p, model->renderHt);		// height
+		emit_uint8_t(&p, 0x04);					// framebuffer mode (linear rgba8888)
+		emit_uint8_t(&p, 0x00);
+
+		// Do a store of the first tile to force the tile buffer to be cleared
+		// Tile Coordinates
+		emit_uint8_t(&p, GL_TILE_COORDINATES);
+		emit_uint8_t(&p, 0);
+		emit_uint8_t(&p, 0);
+		// Store Tile Buffer General
+		emit_uint8_t(&p, GL_STORE_TILE_BUFFER);
+		emit_uint16_t(&p, 0);					// Store nothing (just clear)
+		emit_uint32_t(&p, 0);					// no address is needed
+
+		struct TileListEntry* tp;
+		tp = (struct TileListEntry*)(uintptr_t) p;
+		// Link all binned lists together
+		for (int x = 0; x < model->binWth; x++) {
+			for (int y = 0; y < model->binHt; y++) {
+
+				// Tile Coordinates
+				tp->coord_cmd = GL_TILE_COORDINATES;
+				tp->x = x;
+				tp->y = y;
+
+				// Call Tile sublist
+				tp->sublist_cmd = GL_BRANCH_TO_SUBLIST;
+				tp->sublist_ptr = model->rendererDataVC4 + BUFFER_TILE_DATA + (y * model->binWth + x) * 32;
+
+				// Last tile needs a special store instruction
+				if (x == (model->binWth - 1) && (y == model->binHt - 1)) {
+					// Store resolved tile color buffer and signal end of frame
+					tp->tile_endcmd = GL_STORE_MULTISAMPLE_END;
+				}
+				else {
+					// Store resolved tile color buffer
+					tp->tile_endcmd = GL_STORE_MULTISAMPLE;
+				}
+				tp++;
+			}
+		}
+		model->renderLength = (uintptr_t)tp - (uintptr_t)(model->rendererDataARM + BUFFER_RENDER_CONTROL);
+
+		return true;
+	}
+	return false;
+}
+
+bool DoneRenderer(struct obj_model_t* model) 
+{
+	if (model) {
+		// Release resources
+		V3D_mem_unlock(model->rendererHandle);
+		V3D_mem_free(model->rendererHandle);
+		return true;
+	}
+	return false;
+}
 
 
 bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhandler prn_handler) {
@@ -982,6 +919,85 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 				model->IndexVertexCt + (model->num_verts * sizeof(struct  EmitVertex)));
 
 			ParseWaveFrontMesh(fileName, model, true);
+
+			uint8_t *p = (uint8_t*)(uintptr_t)model->rendererDataARM;
+
+			// Configuration stuff
+			// Tile Binning Configuration.
+			//   Tile state data is 48 bytes per tile, I think it can be thrown away
+			//   as soon as binning is finished.
+			//   A tile itself is 64 x 64 pixels 
+			//   we will need binWth of them across to cover the render width
+			//   we will need binHt of them down to cover the render height
+			//   we add 63 before the division because any fraction at end must have a bin
+
+
+			//uint_fast32_t binListSize = (binWth * binHt) * sizeof(struct TileListEntry);
+
+			emit_uint8_t(&p, GL_TILE_BINNING_CONFIG);						// tile binning config control 
+			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_TILE_DATA);	// tile allocation memory address
+			emit_uint32_t(&p, 0x4000);										// tile allocation memory size
+			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_TILE_STATE);	// Tile state data address
+			emit_uint8_t(&p, model->binWth);								// renderWidth/64
+			emit_uint8_t(&p, model->binHt);									// renderHt/64
+			emit_uint8_t(&p, 0x04);											// config
+
+																			// Start tile binning.
+			emit_uint8_t(&p, GL_START_TILE_BINNING);						// Start binning command
+
+																			// Primitive type
+			emit_uint8_t(&p, GL_PRIMITIVE_LIST_FORMAT);
+			emit_uint8_t(&p, 0x32);											// 16 bit triangle
+
+																			// Clip Window
+			emit_uint8_t(&p, GL_CLIP_WINDOW);								// Clip window 
+			emit_uint16_t(&p, 0);											// 0
+			emit_uint16_t(&p, 0);											// 0
+			emit_uint16_t(&p, model->renderWth);							// width
+			emit_uint16_t(&p, model->renderHt);								// height
+
+			// GL State
+			emit_uint8_t(&p, GL_CONFIG_STATE);
+			emit_uint8_t(&p, 0x03);											// enable both foward and back facing polygons
+			emit_uint8_t(&p, 0x00);											// depth testing disabled
+			emit_uint8_t(&p, 0x02);											// enable early depth write
+
+			// Viewport offset
+			emit_uint8_t(&p, GL_VIEWPORT_OFFSET);							// Viewport offset
+			emit_uint16_t(&p, 0);											// 0
+			emit_uint16_t(&p, 0);											// 0
+
+			// The triangle
+			// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
+			emit_uint8_t(&p, GL_NV_SHADER_STATE);
+			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_SHADER_OFFSET);	// Shader Record
+
+			// primitive index list
+			emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
+			emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
+			emit_uint32_t(&p, model->IndexVertexCt);						// Length
+			emit_uint32_t(&p, model->modelDataVC4);							// address of vertex data
+			emit_uint32_t(&p, model->MaxIndexVertex + 2);						// Maximum index
+
+			// End of bin list
+			// So Flush
+			emit_uint8_t(&p, GL_FLUSH_ALL_STATE);
+			// Nop
+			emit_uint8_t(&p, GL_NOP);
+			// Halt
+			emit_uint8_t(&p, GL_HALT);
+
+			model->binningConfigLength = (uintptr_t)p - (uintptr_t)model->rendererDataARM;
+			
+			// Okay now we need Shader Record to buffer
+			p = (uint8_t*)(uintptr_t)model->rendererDataARM + BUFFER_SHADER_OFFSET;
+			emit_uint8_t(&p, 0x01);											// flags
+			emit_uint8_t(&p, sizeof(struct EmitVertex));					// stride for VBO
+			emit_uint8_t(&p, 0xcc);											// num uniforms (not used)
+			emit_uint8_t(&p, 3);											// num varyings
+			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_FRAGMENT_SHADER);	 // Fragment shader code
+			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_FRAGMENT_UNIFORM); // Fragment shader uniforms
+			emit_uint32_t(&p, model->vertexVC4);							// Vertex with VC4 address
 
 			return true;
 		}

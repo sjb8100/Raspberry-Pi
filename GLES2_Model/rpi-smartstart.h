@@ -590,6 +590,7 @@ static_assert(sizeof(RGB565) == 0x02, "Structure RGB565 should be 0x02 bytes in 
 bool PiConsole_Init(int Width, int Height, int Depth, printhandler prn_handler);
 void WriteText(int x, int y, char* txt);
 void Embedded_Console_WriteChar (char Ch);
+bool TransparentTextOut (int nXStart, int nYStart, const char* lpString);
 
 HDC GetConsoleDC(void);
 uint32_t GetConsole_FrameBuffer(void);

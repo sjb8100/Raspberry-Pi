@@ -59,9 +59,19 @@ extern "C" {									// Put extern C directive wrapper around
 /* OBJ model structure */
 struct obj_model_t
 {
+	uint32_t rendererHandle;					// Renderer memory handle
+	uint32_t rendererDataVC4;					// Renderer data VC4 locked address
+	uint32_t rendererDataARM;					// Renderer data ARM locked address
+	uint32_t renderWth;							// Render width
+	uint32_t renderHt;							// Render height
+	uint32_t binWth;							// Bin width
+	uint32_t binHt;								// Bin height
+	uint32_t binningConfigLength;				// Binning config length
+	uint32_t renderLength;						// Renderer data length
+
 	uint32_t modelHandle;						// Model memory handle
 	uint32_t modelDataVC4;						// Model data VC4 locked address
-	uint32_t modelDataARM;						// Model daya ARM locked address
+	uint32_t modelDataARM;						// Model data ARM locked address
 
 	uint32_t IndexVertexCt;						// Index vertex count
 	uint32_t MaxIndexVertex;					// Maximum Index vertex referenced
@@ -98,10 +108,12 @@ bool V3D_execute_qpu (int32_t num_qpus, uint32_t control, uint32_t noflush, uint
 #define GL_FRAGMENT_SHADER	35632
 #define GL_VERTEX_SHADER	35633
 
-void DoRotate(float delta);
+void DoRotate(float delta, int screenCentreX, int screenCentreY, struct obj_model_t* model);
 // Render a single triangle to memory.
-void RenderModel (uint16_t screenCentreX, uint16_t screenCenteY, uint32_t renderBufferAddr, struct obj_model_t* model, printhandler prn_handler);
+void RenderModel (struct obj_model_t* model, printhandler prn_handler);
 
+bool SetupRenderer(struct obj_model_t* model, uint32_t renderWth, uint32_t renderHt, uint32_t renderBufferAddr);
+bool DoneRenderer (struct obj_model_t* model);
 bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhandler prn_handler);
 
 
