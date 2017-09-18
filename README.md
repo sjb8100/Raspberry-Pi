@@ -46,10 +46,12 @@ Tutorial series currently at number 3: http://www.mbsoftworks.sk/index.php?page=
 >
 ![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/GL_code2.jpg?raw=true)
 >
-# ***New ROTATE MODEL - (Pi1, 2, 3 - AARCH32)
+# ***New ROTATE 3D MODEL - (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
 >https://github.com/LdB-ECM/Raspberry-Pi/tree/master/GLES2_Model
 >
-Note: No 64Bit version at the moment as there are issues with C standard string unit I need to look at.
+Update: 64Bit version solved sscanf was bugged in the newlib, I had to rewrite the function. I am getting so fed up with stdio.h in newlib I migth just complete the job and replace all the functions.
+>
+Update: All memory allocation now removed from render call and render speed now goes well over 800fps so I timed the rotation speed. You will notice rotation is alot smoother.
 >
 So we continue our GL pipe adventure slowly crawling towards something that ressembles minimal OpenGL.
 >
