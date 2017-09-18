@@ -1,6 +1,6 @@
 # ROTATE 3D MODEL - (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
 >
-Update: 64Bit version solved sscanf was bugged in the newlib, I had to rewrite the function. I am getting so fed up with stdio.h in newlib I migth just complete the job and replace all the functions.
+Update: 64Bit version solved sscanf was bugged in the newlib, I had to rewrite the function. I am getting so fed up with stdio.h in newlib 64bit I might just complete the job and replace all the functions. I had already put up a partial for Printf which was also bugged on 64 bit. The change in integer size from 4 to 8 bit in AARCH64 had not been dealt with properly.
 >
 Update: All memory allocation now removed from render call and render speed now goes well over 800fps so I timed the rotation speed. You will notice rotation is alot smoother.
 >
