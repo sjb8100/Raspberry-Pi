@@ -1,9 +1,6 @@
-# ACCELERATED GRAPHICS (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
+# OBJ 3D MODEL (Pi1, 2, 3 - AARCH32, Pi3 AARCH64)
 >
-Code background: 
-http://latchup.blogspot.com.au/2016/02/life-of-triangle.html
-You will require this reference
-https://docs.broadcom.com/docs/12358545
+
 >
 I currently have the C file called rpi-GLES.C we have no GLES framework yet we are beating up the GL pipe inside the VC4 directly.
 
