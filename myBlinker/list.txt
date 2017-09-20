@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 1
 
 
    1              		.arch armv6zk
@@ -42,121 +42,111 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
   39              		.fpu vfp
   40              		.type	kernel_main, %function
   41              	kernel_main:
-  42              		@ args = 0, pretend = 0, frame = 0
-  43              		@ frame_needed = 0, uses_anonymous_args = 0
-  44 001c 0020A0E3 		mov	r2, #0
-  45 0020 F0412DE9 		push	{r4, r5, r6, r7, r8, lr}
-  46 0024 0210A0E1 		mov	r1, r2
-  47 0028 84309FE5 		ldr	r3, .L8
-  48 002c 0200A0E1 		mov	r0, r2
-  49 0030 FEFFFFEB 		bl	PiConsole_Init
-  50 0034 78009FE5 		ldr	r0, .L8
-  51 0038 FEFFFFEB 		bl	displaySmartStart
-  52 003c 70009FE5 		ldr	r0, .L8
-  53 0040 FEFFFFEB 		bl	ARM_setmaxspeed
-  54 0044 6C109FE5 		ldr	r1, .L8+4
-  55 0048 6C009FE5 		ldr	r0, .L8+8
-  56 004c FEFFFFEB 		bl	TimerIrqSetup
-  57 0050 0050A0E3 		mov	r5, #0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 2
+  42              		@ Volatile: function does not return.
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 0, uses_anonymous_args = 0
+  45 001c 0020A0E3 		mov	r2, #0
+  46 0020 0050A0E3 		mov	r5, #0
+  47 0024 80402DE9 		push	{r7, lr}
+  48 0028 0210A0E1 		mov	r1, r2
+  49 002c 74309FE5 		ldr	r3, .L8
+  50 0030 0200A0E1 		mov	r0, r2
+  51 0034 FEFFFFEB 		bl	PiConsole_Init
+  52 0038 68009FE5 		ldr	r0, .L8
+  53 003c FEFFFFEB 		bl	displaySmartStart
+  54 0040 64809FE5 		ldr	r8, .L8+4
+  55 0044 5C009FE5 		ldr	r0, .L8
+  56 0048 FEFFFFEB 		bl	ARM_setmaxspeed
+  57 004c 5C109FE5 		ldr	r1, .L8+8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 2
 
 
-  58 0054 64809FE5 		ldr	r8, .L8+12
-  59 0058 0010A0E1 		mov	r1, r0
-  60 005c 60009FE5 		ldr	r0, .L8+16
-  61 0060 FEFFFFEB 		bl	printf
-  62 0064 5C409FE5 		ldr	r4, .L8+20
-  63 0068 FEFFFFEB 		bl	EnableInterrupts
-  64 006c 58709FE5 		ldr	r7, .L8+24
-  65 0070 58609FE5 		ldr	r6, .L8+28
-  66 0074 043098E5 		ldr	r3, [r8, #4]
-  67              	.L5:
-  68 0078 0310D7E7 		ldrb	r1, [r7, r3]	@ zero_extendqisi2
-  69 007c 0600A0E1 		mov	r0, r6
-  70 0080 FEFFFFEB 		bl	printf
-  71 0084 0510A0E1 		mov	r1, r5
-  72 0088 0400A0E1 		mov	r0, r4
-  73 008c FEFFFFEB 		bl	timer_wait
-  74 0090 042098E5 		ldr	r2, [r8, #4]
-  75 0094 012082E2 		add	r2, r2, #1
-  76 0098 C23FA0E1 		asr	r3, r2, #31
-  77 009c 231FA0E1 		lsr	r1, r3, #30
-  78 00a0 013082E0 		add	r3, r2, r1
-  79 00a4 033003E2 		and	r3, r3, #3
-  80 00a8 013043E0 		sub	r3, r3, r1
-  81 00ac 043088E5 		str	r3, [r8, #4]
-  82 00b0 F0FFFFEA 		b	.L5
-  83              	.L9:
-  84              		.align	2
-  85              	.L8:
-  86 00b4 00000000 		.word	printf
-  87 00b8 00000000 		.word	c_irq_handler
-  88 00bc 40420F00 		.word	1000000
-  89 00c0 00000000 		.word	.LANCHOR0
-  90 00c4 00000000 		.word	.LC0
-  91 00c8 50C30000 		.word	50000
-  92 00cc 00000000 		.word	.LANCHOR1
-  93 00d0 14000000 		.word	.LC1
-  94              		.size	kernel_main, .-kernel_main
-  95              		.comm	__errno,4,4
-  96              		.section	.rodata
-  97              		.align	2
-  98              		.set	.LANCHOR1,. + 0
-  99              		.type	Spin, %object
- 100              		.size	Spin, 4
- 101              	Spin:
- 102 0000 7C       		.byte	124
- 103 0001 2F       		.byte	47
- 104 0002 2D       		.byte	45
- 105 0003 5C       		.byte	92
- 106              		.bss
- 107              		.align	2
- 108              		.set	.LANCHOR0,. + 0
- 109              		.type	lit, %object
- 110              		.size	lit, 1
- 111              	lit:
- 112 0000 00       		.space	1
- 113 0001 000000   		.space	3
- 114              		.type	i, %object
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 3
+  58 0050 5C009FE5 		ldr	r0, .L8+12
+  59 0054 FEFFFFEB 		bl	TimerIrqSetup
+  60 0058 58409FE5 		ldr	r4, .L8+16
+  61 005c FEFFFFEB 		bl	EnableInterrupts
+  62 0060 54709FE5 		ldr	r7, .L8+20
+  63 0064 54609FE5 		ldr	r6, .L8+24
+  64 0068 043098E5 		ldr	r3, [r8, #4]
+  65              	.L5:
+  66 006c 0310D7E7 		ldrb	r1, [r7, r3]	@ zero_extendqisi2
+  67 0070 0600A0E1 		mov	r0, r6
+  68 0074 FEFFFFEB 		bl	printf
+  69 0078 0510A0E1 		mov	r1, r5
+  70 007c 0400A0E1 		mov	r0, r4
+  71 0080 FEFFFFEB 		bl	timer_wait
+  72 0084 042098E5 		ldr	r2, [r8, #4]
+  73 0088 012082E2 		add	r2, r2, #1
+  74 008c C23FA0E1 		asr	r3, r2, #31
+  75 0090 231FA0E1 		lsr	r1, r3, #30
+  76 0094 013082E0 		add	r3, r2, r1
+  77 0098 033003E2 		and	r3, r3, #3
+  78 009c 013043E0 		sub	r3, r3, r1
+  79 00a0 043088E5 		str	r3, [r8, #4]
+  80 00a4 F0FFFFEA 		b	.L5
+  81              	.L9:
+  82              		.align	2
+  83              	.L8:
+  84 00a8 00000000 		.word	printf
+  85 00ac 00000000 		.word	.LANCHOR0
+  86 00b0 00000000 		.word	c_irq_handler
+  87 00b4 20A10700 		.word	500000
+  88 00b8 50C30000 		.word	50000
+  89 00bc 00000000 		.word	.LANCHOR1
+  90 00c0 00000000 		.word	.LC0
+  91              		.size	kernel_main, .-kernel_main
+  92              		.comm	__errno,4,4
+  93              		.section	.rodata
+  94              		.align	2
+  95              		.set	.LANCHOR1,. + 0
+  96              		.type	Spin, %object
+  97              		.size	Spin, 4
+  98              	Spin:
+  99 0000 7C       		.byte	124
+ 100 0001 2F       		.byte	47
+ 101 0002 2D       		.byte	45
+ 102 0003 5C       		.byte	92
+ 103              		.bss
+ 104              		.align	2
+ 105              		.set	.LANCHOR0,. + 0
+ 106              		.type	lit, %object
+ 107              		.size	lit, 1
+ 108              	lit:
+ 109 0000 00       		.space	1
+ 110 0001 000000   		.space	3
+ 111              		.type	i, %object
+ 112              		.size	i, 4
+ 113              	i:
+ 114 0004 00000000 		.space	4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 3
 
 
- 115              		.size	i, 4
- 116              	i:
- 117 0004 00000000 		.space	4
- 118              		.section	.rodata.str1.4,"aMS",%progbits,1
- 119              		.align	2
- 120              	.LC0:
- 121 0000 4F6C6420 		.ascii	"Old handler %08x\012\000"
- 121      68616E64 
- 121      6C657220 
- 121      25303878 
- 121      0A00
- 122 0012 0000     		.space	2
- 123              	.LC1:
- 124 0014 44656164 		.ascii	"Deadloop %c\015\000"
- 124      6C6F6F70 
- 124      2025630D 
- 124      00
- 125              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 4
+ 115              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 116              		.align	2
+ 117              	.LC0:
+ 118 0000 44656164 		.ascii	"Deadloop %c\015\000"
+ 118      6C6F6F70 
+ 118      2025630D 
+ 118      00
+ 119              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:14     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:20     .text:00000000 c_irq_handler
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:33     .text:00000018 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:35     .text:0000001c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:41     .text:0000001c kernel_main
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:86     .text:000000b4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:14     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:20     .text:00000000 c_irq_handler
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:33     .text:00000018 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:35     .text:0000001c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:41     .text:0000001c kernel_main
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:84     .text:000000a8 $d
                             *COM*:00000004 __errno
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:97     .rodata:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:101    .rodata:00000000 Spin
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:107    .bss:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:111    .bss:00000000 lit
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:116    .bss:00000004 i
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:119    .rodata.str1.4:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:94     .rodata:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:98     .rodata:00000000 Spin
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:104    .bss:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:108    .bss:00000000 lit
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:113    .bss:00000004 i
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:116    .rodata.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 set_Activity_LED
@@ -164,10 +154,10 @@ PiConsole_Init
 displaySmartStart
 ARM_setmaxspeed
 TimerIrqSetup
-printf
 EnableInterrupts
+printf
 timer_wait
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 1
 
 
    1              	# 1 "SmartStart32.S"
@@ -227,7 +217,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
   52              	.equ CPU_IRQMODE, 0x12							;@ CPU in IRQ mode
   53              	.equ CPU_SVCMODE, 0x13							;@ CPU in SVC mode
   54              	.equ CPU_HYPMODE, 0x1A							;@ CPU in HYP mode
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 2
 
 
   55              	
@@ -287,7 +277,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  109              		/* I borrowed this trick from Ultibo because ARM6 code running on an ARM7/8 needs this opcode  */
  110              		/* The ARM6 compiler does not know these instructions so it is a way to get needed opcode here */
  111              	    /* So our ARM6 code can drop an arm7 or arm8 out of HYP mode and run on an ARM7/8.             
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 3
 
 
  112              	 	/* Native ARM7/8 compilers already understand the OPCODE but do not mind it this way either	   */
@@ -347,7 +337,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  166              	;@"================================================================"
  167              	;@ Bring fpu online
  168              	;@"================================================================"
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 4
 
 
  169              	.free_to_enable_fpu1:
@@ -407,7 +397,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  223 014c 000081E5 		str r0, [r1]							;@ Set RPi_CoresReady to 1
  224              	;@"================================================================"
  225              	;@ Fetch and hold CPU changed mode. If we changed modes this value
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 5
 
 
  226              	;@ will now reflect a change from the original held RPi_CPUBootMode.
@@ -467,7 +457,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  280 01bc 0000000A 		beq .At2ndAddress
  281              	;@"================================================================"
  282              	;@ ** Auto-Detected failed, not safe to do anything but deadloop **
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 6
 
 
  283              	;@ Would love to be display an error state but no ability on Pi
@@ -527,7 +517,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  337 0240 9C2081E5 		str	r2, [r1, #156]						;@ Write ExtraCoreSetup to 0x4000009C which signals core1 to jump
  338 0244 70309FE5 	 	ldr r3, =RPi_CoresReady					;@ Address of CoreReady count
  339              	.WaitCore1ACK:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 7
 
 
  340 0248 001093E5 		ldr	r1, [r3]							;@ Read CoreReady
@@ -587,7 +577,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  390              	SecondarySpin:
  391 0338 B00F10EE 		mrc     p15, 0, r0, c0, c0, 5
  392 033c 030010E2 		ands r0, r0, #0x3					    // Make core 2 bit bitmask in R0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 8
 
 
  393 0340 44509FE5 		ldr r5, =mbox		
@@ -647,7 +637,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  440 03f4 800008F1 		cpsie i									;@ Enable IRQ
  441 03f8 1EFF2FE1 		bx  lr									;@ Return
  442              	
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 9
 
 
  443              	.globl DisableInterrupts
@@ -707,7 +697,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  496              	.arm
  497              	;@"================================================================"
  498              	;@ ARMaddrToGPUaddr -- Composite Pi1, Pi2 & Pi3 code
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 10
 
 
  499              	;@ C Function: uint32_t ARMaddrToGPUaddr (void* ARMaddress);
@@ -767,7 +757,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  553 0034 54309FE5 		ldr	r3, = RPi_IO_Base_Addr
  554 0038 003093E5 		ldr	r3, [r3]							// Fetch Pi IO base Address
  555 003c B22C83E2 		add	r2, r3, #45568						// Add 0xB200
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 11
 
 
  556 0040 001092E5 		ldr	r1, [r2]							// IRQ->IRQBasicPending
@@ -827,7 +817,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  609 0000 61726D31 	ARM6_STR: .string "arm1176jzf-s\0"
  609      3137366A 
  609      7A662D73 
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 12
 
 
  609      0000
@@ -871,7 +861,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  639              	       	   DATA FOR SMARTSTART32  NOT EXPOSED TO INTERFACE 
  640              	****************************************************************/
  641 0018 00000000 	RPi_TimerIrqAddr : .4byte 0;			// Timer Irq Address...
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 13
 
 
 DEFINED SYMBOLS
@@ -931,7 +921,7 @@ DEFINED SYMBOLS
       SmartStart32.S:382    .text.startup:00000330 _interrupt_vector_h
       SmartStart32.S:383    .text.startup:00000334 _fast_interrupt_vector_h
       SmartStart32.S:376    .text.startup:00000318 $d
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 14
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 14
 
 
       SmartStart32.S:536    .text.GPUaddrToARMaddr:00000014 _irq_handler_stub
@@ -991,12 +981,12 @@ __FIQ_stack_core3
 __IRQ_stack_core3
 __bss_start__
 __bss_end__
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 15
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 15
 
 
 kernel_main
 _end
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 1
 
 
    1              		.arch armv6zk
@@ -1056,7 +1046,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
   55 007c 000053E1 		cmp	r3, r0
   56 0080 F8FFFF1A 		bne	.L4
   57 0084 017087E2 		add	r7, r7, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 2
 
 
   58 0088 090057E1 		cmp	r7, r9
@@ -1116,7 +1106,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  112 0130 05C086E1 		orr	ip, r6, r5
  113 0134 040051E1 		cmp	r1, r4
  114 0138 00E0C3E5 		strb	lr, [r3]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 3
 
 
  115 013c 01C0C3E5 		strb	ip, [r3, #1]
@@ -1176,7 +1166,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  169              		.fpu vfp
  170              		.type	_ZL10DiagLine16P8tagINTDCjjii, %function
  171              	_ZL10DiagLine16P8tagINTDCjjii:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 4
 
 
  172              		@ args = 4, pretend = 0, frame = 24
@@ -1236,7 +1226,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  226 02a4 0630A091 		movls	r3, r6
  227 02a8 0EC0A081 		movhi	ip, lr
  228 02ac 05C0A091 		movls	ip, r5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 5
 
 
  229 02b0 040051E1 		cmp	r1, r4
@@ -1296,7 +1286,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  283 035c A661A0E1 		lsr	r6, r6, #3
  284 0360 04208DE5 		str	r2, [sp, #4]
  285 0364 00308DE5 		str	r3, [sp]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 6
 
 
  286              	.L39:
@@ -1356,7 +1346,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  340 0404 0CD04DE2 		sub	sp, sp, #12
  341 0408 14C090E5 		ldr	ip, [r0, #20]
  342 040c 0112A0E1 		lsl	r1, r1, #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 7
 
 
  343 0410 A8B09FE5 		ldr	fp, .L53
@@ -1416,7 +1406,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  397              		.arm
  398              		.fpu vfp
  399              		.type	_ZL10PutImage16P8tagINTDCjj11tagIMAGEPTRb, %function
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 8
 
 
  400              	_ZL10PutImage16P8tagINTDCjj11tagIMAGEPTRb:
@@ -1476,7 +1466,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  454 057c E6FFFF1A 		bne	.L58
  455 0580 0CD08DE2 		add	sp, sp, #12
  456              		@ sp needed
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 9
 
 
  457 0584 F08FBDE8 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
@@ -1536,7 +1526,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  511 060c 844084E0 		add	r4, r4, r4, lsl #1
  512 0610 833083E0 		add	r3, r3, r3, lsl #1
  513 0614 993423E0 		mla	r3, r9, r4, r3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 10
 
 
  514 0618 0080A0E1 		mov	r8, r0
@@ -1596,7 +1586,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  568 06c0 003083E0 		add	r3, r3, r0
  569 06c4 00B0A013 		movne	fp, #0
  570 06c8 03A0A013 		movne	r10, #3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 11
 
 
  571 06cc 82808210 		addne	r8, r2, r2, lsl #1
@@ -1656,7 +1646,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  625 0778 829082E0 		add	r9, r2, r2, lsl #1
  626 077c 00209DE5 		ldr	r2, [sp]
  627 0780 208082E2 		add	r8, r2, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 12
 
 
  628              	.L95:
@@ -1716,7 +1706,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  682              	.L101:
  683 0828 000051E3 		cmp	r1, #0
  684 082c 2470D0E5 		ldrb	r7, [r0, #36]	@ zero_extendqisi2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 13
 
 
  685 0830 072003E2 		and	r2, r3, #7
@@ -1776,7 +1766,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  739 08d8 01A08AE0 		add	r10, r10, r1
  740              	.L112:
  741 08dc 0040A0E3 		mov	r4, #0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 14
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 14
 
 
  742 08e0 04509AE4 		ldr	r5, [r10], #4
@@ -1836,7 +1826,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  796 0978 04408CE0 		add	r4, ip, r4
  797 097c 04208DE5 		str	r2, [sp, #4]
  798 0980 1500000A 		beq	.L119
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 15
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 15
 
 
  799 0984 000051E3 		cmp	r1, #0
@@ -1896,7 +1886,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  853 0a20 011053E0 		subs	r1, r3, r1
  854 0a24 1080BD08 		popeq	{r4, pc}
  855 0a28 00E0A0E3 		mov	lr, #0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 16
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 16
 
 
  856              	.L135:
@@ -1956,7 +1946,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  910 0acc 0C0051E1 		cmp	r1, ip
  911 0ad0 0E3183E0 		add	r3, r3, lr, lsl #2
  912 0ad4 F8FFFF1A 		bne	.L146
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 17
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 17
 
 
  913 0ad8 F4FFFFEA 		b	.L144
@@ -2016,7 +2006,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  967 0b60 00E090E5 		ldr	lr, [r0]
  968 0b64 0391A011 		lslne	r9, r3, #2
  969 0b68 0EC08CE0 		add	ip, ip, lr
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 18
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 18
 
 
  970 0b6c 0871A011 		lslne	r7, r8, #2
@@ -2076,7 +2066,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1024 0c10 070051E3 		cmp	r1, #7
  1025 0c14 01C18EE7 		str	ip, [lr, r1, lsl #2]
  1026 0c18 04109005 		ldreq	r1, [r0, #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 19
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 19
 
 
  1027 0c1c 013083E2 		add	r3, r3, #1
@@ -2136,7 +2126,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1081 0cb8 F4FFFF1A 		bne	.L179
  1082 0cbc 060054E1 		cmp	r4, r6
  1083 0cc0 F0FFFF1A 		bne	.L180
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 20
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 20
 
 
  1084 0cc4 085085E2 		add	r5, r5, #8
@@ -2196,7 +2186,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1138 0d60 F080BDE8 		pop	{r4, r5, r6, r7, pc}
  1139              		.size	_ZL10PutImage32P8tagINTDCjj11tagIMAGEPTRb, .-_ZL10PutImage32P8tagINTDCjj11tagIMAGEPTRb
  1140              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 21
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 21
 
 
  1141              		.syntax unified
@@ -2256,7 +2246,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1195 0e18 100F6FE1 		clz	r0, r0
  1196 0e1c A002A0E1 		lsr	r0, r0, #5
  1197 0e20 10D04BE2 		sub	sp, fp, #16
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 22
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 22
 
 
  1198              		@ sp needed
@@ -2316,7 +2306,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1252 0ec4 201083E5 		str	r1, [r3, #32]
  1253              	.L210:
  1254 0ec8 180093E5 		ldr	r0, [r3, #24]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 23
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 23
 
 
  1255 0ecc 010110E2 		ands	r0, r0, #1073741824
@@ -2376,7 +2366,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1309 0f64 0F40C4E3 		bic	r4, r4, #15
  1310 0f68 08308BE2 		add	r3, fp, #8
  1311 0f6c 141084E5 		str	r1, [r4, #20]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 24
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 24
 
 
  1312 0f70 0050A0E1 		mov	r5, r0
@@ -2436,7 +2426,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1366              		.align	2
  1367              		.syntax unified
  1368              		.arm
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 25
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 25
 
 
  1369              		.fpu vfp
@@ -2496,7 +2486,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1423              		@ sp needed
  1424 10d8 F048BDE8 		pop	{r4, r5, r6, r7, fp, lr}
  1425 10dc 0CD08DE2 		add	sp, sp, #12
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 26
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 26
 
 
  1426 10e0 1EFF2FE1 		bx	lr
@@ -2556,7 +2546,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1480 1170 1EFF2FE1 		bx	lr
  1481              	.L265:
  1482              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 27
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 27
 
 
  1483              	.L264:
@@ -2616,7 +2606,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1537              		@ args = 0, pretend = 0, frame = 0
  1538              		@ frame_needed = 0, uses_anonymous_args = 0
  1539              		@ link register save eliminated.
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 28
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 28
 
 
  1540 11e8 360050E3 		cmp	r0, #54
@@ -2676,7 +2666,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1594              		.size	gpio_checkEvent, .-gpio_checkEvent
  1595              		.align	2
  1596              		.global	gpio_clearEvent
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 29
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 29
 
 
  1597              		.syntax unified
@@ -2736,7 +2726,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1651 12f4 04E083E5 		str	lr, [r3, #4]
  1652 12f8 0200A0E1 		mov	r0, r2
  1653 12fc 04F09DE4 		ldr	pc, [sp], #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 30
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 30
 
 
  1654              	.L290:
@@ -2796,7 +2786,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1708 1394 00C093E5 		ldr	ip, [r3]
  1709 1398 02B68CE2 		add	fp, ip, #2097152
  1710 139c 94108BE5 		str	r1, [fp, #148]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 31
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 31
 
 
  1711 13a0 03CA8CE2 		add	ip, ip, #12288
@@ -2856,7 +2846,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1765 1468 010053E1 		cmp	r3, r1
  1766 146c 00005201 		cmpeq	r2, r0
  1767 1470 F7FFFF1A 		bne	.L307
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 32
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 32
 
 
  1768 1474 0250A0E1 		mov	r5, r2
@@ -2916,7 +2906,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1822              		.global	timer_wait
  1823              		.syntax unified
  1824              		.arm
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 33
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 33
 
 
  1825              		.fpu vfp
@@ -2976,7 +2966,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1879 157c 0110C3E0 		sbc	r1, r3, r1
  1880 1580 1EFF2FE1 		bx	lr
  1881              		.size	tick_difference, .-tick_difference
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 34
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 34
 
 
  1882              		.align	2
@@ -3036,7 +3026,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1936 15ec 010113E3 		tst	r3, #1073741824
  1937 15f0 FCFFFF1A 		bne	.L349
  1938 15f4 003092E5 		ldr	r3, [r2]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 35
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 35
 
 
  1939 15f8 0F1003E2 		and	r1, r3, #15
@@ -3096,7 +3086,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1993 1694 003093E5 		ldr	r3, [r3]
  1994 1698 081081E3 		orr	r1, r1, #8
  1995 169c 2E3B83E2 		add	r3, r3, #47104
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 36
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 36
 
 
  1996 16a0 803083E2 		add	r3, r3, #128
@@ -3156,7 +3146,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2050              		.type	TimerIrqSetup, %function
  2051              	TimerIrqSetup:
  2052              		@ args = 0, pretend = 0, frame = 24
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 37
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 37
 
 
  2053              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3216,7 +3206,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2107 1808 802082E3 		orr	r2, r2, #128
  2108 180c 082083E5 		str	r2, [r3, #8]
  2109 1810 28D08DE2 		add	sp, sp, #40
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 38
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 38
 
 
  2110              		@ sp needed
@@ -3276,7 +3266,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2164 18a0 000054E3 		cmp	r4, #0
  2165 18a4 001091E5 		ldr	r1, [r1]
  2166 18a8 1F2003E2 		and	r2, r3, #31
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 39
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 39
 
 
  2167 18ac A332A0E1 		lsr	r3, r3, #5
@@ -3336,7 +3326,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2221 1974 002081E5 		str	r2, [r1]
  2222 1978 C6FFFFEA 		b	.L400
  2223              	.L409:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 40
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 40
 
 
  2224              		.align	2
@@ -3396,7 +3386,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2278 1a14 30209FE5 		ldr	r2, .L421+4
  2279 1a18 0510A0E3 		mov	r1, #5
  2280 1a1c 04FDFFEB 		bl	mailbox_tag_message.constprop.5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 41
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 41
 
 
  2281 1a20 004050E2 		subs	r4, r0, #0
@@ -3456,7 +3446,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2335 1ac0 1CFF2FE1 		bx	ip
  2336              	.L427:
  2337              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 42
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 42
 
 
  2338              	.L426:
@@ -3516,7 +3506,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2392 1b68 1C2083E5 		str	r2, [r3, #28]
  2393 1b6c 1EFF2FE1 		bx	lr
  2394              	.L430:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 43
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 43
 
 
  2395 1b70 0010A0E3 		mov	r1, #0
@@ -3576,7 +3566,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2449              	.L449:
  2450 1c10 040057E1 		cmp	r7, r4
  2451 1c14 0800000A 		beq	.L458
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 44
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 44
 
 
  2452              	.L450:
@@ -3636,7 +3626,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2506 1c80 003050E2 		subs	r3, r0, #0
  2507 1c84 28009315 		ldrne	r0, [r3, #40]
  2508 1c88 28108315 		strne	r1, [r3, #40]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 45
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 45
 
 
  2509 1c8c 0300A001 		moveq	r0, r3
@@ -3696,7 +3686,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2563 1d10 0E00000A 		beq	.L492
  2564 1d14 00005CE3 		cmp	ip, #0
  2565 1d18 0600000A 		beq	.L493
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 46
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 46
 
 
  2566 1d1c 00E08DE5 		str	lr, [sp]
@@ -3756,7 +3746,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2620 1db4 403095E5 		ldr	r3, [r5, #64]
  2621 1db8 0900A0E1 		mov	r0, r9
  2622 1dbc 33FF2FE1 		blx	r3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 47
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 47
 
 
  2623 1dc0 070054E1 		cmp	r4, r7
@@ -3816,7 +3806,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2677              		.syntax unified
  2678              		.arm
  2679              		.fpu vfp
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 48
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 48
 
 
  2680              		.type	BmpOut, %function
@@ -3876,7 +3866,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2734 1ed4 1E00000A 		beq	.L570
  2735              	.L525:
  2736 1ed8 0140A0E3 		mov	r4, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 49
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 49
 
 
  2737 1edc 00408DE5 		str	r4, [sp]
@@ -3936,7 +3926,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2791 1f9c 2551A0E1 		lsr	r5, r5, #2
  2792 1fa0 7EEECEE3 		bic	lr, lr, #2016
  2793 1fa4 85E28EE1 		orr	lr, lr, r5, lsl #5
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 50
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 50
 
 
  2794 1fa8 011081E2 		add	r1, r1, #1
@@ -3996,7 +3986,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2848 2070 02E08EE2 		add	lr, lr, #2
  2849 2074 F1FFFF1A 		bne	.L536
  2850 2078 96FFFFEA 		b	.L525
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 51
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 51
 
 
  2851              	.L538:
@@ -4056,7 +4046,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2905 2144 EBFFFF1A 		bne	.L532
  2906 2148 62FFFFEA 		b	.L525
  2907              		.size	CvtBmpLine, .-CvtBmpLine
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 52
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 52
 
 
  2908              		.align	2
@@ -4116,7 +4106,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2962 21cc 1D00000A 		beq	.L584
  2963 21d0 58409DE5 		ldr	r4, [sp, #88]
  2964              	.L583:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 53
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 53
 
 
  2965 21d4 0420A0E3 		mov	r2, #4
@@ -4176,7 +4166,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3019 229c 0D00001A 		bne	.L585
  3020 22a0 30219FE5 		ldr	r2, .L605+20
  3021 22a4 30119FE5 		ldr	r1, .L605+24
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 54
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 54
 
 
  3022 22a8 302083E5 		str	r2, [r3, #48]
@@ -4236,7 +4226,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3076 236c 3C1083E5 		str	r1, [r3, #60]
  3077 2370 402083E5 		str	r2, [r3, #64]
  3078 2374 94109FE5 		ldr	r1, .L605+76
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 55
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 55
 
 
  3079 2378 94209FE5 		ldr	r2, .L605+80
@@ -4296,7 +4286,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3133              		.syntax unified
  3134              		.arm
  3135              		.fpu vfp
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 56
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 56
 
 
  3136              		.type	GetConsoleDC, %function
@@ -4356,7 +4346,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3190              	GetConsole_Height:
  3191              		@ args = 0, pretend = 0, frame = 0
  3192              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 57
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 57
 
 
  3193              		@ link register save eliminated.
@@ -4416,7 +4406,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3247              		.align	2
  3248              		.weak	_getpid
  3249              		.syntax unified
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 58
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 58
 
 
  3250              		.arm
@@ -4476,7 +4466,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3304              		.type	_isatty, %function
  3305              	_isatty:
  3306              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 59
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 59
 
 
  3307              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -4536,7 +4526,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3361 251c 0D00000A 		beq	.L641
  3362 2520 090051E3 		cmp	r1, #9
  3363 2524 1800000A 		beq	.L648
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 60
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 60
 
 
  3364 2528 1C2094E5 		ldr	r2, [r4, #28]
@@ -4596,7 +4586,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3418 000c 00000000 		.word	0
  3419 0010 817E0000 		.word	32385
  3420 0014 BD8181A5 		.word	-1518239299
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 61
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 61
 
 
  3421 0018 7E818199 		.word	-1719565954
@@ -4656,7 +4646,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3475 00f0 18000000 		.word	24
  3476 00f4 E73CDB18 		.word	417021159
  3477 00f8 1818DB3C 		.word	1020991512
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 62
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 62
 
 
  3478 00fc 00000000 		.word	0
@@ -4716,7 +4706,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3532 01d4 FE6C2800 		.word	2649342
  3533 01d8 0000286C 		.word	1814560768
  3534 01dc 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 63
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 63
 
 
  3535 01e0 00000000 		.word	0
@@ -4776,7 +4766,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3589 02b8 00001818 		.word	404226048
  3590 02bc 00000000 		.word	0
  3591 02c0 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 64
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 64
 
 
  3592 02c4 00000000 		.word	0
@@ -4836,7 +4826,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3646 039c 00000000 		.word	0
  3647 03a0 00000000 		.word	0
  3648 03a4 00001818 		.word	404226048
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 65
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 65
 
 
  3649 03a8 00181800 		.word	1579008
@@ -4896,7 +4886,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3703 0480 C6C60000 		.word	50886
  3704 0484 C6FEC6C6 		.word	-960037178
  3705 0488 C6C6C6C6 		.word	-960051514
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 66
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 66
 
 
  3706 048c 00000000 		.word	0
@@ -4956,7 +4946,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3760 0564 C6C6C6C6 		.word	-960051514
  3761 0568 10386CC6 		.word	-965986288
  3762 056c 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 67
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 67
 
 
  3763 0570 C6C60000 		.word	50886
@@ -5016,7 +5006,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3817 0648 76CCCCCC 		.word	-858993546
  3818 064c 00000000 		.word	0
  3819 0650 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 68
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 68
 
 
  3820 0654 FEC67C00 		.word	8177406
@@ -5076,7 +5066,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3874 072c 00000000 		.word	0
  3875 0730 00000000 		.word	0
  3876 0734 60C67C00 		.word	8177248
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 69
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 69
 
 
  3877 0738 7CC60C38 		.word	940361340
@@ -5136,7 +5126,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3931 0810 00CC0000 		.word	52224
  3932 0814 CCCCCC00 		.word	13421772
  3933 0818 76CCCCCC 		.word	-858993546
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 70
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 70
 
 
  3934 081c 00000000 		.word	0
@@ -5196,7 +5186,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  3988 08f4 C6C66C38 		.word	946652870
  3989 08f8 C6C6C6FE 		.word	-20527418
  3990 08fc 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 71
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 71
 
 
  3991 0900 00603018 		.word	405823488
@@ -5256,7 +5246,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4045 09d8 1818187E 		.word	2115508248
  4046 09dc 00000000 		.word	0
  4047 09e0 CCCCF800 		.word	16305356
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 72
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 72
 
 
  4048 09e4 DECCC4F8 		.word	-121320226
@@ -5316,7 +5306,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4102 0abc 00003E18 		.word	406716416
  4103 0ac0 C2C0C000 		.word	12632258
  4104 0ac4 3018CCC6 		.word	-959702992
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 73
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 73
 
 
  4105 0ac8 3E9ECE66 		.word	1724816958
@@ -5376,7 +5366,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4159 0ba0 36363636 		.word	909522486
  4160 0ba4 36363636 		.word	909522486
  4161 0ba8 36363636 		.word	909522486
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 74
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 74
 
 
  4162 0bac 36363636 		.word	909522486
@@ -5436,7 +5426,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4216 0c84 3F303736 		.word	909586495
  4217 0c88 00000000 		.word	0
  4218 0c8c 00000000 		.word	0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 75
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 75
 
 
  4219 0c90 00000000 		.word	0
@@ -5496,7 +5486,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4273 0d68 36363636 		.word	909522486
  4274 0d6c 36363636 		.word	909522486
  4275 0d70 36363636 		.word	909522486
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 76
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 76
 
 
  4276 0d74 FF363636 		.word	909522687
@@ -5556,7 +5546,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4330 0e4c 00000000 		.word	0
  4331 0e50 00000000 		.word	0
  4332 0e54 D8D87E00 		.word	8313048
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 77
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 77
 
 
  4333 0e58 70D8D8D8 		.word	-656877456
@@ -5616,7 +5606,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4387 0f30 0C000000 		.word	12
  4388 0f34 30603018 		.word	405823536
  4389 0f38 7E000C18 		.word	403439742
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 78
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 78
 
 
  4390 0f3c 00000000 		.word	0
@@ -5676,7 +5666,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4444              	_ZL16ActivityGPIOPort:
  4445 0000 2F000000 		.word	47
  4446              		.bss
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 79
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 79
 
 
  4447              		.align	2
@@ -5735,170 +5725,170 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  4474      7574696F 
  4474      6E202569 
  4475              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 80
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 80
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 rpi-SmartStart.C
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:14     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:19     .text:00000000 _ZL11ClearArea16P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:68     .text:00000098 _ZL10VertLine16P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:125    .text:0000014c _ZL10HorzLine16P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:171    .text:000001d8 _ZL10DiagLine16P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:250    .text:000002e4 _ZL11WriteChar16P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:327    .text:000003f4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:329    .text:000003f8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:334    .text:000003f8 _ZL22TransparentWriteChar16P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:393    .text:000004c0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:395    .text:000004c4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:400    .text:000004c4 _ZL10PutImage16P8tagINTDCjj11tagIMAGEPTRb
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:464    .text:00000588 _ZL11ClearArea24P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:504    .text:000005fc _ZL10VertLine24P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:554    .text:00000694 _ZL10HorzLine24P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:593    .text:00000704 _ZL10DiagLine24P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:662    .text:000007e8 _ZL11WriteChar24P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:710    .text:00000888 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:712    .text:0000088c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:717    .text:0000088c _ZL22TransparentWriteChar24P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:775    .text:00000948 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:777    .text:0000094c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:782    .text:0000094c _ZL10PutImage24P8tagINTDCjj11tagIMAGEPTRb
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:841    .text:000009fc _ZL11ClearArea32P8tagINTDCjjjj
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:876    .text:00000a5c _ZL10VertLine32P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:920    .text:00000adc _ZL10HorzLine32P8tagINTDCji
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:952    .text:00000b30 _ZL10DiagLine32P8tagINTDCjjii
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:998    .text:00000bbc _ZL11WriteChar32P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1043   .text:00000c4c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1045   .text:00000c50 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1050   .text:00000c50 _ZL22TransparentWriteChar32P8tagINTDCh
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1090   .text:00000cd0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1092   .text:00000cd4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1097   .text:00000cd4 _ZL10PutImage32P8tagINTDCjj11tagIMAGEPTRb
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1145   .text:00000d64 mailbox_tag_message.constprop.4
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1205   .text:00000e30 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1207   .text:00000e34 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1212   .text:00000e34 mailbox_tag_message.constprop.5
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1287   .text:00000f30 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1289   .text:00000f34 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1294   .text:00000f34 mailbox_tag_message.constprop.6
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1364   .text:0000101c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1366   .text:00001020 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1371   .text:00001020 mailbox_tag_message.constprop.7
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1446   .text:00001114 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1448   .text:00001118 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1454   .text:00001118 gpio_setup
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1484   .text:00001174 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1487   .text:0000117c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1493   .text:0000117c gpio_output
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1528   .text:000011e4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1530   .text:000011e8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1536   .text:000011e8 gpio_input
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1561   .text:0000122c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1563   .text:00001230 $a
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 81
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:14     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:19     .text:00000000 _ZL11ClearArea16P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:68     .text:00000098 _ZL10VertLine16P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:125    .text:0000014c _ZL10HorzLine16P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:171    .text:000001d8 _ZL10DiagLine16P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:250    .text:000002e4 _ZL11WriteChar16P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:327    .text:000003f4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:329    .text:000003f8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:334    .text:000003f8 _ZL22TransparentWriteChar16P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:393    .text:000004c0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:395    .text:000004c4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:400    .text:000004c4 _ZL10PutImage16P8tagINTDCjj11tagIMAGEPTRb
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:464    .text:00000588 _ZL11ClearArea24P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:504    .text:000005fc _ZL10VertLine24P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:554    .text:00000694 _ZL10HorzLine24P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:593    .text:00000704 _ZL10DiagLine24P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:662    .text:000007e8 _ZL11WriteChar24P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:710    .text:00000888 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:712    .text:0000088c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:717    .text:0000088c _ZL22TransparentWriteChar24P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:775    .text:00000948 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:777    .text:0000094c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:782    .text:0000094c _ZL10PutImage24P8tagINTDCjj11tagIMAGEPTRb
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:841    .text:000009fc _ZL11ClearArea32P8tagINTDCjjjj
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:876    .text:00000a5c _ZL10VertLine32P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:920    .text:00000adc _ZL10HorzLine32P8tagINTDCji
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:952    .text:00000b30 _ZL10DiagLine32P8tagINTDCjjii
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:998    .text:00000bbc _ZL11WriteChar32P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1043   .text:00000c4c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1045   .text:00000c50 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1050   .text:00000c50 _ZL22TransparentWriteChar32P8tagINTDCh
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1090   .text:00000cd0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1092   .text:00000cd4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1097   .text:00000cd4 _ZL10PutImage32P8tagINTDCjj11tagIMAGEPTRb
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1145   .text:00000d64 mailbox_tag_message.constprop.4
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1205   .text:00000e30 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1207   .text:00000e34 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1212   .text:00000e34 mailbox_tag_message.constprop.5
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1287   .text:00000f30 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1289   .text:00000f34 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1294   .text:00000f34 mailbox_tag_message.constprop.6
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1364   .text:0000101c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1366   .text:00001020 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1371   .text:00001020 mailbox_tag_message.constprop.7
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1446   .text:00001114 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1448   .text:00001118 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1454   .text:00001118 gpio_setup
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1484   .text:00001174 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1487   .text:0000117c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1493   .text:0000117c gpio_output
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1528   .text:000011e4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1530   .text:000011e8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1536   .text:000011e8 gpio_input
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1561   .text:0000122c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1563   .text:00001230 $a
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 81
 
 
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1569   .text:00001230 gpio_checkEvent
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1593   .text:00001270 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1595   .text:00001274 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1601   .text:00001274 gpio_clearEvent
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1624   .text:000012b0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1626   .text:000012b4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1632   .text:000012b4 gpio_edgeDetect
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1690   .text:00001374 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1692   .text:00001378 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1698   .text:00001378 gpio_fixResistor
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1784   .text:000014a4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1786   .text:000014a8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1792   .text:000014a8 timer_getTickCount
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1819   .text:000014f4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1821   .text:000014f8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1827   .text:000014f8 timer_wait
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1866   .text:00001574 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1868   .text:00001578 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1874   .text:00001578 tick_difference
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1888   .text:00001584 mailbox_write
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1913   .text:000015c4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1915   .text:000015c8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1921   .text:000015c8 mailbox_read
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1947   .text:0000160c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1950   .text:00001614 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1956   .text:00001614 mailbox_tag_message
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2042   .text:00001730 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2045   .text:00001734 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2051   .text:00001734 TimerIrqSetup
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2115   .text:00001818 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2120   .text:00001828 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2126   .text:00001828 set_Activity_LED
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2226   .text:0000197c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2236   .text:000019a0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2242   .text:000019a0 ARM_setmaxspeed
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2295   .text:00001a48 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2299   .text:00001a54 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2305   .text:00001a54 displaySmartStart
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2339   .text:00001ac4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2346   .text:00001adc $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2352   .text:00001adc Embedded_Console_WriteChar
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2405   .text:00001b8c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2407   .text:00001b90 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2413   .text:00001b90 WriteText
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2478   .text:00001c68 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2480   .text:00001c6c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2486   .text:00001c6c SetDCPenColor
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2502   .text:00001c80 SetDCBrushColor
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2518   .text:00001c94 MoveToEx
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2543   .text:00001ccc LineTo
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2598   .text:00001d6c TextOut
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2632   .text:00001dd4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2634   .text:00001dd8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2640   .text:00001dd8 TransparentTextOut
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2673   .text:00001e38 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2675   .text:00001e3c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2681   .text:00001e3c BmpOut
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 82
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1569   .text:00001230 gpio_checkEvent
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1593   .text:00001270 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1595   .text:00001274 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1601   .text:00001274 gpio_clearEvent
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1624   .text:000012b0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1626   .text:000012b4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1632   .text:000012b4 gpio_edgeDetect
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1690   .text:00001374 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1692   .text:00001378 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1698   .text:00001378 gpio_fixResistor
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1784   .text:000014a4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1786   .text:000014a8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1792   .text:000014a8 timer_getTickCount
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1819   .text:000014f4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1821   .text:000014f8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1827   .text:000014f8 timer_wait
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1866   .text:00001574 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1868   .text:00001578 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1874   .text:00001578 tick_difference
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1888   .text:00001584 mailbox_write
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1913   .text:000015c4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1915   .text:000015c8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1921   .text:000015c8 mailbox_read
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1947   .text:0000160c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1950   .text:00001614 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1956   .text:00001614 mailbox_tag_message
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2042   .text:00001730 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2045   .text:00001734 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2051   .text:00001734 TimerIrqSetup
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2115   .text:00001818 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2120   .text:00001828 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2126   .text:00001828 set_Activity_LED
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2226   .text:0000197c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2236   .text:000019a0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2242   .text:000019a0 ARM_setmaxspeed
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2295   .text:00001a48 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2299   .text:00001a54 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2305   .text:00001a54 displaySmartStart
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2339   .text:00001ac4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2346   .text:00001adc $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2352   .text:00001adc Embedded_Console_WriteChar
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2405   .text:00001b8c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2407   .text:00001b90 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2413   .text:00001b90 WriteText
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2478   .text:00001c68 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2480   .text:00001c6c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2486   .text:00001c6c SetDCPenColor
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2502   .text:00001c80 SetDCBrushColor
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2518   .text:00001c94 MoveToEx
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2543   .text:00001ccc LineTo
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2598   .text:00001d6c TextOut
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2632   .text:00001dd4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2634   .text:00001dd8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2640   .text:00001dd8 TransparentTextOut
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2673   .text:00001e38 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2675   .text:00001e3c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2681   .text:00001e3c BmpOut
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 82
 
 
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2713   .text:00001e8c CvtBmpLine
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2914   .text:0000214c Rectangle
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2939   .text:00002180 PiConsole_Init
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3102   .text:000023c4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3131   .text:00002434 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3137   .text:00002434 GetConsoleDC
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3146   .text:0000243c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3148   .text:00002440 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3154   .text:00002440 GetConsole_FrameBuffer
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3164   .text:0000244c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3166   .text:00002450 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3172   .text:00002450 GetConsole_Width
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3182   .text:0000245c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3184   .text:00002460 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3190   .text:00002460 GetConsole_Height
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3200   .text:0000246c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3202   .text:00002470 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3208   .text:00002470 _sbrk
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3224   .text:00002494 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3227   .text:0000249c $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3233   .text:0000249c _kill
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3245   .text:000024b0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3247   .text:000024b4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3253   .text:000024b4 _getpid
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3266   .text:000024bc _read
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3279   .text:000024c4 _close
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3292   .text:000024cc _lseek
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3305   .text:000024d4 _isatty
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3318   .text:000024dc _fstat
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3333   .text:000024ec _exit
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3346   .text:000024f0 _write
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3406   .text:000025b4 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4456   .bss:00000004 console
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3410   .rodata:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:3414   .rodata:00000000 _ZL7BitFont
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4440   .data:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4444   .data:00000000 _ZL16ActivityGPIOPort
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4447   .bss:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4451   .bss:00000000 _ZL16ModelCheckHasRun
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4460   .bss:0000004c _ZZ5_sbrkE8heap_end
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:4463   .rodata.str1.4:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2713   .text:00001e8c CvtBmpLine
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2914   .text:0000214c Rectangle
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2939   .text:00002180 PiConsole_Init
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3102   .text:000023c4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3131   .text:00002434 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3137   .text:00002434 GetConsoleDC
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3146   .text:0000243c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3148   .text:00002440 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3154   .text:00002440 GetConsole_FrameBuffer
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3164   .text:0000244c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3166   .text:00002450 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3172   .text:00002450 GetConsole_Width
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3182   .text:0000245c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3184   .text:00002460 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3190   .text:00002460 GetConsole_Height
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3200   .text:0000246c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3202   .text:00002470 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3208   .text:00002470 _sbrk
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3224   .text:00002494 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3227   .text:0000249c $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3233   .text:0000249c _kill
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3245   .text:000024b0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3247   .text:000024b4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3253   .text:000024b4 _getpid
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3266   .text:000024bc _read
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3279   .text:000024c4 _close
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3292   .text:000024cc _lseek
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3305   .text:000024d4 _isatty
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3318   .text:000024dc _fstat
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3333   .text:000024ec _exit
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3346   .text:000024f0 _write
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3406   .text:000025b4 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4456   .bss:00000004 console
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3410   .rodata:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:3414   .rodata:00000000 _ZL7BitFont
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4440   .data:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4444   .data:00000000 _ZL16ActivityGPIOPort
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4447   .bss:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4451   .bss:00000000 _ZL16ModelCheckHasRun
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4460   .bss:0000004c _ZZ5_sbrkE8heap_end
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:4463   .rodata.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 memcpy
@@ -5914,7 +5904,7 @@ strlen
 GPUaddrToARMaddr
 _end
 errno
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 1
 
 
    1              		.arch armv6zk
@@ -5974,7 +5964,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
   55 007c 013043E2 		sub	r3, r3, #1
   56 0080 00308DE5 		str	r3, [sp]
   57 0084 2030A0E3 		mov	r3, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 2
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 2
 
 
   58 0088 0C308DE5 		str	r3, [sp, #12]
@@ -6034,7 +6024,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  112 0148 1000000A 		beq	.L16
  113 014c 030051E3 		cmp	r1, #3
  114 0150 02C0CAE5 		strb	ip, [r10, #2]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 3
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 3
 
 
  115 0154 03808AE2 		add	r8, r10, #3
@@ -6094,7 +6084,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  169 0214 000051E3 		cmp	r1, #0
  170 0218 0010CA15 		strbne	r1, [r10]
  171 021c 08109DE5 		ldr	r1, [sp, #8]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 4
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 4
 
 
  172 0220 01A08A12 		addne	r10, r10, #1
@@ -6154,7 +6144,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  226 02f0 07004902 		subeq	r0, r9, #7
  227              	.L29:
  228 02f4 010059E1 		cmp	r9, r1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 5
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 5
 
 
  229 02f8 1D00000A 		beq	.L30
@@ -6214,7 +6204,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  283 03bc 02C042E2 		sub	ip, r2, #2
  284 03c0 1500000A 		beq	.L39
  285 03c4 020051E3 		cmp	r1, #2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 6
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 6
 
 
  286 03c8 0100CAE5 		strb	r0, [r10, #1]
@@ -6274,7 +6264,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  340 0490 0210C5B5 		strblt	r1, [r5, #2]
  341              	.L40:
  342 0494 0EA08AE0 		add	r10, r10, lr
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 7
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 7
 
 
  343              	.L36:
@@ -6334,7 +6324,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  397              	.L48:
  398 0560 035049E0 		sub	r5, r9, r3
  399 0564 042045E2 		sub	r2, r5, #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 8
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 8
 
 
  400 0568 03E04EE0 		sub	lr, lr, r3
@@ -6394,7 +6384,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  454 0620 000053E3 		cmp	r3, #0
  455 0624 0010A001 		moveq	r1, r0
  456 0628 CCFFFF0A 		beq	.L48
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 9
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 9
 
 
  457 062c ADFFFFEA 		b	.L47
@@ -6454,7 +6444,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  511 06d8 27FFFFEA 		b	.L26
  512              	.L157:
  513              		.align	2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 10
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 10
 
 
  514              	.L156:
@@ -6514,7 +6504,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  568 0750 00B0A0E1 		mov	fp, r0
  569 0754 0070E0E3 		mvn	r7, #0
  570 0758 F4AB9FE5 		ldr	r10, .L375
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 11
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 11
 
 
  571 075c 050000EA 		b	.L255
@@ -6574,7 +6564,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  625 0808 F5FFFFEA 		b	.L177
  626              	.L170:
  627 080c 303042E2 		sub	r3, r2, #48
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 12
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 12
 
 
  628 0810 090053E3 		cmp	r3, #9
@@ -6634,7 +6624,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  682 08d8 980B0000 		.word	.L186
  683 08dc 980B0000 		.word	.L186
  684 08e0 980B0000 		.word	.L186
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 13
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 13
 
 
  685 08e4 980B0000 		.word	.L186
@@ -6694,7 +6684,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  739 09b8 0030E013 		mvnne	r3, #0
  740 09bc 9DFFFF1A 		bne	.L181
  741 09c0 003096E5 		ldr	r3, [r6]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 14
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 14
 
 
  742 09c4 0220D8E5 		ldrb	r2, [r8, #2]	@ zero_extendqisi2
@@ -6754,7 +6744,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  796 0a8c 940B0000 		.word	.L264
  797 0a90 940B0000 		.word	.L264
  798 0a94 940B0000 		.word	.L264
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 15
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 15
 
 
  799 0a98 940B0000 		.word	.L264
@@ -6814,7 +6804,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  853 0b70 040F0000 		.word	.L270
  854 0b74 940B0000 		.word	.L264
  855 0b78 940B0000 		.word	.L264
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 16
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 16
 
 
  856 0b7c D80B0000 		.word	.L271
@@ -6874,7 +6864,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  910 0c34 2060A0E3 		mov	r6, #32
  911 0c38 010052E3 		cmp	r2, #1
  912 0c3c 0060C5E5 		strb	r6, [r5]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 17
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 17
 
 
  913 0c40 01E085E2 		add	lr, r5, #1
@@ -6934,7 +6924,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  967 0d08 0030CEE5 		strb	r3, [lr]
  968 0d0c 011041E2 		sub	r1, r1, #1
  969 0d10 020000AA 		bge	.L222
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 18
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 18
 
 
  970 0d14 010050E1 		cmp	r0, r1
@@ -6994,7 +6984,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1024              	.L228:
  1025 0ddc 000053E1 		cmp	r3, r0
  1026 0de0 011043E2 		sub	r1, r3, #1
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 19
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 19
 
 
  1027 0de4 420000DA 		ble	.L360
@@ -7054,7 +7044,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1081 0eb0 016086E2 		add	r6, r6, #1
  1082 0eb4 060053E1 		cmp	r3, r6
  1083 0eb8 04A082E4 		str	r10, [r2], #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 20
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 20
 
 
  1084 0ebc FBFFFF8A 		bhi	.L242
@@ -7114,7 +7104,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1138 0f74 0180A0E1 		mov	r8, r1
  1139 0f78 EE00000A 		beq	.L274
  1140 0f7c 20C0A0E3 		mov	ip, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 21
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 21
 
 
  1141 0f80 029043E2 		sub	r9, r3, #2
@@ -7174,7 +7164,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1195 104c 0700000A 		beq	.L202
  1196              	.L203:
  1197 1050 2020A0E3 		mov	r2, #32
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 22
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 22
 
 
  1198 1054 01C041E2 		sub	ip, r1, #1
@@ -7234,7 +7224,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1252 1124 05C0C5E5 		strb	ip, [r5, #5]
  1253 1128 06C0C505 		strbeq	ip, [r5, #6]
  1254 112c 07008502 		addeq	r0, r5, #7
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 23
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 23
 
 
  1255 1130 07104302 		subeq	r1, r3, #7
@@ -7294,7 +7284,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1309              	.L251:
  1310 11e4 0500A0E1 		mov	r0, r5
  1311 11e8 04908DE5 		str	r9, [sp, #4]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 24
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 24
 
 
  1312 11ec 00C08DE5 		str	ip, [sp]
@@ -7354,7 +7344,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1366              	.L268:
  1367 1294 0840A0E1 		mov	r4, r8
  1368 1298 D9FFFFEA 		b	.L191
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 25
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 25
 
 
  1369              	.L269:
@@ -7414,7 +7404,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1423              	.L275:
  1424 1344 0130A0E1 		mov	r3, r1
  1425 1348 76FEFFEA 		b	.L218
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 26
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 26
 
 
  1426              	.L273:
@@ -7474,7 +7464,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1480 13e0 F8FFFF1A 		bne	.L380
  1481 13e4 250052E3 		cmp	r2, #37
  1482 13e8 0B00000A 		beq	.L549
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 27
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 27
 
 
  1483 13ec 0030D5E5 		ldrb	r3, [r5]	@ zero_extendqisi2
@@ -7534,7 +7524,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1537 14ac 043013E2 		ands	r3, r3, #4
  1538 14b0 F7FFFF1A 		bne	.L482
  1539 14b4 0370A0E1 		mov	r7, r3
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 28
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 28
 
 
  1540 14b8 049048E0 		sub	r9, r8, r4
@@ -7594,7 +7584,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1594 1580 641E0000 		.word	.L484
  1595 1584 641E0000 		.word	.L484
  1596 1588 641E0000 		.word	.L484
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 29
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 29
 
 
  1597 158c 641E0000 		.word	.L484
@@ -7654,7 +7644,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1651 1664 641E0000 		.word	.L484
  1652 1668 641E0000 		.word	.L484
  1653 166c 641E0000 		.word	.L484
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 30
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 30
 
 
  1654 1670 641E0000 		.word	.L484
@@ -7714,7 +7704,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1708 1744 212112E0 		ands	r2, r2, r1, lsr #2
  1709 1748 F1FFFF1A 		bne	.L395
  1710              	.L400:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 31
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 31
 
 
  1711 174c 000053E3 		cmp	r3, #0
@@ -7774,7 +7764,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1765 181c 58190000 		.word	.L403
  1766 1820 58190000 		.word	.L403
  1767 1824 58190000 		.word	.L403
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 32
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 32
 
 
  1768 1828 58190000 		.word	.L403
@@ -7834,7 +7824,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1822 18ec 043023E2 		eor	r3, r3, #4
  1823 18f0 233112E0 		ands	r3, r2, r3, lsr #2
  1824 18f4 EFFFFF1A 		bne	.L398
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 33
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 33
 
 
  1825 18f8 E1FFFFEA 		b	.L388
@@ -7894,7 +7884,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1879 19b8 02608902 		addeq	r6, r9, #2
  1880 19bc 0230D905 		ldrbeq	r3, [r9, #2]	@ zero_extendqisi2
  1881 19c0 1C208D05 		streq	r2, [sp, #28]
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 34
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 34
 
 
  1882 19c4 B4FFFFEA 		b	.L399
@@ -7954,7 +7944,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1936              	.L412:
  1937 1a78 FEFFFFEB 		bl	__locale_ctype_ptr
  1938 1a7c 0030D9E5 		ldrb	r3, [r9]	@ zero_extendqisi2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 35
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 35
 
 
  1939 1a80 0950A0E1 		mov	r5, r9
@@ -8014,7 +8004,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  1993 1b4c C01C0000 		.word	.L444
  1994 1b50 0C1E0000 		.word	.L440
  1995 1b54 0C1E0000 		.word	.L440
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 36
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 36
 
 
  1996 1b58 0C1E0000 		.word	.L440
@@ -8074,7 +8064,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2050 1c10 FEFFFFEB 		bl	__locale_ctype_ptr
  2051 1c14 0950A0E1 		mov	r5, r9
  2052 1c18 0120D9E4 		ldrb	r2, [r9], #1	@ zero_extendqisi2
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 37
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 37
 
 
  2053 1c1c 020080E0 		add	r0, r0, r2
@@ -8134,7 +8124,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2107 1ce4 6300000A 		beq	.L461
  2108 1ce8 6C0058E3 		cmp	r8, #108
  2109 1cec EFFFFF1A 		bne	.L456
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 38
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 38
 
 
  2110 1cf0 18309DE5 		ldr	r3, [sp, #24]
@@ -8194,7 +8184,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2164 1dac 6A0058E3 		cmp	r8, #106
  2165 1db0 B200000A 		beq	.L447
  2166 1db4 5F00009A 		bls	.L557
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 39
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 39
 
 
  2167 1db8 740058E3 		cmp	r8, #116
@@ -8254,7 +8244,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2221 1e7c 08109DE5 		ldr	r1, [sp, #8]
  2222 1e80 28008DE2 		add	r0, sp, #40
  2223              	.L544:
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 40
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 40
 
 
  2224 1e84 FEFFFFEB 		bl	strtol
@@ -8314,7 +8304,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2278 1f48 18309DE5 		ldr	r3, [sp, #24]
  2279 1f4c 0C209DE5 		ldr	r2, [sp, #12]
  2280 1f50 000053E3 		cmp	r3, #0
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 41
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 41
 
 
  2281 1f54 08109DE5 		ldr	r1, [sp, #8]
@@ -8374,7 +8364,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2335 200c 08109DE5 		ldr	r1, [sp, #8]
  2336 2010 28008DE2 		add	r0, sp, #40
  2337 2014 FEFFFFEB 		bl	strtod
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 42
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 42
 
 
  2338              	.L541:
@@ -8434,7 +8424,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2392 20d0 04209DE5 		ldr	r2, [sp, #4]
  2393 20d4 003092E5 		ldr	r3, [r2]
  2394 20d8 042082E2 		add	r2, r2, #4
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 43
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 43
 
 
  2395 20dc 04208DE5 		str	r2, [sp, #4]
@@ -8494,7 +8484,7 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2449              		.align	2
  2450              		.global	printf
  2451              		.syntax unified
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 44
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 44
 
 
  2452              		.arm
@@ -8543,38 +8533,38 @@ ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 1
  2493      38394142 
  2493      43444546 
  2494              		.ident	"GCC: (GNU Tools for ARM Embedded Processors 6-2017-q2-update) 6.3.1 20170620 (release) [AR
-ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s 			page 45
+ARM GAS  C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s 			page 45
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 emb-stdio.c
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:16     .text:00000000 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:21     .text:00000000 number
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:515    .text:000006dc $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:519    .text:000006e8 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:525    .text:000006e8 strnlen
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:557    .text:00000730 emb_vsprintf
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:592    .text:0000079c $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:610    .text:000007e0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:653    .text:00000864 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:738    .text:000009b4 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:778    .text:00000a44 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:863    .text:00000b94 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1432   .text:00001354 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1434   .text:00001358 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1440   .text:00001358 vsscanf
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1574   .text:00001530 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1696   .text:00001714 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1723   .text:00001774 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1780   .text:00001854 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:1962   .text:00001ad0 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2015   .text:00001ba0 $a
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2405   .text:000020e8 sscanf
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2432   .text:00002124 emb_sprintf
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2455   .text:00002154 printf
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:16     .text:00000000 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:21     .text:00000000 number
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:515    .text:000006dc $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:519    .text:000006e8 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:525    .text:000006e8 strnlen
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:557    .text:00000730 emb_vsprintf
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:592    .text:0000079c $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:610    .text:000007e0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:653    .text:00000864 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:738    .text:000009b4 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:778    .text:00000a44 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:863    .text:00000b94 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1432   .text:00001354 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1434   .text:00001358 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1440   .text:00001358 vsscanf
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1574   .text:00001530 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1696   .text:00001714 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1723   .text:00001774 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1780   .text:00001854 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:1962   .text:00001ad0 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2015   .text:00001ba0 $a
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2405   .text:000020e8 sscanf
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2432   .text:00002124 emb_sprintf
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2455   .text:00002154 printf
                             *COM*:00000004 __errno
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2488   .rodata:00000000 $d
-C:\Users\ldebo\AppData\Local\Temp\ccNpwZcg.s:2492   .rodata:00000000 digits.6780
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2488   .rodata:00000000 $d
+C:\Users\ldebo\AppData\Local\Temp\ccb0Qu0p.s:2492   .rodata:00000000 digits.6780
 
 UNDEFINED SYMBOLS
 __aeabi_uidiv

@@ -19,8 +19,8 @@ int main (void) {
 	displaySmartStart(&printf);										// Display smart start details
 	ARM_setmaxspeed(&printf);										// ARM CPU to max speed and confirm to screen
 
-	TimerIrqHandler oldHandler = TimerIrqSetup(1000000, c_irq_handler);
-	printf("Old handler %08x\n", (uintptr_t)oldHandler);
+	/* Setup irq function and period between irq's 500000 us */
+	TimerIrqSetup(500000, c_irq_handler);
 
 	/* Enable interrupts! */
 	EnableInterrupts();
