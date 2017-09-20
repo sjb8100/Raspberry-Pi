@@ -128,6 +128,7 @@ SECTIONS
     {
      . = ALIGN(4);
      __heap_start__ = .;
+     __end__ = .; PROVIDE ( __end__ = . );
      _end = .; PROVIDE (end = .); /* Any memory from here is free to use so this is end of code and start of heap */
     } > RAM
 
@@ -152,9 +153,9 @@ SECTIONS
         *(.shstrtab .shstrtab.*)
 
         /* remove any standard library hang over bits */
-       /* libc.a ( * )*/
-       /* libm.a ( * )*/
-        /* libgcc.a ( * ) */
+          libc.a ( * )
+          libm.a ( * )
+          libgcc.a ( * ) 
         *(.note.GNU-stack)
         *(.gnu_debuglink) 
         *(.gnu.lto_*)
