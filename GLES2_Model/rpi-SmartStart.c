@@ -28,8 +28,9 @@
 
 #include <stdbool.h>							// Needed for bool and true/false
 #include <stdint.h>								// Needed for uint8_t, uint32_t, uint64_t etc
+#include <stdlib.h>								// Needed for abs
 #include <stdarg.h>								// Needed for variadic arguments
-#include <string.h>								// Needed for strlen			
+#include <string.h>								// Needed for strlen	
 #include "Font8x16.h"							// Provides the 8x16 bitmap font for console 
 #include "rpi-SmartStart.h"						// This units header
 
@@ -41,196 +42,198 @@
 {    RASPBERRY PI GPIO HARDWARE REGISTERS - BCM2835.PDF Manual Section 6	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) GPIORegisters {
-	volatile uint32_t GPFSEL[6];									// 0x00  GPFSEL0 - GPFSEL5
+	uint32_t GPFSEL[6];												// 0x00  GPFSEL0 - GPFSEL5
 	uint32_t reserved1;												// 0x18  reserved
-	volatile uint32_t GPSET[2];										// 0x1C  GPSET0 - GPSET1;
+	uint32_t GPSET[2];												// 0x1C  GPSET0 - GPSET1;
 	uint32_t reserved2;												// 0x24  reserved
-	volatile uint32_t GPCLR[2];										// 0x28  GPCLR0 - GPCLR1
+	uint32_t GPCLR[2];												// 0x28  GPCLR0 - GPCLR1
 	uint32_t reserved3;												// 0x30  reserved
-	const volatile uint32_t GPLEV[2];								// 0x34  GPLEV0 - GPLEV1   ** Read only hence const
+	const uint32_t GPLEV[2];										// 0x34  GPLEV0 - GPLEV1   ** Read only hence const
 	uint32_t reserved4;												// 0x3C  reserved
-	volatile uint32_t GPEDS[2];										// 0x40  GPEDS0 - GPEDS1 
+	uint32_t GPEDS[2];												// 0x40  GPEDS0 - GPEDS1 
 	uint32_t reserved5;												// 0x48  reserved
-	volatile uint32_t GPREN[2];										// 0x4C  GPREN0 - GPREN1;	 
+	uint32_t GPREN[2];												// 0x4C  GPREN0 - GPREN1;	 
 	uint32_t reserved6;												// 0x54  reserved
-	volatile uint32_t GPFEN[2];										// 0x58  GPFEN0 - GPFEN1;
+	uint32_t GPFEN[2];												// 0x58  GPFEN0 - GPFEN1;
 	uint32_t reserved7;												// 0x60  reserved
-	volatile uint32_t GPHEN[2];										// 0x64  GPHEN0 - GPHEN1;
+	uint32_t GPHEN[2];												// 0x64  GPHEN0 - GPHEN1;
 	uint32_t reserved8;												// 0x6c  reserved
-	volatile uint32_t GPLEN[2];										// 0x70  GPLEN0 - GPLEN1;
+	uint32_t GPLEN[2];												// 0x70  GPLEN0 - GPLEN1;
 	uint32_t reserved9;												// 0x78  reserved
-	volatile uint32_t GPAREN[2];									// 0x7C  GPAREN0 - GPAREN1;
+	uint32_t GPAREN[2];												// 0x7C  GPAREN0 - GPAREN1;
 	uint32_t reserved10;											// 0x84  reserved
-	volatile uint32_t GPAFEN[2]; 									// 0x88  GPAFEN0 - GPAFEN1;
+	uint32_t GPAFEN[2]; 											// 0x88  GPAFEN0 - GPAFEN1;
 	uint32_t reserved11;											// 0x90  reserved
-	volatile uint32_t GPPUD; 										// 0x94  GPPUD 
-	volatile uint32_t GPPUDCLK[2]; 									// 0x98  GPPUDCLK0 - GPPUDCLK1;
+	uint32_t GPPUD; 												// 0x94  GPPUD 
+	uint32_t GPPUDCLK[2]; 											// 0x98  GPPUDCLK0 - GPPUDCLK1;
 };
 
 /*--------------------------------------------------------------------------}
 {  RASPBERRY PI SYSTEM TIMER HARDWARE REGISTERS - BCM2835 Manual Section 12	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) SystemTimerRegisters {
-	volatile uint32_t ControlStatus;								// 0x00
-	volatile uint32_t TimerLo;										// 0x04
-	volatile uint32_t TimerHi;										// 0x08
-	volatile uint32_t Compare0;										// 0x0C
-	volatile uint32_t Compare1;										// 0x10
-	volatile uint32_t Compare2;										// 0x14
-	volatile uint32_t Compare3;										// 0x18
+	uint32_t ControlStatus;											// 0x00
+	uint32_t TimerLo;												// 0x04
+	uint32_t TimerHi;												// 0x08
+	uint32_t Compare0;												// 0x0C
+	uint32_t Compare1;												// 0x10
+	uint32_t Compare2;												// 0x14
+	uint32_t Compare3;												// 0x18
 };
 
 /*--------------------------------------------------------------------------}
 {	   TIMER_CONTROL REGISTER BCM2835 ARM Peripheral manual page 197		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) TimerControlReg {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			unsigned unused : 1;									// @0 Unused bit
-			volatile unsigned Counter32Bit : 1;						// @1 Counter32 bit (16bit if false)
-			volatile TIMER_PRESCALE Prescale : 2;					// @2-3 Prescale  
-			unsigned unused1 : 1;									// @4 Unused bit
-			volatile unsigned TimerIrqEnable : 1;					// @5 Timer irq enable
-			unsigned unused2 : 1;									// @6 Unused bit
-			volatile unsigned TimerEnable : 1;						// @7 Timer enable
-			unsigned reserved : 24;									// @8-31 reserved
-		};
-		uint32_t Raw32;												// Union to access all 32 bits as a uint32_t
+typedef union tagTIMERREGISTER 
+{
+	struct
+	{
+		unsigned unused : 1;										// @0 Unused bit
+		unsigned Counter32Bit : 1;									// @1 Counter32 bit (16bit if false)
+		TIMER_PRESCALE Prescale : 2;								// @2-3 Prescale  
+		unsigned unused1 : 1;										// @4 Unused bit
+		unsigned TimerIrqEnable : 1;								// @5 Timer irq enable
+		unsigned unused2 : 1;										// @6 Unused bit
+		unsigned TimerEnable : 1;									// @7 Timer enable
+		unsigned reserved : 24;										// @8-31 reserved
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} time_ctrl_reg_t;
+
 
 /*--------------------------------------------------------------------------}
 {   RASPBERRY PI ARM TIMER HARDWARE REGISTERS - BCM2835 Manual Section 14	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) ArmTimerRegisters {
-	volatile uint32_t Load;											// 0x00
-	const volatile uint32_t Value;									// 0x04  ** Read only hence const
-	struct TimerControlReg Control;									// 0x08
-	volatile uint32_t Clear;										// 0x0C
-	const volatile uint32_t RawIRQ;									// 0x10  ** Read only hence const
-	const volatile uint32_t MaskedIRQ;								// 0x14  ** Read only hence const
-	volatile uint32_t Reload;										// 0x18
+	uint32_t Load;													// 0x00
+	const uint32_t Value;											// 0x04  ** Read only hence const
+	time_ctrl_reg_t Control;										// 0x08
+	uint32_t Clear;													// 0x0C
+	const uint32_t RawIRQ;											// 0x10  ** Read only hence const
+	const uint32_t MaskedIRQ;										// 0x14  ** Read only hence const
+	uint32_t Reload;												// 0x18
 };
 
 /*--------------------------------------------------------------------------}
 {   IRQ BASIC PENDING REGISTER - BCM2835.PDF Manual Section 7 page 113/114  }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) IrqBasicPendingReg {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			const volatile unsigned Timer_IRQ_pending : 1;			// @0 Timer Irq pending
-			const volatile unsigned Mailbox_IRQ_pending : 1;		// @1 Mailbox Irq pending
-			const volatile unsigned Doorbell0_IRQ_pending : 1;		// @2 Arm Doorbell0 Irq pending
-			const volatile unsigned Doorbell1_IRQ_pending : 1;		// @3 Arm Doorbell0 Irq pending
-			const volatile unsigned GPU0_halted_IRQ_pending : 1;	// @4 GPU0 halted IRQ pending
-			const volatile unsigned GPU1_halted_IRQ_pending : 1;	// @5 GPU1 halted IRQ pending
-			const volatile unsigned Illegal_access_type1_pending : 1; // @6 Illegal access type 1 IRQ pending
-			const volatile unsigned Illegal_access_type0_pending : 1; // @7 Illegal access type 0 IRQ pending
-			const volatile unsigned Bits_set_in_pending_register_1 : 1;	// @8 One or more bits set in pending register 1
-			const volatile unsigned Bits_set_in_pending_register_2 : 1;	// @9 One or more bits set in pending register 2
-			const volatile unsigned GPU_IRQ_7_pending : 1;			// @10 GPU irq 7 pending
-			const volatile unsigned GPU_IRQ_9_pending : 1;			// @11 GPU irq 9 pending
-			const volatile unsigned GPU_IRQ_10_pending : 1;			// @12 GPU irq 10 pending
-			const volatile unsigned GPU_IRQ_18_pending : 1;			// @13 GPU irq 18 pending
-			const volatile unsigned GPU_IRQ_19_pending : 1;			// @14 GPU irq 19 pending
-			const volatile unsigned GPU_IRQ_53_pending : 1;			// @15 GPU irq 53 pending
-			const volatile unsigned GPU_IRQ_54_pending : 1;			// @16 GPU irq 54 pending
-			const volatile unsigned GPU_IRQ_55_pending : 1;			// @17 GPU irq 55 pending
-			const volatile unsigned GPU_IRQ_56_pending : 1;			// @18 GPU irq 56 pending
-			const volatile unsigned GPU_IRQ_57_pending : 1;			// @19 GPU irq 57 pending
-			const volatile unsigned GPU_IRQ_62_pending : 1;			// @20 GPU irq 62 pending
-			unsigned reserved : 10;									// @21-31 reserved
-		};
-		const volatile uint32_t Raw32;								// Union to access all 32 bits as a uint32_t
+typedef union tagIRQBASICPENDING
+{
+	struct 
+	{
+		const unsigned Timer_IRQ_pending : 1;						// @0 Timer Irq pending
+		const unsigned Mailbox_IRQ_pending : 1;						// @1 Mailbox Irq pending
+		const unsigned Doorbell0_IRQ_pending : 1;					// @2 Arm Doorbell0 Irq pending
+		const unsigned Doorbell1_IRQ_pending : 1;					// @3 Arm Doorbell0 Irq pending
+		const unsigned GPU0_halted_IRQ_pending : 1;					// @4 GPU0 halted IRQ pending
+		const unsigned GPU1_halted_IRQ_pending : 1;					// @5 GPU1 halted IRQ pending
+		const unsigned Illegal_access_type1_pending : 1;			// @6 Illegal access type 1 IRQ pending
+		const unsigned Illegal_access_type0_pending : 1;			// @7 Illegal access type 0 IRQ pending
+		const unsigned Bits_set_in_pending_register_1 : 1;			// @8 One or more bits set in pending register 1
+		const unsigned Bits_set_in_pending_register_2 : 1;			// @9 One or more bits set in pending register 2
+		const unsigned GPU_IRQ_7_pending : 1;						// @10 GPU irq 7 pending
+		const unsigned GPU_IRQ_9_pending : 1;						// @11 GPU irq 9 pending
+		const unsigned GPU_IRQ_10_pending : 1;						// @12 GPU irq 10 pending
+		const unsigned GPU_IRQ_18_pending : 1;						// @13 GPU irq 18 pending
+		const unsigned GPU_IRQ_19_pending : 1;						// @14 GPU irq 19 pending
+		const unsigned GPU_IRQ_53_pending : 1;						// @15 GPU irq 53 pending
+		const unsigned GPU_IRQ_54_pending : 1;						// @16 GPU irq 54 pending
+		const unsigned GPU_IRQ_55_pending : 1;						// @17 GPU irq 55 pending
+		const unsigned GPU_IRQ_56_pending : 1;						// @18 GPU irq 56 pending
+		const unsigned GPU_IRQ_57_pending : 1;						// @19 GPU irq 57 pending
+		const unsigned GPU_IRQ_62_pending : 1;						// @20 GPU irq 62 pending
+		unsigned reserved : 10;										// @21-31 reserved
 	};
-};
+	const uint32_t Raw32;											// Union to access all 32 bits as a uint32_t
+} irq_basic_pending_reg_t;
 
 /*--------------------------------------------------------------------------}
 {	   FIQ CONTROL REGISTER BCM2835.PDF ARM Peripheral manual page 116		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) FiqControlReg {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned SelectFIQSource : 7;					// @0-6 Select FIQ source
-			volatile unsigned EnableFIQ : 1;						// @7 enable FIQ
-			unsigned reserved : 24;									// @8-31 reserved
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef union tagFIFOCONTROLREGISTER
+{
+	struct 
+	{
+		unsigned SelectFIQSource : 7;								// @0-6 Select FIQ source
+		unsigned EnableFIQ : 1;										// @7 enable FIQ
+		unsigned reserved : 24;										// @8-31 reserved
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} fiq_control_reg_t;
 
 /*--------------------------------------------------------------------------}
 {	 ENABLE BASIC IRQ REGISTER BCM2835 ARM Peripheral manual page 117		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) EnableBasicIrqReg {
+typedef union tagENABLEBASICIRQREGISTER
+{
 	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned Enable_Timer_IRQ : 1;					// @0 Timer Irq enable
-			volatile unsigned Enable_Mailbox_IRQ : 1;				// @1 Mailbox Irq enable
-			volatile unsigned Enable_Doorbell0_IRQ : 1;				// @2 Arm Doorbell0 Irq enable
-			volatile unsigned Enable_Doorbell1_IRQ : 1;				// @3 Arm Doorbell0 Irq enable
-			volatile unsigned Enable_GPU0_halted_IRQ : 1;			// @4 GPU0 halted IRQ enable
-			volatile unsigned Enable_GPU1_halted_IRQ : 1;			// @5 GPU1 halted IRQ enable
-			volatile unsigned Enable_Illegal_access_type1 : 1;		// @6 Illegal access type 1 IRQ enable
-			volatile unsigned Enable_Illegal_access_type0 : 1;		// @7 Illegal access type 0 IRQ enable
+		struct {
+			unsigned Enable_Timer_IRQ : 1;							// @0 Timer Irq enable
+			unsigned Enable_Mailbox_IRQ : 1;						// @1 Mailbox Irq enable
+			unsigned Enable_Doorbell0_IRQ : 1;						// @2 Arm Doorbell0 Irq enable
+			unsigned Enable_Doorbell1_IRQ : 1;						// @3 Arm Doorbell0 Irq enable
+			unsigned Enable_GPU0_halted_IRQ : 1;					// @4 GPU0 halted IRQ enable
+			unsigned Enable_GPU1_halted_IRQ : 1;					// @5 GPU1 halted IRQ enable
+			unsigned Enable_Illegal_access_type1 : 1;				// @6 Illegal access type 1 IRQ enable
+			unsigned Enable_Illegal_access_type0 : 1;				// @7 Illegal access type 0 IRQ enable
 			unsigned reserved : 24;									// @8-31 reserved
 		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+		uint32_t Raw32;												// Union to access all 32 bits as a uint32_t
 	};
-};
+} irq_enable_basic_reg_t;
 
 /*--------------------------------------------------------------------------}
 {	DISABLE BASIC IRQ REGISTER BCM2835 ARM Peripheral manual page 117		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) DisableBasicIrqReg {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned Disable_Timer_IRQ : 1;				// @0 Timer Irq disable
-			volatile unsigned Disable_Mailbox_IRQ : 1;				// @1 Mailbox Irq disable
-			volatile unsigned Disable_Doorbell0_IRQ : 1;			// @2 Arm Doorbell0 Irq disable
-			volatile unsigned Disable_Doorbell1_IRQ : 1;			// @3 Arm Doorbell0 Irq disable
-			volatile unsigned Disable_GPU0_halted_IRQ : 1;			// @4 GPU0 halted IRQ disable
-			volatile unsigned Disable_GPU1_halted_IRQ : 1;			// @5 GPU1 halted IRQ disable
-			volatile unsigned Disable_Illegal_access_type1 : 1;		// @6 Illegal access type 1 IRQ disable
-			volatile unsigned Disable_Illegal_access_type0 : 1;		// @7 Illegal access type 0 IRQ disable
-			unsigned reserved : 24;									// @8-31 reserved
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef union tagDISABLEBASICIRQREGISTER
+{
+	struct 
+	{
+		unsigned Disable_Timer_IRQ : 1;								// @0 Timer Irq disable
+		unsigned Disable_Mailbox_IRQ : 1;							// @1 Mailbox Irq disable
+		unsigned Disable_Doorbell0_IRQ : 1;							// @2 Arm Doorbell0 Irq disable
+		unsigned Disable_Doorbell1_IRQ : 1;							// @3 Arm Doorbell0 Irq disable
+		unsigned Disable_GPU0_halted_IRQ : 1;						// @4 GPU0 halted IRQ disable
+		unsigned Disable_GPU1_halted_IRQ : 1;						// @5 GPU1 halted IRQ disable
+		unsigned Disable_Illegal_access_type1 : 1;					// @6 Illegal access type 1 IRQ disable
+		unsigned Disable_Illegal_access_type0 : 1;					// @7 Illegal access type 0 IRQ disable
+		unsigned reserved : 24;										// @8-31 reserved
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} irq_disable_basic_reg_t;
 
 /*--------------------------------------------------------------------------}
 {	   RASPBERRY PI IRQ HARDWARE REGISTERS - BCM2835 Manual Section 7	    }
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) IrqControlRegisters {
-	const volatile struct IrqBasicPendingReg IRQBasicPending;		// 0x200   ** Read only hence const
-	volatile uint32_t IRQPending1;									// 0x204
-	volatile uint32_t IRQPending2;									// 0x208
-	volatile struct FiqControlReg FIQControl;						// 0x20C
-	volatile uint32_t EnableIRQs1;									// 0x210
-	volatile uint32_t EnableIRQs2;									// 0x214
-	volatile struct EnableBasicIrqReg EnableBasicIRQs;				// 0x218
-	volatile uint32_t DisableIRQs1;									// 0x21C
-	volatile uint32_t DisableIRQs2;									// 0x220
-	volatile struct DisableBasicIrqReg DisableBasicIRQs;			// 0x224
+	const irq_basic_pending_reg_t IRQBasicPending;					// 0x200   ** Read only hence const
+	uint32_t IRQPending1;											// 0x204
+	uint32_t IRQPending2;											// 0x208
+	fiq_control_reg_t FIQControl;									// 0x20C
+	uint32_t EnableIRQs1;											// 0x210
+	uint32_t EnableIRQs2;											// 0x214
+	irq_enable_basic_reg_t EnableBasicIRQs;							// 0x218
+	uint32_t DisableIRQs1;											// 0x21C
+	uint32_t DisableIRQs2;											// 0x220
+	irq_disable_basic_reg_t DisableBasicIRQs;						// 0x224
 };
 
 /*--------------------------------------------------------------------------}
 ;{               RASPBERRY PI MAILBOX HARRDWARE REGISTERS					}
 ;{-------------------------------------------------------------------------*/
 struct __attribute__((__packed__, aligned(4))) MailBoxRegisters {
-	const volatile uint32_t Read0;									// 0x00         Read data from VC to ARM
+	const uint32_t Read0;											// 0x00         Read data from VC to ARM
 	uint32_t Unused[3];												// 0x04-0x0F
-	volatile uint32_t Peek0;										// 0x10
-	volatile uint32_t Sender0;										// 0x14
-	volatile uint32_t Status0;										// 0x18         Status of VC to ARM
-	volatile uint32_t Config0;										// 0x1C        
-	volatile uint32_t Write1;										// 0x20         Write data from ARM to VC
+	uint32_t Peek0;													// 0x10
+	uint32_t Sender0;												// 0x14
+	uint32_t Status0;												// 0x18         Status of VC to ARM
+	uint32_t Config0;												// 0x1C        
+	uint32_t Write1;												// 0x20         Write data from ARM to VC
 	uint32_t Unused2[3];											// 0x24-0x2F
-	volatile uint32_t Peek1;										// 0x30
-	volatile uint32_t Sender1;										// 0x34
-	volatile uint32_t Status1;										// 0x38         Status of ARM to VC
-	volatile uint32_t Config1;										// 0x3C 
+	uint32_t Peek1;													// 0x30
+	uint32_t Sender1;												// 0x34
+	uint32_t Status1;												// 0x38         Status of ARM to VC
+	uint32_t Config1;												// 0x3C 
 };
 
 /***************************************************************************}
@@ -268,13 +271,11 @@ static_assert(sizeof(struct MailBoxRegisters) == 0x40, "Structure MailBoxRegiste
 /*--------------------------------------------------------------------------}
 {						  INTERNAL IMAGE PTR UNION							}
 {--------------------------------------------------------------------------*/
-typedef struct __attribute__((__packed__, aligned(4))) tagIMAGE_PTR {
-	union {
-		uint8_t* rawImage;
-		RGB565* __attribute__((__packed__, aligned(2))) ptrRGB565;
-		RGB* __attribute__((__packed__, aligned(1))) ptrRGB;
-		RGBA* __attribute__((__packed__, aligned(4))) ptrRGBA;
-	};
+typedef union tagIMAGEPTR {
+	uint8_t* rawImage;
+	RGB565* __attribute__((aligned(2))) ptrRGB565;
+	RGB* __attribute__((aligned(1))) ptrRGB;
+	RGBA* __attribute__((aligned(4))) ptrRGBA;
 } IMAGE_PTR;
 
 /*--------------------------------------------------------------------------}
@@ -319,7 +320,8 @@ INTDC __attribute__((aligned(4))) console = { 0 };
 . RETURN: true for success, false for any failure
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-bool gpio_setup (uint_fast8_t gpio, GPIOMODE mode) {
+bool gpio_setup (uint_fast8_t gpio, GPIOMODE mode) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	if (mode < 0 || mode > GPIO_ALTFUNC3) return false;				// Check requested mode is valid, return false if invalid
 	uint_fast32_t bit = ((gpio % 10) * 3);							// Create bit mask
@@ -335,7 +337,8 @@ bool gpio_setup (uint_fast8_t gpio, GPIOMODE mode) {
 . RETURN: true for success, false for any failure
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-bool gpio_output (uint_fast8_t gpio, bool on) {
+bool gpio_output (uint_fast8_t gpio, bool on) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	if (on) {														// ON request
@@ -351,7 +354,8 @@ bool gpio_output (uint_fast8_t gpio, bool on) {
 . RETURN: true = GPIO input high, false = GPIO input low
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-bool gpio_input (uint_fast8_t gpio) {
+bool gpio_input (uint_fast8_t gpio) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	uint32_t mem = GPIO->GPLEV[gpio / 32];							// Read port level
@@ -364,7 +368,8 @@ bool gpio_input (uint_fast8_t gpio) {
 . RETURN: true for event occured, false for no event
 . 30Jun17 LdB
 .-------------------------------------------------------------------------*/
-bool gpio_checkEvent (uint_fast8_t gpio) {
+bool gpio_checkEvent (uint_fast8_t gpio) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	uint32_t mem = GPIO->GPEDS[gpio / 32];							// Read event detect status register
@@ -377,7 +382,8 @@ bool gpio_checkEvent (uint_fast8_t gpio) {
 . RETURN: true for success, false for any failure
 . 30Jun17 LdB
 .-------------------------------------------------------------------------*/
-bool gpio_clearEvent (uint_fast8_t gpio) {
+bool gpio_clearEvent (uint_fast8_t gpio) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	GPIO->GPEDS[gpio / 32] = bit;									// Clear the event from GPIO register
@@ -389,7 +395,8 @@ bool gpio_clearEvent (uint_fast8_t gpio) {
 . RETURN: true for success, false for any failure
 . 30Jun17 LdB
 .-------------------------------------------------------------------------*/
-bool gpio_edgeDetect (uint_fast8_t gpio, bool lifting, bool Async) {
+bool gpio_edgeDetect (uint_fast8_t gpio, bool lifting, bool Async) 
+{
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	if (lifting) {													// Lifting edge detect
@@ -407,7 +414,8 @@ bool gpio_edgeDetect (uint_fast8_t gpio, bool lifting, bool Async) {
 . RETURN: true for success, false for any failure
 . 30Jun17 LdB
 .-------------------------------------------------------------------------*/
-bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor) {
+bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor) 
+{
 	uint64_t endTime;
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	if (resistor < 0 || resistor > PULLDOWN) return false;			// Check requested resistor is valid, return false if invalid
@@ -433,7 +441,8 @@ bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor) {
 . RETURN: tickcount value as an unsigned 64bit value
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-uint64_t timer_getTickCount (void) {
+uint64_t timer_getTickCount (void) 
+{
 	uint64_t resVal;
 	uint32_t lowCount;
 	do {
@@ -448,7 +457,8 @@ uint64_t timer_getTickCount (void) {
 . This will simply wait the requested number of microseconds before return.
 . 02Jul17 LdB
 .--------------------------------------------------------------------------*/
-void timer_wait (uint64_t us) {
+void timer_wait (uint64_t us) 
+{
 	us += timer_getTickCount();										// Add current tickcount onto delay
 	while (timer_getTickCount() < us) {};							// Loop on timeout function until timeout
 }
@@ -458,13 +468,15 @@ void timer_wait (uint64_t us) {
 . Given two timer tick results it returns the time difference between them.
 . 02Jul17 LdB
 .--------------------------------------------------------------------------*/
-uint64_t tick_difference (uint64_t us1, uint64_t us2) {
+uint64_t tick_difference (uint64_t us1, uint64_t us2) 
+{
 	if (us1 > us2) {												// If timer one is greater than two then timer rolled
 		uint64_t td = UINT64_MAX - us1 + 1;							// Counts left to roll value
 		return us2 + td;											// Add that to new count
 	}
 	return us2 - us1;												// Return difference between values
 }
+
 
 /*==========================================================================}
 {					     PUBLIC PI MAILBOX ROUTINES							}
@@ -545,6 +557,38 @@ bool mailbox_tag_message (uint32_t* response_buf,					// Pointer to response buf
 }
 
 /*==========================================================================}
+{				     PUBLIC PI TIMER INTERRUPT ROUTINES						}
+{==========================================================================*/
+
+/*-[TimerIrqSetup]----------------------------------------------------------}
+. Allocates the given TimerIrqHandler function pointer to be the irq call
+. when a timer interrupt occurs. The interrupt rate is set by providing a
+. period in usec between triggers of the interrupt.
+. RETURN: The old function pointer that was in use (will return 0 for 1st).
+. 19Sep17 LdB
+.--------------------------------------------------------------------------*/
+TimerIrqHandler TimerIrqSetup (uint32_t period_in_us,				// Period between timer interrupts in usec
+							   TimerIrqHandler ARMaddress)          // Function to call on interrupt
+{
+	uint32_t divisor;
+	uint32_t Buffer[5] = { 0 };
+	TimerIrqHandler OldHandler;
+	ARMTIMER->Control.TimerEnable = false;							// Make sure clock is stopped, illegal to change anything while running
+	mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_GET_CLOCK_RATE,
+		8, 8, 4, Buffer[4]);										// Get GPU clock (it varies between 200-450Mhz)
+	Buffer[4] /= 250;												// The prescaler divider is set to 250 (based on GPU=250MHz to give 1Mhz clock)
+	divisor = ((uint64_t)period_in_us*Buffer[4]) / 1000000;			// Divisor we would need at current clock speed
+	OldHandler = setTimerIrqAddress(ARMaddress);					// Set new interrupt handler
+	IRQ->EnableBasicIRQs.Enable_Timer_IRQ = true;					// Enable the timer interrupt IRQ
+	ARMTIMER->Load = divisor;										// Set the load value to divisor
+	ARMTIMER->Control.Counter32Bit = true;							// Counter in 32 bit mode
+	ARMTIMER->Control.Prescale = Clkdiv1;							// Clock divider = 1
+	ARMTIMER->Control.TimerIrqEnable = true;						// Enable timer irq
+	ARMTIMER->Control.TimerEnable = true;							// Now start the clock
+	return OldHandler;												// Return last function pointer	
+}
+
+/*==========================================================================}
 {				     PUBLIC PI ACTIVITY LED ROUTINES						}
 {==========================================================================*/
 static bool ModelCheckHasRun = false;								// Flag set if model check has run					
@@ -597,7 +641,7 @@ bool set_Activity_LED (bool on) {
 . 04Jul17 LdB
 .--------------------------------------------------------------------------*/
 bool ARM_setmaxspeed (printhandler prn_handler) {
-	uint32_t Buffer[5];
+	uint32_t Buffer[5] = { 0 };
 	if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_GET_MAX_CLOCK_RATE, 8, 8, 3, 0))
 		if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_SET_CLOCK_RATE, 8, 8, 3, Buffer[4])) {
 			if (prn_handler) prn_handler("CPU frequency set to %u Hz\n", Buffer[4]);
@@ -623,10 +667,6 @@ void displaySmartStart (printhandler prn_handler) {
 			RPi_CpuIdString(), RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady); // Write text
 	}
 }
-
-
-
-
 
 /*-Embedded_Console_WriteChar-----------------------------------------------}
 . Writes the given character to the console and preforms cursor movements as

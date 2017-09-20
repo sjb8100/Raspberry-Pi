@@ -213,6 +213,66 @@ char fShaderStr[] =
 "}                                                   \n";
 
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{                           3D VECTOR ROUTINES                              }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*--------------------------------------------------------------------------}
+{ Returns the dot product between the two vectors v1 & v2					}
+{ 14Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+GLfloat vec3_dot (VEC3 v1, VEC3 v2) {
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the cross product between the two vectors v1 & v2					}
+{ 14Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+VEC3 vec3_cross (VEC3 v1, VEC3 v2) {
+	VEC3 result = { .x = v1.y * v2.z - v1.z * v2.y,
+		.y = v1.z * v2.x - v1.x * v2.z,
+		.z = v1.x * v2.y - v1.y * v2.x };
+	return result;
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the subtraction of v2 from v1										}
+{ 14Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+VEC3 vec3_sub (VEC3 v1, VEC3 v2) {
+	VEC3 result = { .x = v1.x - v2.x, 
+		            .y = v1.y - v2.y, 
+					.z = v1.z - v2.z };
+	return result;
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the addition of v2 to v1											}
+{ 14Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+VEC3 vec3_add (VEC3 v1, VEC3 v2) {
+	VEC3 result = { .x = v1.x - v2.x,
+				    .y = v1.y - v2.y,
+					.z = v1.z - v2.z };
+	return result;
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the scale of v1 by scale s										}
+{ 14Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+VEC3 vec3_scale (VEC3 v, GLfloat s) {
+	VEC3 result = { .x = v.x * s,
+					.y = v.y * s,
+					.z = v.z * s };
+	return result;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{                           3D MATRIX ROUTINES                              }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 /*--------------------------------------------------------------------------}
 {                  IDENTITY MATRIX3D (4x4 MATRIX) DEFINITION                }
 {--------------------------------------------------------------------------*/
@@ -268,14 +328,66 @@ MATRIX3D ZRotationMatrix3D(GLfloat angle_in_rad) {
 }
 
 /*--------------------------------------------------------------------------}
+{ Returns the translation matrix in MATRIX3D from the x,y,z offset values   }
+{ 16Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+MATRIX3D TranslationMatrix3D (GLfloat offsetX, GLfloat offsetY, GLfloat offsetZ) {
+	MATRIX3D m = IdentityMatrix3D;									// Start with identity matrix
+	m.coef[0][3] = offsetX;											// Set x offset value
+	m.coef[1][3] = offsetY;											// Set y offset value
+	m.coef[2][3] = offsetZ;											// Set z offset value
+	return(m);														// Return matrix
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the scale matrix in MATRIX3D from the x,y,z axis scale values     }
+{ 16Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+MATRIX3D ScaleMatrix3D (GLfloat scaleX, GLfloat scaleY, GLfloat scaleZ) {
+	MATRIX3D m = IdentityMatrix3D;									// Start with identity matrix
+	m.coef[0][0] = scaleX;											// Set x scale value
+	m.coef[1][1] = scaleY;											// Set y scale value
+	m.coef[2][2] = scaleZ;											// Set z scale value
+	return(m);														// Return the matrix
+}
+
+/*--------------------------------------------------------------------------}
+{ Returns the mirror matrix in MATRIX3D from the x,y,z mirror axis values   }
+{ 17Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+MATRIX3D MirrorMatrix3D (bool mirrorX, bool mirrorY, bool mirrorZ) {
+	MATRIX3D m = IdentityMatrix3D;									// Start with identity matrix
+	m.coef[0][0] =  mirrorX ?  -GLFLOAT_ONE : GLFLOAT_ONE;			// Coef[0][0] is -1 rather than 1 if x mirror active
+	m.coef[1][1] =  mirrorY ?  -GLFLOAT_ONE : GLFLOAT_ONE;			// Coef[1][1] is -1 rather than 1 if y mirror active
+	m.coef[2][2] =  mirrorZ ?  -GLFLOAT_ONE : GLFLOAT_ONE;			// Coef[2][2] is -1 rather than 1 if z mirror active
+	return(m);														// Return the matrix
+}
+
+/*--------------------------------------------------------------------------}
+{ Transposes the 3D matrix from ROW MAJOR <==> COLUMN MAJOR or back again	}
+{ 17Sep2017 LdB                                                             }
+{--------------------------------------------------------------------------*/
+void TransposeMatrix3D(MATRIX3D* matrix) {
+	for (uint_fast8_t i = 0; i < 3; i++) {
+		for (uint_fast8_t j = i + 1; j <= 3; j++) {
+			GLfloat* p1 = &matrix->coef[i][j];						// Pointer to first coefficient to swap
+			GLfloat* p2 = &matrix->coef[j][i];						// Pointer to second coefficient to swap
+			GLfloat temp = *p1; 									// Copy whats at p1 to temp
+			*p1 = *p2;												// Copy whats at p2 to p1
+			*p2 = temp;												// Copy temp to p2
+		}
+	}
+}
+
+/*--------------------------------------------------------------------------}
 { Returns the matrix result of multiplying matrix3D a by matrix3D b         }
 { 14Sep2017 LdB                                                             }
 {--------------------------------------------------------------------------*/
 MATRIX3D MultiplyMatrix3D(MATRIX3D a, MATRIX3D  b) {
 	MATRIX3D  m = IdentityMatrix3D;									// Temp result matrix
 
-	for (unsigned short i = 0; i < 4; i++) {						// For each row rank
-		for (unsigned short j = 0; j < 4; j++) {					// For each column rank
+	for (uint_fast8_t i = 0; i < 4; i++) {							// For each row rank
+		for (uint_fast8_t j = 0; j < 4; j++) {						// For each column rank
 			GLfloat sum = (a.coef[i][0] * b.coef[0][j]);			// 1st calc
 			sum = sum + (a.coef[i][1] * b.coef[1][j]);				// 2nd calc
 			sum = sum + (a.coef[i][2] * b.coef[2][j]);				// 3rd calc
@@ -315,6 +427,10 @@ void TransformPoint3D (GLfloat inX, GLfloat inY, GLfloat inZ,		// 3D input point
 	if (outY) *outY = ty;											// Pointer outY valid so output result
 	if (outZ) *outZ = tz;											// Pointer outZ valid so output result
 }
+
+
+
+
 
 bool InitV3D (void) {
 	if (mailbox_tag_message(0, 9,
@@ -419,16 +535,136 @@ struct __attribute__((__packed__, aligned(1))) TileListEntry {
 	uint8_t   tile_endcmd;											// GL_STORE_MULTISAMPLE or GL_STORE_MULTISAMPLE_END
 };
 
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{                           GL PIPE STRUCTURES                              }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*==========================================================================}
+{					 VERTEX PIPE MEMORY (VPM) STRUCTURES 					}
+{==========================================================================*/
+
+/* The minimum VPM size is 8Kbytes, which is the amount required for normal 
+   pipelined 3D operation with concurrent vertex and coordinate shading and 
+   worst case vertex data size  */
+
+/* The FIFO used for the partially interpolated varying results is also used 
+   for VPM read and write accesses and VCD control from QPU programs. For this 
+   reason a fragment shader program cannot access the VPM or VCD. */
+
+/* VC4 doesn't have any hardware support for blending, alpha test, logic ops,
+  or color mask.  Instead, you read the current contents of the destination
+  from the tile buffer after having waited for the scoreboard (which is
+  handled by vc4_qpu_emit.c), then do math using your output color and that
+  destination value, and update the output color appropriately.
+ 
+  Once this pass is done, the color write will either have one component (for
+  single sample) with packed argb8888, or 4 components with the per-sample
+  argb8888 result.*/
+
+/*--------------------------------------------------------------------------}
+{						  VPM GENERIC READ BLOCK	 						}
+{--------------------------------------------------------------------------*/
+typedef union {
+	struct {
+		unsigned addr : 8;											// @0-7		Location of first vector accessed
+		enum {
+			VPM_READ_8BIT = 0,
+			VPM_READ_16BIT = 1,
+			VPM_READ_32BIT = 2,
+			VPM_READ_RESERVED = 3,
+		} readsize: 2;												// @8-9		0,1,2 8BIT, 16BIT 32 BIT reserved
+		unsigned laned : 1;											// @10		0,1  Packed, or laned ignored for 32bit
+		unsigned horz : 1;											// @11		0,1  Horizontal or vertical
+		unsigned stride : 6;										// @12-17	0-64 stride size
+		unsigned unused : 2;										// @18-19
+		unsigned numvectors : 4;									// @20-23	0-15 number of vectors to read
+		unsigned unused1 : 6;										// @24-29
+		unsigned setup_id : 2;										// @30-31	= 0 VPM block setup
+	};
+	uint32_t Raw32;													// Access whole 32bits at once
+} VPM_GENERIC_READ_BLOCK;
+
+/*--------------------------------------------------------------------------}
+{						  VPM GENERIC WRITE BLOCK	 						}
+{--------------------------------------------------------------------------*/
+typedef union {
+	struct {
+		unsigned addr : 8;											// @0-7		Location of first vector accessed
+		enum {
+			VPM_WRITE_8BIT = 0,
+			VPM_WRITE_16BIT = 1,
+			VPM_WRITE_32BIT = 2,
+			VPM_WRITE_RESERVED = 3,
+		} writesize : 2;											// @8-9		0,1,2 8BIT, 16BIT 32 BIT reserved
+		unsigned laned : 1;											// @10		0,1  Packed, or laned ignored for 32bit
+		unsigned horz : 1;											// @11		0,1  Horizontal or vertical
+		unsigned stride : 6;										// @12-17	0-64 stride size
+		unsigned unused : 12;										// @18-29
+		unsigned setup_id : 2;										// @30-31	= 0 VPM block setup
+	};
+	uint32_t Raw32;													// Access whole 32bits at once
+} VPM_GENERIC_WRITE_BLOCK;
+
+
+/*==========================================================================}
+{				 	  TEXTURE CONFIG BLOCK STRUCTURES 						}
+{==========================================================================*/
+
+/*--------------------------------------------------------------------------}
+{						  TEXTURE CONFIG BLOCK	 							}
+{--------------------------------------------------------------------------*/
+typedef union {
+	struct {
+		unsigned mip_levels : 4;									// @0-3		number of mipmap levels minus 1
+		unsigned texture_type : 4;								    // @4-7		texture type .. TODO: enumerate them 
+		unsigned flip_y : 1;										// @8		0,1  top to bottom, bottom to top
+		unsigned cubemap : 1;										// @9		0,1  cube map mode off, on
+		unsigned cswiz : 2;											// @10-11	cache swizzle
+		unsigned base_addr : 20;									// @12-31	Texture base pointer in 4K blocks
+	};
+	uint32_t Raw32;													// Access whole 32bits at once
+} TEXTURE_CONFIG_BLOCK;
+
+/*--------------------------------------------------------------------------}
+{						ENUMERATED T & S WRAP MODE							}
+{--------------------------------------------------------------------------*/
+/* In binary so any error is obvious */
+typedef enum {
+	WRAPMODE_REPEAT = 0b00,							// 0
+	WRAPMODE_CLAMP  = 0b01,							// 1
+	WRAPMODE_MIRROR = 0b10,							// 2
+	WRAPMODE_BORDER = 0b11,							// 3 
+} WRAP_MODE;
+
+/*--------------------------------------------------------------------------}
+{					    TEXTURE CONFIG PARAMETERS							}
+{--------------------------------------------------------------------------*/
+typedef union {
+	struct {
+		WRAP_MODE wrap_s : 2;										// @0-1		0,1,2,3   S wrap mode  (repeat, clamp mirror, border)
+		WRAP_MODE wrap_t : 2;									    // @2-3		0,1,2,3   T wrap mode  (repeat, clamp mirror, border)
+		unsigned minfilt : 3;										// @4-6		minification filter
+		unsigned magfilt : 1;										// @7		magnification filter
+		unsigned width : 11;										// @8-18	Image width (0-2048)
+		unsigned etcflip : 1;									    // @19		Flip etc Y
+		unsigned height : 11;										// @20-30	Image height (0-2048)
+		unsigned texture_type4 : 1;									// @31		Texture data type extended
+	};
+	uint32_t Raw32;													// Access whole 32bits at once
+} TEXTURE_CONFIG_PARAMS;
+
+
+
+
 static GLfloat angle = 0.0f;
-static MATRIX3D rotMat = { 0 };
 
 void DoRotate(float delta, int screenCentreX, int screenCentreY, struct obj_model_t* model) {
 	angle += delta;
 	if (angle >= (6.2831852)) angle -= (6.2831852);   // 2 * Pi = 360 degree rotation
-	rotMat = ZRotationMatrix3D(angle);
 
 	if ((model) && (model->vertexARM) && (model->originalVertexARM)) {
-		MATRIX3D a = MultiplyMatrix3D(model->viewMatrix, rotMat);
+		MATRIX3D a = MultiplyMatrix3D(model->viewMatrix, ZRotationMatrix3D(angle));
 		// Vertex Data 1
 		struct EmitVertex* v = model->vertexARM;
 		struct OriginalVertex* ov = model->originalVertexARM;
@@ -888,14 +1124,9 @@ bool DoneRenderer(struct obj_model_t* model)
 
 
 bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhandler prn_handler) {
-	MATRIX3D a, b;
-
-	a = XRotationMatrix3D(0.78539815);  // 45 degree X axis rotation
-	b = YRotationMatrix3D(0.78539815);  // 45 degree Y axis rotation
-
 
 	if (model) {
-		model->viewMatrix = MultiplyMatrix3D(a, b);
+		model->viewMatrix = MultiplyMatrix3D(XRotationMatrix3D(0.78539815), YRotationMatrix3D(0.78539815));
 
 		ParseWaveFrontMesh(fileName, model, false);
 		

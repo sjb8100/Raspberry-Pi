@@ -56,6 +56,9 @@ extern "C" {									// Put extern C directive wrapper around
 /* you can make a UART or SCREEN version and direct output to that call */
 typedef int (*printhandler) (const char *fmt, ...);
 
+/* Timer interrupt handler function proto type */
+typedef void (*TimerIrqHandler) (void);
+
 /***************************************************************************}
 {					     PUBLIC ENUMERATION CONSTANTS			            }
 ****************************************************************************/
@@ -326,7 +329,7 @@ typedef void (*CORECALLFUNC) (void);
 extern bool CoreExecute (uint8_t coreNum, CORECALLFUNC func); 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{		VC4 GPU ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* ARM bus address to GPU bus address */
@@ -444,6 +447,30 @@ uint32_t mailbox_read (MAILBOX_CHANNEL channel);
 bool mailbox_tag_message (uint32_t* response_buf,					// Pointer to response buffer (NULL = no response wanted)
 						  uint8_t data_count,						// Number of uint32_t data to be set for call
 						  ...);										// Variadic uint32_t values for call
+
+/*==========================================================================}
+{				     PUBLIC PI TIMER INTERRUPT ROUTINES						}
+{==========================================================================*/
+
+/*-[setTimerIrqAddress]-----------------------------------------------------}
+. Allocates the given TimerIrqHandler function pointer to be the call when
+. a timer interrupt occurs. As we are undoubtedly setting up the interrupt
+. the interrupt is disabled. 
+. RETURN: The old function pointer that was in use (will return 0 for 1st).
+. 19Sep17 LdB
+.--------------------------------------------------------------------------*/
+TimerIrqHandler setTimerIrqAddress (TimerIrqHandler ARMaddress);
+
+/*-[TimerIrqSetup]----------------------------------------------------------}
+. Allocates the given TimerIrqHandler function pointer to be the irq call 
+. when a timer interrupt occurs. The interrupt rate is set by providing a 
+. period in usec between triggers of the interrupt.
+. RETURN: The old function pointer that was in use (will return 0 for 1st).
+. 19Sep17 LdB
+.--------------------------------------------------------------------------*/
+TimerIrqHandler TimerIrqSetup (uint32_t period_in_us,				// Period between timer interrupts in usec
+							   TimerIrqHandler ARMaddress);         // Function to call on interrupt
+
 
 /*==========================================================================}
 {				     PUBLIC PI ACTIVITY LED ROUTINES						}

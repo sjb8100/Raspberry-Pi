@@ -7,6 +7,12 @@
 #include "rpi-GLES.h"
 #include "SDCard.h"
 
+static bool lit = false;
+void c_irq_handler(void) {
+	if (lit) lit = false; else lit = true;							// Flip lit flag
+	set_Activity_LED(lit);											// Turn LED on/off as per new flag
+}
+
 
 int halfScrWth;
 int halfScrHt;
@@ -15,6 +21,8 @@ int main (void) {
 	InitV3D();														// Start 3D graphics
 	ARM_setmaxspeed(NULL);											// ARM CPU to max speed no message to screen
 	PiConsole_Init(0, 0, 32, NULL);									// Auto resolution console, no message to screen
+	TimerIrqSetup(500000, c_irq_handler);							// Give me flashing LED so I can tell if I have locked irq pipe up 
+	EnableInterrupts();												// Start interrupts rolling
 	halfScrWth = GetConsole_Width() / 2;
 	halfScrHt = GetConsole_Height() / 2;
 

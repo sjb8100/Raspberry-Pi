@@ -2,7 +2,7 @@
 ;@"																			"			
 ;@"      Filename: smartstart32.s											"
 ;@"      Copyright(c): Leon de Boer(LdB) 2017								"
-;@"      Version: 2.02														"
+;@"      Version: 2.03														"
 ;@"																			"		
 ;@"**************[ THIS CODE IS FREEWARE UNDER CC Attribution]**************"
 ;@"																            "
@@ -30,7 +30,13 @@
 ;@"       There is however matching paired AARCH64 stub and linker files    "
 ;@" so code written for this setup can be ported to AARCH64 with ease.		"
 ;@"																            "
-;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+;@"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
+;@"  1.01 Initial release .. Pi autodetection main aim                      "
+;@"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
+;@"  2.01 Futher reductions to bare minmum assembeler code                  "
+;@"  2.02 Multicore functionality added                                     "
+;@"  2.03 Timer Irq support added  											"
+;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
 
 ;@"========================================================================="
 ;@"				 	 ARM CPU ID CONSTANT DEFINITIONS					    "
@@ -459,7 +465,26 @@ CoreExecuteFail:
 .ltorg										// Tell assembler ltorg data for this code can go here
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
+.section .text.setTimerIrqAddress, "ax", %progbits
+.balign	4
+.globl setTimerIrqAddress;
+.type setTimerIrqAddress, %function
+setTimerIrqAddress:
+    	cpsid i								// Disable irq interrupts as we are clearly changing call
+	ldr r1, =RPi_TimerIrqAddr						// Load address of function to call on interrupt 
+	ldr r2, [r1]							// Load current irq call address
+	str r0, [r1]							// Store the new function pointer address we were given
+	mov r0, r2							// return the old call function
+	bx  lr								// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	setTimerIrqAddress, .-setTimerIrqAddress
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{		VC4 GPU ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
@@ -505,15 +530,6 @@ GPUaddrToARMaddr:
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 .size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
-/* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
-.weak c_irq_handler
-c_irq_handler:
-	bx  lr									;@ Return
-
-/* Provide weak reference c_irq_identify_and_clear_source so if user does not use it functions as dummy */
-.weak c_irq_identify_and_clear_source
-c_irq_identify_and_clear_source:
-	bx  lr									;@ Return
 
 /* Re-entrant interrupt handler stub */
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka13552.html */
@@ -529,9 +545,34 @@ _irq_handler_stub:
     sub sp, sp, r1							;@ …adjust stack as necessary
     push {r1, lr}							;@ Store adjustment and LR_svc
 
-    bl c_irq_identify_and_clear_source		;@ Clear IRQ source
+
+	//  if (IRQ->IRQBasicPending.Timer_IRQ_pending) {				// Check irq on timer is triggered
+	//	  ARMTIMER->Clear = 1;										// Write any value to register to clear irq ... PAGE 198
+	//	  IRQ->IRQPending1 &= ~0x1;									// Clear timer pending irq bit 0
+	//  }
+	ldr	r3, = RPi_IO_Base_Addr
+	ldr	r3, [r3]							// Fetch Pi IO base Address
+	add	r2, r3, #45568						// Add 0xB200
+	ldr	r1, [r2]							// IRQ->IRQBasicPending
+	tst	r1, #1								// If timer IRQ pending not yet pending
+	beq	.NoTimerIrq							// Nothing to do
+	add	r3, r3, #46080						// Add 0xB400
+	mov	r1, #1								// Load #1
+	str	r1, [r3, #12]						// Write to clear register
+	ldr	r3, [r2, #4]						// Fetch Irq pending
+	bic	r3, r3, #1							// Clear pending bit
+	str	r3, [r2, #4]						// Write value back
+.NoTimerIrq:
+
     cpsie i									;@ Enable IRQ
-    bl c_irq_handler						;@ Branch to 2nd level handler
+
+  	ldr r0, =RPi_TimerIrqAddr				// Address to TimerIrqAddr
+	ldr r0, [r0]							// Load TimerIrqAddr value
+	cmp r0, #0
+	beq no_irqset							// If zero no irq set 
+	blx r0									// Call Irqhandler that has been set  
+no_irqset:	
+
     cpsid i									;@ Disable IRQ
 
     pop {r1, lr}							;@ Restore LR_svc
@@ -593,3 +634,8 @@ RPi_CpuId : .4byte 0;					// CPU Id is 4 byte variable in 32bit mode
 
 .globl RPi_CompileMode;					// Make sure RPi_CompileMode label is global
 RPi_CompileMode : .4byte 0;				// Compile mode is 4 byte variable in 32bit mode
+
+/****************************************************************
+       	   DATA FOR SMARTSTART32  NOT EXPOSED TO INTERFACE 
+****************************************************************/
+RPi_TimerIrqAddr : .4byte 0;			// Timer Irq Address

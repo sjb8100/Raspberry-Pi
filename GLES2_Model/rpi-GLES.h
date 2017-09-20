@@ -44,17 +44,24 @@ extern "C" {									// Put extern C directive wrapper around
 #define GLFLOAT_ONE ((GLfloat) 1)
 #endif
 
-	typedef union {
-		// Normal C format array which will be ROW MAJOR
-		float coef[4][4];
-		// OPENGL etc want COLUMN MAJOR so define it so we can transpose when needed
-		struct __attribute__((__packed__, aligned(1))) {
-			float m00, m01, m02, m03;
-			float m10, m11, m12, m13;
-			float m20, m21, m22, m23;
-			float m30, m31, m32, m33;
-		} cm;
-	} MATRIX3D, *PMATRIX3D;
+
+typedef struct vec3 {
+	GLfloat x;
+	GLfloat y;
+	GLfloat z;
+} VEC3;
+
+typedef union {
+	// Normal C format array which will be ROW MAJOR
+	float coef[4][4];
+	// OPENGL etc want COLUMN MAJOR so define it so we can transpose when needed
+	struct __attribute__((__packed__, aligned(1))) {
+		float m00, m01, m02, m03;
+		float m10, m11, m12, m13;
+		float m20, m21, m22, m23;
+		float m30, m31, m32, m33;
+	} cm;
+} MATRIX3D, *PMATRIX3D;
 
 /* OBJ model structure */
 struct obj_model_t
