@@ -562,6 +562,14 @@ struct __attribute__((__packed__, aligned(1))) TileListEntry {
   single sample) with packed argb8888, or 4 components with the per-sample
   argb8888 result.*/
 
+/* 
+1.  The Vertex Cache Manager (VCM) gets vertices from *somewhere*
+2.  The VCD then DMAs the vertices to Vertex Pipe Memory (VPM)
+3.  Your vert shader reads these verts from VPM and transforms them
+4.  Your shader writes these verts back to VPM in a certain expected format
+5.  The verts are then read directly by the Primitive Tile Binner (PTB) or Primitive Setup Engine (PSE)
+*/
+
 /*--------------------------------------------------------------------------}
 {						  VPM GENERIC READ BLOCK	 						}
 {--------------------------------------------------------------------------*/
@@ -668,12 +676,12 @@ void DoRotate(float delta, int screenCentreX, int screenCentreY, struct obj_mode
 		// Vertex Data 1
 		struct EmitVertex* v = model->vertexARM;
 		struct OriginalVertex* ov = model->originalVertexARM;
-		for (int i = 0; i < model->num_verts; i++) {
+		for (unsigned int i = 0; i < model->num_verts; i++) {
 			GLfloat dx, dy, dz;
 			TransformPoint3D(ov->x, ov->y, ov->z, a, &dx, &dy, &dz);
-			v->x = (uint32_t)(dx + screenCentreX) << 4;// X in 12.4 fixed point
-			v->y = (uint32_t)(dy + screenCentreY) << 4;// Y in 12.4 fixed point
-			v->z = 1.0f;
+			v->x = (uint16_t)((int32_t)(dx + screenCentreX) << 4); // X in 12.4 fixed point
+			v->y = (uint16_t)((int32_t)(dy + screenCentreY) << 4); // Y in 12.4 fixed point
+			v->z = 0.25f; //    0.25f;
 			v++;	// Next vertex
 			ov++;
 		}
@@ -681,7 +689,7 @@ void DoRotate(float delta, int screenCentreX, int screenCentreY, struct obj_mode
 }
 
 
-// Render a single triangle to memory.
+// Render the model
 void RenderModel (struct obj_model_t* model, printhandler prn_handler) {
 	//  We allocate/lock some videocore memory
 	// I'm just shoving everything in a single buffer because I'm lazy 8Mb, 4k alignment
@@ -691,46 +699,50 @@ void RenderModel (struct obj_model_t* model, printhandler prn_handler) {
 	#define BUFFER_SHADER_OFFSET	0x80
 	#define BUFFER_TILE_STATE		0x200
 	#define BUFFER_TILE_DATA		0x6000
-	#define BUFFER_RENDER_CONTROL	0xe200
-	#define BUFFER_FRAGMENT_SHADER	0xfe00
-	#define BUFFER_FRAGMENT_UNIFORM	0xff00
+	#define BUFFER_RENDER_CONTROL	0x1e200
+	#define BUFFER_FRAGMENT_SHADER	0x1fe00
+	#define BUFFER_FRAGMENT_UNIFORM	0x1ff00
 	if (!model) return;
+
+	// clear caches
+	v3d[V3D_L2CACTL] = 4;
+	v3d[V3D_SLCACTL] = 0x0F0F0F0F;
+
+	// stop the thread
+	v3d[V3D_CT0CS] = 0x20;
+	// wait for it to stop
+	while (v3d[V3D_CT0CS] & 0x20);
 
 	// Run our control list
 	v3d[V3D_BFC] = 1;                         // reset binning frame count
 	v3d[V3D_CT0CA] = model->rendererDataVC4;
 	v3d[V3D_CT0EA] = model->rendererDataVC4 + model->binningConfigLength;
 
-	// Wait for control list to execute
-	while (v3d[V3D_CT0CS] & 0x20);
-
 	// wait for binning to finish
 	while (v3d[V3D_BFC] == 0) {}            
 
 	// stop the thread
-	v3d[V3D_CT0CS] = 0x20;
+	v3d[V3D_CT1CS] = 0x20;
+
+	// Wait for thread to stop
+	while (v3d[V3D_CT1CS] & 0x20);
 
 	// Run our render
 	v3d[V3D_RFC] = 1;						// reset rendering frame count
 	v3d[V3D_CT1CA] = model->rendererDataVC4 + BUFFER_RENDER_CONTROL;
 	v3d[V3D_CT1EA] = model->rendererDataVC4 + BUFFER_RENDER_CONTROL + model->renderLength;
 
-	// Wait for render to execute
-	while (v3d[V3D_CT1CS] & 0x20);
-
 	// wait for render to finish
 	while(v3d[V3D_RFC] == 0) {} 
 
-	// stop the thread
-	v3d[V3D_CT1CS] = 0x20;
+
 }
 
 
-
-static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model, bool secondPass) {
+#include <float.h>
+static bool ParseWaveFrontMesh(const char* fileName, struct obj_model_t *model, bool secondPass, float desiredMaxSize) {
 
 	int v, t, n;
-
 	char buf[256];
 	char buffer[512];
 	char* bufptr = NULL;
@@ -738,10 +750,17 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 	uint32_t bytesLeft, bytesRead;
 	struct OriginalVertex* ov = model->originalVertexARM;
 	struct EmitVertex* ev = model->vertexARM;
-	uint8_t *vlist = (uint8_t*)(uintptr_t)model->modelDataARM;		// Transfer to temp
+	uint16_t *v16p = (uint16_t*)(uintptr_t)model->modelDataARM;		// Transfer to temp
 	HANDLE fh = sdCreateFile(fileName, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 	if (fh == 0) return false;									// If file did not open fail return
 	bytesLeft = sdGetFileSize(fh, 0);								// Bytes left starts as file size
+	model->minX = FLT_MAX;
+	model->minY = FLT_MAX;
+	model->minZ = FLT_MAX;
+	model->maxX = FLT_MIN;
+	model->maxY = FLT_MIN;
+	model->maxZ = FLT_MIN;
+
 	do {
 		int i;
 		bool LFfound = false;
@@ -784,18 +803,31 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 					}
 					if (!secondPass) {
 						model->num_verts++;
-					} else {
+					}
+					else {
+						x = x - model->offsX;
+						x = x * model->scale;
+						y = y - model->offsY;
+						y = y * model->scale;
+						z = z - model->offsZ;
+						z = z * model->scale;
 						ov->x = x;
 						ov->y = y;
 						ov->z = z;
 						ov++;
 
-						ev->w = w;
+						ev->w = 0.0f;
 						ev->red = 0.5f;													// Varying 0 (Red)
 						ev->green = 0.5f;												// Varying 1 (Green)
 						ev->blue = 0.5f;												// Varying 2 (Blue)
 						ev++;
 					}
+					if (x > model->maxX) model->maxX = x;
+					if (x < model->minX) model->minX = x;
+					if (y > model->maxY) model->maxY = y;
+					if (y < model->minY) model->minY = y;
+					if (z > model->maxZ) model->maxZ = z;
+					if (z < model->minZ) model->minZ = z;
 				}
 				else if (buf[1] == 't')
 				{
@@ -856,7 +888,7 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 					printf("Error: found face with no vertex!\n");
 				}
 
-				
+
 				char* pbuf = &buf[0];
 				int num_elems = 0;
 
@@ -891,7 +923,7 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 
 				/* Read face data */
 				if (secondPass) {
-					int vi1, vi2, vi3, v0, /*v1,*/ v2, v3;
+					int vi1, vi2, vi3, v0, v2, v3;
 					char* pbuf = &buf[0];
 					i = 0;
 					for (i = 0; i < num_elems; ++i)
@@ -927,34 +959,61 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 						case 0: {
 							v0 = vi1;
 							if (vi1 > model->MaxIndexVertex) model->MaxIndexVertex = vi1;
-							emit_uint8_t(&vlist, vi1);
+							uint16_t t16v = vi1;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, vi1);
 							break;
 						}
 						case 1: {
 							//v1 = vi1;
 							if (vi1 > model->MaxIndexVertex) model->MaxIndexVertex = vi1;
-							emit_uint8_t(&vlist, vi1);
+							uint16_t t16v = vi1;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, vi1);
 							break;
 						}
 						case 2: {
 							if (vi1 > model->MaxIndexVertex) model->MaxIndexVertex = vi1;
 							v2 = vi1;
-							emit_uint8_t(&vlist, vi1);
+							uint16_t t16v = vi1;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, vi1);
 							break;
 						}
 						case 3: {								// We have a quad
 							if (vi1 > model->MaxIndexVertex) model->MaxIndexVertex = vi1;
 							v3 = vi1;
-							emit_uint8_t(&vlist, v0);
-							emit_uint8_t(&vlist, v2);
-							emit_uint8_t(&vlist, v3);
+							uint16_t t16v = v0;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, v0);
+							t16v = v2;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, v2);
+							t16v = v3;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, v3);
 							break;
 						}
 						case 4: {								// We have a quad	
 							if (vi1 > model->MaxIndexVertex) model->MaxIndexVertex = vi1;
-							emit_uint8_t(&vlist, v0);
-							emit_uint8_t(&vlist, v3);
-							emit_uint8_t(&vlist, vi1);
+							uint16_t t16v = v0;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, v0);
+							t16v = v3;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, v3);
+							t16v = vi1;
+							*v16p = t16v;
+							v16p++;
+							//emit_uint16_t(&vlist, vi1);
 							break;
 						}
 						}
@@ -994,6 +1053,17 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 			return false;
 		}
 
+		model->offsX = (model->maxX + model->minX)/2.0f;
+		model->offsY = (model->maxY + model->minY)/2.0f;
+		model->offsZ = (model->maxZ + model->minZ)/2.0f;
+
+		float maxSize = model->maxX - model->minX;
+		if (model->maxY - model->minY > maxSize)
+			maxSize = model->maxY - model->minY;
+		if (model->maxZ - model->minZ > maxSize)
+			maxSize = model->maxZ - model->minZ;
+		model->scale = desiredMaxSize / maxSize;
+
 		printf("first pass results: found\n");
 		printf("   * %i vertices\n", (int)model->num_verts);
 		printf("   * %i texture coords.\n", model->num_texCoords);
@@ -1001,6 +1071,17 @@ static bool ParseWaveFrontMesh (const char* fileName, struct obj_model_t *model,
 		printf("   * %i faces being %i triangles, %i Quads, %i Polygons\n", model->num_faces, model->tri_count, model->quad_count, model->polygon_count);
 		printf("   * has texture coords.: %s\n", model->has_texCoords ? "yes" : "no");
 		printf("   * has normals: %s\n", model->has_normals ? "yes" : "no");
+		printf("   * minX: %i maxX: %i\n", (int)model->minX, (int)model->maxX);
+		printf("   * minY: %i maxY: %i\n", (int)model->minY, (int)model->maxY);
+		printf("   * minZ: %i maxZ: %i\n", (int)model->minZ, (int)model->maxZ);
+		printf("   * scale: %i\n", (int)model->scale);
+	}
+	else {
+		printf("   * minX: %i maxX: %i\n", (int)model->minX, (int)model->maxX);
+		printf("   * minY: %i maxY: %i\n", (int)model->minY, (int)model->maxY);
+		printf("   * minZ: %i maxZ: %i\n", (int)model->minZ, (int)model->maxZ);
+		printf(" Display starts in 5 seconds\n");
+		timer_wait(5000000);
 	}
 	return true;
 }
@@ -1123,12 +1204,26 @@ bool DoneRenderer(struct obj_model_t* model)
 }
 
 
-bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhandler prn_handler) {
+/*--------------------------------------------------------------------------}
+{						  NV_SHADER_STATE STRUCTURE	 						}
+{--------------------------------------------------------------------------*/
+typedef struct __attribute__((__packed__, aligned(1))) tagNVShaderState
+{
+	uint8_t   flags;												// shader flags 
+	uint8_t	  stride;												// stride for VBO
+	uint8_t	  numUniforms;											// number of uniforms
+	uint8_t   numVaryings;											// number of varyings
+	uint32_t  fragment_shader;										// Fragment Shader Code Address
+	uint32_t  uniform_data;											// Frag Shader Uniforms Addr
+	uint32_t  vertex_data;											// Shaded Vertex Data Address
+} NV_SHADER_STATE;
 
+bool CreateVertexData (const char* fileName, struct obj_model_t* model, float desiredMaxSize, printhandler prn_handler) {
+	if (prn_handler) prn_handler("Loading %s\n", fileName);
 	if (model) {
 		model->viewMatrix = MultiplyMatrix3D(XRotationMatrix3D(0.78539815), YRotationMatrix3D(0.78539815));
 
-		ParseWaveFrontMesh(fileName, model, false);
+		if (!ParseWaveFrontMesh(fileName, model, false, desiredMaxSize)) return false;
 		
 		model->IndexVertexCt = model->tri_count*3;
 		model->IndexVertexCt += model->quad_count * 6;
@@ -1136,20 +1231,21 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 
 		uint32_t memSize = (model->num_verts * sizeof(struct EmitVertex));
 		memSize += (model->num_verts * sizeof(struct OriginalVertex));
-		memSize += model->IndexVertexCt;
+		memSize += (model->IndexVertexCt * sizeof(uint16_t));
 
 		model->modelHandle = V3D_mem_alloc (memSize, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
 		if (model->modelHandle) {
 			model->modelDataVC4 = V3D_mem_lock(model->modelHandle);			// Lock the memory
 			model->modelDataARM = GPUaddrToARMaddr(model->modelDataVC4);	// Convert locked memory to ARM address
 			
-			model->vertexVC4 = (model->modelDataVC4 + model->IndexVertexCt);  // Create pointer
-			model->vertexARM = (struct EmitVertex*)(uintptr_t)(model->modelDataARM + model->IndexVertexCt); // Create pointer
+			model->vertexVC4 = (model->modelDataVC4 + (model->IndexVertexCt * sizeof(uint16_t)));  // Create pointer
+			model->vertexARM = (struct EmitVertex*)(uintptr_t)(model->modelDataARM + (model->IndexVertexCt * sizeof(uint16_t))); // Create pointer
 
 			model->originalVertexARM = (struct OriginalVertex*)(uintptr_t)(model->modelDataARM + 
-				model->IndexVertexCt + (model->num_verts * sizeof(struct  EmitVertex)));
+				(model->IndexVertexCt * sizeof(uint16_t)) + (model->num_verts * sizeof(struct  EmitVertex)));
 
-			ParseWaveFrontMesh(fileName, model, true);
+			if (!ParseWaveFrontMesh(fileName, model, true, desiredMaxSize)) return false;
+
 
 			uint8_t *p = (uint8_t*)(uintptr_t)model->rendererDataARM;
 
@@ -1167,20 +1263,20 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 
 			emit_uint8_t(&p, GL_TILE_BINNING_CONFIG);						// tile binning config control 
 			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_TILE_DATA);	// tile allocation memory address
-			emit_uint32_t(&p, 0x4000);										// tile allocation memory size
+			emit_uint32_t(&p, 0x10000);										// tile allocation memory size
 			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_TILE_STATE);	// Tile state data address
 			emit_uint8_t(&p, model->binWth);								// renderWidth/64
 			emit_uint8_t(&p, model->binHt);									// renderHt/64
 			emit_uint8_t(&p, 0x04);											// config
 
-																			// Start tile binning.
+			// Start tile binning.
 			emit_uint8_t(&p, GL_START_TILE_BINNING);						// Start binning command
 
-																			// Primitive type
+			// Primitive type
 			emit_uint8_t(&p, GL_PRIMITIVE_LIST_FORMAT);
-			emit_uint8_t(&p, 0x32);											// 16 bit triangle
+			emit_uint8_t(&p, 0x12);		/* was 0x32 ???? */					// 16 bit triangle
 
-																			// Clip Window
+			// Clip Window
 			emit_uint8_t(&p, GL_CLIP_WINDOW);								// Clip window 
 			emit_uint16_t(&p, 0);											// 0
 			emit_uint16_t(&p, 0);											// 0
@@ -1191,21 +1287,23 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 			emit_uint8_t(&p, GL_CONFIG_STATE);
 			emit_uint8_t(&p, 0x03);											// enable both foward and back facing polygons
 			emit_uint8_t(&p, 0x00);											// depth testing disabled
-			emit_uint8_t(&p, 0x02);											// enable early depth write
+			emit_uint8_t(&p, 0x0 /*0x02*/);											// enable early depth write
 
 			// Viewport offset
 			emit_uint8_t(&p, GL_VIEWPORT_OFFSET);							// Viewport offset
 			emit_uint16_t(&p, 0);											// 0
 			emit_uint16_t(&p, 0);											// 0
 
-			// The triangle
+			// The model
 			// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
 			emit_uint8_t(&p, GL_NV_SHADER_STATE);
 			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_SHADER_OFFSET);	// Shader Record
 
 			// primitive index list
+			#define INDEX_TYPE_8  0x00   //  Indexed_Primitive_List: Index Type = 8 - Bit
+			#define INDEX_TYPE_16 0x10   //  Indexed_Primitive_List: Index Type = 16 - Bit
 			emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
-			emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
+			emit_uint8_t(&p, PRIM_TRIANGLE | INDEX_TYPE_16);				// 16bit index, triangles
 			emit_uint32_t(&p, model->IndexVertexCt);						// Length
 			emit_uint32_t(&p, model->modelDataVC4);							// address of vertex data
 			emit_uint32_t(&p, model->MaxIndexVertex + 2);						// Maximum index
@@ -1221,14 +1319,14 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 			model->binningConfigLength = (uintptr_t)p - (uintptr_t)model->rendererDataARM;
 			
 			// Okay now we need Shader Record to buffer
-			p = (uint8_t*)(uintptr_t)model->rendererDataARM + BUFFER_SHADER_OFFSET;
-			emit_uint8_t(&p, 0x01);											// flags
-			emit_uint8_t(&p, sizeof(struct EmitVertex));					// stride for VBO
-			emit_uint8_t(&p, 0xcc);											// num uniforms (not used)
-			emit_uint8_t(&p, 3);											// num varyings
-			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_FRAGMENT_SHADER);	 // Fragment shader code
-			emit_uint32_t(&p, model->rendererDataVC4 + BUFFER_FRAGMENT_UNIFORM); // Fragment shader uniforms
-			emit_uint32_t(&p, model->vertexVC4);							// Vertex with VC4 address
+			NV_SHADER_STATE* sp = (NV_SHADER_STATE*)(uintptr_t)(model->rendererDataARM + BUFFER_SHADER_OFFSET);
+			sp->flags =  0x01;										// flags
+			sp->stride = sizeof(struct EmitVertex);					// stride for VBO
+			sp->numUniforms = 0x0; // 0xcc;									// num uniforms (not used)
+			sp->numVaryings = 3;									// num varyings
+			sp->fragment_shader = (uintptr_t)(model->rendererDataVC4 + BUFFER_FRAGMENT_SHADER); // Fragment shader code
+			sp->uniform_data = (uintptr_t)(model->rendererDataVC4 + BUFFER_FRAGMENT_UNIFORM); // Fragment shader uniforms
+			sp->vertex_data = model->vertexVC4;						// Vertex with VC4 address
 
 			return true;
 		}
@@ -1236,4 +1334,5 @@ bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhan
 	}
 	return false;
 }
+
 

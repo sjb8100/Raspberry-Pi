@@ -30,14 +30,17 @@ int main (void) {
 	sdInitCard(printf, printf, true);
 
 	SetupRenderer(&model, GetConsole_Width(), GetConsole_Height(), ARMaddrToGPUaddr((void*)(uintptr_t)GetConsole_FrameBuffer()));
-	CreateVertexData("\\spacecraft\\runner\\spacecraft.obj", &model, &printf);
+    //if (!CreateVertexData("\\spacecraft\\runner\\spacecraft.obj", &model, 600.0f, &printf)){
+	if (!CreateVertexData("\\AirCraft\\pitts\\pitts.obj", &model, 400.0f, &printf)) {
+		printf("Model load failed .. check why\n");
+		while (1) {};
+	}
 	DoRotate(0.0f, halfScrWth, halfScrHt, &model);						// Preset rotation matrix to zero
 
 	uint64_t tick = timer_getTickCount();
 	int frameCount = 0;
 	while (1){
-		if (tick_difference(tick, timer_getTickCount()) > 1000) {
-			// setup for 1000 fps which pi3 was doing
+		if (tick_difference(tick, timer_getTickCount()) > 10000) {
 			DoRotate(0.01f, halfScrWth, halfScrHt, &model);
 			frameCount = 0;
 			tick = timer_getTickCount();

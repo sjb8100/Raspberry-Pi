@@ -102,6 +102,17 @@ struct obj_model_t
 	int tri_count;					   /* triangle face count */
 	int quad_count;					   /* quad face count */
 	int polygon_count;				   /* polygon face count */
+
+	float minX;
+	float maxX;
+	float minY;
+	float maxY;
+	float minZ;
+	float maxZ;
+	float offsX;
+	float offsY;
+	float offsZ;
+	float scale;
 };
 
 bool InitV3D (void);
@@ -121,7 +132,7 @@ void RenderModel (struct obj_model_t* model, printhandler prn_handler);
 
 bool SetupRenderer(struct obj_model_t* model, uint32_t renderWth, uint32_t renderHt, uint32_t renderBufferAddr);
 bool DoneRenderer (struct obj_model_t* model);
-bool CreateVertexData (const char* fileName, struct obj_model_t* model, printhandler prn_handler);
+bool CreateVertexData (const char* fileName, struct obj_model_t* model, float desiredMaxSize, printhandler prn_handler);
 
 
 #ifdef __cplusplus								// If we are including to a C++ file
