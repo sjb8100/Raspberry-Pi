@@ -32,7 +32,7 @@ extern "C"
 #endif
 
 #include <stdint.h>
-#include "printf.h"					// Needed for printf
+#include "emb-stdio.h"					// Needed for printf
 
 //#define LOG(...)
 #define LOG(...) printf(__VA_ARGS__)
@@ -82,46 +82,54 @@ static inline uint32_t SizeToNumber(UsbPacketSize size) {
 	else return 64;
 }
 
-#define MaximumDevices 32											// Max number of devices with a USB node we will allow 
 
+/*-[MaximumDevices]---------------------------------------------------------}
+. The maximum number of USB node devices our implementation supports, by 
+. implication, this is	the maximum total number of all devices we support.
+. To avoid having the use of malloc a static driver table is used and as the 
+. memory use is thus fixed, this allows the options to control that amount.
+. Increasing this number will waste space, but will not have adverse effect 
+. up to 255. Decreasing this number will save a little space in the static
+. device table, but risks removing support for an otherwise valid device.
+.--------------------------------------------------------------------------*/
+#define MaximumDevices 32
 
-
-
-
-	/**
-	\brief The maximum number of children a device could have, by implication, this is
-	the maximum number of ports a hub supports.
-
-	This is theoretically 255, as 8 bits are used to transfer the port count in
-	a hub descriptor. Practically, no hub has more than 10, so we instead allow
-	that many. Increasing this number will waste space, but will not have
-	adverse consequences up to 255. Decreasing this number will save a little
-	space in the HubDevice structure, at the risk of removing support for an
-	otherwise valid hub.
-	*/
+/*-[MaxChildrenPerDevice]---------------------------------------------------}
+. The maximum number of children a device could have, by implication, this is
+. the maximum number of ports a hub supports. This is theoretically 255, as 
+. 8 bits are used to transfer the port count in	a hub descriptor. Practically, 
+. no hub has more than 10, so we instead allow that many. Increasing this 
+. number will waste space, but will not have adverse consequences up to 255. 
+. Decreasing this number will save a little	space in the HubDevice structure, 
+. at the risk of removing support for an otherwise valid hub.
+.--------------------------------------------------------------------------*/
 #define MaxChildrenPerDevice 10
-	/**
-	\brief The maximum number of interfaces a device configuration could have.
 
-	This is theoretically 255 as one byte is used to transfer the interface
-	count in a configuration descriptor. In practice this is unlikely, so we
-	allow an arbitrary 8. Increasing this number wastes (a lot) of space in
-	every device structure, but should not have other consequences up to 255.
-	Decreasing this number reduces the overheads of the UsbDevice structure, at
-	the cost of possibly rejecting support for an otherwise supportable device.
-	*/
+/*-[MaxInterfacesPerDevice]-------------------------------------------------}
+. The maximum number of interfaces a device configuration could have. This is 
+. theoretically 255 as one byte is used to transfer the interface count in a 
+. configuration descriptor. In practice we allow a modest value of 8. Again
+. the value can be increased using more memory or decreased with risk of a 
+. valid device not being able to present an interface.
+.--------------------------------------------------------------------------*/
 #define MaxInterfacesPerDevice 8
-	/**
-	\brief The maximum number of endpoints a device could have (per interface).
 
-	This is theoretically 16, as four bits are used to transfer the endpoint
-	number in certain device requests. This is possible in practice, so we
-	allow that many. Decreasing this number reduces the space in each device
-	structure considerably, while possible removing support for otherwise valid
-	devices. This number should not be greater than 16.
-	*/
+/*-[MaxEndpointsPerDevice]-------------------------------------------------}
+. The maximum number of endpoints a device could have (per interface). This 
+. is theoretically 16, as four bits are used to transfer the endpoint number 
+. in certain device requests. This is possible in practice, so we allow that 
+. many. Decreasing this number reduces the space in each device	structure 
+. considerably, while possibly removing support for otherwise valid	devices. 
+. This number should never be greater than 16.
+.--------------------------------------------------------------------------*/
 #define MaxEndpointsPerDevice 16
 
+/*-[MaxHIDPerDevice]--------------------------------------------------------}
+. The maximum number of HID drivers each device. This is  theoretically 255 
+. as one byte is used in the configuration descriptor. In practice we allow 
+. a modest value of 4. Again the value can be increased using more memory or 
+. decreased with risk of a valid HID device not being able to represented.
+.--------------------------------------------------------------------------*/
 #define MaxHIDPerDevice 4
 
 	
@@ -132,19 +140,21 @@ static inline uint32_t SizeToNumber(UsbPacketSize size) {
 /*--------------------------------------------------------------------------}
 {		Many parts of USB2.0 standard use this bit field for direction 	    }
 {--------------------------------------------------------------------------*/
-typedef enum {
+typedef enum 
+{
 	USB_DIRECTION_OUT = 0,											// Host to device
 	USB_DIRECTION_IN = 1,											// Device to Host
-} UsbDirection;
+} USB_DIRECTION;
 
 /*--------------------------------------------------------------------------}
 {	 Many parts of USB2.0 standard use this 2 bit field for speed control   }
 {--------------------------------------------------------------------------*/
-typedef enum {
+typedef enum 
+{
 	USB_SPEED_HIGH = 0,												// USB high speed
 	USB_SPEED_FULL = 1,												// USB full speed
 	USB_SPEED_LOW = 2,												// USB low speed
-} UsbSpeed;
+} USB_SPEED;
 extern const char* SpeedString[3];	// Speed strings High, Low, Full provided as constants 
 
 /*--------------------------------------------------------------------------}
@@ -155,45 +165,46 @@ typedef enum {
 	USB_ISOCHRONOUS = 1,											// USB isochronous transfer
 	USB_BULK = 2,													// USB bulk transfer
 	USB_INTERRUPT = 3,												// USB interrupt transfer
-} UsbTransfer;
+} USB_TRANSFER;
 
 /*--------------------------------------------------------------------------}
 {		 Enumeration Status defined in 9.1 of USB 2.0 standard			    }
 {--------------------------------------------------------------------------*/
-enum UsbDeviceStatus {
+typedef enum {
 	USB_STATUS_ATTACHED = 0,										// USB status is attached
 	USB_STATUS_POWERED = 1,											// USB status is powered
 	USB_STATUS_DEFAULT = 2,											// USB status is default
 	USB_STATUS_ADDRESSED = 3,										// USB status is addressed
 	USB_STATUS_CONFIGURED = 4,										// USB status is configured
-};
+} USB_DEVICE_STATUS;
 
 /*--------------------------------------------------------------------------}
 {		Hub Port Features that can be changed in the USB 2.0 standard	    }
 {--------------------------------------------------------------------------*/
-enum HubPortFeature {
-	FeatureConnection = 0,
-	FeatureEnable = 1,
-	FeatureSuspend = 2,
-	FeatureOverCurrent = 3,
-	FeatureReset = 4,
-	FeaturePower = 8,
-	FeatureLowSpeed = 9,
-	FeatureHighSpeed = 10,
-	FeatureConnectionChange = 16,
-	FeatureEnableChange = 17,
-	FeatureSuspendChange = 18,
-	FeatureOverCurrentChange = 19,
-	FeatureResetChange = 20,
-};
+typedef enum {
+	PORT_FEATURE_CONNECTION = 0,
+	PORT_FEATURE_ENABLE = 1,
+	PORT_FEATURE_SUSPEND = 2,
+	PORT_FEATURE_OVERCURRENT = 3,
+	PORT_FEATURE_RESET = 4,
+	PORT_FEATURE_POWER = 8,
+	PORT_FEATURE_LOWSPEED = 9,
+	PORT_FEATURE_HIGHSPEED = 10,
+	PORT_FEATURE_CONNECTION_CHANGED = 16,
+	PORT_FEATURE_ENABLE_CHANGE = 17,
+	PORT_FEATURE_SUSPEND_CHANGE = 18,
+	PORT_FEATURE_OVERCURRENT_CHANGE = 19,
+	PORT_FEATURE_RESET_CHANGE = 20,
+} HUB_PORT_FEATURE;
 
 /*--------------------------------------------------------------------------}
 {		   Hub Gateway Node Features defined in the USB 2.0 standard		}
 {--------------------------------------------------------------------------*/
-enum HubFeature {
-	FeatureHubPower = 0,
-	FeatureHubOverCurrent = 1,
-};
+typedef enum 
+{
+	HUB_FEATURE_POWER = 0,
+	HUB_FEATURE_OVERCURRENT = 1,
+} HUB_FEATURE;
 
 /*--------------------------------------------------------------------------}
 {	  Device Request structure (8 bytes) as per the USB 2.0 standard		}
@@ -318,8 +329,8 @@ struct __attribute__((__packed__)) UsbConfigurationDescriptor {
 	uint8_t StringIndex;											// +0x6 Index of String Descriptor describing the configuration
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned _reserved0_4 : 5;						// @0
-		bool RemoteWakeup : 1;							// @5
-		bool SelfPowered : 1;							// @6
+		unsigned RemoteWakeup : 1;						// @5
+		unsigned SelfPowered : 1;						// @6
 		unsigned _reserved7 : 1;						// @7
 	} Attributes;													// +0x7 Configuration characteristics
 	uint8_t MaximumPower;											// +0x8 Maximum power consumed by this configuration
@@ -336,8 +347,8 @@ struct __attribute__((__packed__)) UsbOtherSpeedConfigurationDescriptor {
 	uint8_t StringIndex;											// +0x6 Index of String Descriptor describing the configuration
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned _reserved0_4 : 5;						// @0
-		bool RemoteWakeup : 1;							// @5
-		bool SelfPowered : 1;							// @6
+		unsigned RemoteWakeup : 1;						// @5
+		unsigned SelfPowered : 1;						// @6
 		enum {
 			Valid = 1,
 		} _reserved7 : 1;								// @7
@@ -388,10 +399,10 @@ struct __attribute__((__packed__)) UsbEndpointDescriptor {
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned Number : 4;							// @0
 		unsigned _reserved4_6 : 3;						// @4
-		UsbDirection Direction : 1;						// @7
+		USB_DIRECTION Direction : 1;					// @7
 	} EndpointAddress;												// +0x2  Endpoint address. Bit 7 indicates direction (0=OUT, 1=IN).
 	struct __attribute__((__packed__, aligned(1))) {
-		UsbTransfer Type : 2;							// @0
+		USB_TRANSFER Type : 2;							// @0
 		enum {
 			NoSynchronisation = 0,
 			Asynchronous = 1,
@@ -435,21 +446,21 @@ struct __attribute__((__packed__)) HubDescriptor {
 		enum HubPortControl {
 			Global = 0,
 			Individual = 1,
-		} PowerSwitchingMode : 2;						// @0
-		bool Compound : 1;								// @2
-		enum HubPortControl OverCurrentProtection : 2;	// @3
-		unsigned ThinkTime : 2;							// @5
-		bool Indicators : 1;							// @7
-		unsigned _reserved8_15 : 8;						// @8
+		} PowerSwitchingMode : 2;						// @0-1
+		unsigned Compound : 1;							// @2
+		enum HubPortControl OverCurrentProtection : 2;	// @3-4
+		unsigned ThinkTime : 2;							// @5-6
+		unsigned Indicators : 1;						// @7
+		unsigned _reserved8_15 : 8;						// @8-15
 	} Attributes;													// +0x3
 	uint8_t PowerGoodDelay;											// +0x5
 	uint8_t MaximumHubPower;										// +0x6
 	struct __attribute__((__packed__, aligned(1))) {
-		bool Reserved0 : 1;								// @0
-		bool Port1 : 1;									// @1
-		bool Port2 : 1;									// @2
-		bool Port3 : 1;									// @3
-		bool Port4 : 1;									// @4
+		unsigned Reserved0 : 1;							// @0
+		unsigned Port1 : 1;								// @1
+		unsigned Port2 : 1;								// @2
+		unsigned Port3 : 1;								// @3
+		unsigned Port4 : 1;								// @4
 		unsigned Reserved1 : 3;							// @5-8
 	} DeviceRemovable;												// +0x7
 	uint8_t PortPowerCtrlMask;										// +0x8
@@ -458,55 +469,59 @@ struct __attribute__((__packed__)) HubDescriptor {
 /*--------------------------------------------------------------------------}
 { 	     USB HUB status (16 bits) as per 11.24.2.6 of USB2.0 manual			}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) HubStatus {
-	bool LocalPower : 1;								// @0
-	bool OverCurrent : 1;								// @1
-	unsigned _reserved2_15 : 14;						// @2
-};
+typedef union
+{
+	struct __attribute__((__packed__)) 
+	{
+		unsigned LocalPower : 1;									// @0
+		unsigned OverCurrent : 1;									// @1
+		unsigned _reserved2_15 : 14;								// @2
+	};
+	uint16_t RawStatus;												// The same 16 bit status as raw bits
+} HUB_STATUS;
 
 /*--------------------------------------------------------------------------}
 { 	  USB HUB status change (16 Bits) as per 11.24.2.6 of USB2.0 manual		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) HubStatusChange {
-	bool LocalPowerChanged : 1;							// @0
-	bool OverCurrentChanged : 1;						// @1
-	unsigned _reserved2_15 : 14;						// @2
-};
+typedef union
+{
+	struct __attribute__((__packed__))
+	{
+		unsigned LocalPowerChanged : 1;								// @0
+		unsigned OverCurrentChanged : 1;							// @1
+		unsigned _reserved2_15 : 14;								// @2
+	};
+	uint16_t RawChange;												// The same 16  bit change status as raw bits
+} HUB_STATUS_CHANGE;
 
 /*--------------------------------------------------------------------------}
 { 	    USB HUB full status (32 Bits) as per 11.24.2.6 of USB2.0 manual		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) HubFullStatus {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			union {
-				struct HubStatus Status;							// 16 bit hub status as hub status structure
-				uint16_t RawStatus;									// The same 16 bit status as raw bits
-			};
-			union {
-				struct HubStatusChange Change;						// 16 bit change status as a hub port chnage structure
-				uint16_t RawChange;									// The same 16  bit change status as raw bits
-			};
-		};
-		uint32_t Raw32;												// Both status joined as one raw 32 bits
+typedef	union 
+{
+	struct 
+	{
+		HUB_STATUS Status;											// 16 bit hub status as hub status structure
+		HUB_STATUS_CHANGE Change;									// 16 bit change status as a hub port chnage structure
 	};
-};
+	uint32_t Raw32;													// Both status joined as one raw 32 bits
+} HUB_FULL_STATUS;
 
 /*--------------------------------------------------------------------------}
 { 	USB HUB status structure (16 bits) as per 11.24.2.7.1 of USB2.0 manual  }
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubPortStatus {
-	bool Connected : 1;									// @0
-	bool Enabled : 1;									// @1
-	bool Suspended : 1;									// @2
-	bool OverCurrent : 1;								// @3
-	bool Reset : 1;										// @4
+	unsigned Connected : 1;								// @0
+	unsigned Enabled : 1;								// @1
+	unsigned Suspended : 1;								// @2
+	unsigned OverCurrent : 1;							// @3
+	unsigned Reset : 1;									// @4
 	unsigned _reserved5_7 : 3;							// @5
-	bool Power : 1;										// @8
-	bool LowSpeedAttatched : 1;							// @9
-	bool HighSpeedAttatched : 1;						// @10
-	bool TestMode : 1;									// @11
-	bool IndicatorControl : 1;							// @12
+	unsigned Power : 1;									// @8
+	unsigned LowSpeedAttatched : 1;						// @9
+	unsigned HighSpeedAttatched : 1;					// @10
+	unsigned TestMode : 1;								// @11
+	unsigned IndicatorControl : 1;						// @12
 	unsigned _reserved13_15 : 3;						// @13
 } ;
 
@@ -514,11 +529,11 @@ struct __attribute__((__packed__)) HubPortStatus {
 { USB HUB status change structure (16 Bits) as 11.24.2.7.2 of USB2.0 manual }
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubPortStatusChange {
-	bool ConnectedChanged : 1;							// @0
-	bool EnabledChanged : 1;							// @1
-	bool SuspendedChanged : 1;							// @2
-	bool OverCurrentChanged : 1;						// @3
-	bool ResetChanged : 1;								// @4
+	unsigned ConnectedChanged : 1;						// @0
+	unsigned EnabledChanged : 1;						// @1
+	unsigned SuspendedChanged : 1;						// @2
+	unsigned OverCurrentChanged : 1;					// @3
+	unsigned ResetChanged : 1;							// @4
 	unsigned _reserved5_15 : 11;						// @5
 };
 
@@ -559,15 +574,9 @@ enum HidReportType {
 /*--------------------------------------------------------------------------}
 { 		 USB HID 1.11 descriptor structure as per manual in 6.2.1		    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) HidDescriptor {
+struct __attribute__((__packed__, aligned(1))) HidDescriptor {
 	struct UsbDescriptorHeader Header;								// +0x0 Length of this descriptor, +0x1 DEVICE descriptor type (enum DescriptorType)
-	union {															// Place a union over BCD version .. alignment issues on ARM7/8
-		struct __attribute__((__packed__, aligned(1))) {
-			uint8_t HidVersionLo;									// Lo of BCD version
-			uint8_t HidVersionHi;									// Hi of BCD version
-		};
-		uint16_t HidVersion;										// (bcd version) +0x2 
-	};
+	uint16_t HidVersion;											// (bcd version) +0x2 
 	enum HidCountry {
 		CountryNotSupported = 0,
 		Arabic = 1,
@@ -661,22 +670,22 @@ struct __attribute__((__packed__)) HidDescriptor {
 { 	USB pipe our own special structure encompassing a pipe in the USB spec	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbPipe {
-	UsbPacketSize MaxSize : 2;										// @0	Maximum packet size
-	UsbSpeed Speed : 2;												// @2	Speed of device
-	unsigned EndPoint : 4;											// @4   Endpoint address
-	unsigned Number : 8;											// @8	Unique device number sometimes called address or id
-	unsigned lowSpeedNodePoint : 8;									// @16  In low speed transfers it is closest parent high speed hub
-	unsigned lowSpeedNodePort: 8;									// @24  In low speed transfers it is port device is on closest parent high speed hub
+	UsbPacketSize MaxSize : 2;										// @0-1		Maximum packet size
+	USB_SPEED Speed : 2;											// @2-3		Speed of device
+	unsigned EndPoint : 4;											// @4-7		Endpoint address
+	unsigned Number : 8;											// @8-15	Unique device number sometimes called address or id
+	unsigned lowSpeedNodePoint : 8;									// @16-23	In low speed transfers it is closest parent high speed hub
+	unsigned lowSpeedNodePort: 8;									// @24-31	In low speed transfers it is port device is on closest parent high speed hub
 };
 
 /*--------------------------------------------------------------------------}
 { 			USB pipe control used mainly by internal routines				}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbPipeControl {
-	unsigned Channel : 8;											// @0  Channel to use
-	UsbTransfer	Type : 2;											// @8  Packet type
-	UsbDirection Direction : 1;										// @10 Direction
-	unsigned reserved : 21;											// @11 Reserved 21 bits
+	unsigned Channel : 8;											// @0-7		Channel to use
+	USB_TRANSFER Type : 2;											// @8-9		Packet type
+	USB_DIRECTION Direction : 1;									// @10		Direction
+	unsigned reserved : 21;											// @11-31	Reserved 21 bits
 };
 
 /*--------------------------------------------------------------------------}
@@ -694,7 +703,7 @@ struct __attribute__((__packed__)) UsbParent {
 struct __attribute__((__packed__)) UsbConfigControl {
 	unsigned ConfigIndex : 8;										// @0 Current set config index
 	unsigned ConfigStringIndex : 8;									// @8 Current config string index
-	enum UsbDeviceStatus Status : 8;								// @16 Device enumeration status .. USB_ATTACHED, USB_POWERED, USB_ADDRESSED, etc
+	USB_DEVICE_STATUS Status : 8;									// @16 Device enumeration status .. USB_ATTACHED, USB_POWERED, USB_ADDRESSED, etc
 	unsigned reserved : 8;											// @24-31
 };
 
@@ -723,19 +732,19 @@ enum PayLoadType {
 {  Our structure that hold details about any USB device we have detected    }
 {--------------------------------------------------------------------------*/
 struct UsbDevice {
-	struct UsbParent ParentHub;						// Details of our parent hub
-	struct UsbPipe Pipe0;							// Usb device control pipe AKA pipe0	
-	struct UsbConfigControl Config;					// Usb config control
-	uint8_t MaxInterface ALIGN4;					// Maxiumum interface in array (varies with config and usually a lot less than the max array size) 
-	struct UsbInterfaceDescriptor Interfaces[MaxInterfacesPerDevice] ALIGN4; // These are available interfaces on this device
-	struct UsbEndpointDescriptor Endpoints[MaxInterfacesPerDevice][MaxEndpointsPerDevice] ALIGN4; // These are available endpoints on this device
-	struct UsbDeviceDescriptor Descriptor ALIGN4;	// Device descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
+	struct UsbParent ParentHub;										// Details of our parent hub
+	struct UsbPipe Pipe0;											// Usb device control pipe AKA pipe0	
+	struct UsbConfigControl Config;									// Usb config control
+	uint8_t MaxInterface;											// Maxiumum interface in array (varies with config and usually a lot less than the max array size) 
+	struct UsbInterfaceDescriptor Interfaces[MaxInterfacesPerDevice]; // These are available interfaces on this device
+	struct UsbEndpointDescriptor Endpoints[MaxInterfacesPerDevice][MaxEndpointsPerDevice]; // These are available endpoints on this device
+	struct UsbDeviceDescriptor Descriptor;							// Device descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
 
-	enum PayLoadType PayLoadId;						// Payload type being carried
-	union {											// It can only be any of the different payloads
-		struct HubDevice* HubPayload;				// If this is a USB gateway node of a hub this pointer will be set to the hub data which is about the ports
-		struct HidDevice* HidPayload;				// If this node has a HID function this pointer will be to the HID payload
-		struct MassStorageDevice* MassPayload;		// If this node has a MASS STORAGE function this pointer will be to the Mass Storage payload
+	enum PayLoadType PayLoadId;										// Payload type being carried
+	union {															// It can only be any of the different payloads
+		struct HubDevice* HubPayload;								// If this is a USB gateway node of a hub this pointer will be set to the hub data which is about the ports
+		struct HidDevice* HidPayload;								// If this node has a HID function this pointer will be to the HID payload
+		struct MassStorageDevice* MassPayload;						// If this node has a MASS STORAGE function this pointer will be to the Mass Storage payload
 	};
 };
 
@@ -745,7 +754,7 @@ struct UsbDevice {
 struct HubDevice {
 	uint32_t MaxChildren;
 	struct UsbDevice *Children[MaxChildrenPerDevice];
-	struct HubDescriptor Descriptor ALIGN4;				// Hub descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
+	struct HubDescriptor Descriptor;					// Hub descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
 };
 
 /*--------------------------------------------------------------------------}
@@ -754,7 +763,7 @@ struct HubDevice {
 struct HidDevice {
 	struct HidDescriptor Descriptor[MaxHIDPerDevice];	// HID descriptor of this device
 	uint8_t HIDInterface[MaxHIDPerDevice];				// The interface the HID descriptor is on
-	uint8_t MaxHID ALIGN4;								// Maxiumum HID in array (usually less than the max array size) .. align it for ARM7/8
+	uint8_t MaxHID;										// Maxiumum HID in array (usually less than the max array size) .. align it for ARM7/8
 };
 
 /*--------------------------------------------------------------------------}

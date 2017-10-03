@@ -131,6 +131,7 @@ SECTIONS
 .Heap :
     {
      . = ALIGN(4);
+     __heap_start__ = .;
      _end = .; PROVIDE (end = .); /* Any memory from here is free to use so this is end of code and start of heap */
     } > RAM
 

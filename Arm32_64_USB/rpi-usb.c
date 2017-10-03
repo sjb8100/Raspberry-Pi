@@ -8,11 +8,12 @@
   and control devices on the BUS.
 
 *******************************************************************************/
-#include <stdlib.h>				// Needed for NULL
-#include <stdint.h>				// Needed for uint8_t, uint32_t
-#include <string.h>				// Needed for memset
-#include <wchar.h>				// Needed for UTF for unicode descriptor support
-#include "rpi-basichardware.h"	// Provides timing routines and mailbox routines to power up/down the USB.  
+#include <stdbool.h>			// C standard needed for bool
+#include <stdlib.h>				// C standard needed for NULL
+#include <stdint.h>				// C standard needed for uint8_t, uint32_t, uint64_t etc
+#include <string.h>				// C standard needed for memset
+#include <wchar.h>				// C standard needed for UTF for unicode descriptor support
+#include "rpi-SmartStart.h"		// Provides timing routines and mailbox routines to power up/down the USB.  
 #include "rpi-usb.h"			// This units header
 
 #define ReceiveFifoSize 20480 /* 16 to 32768 */
@@ -55,366 +56,393 @@ enum CoreFifoFlush {
 /*--------------------------------------------------------------------------}
 {	      INTERRUPT BITS ON THE USB CHANNELS ON THE DESIGNWARE 2.0		    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) ChannelInterrupts {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool TransferComplete : 1;						// @0
-			volatile bool Halt : 1;									// @1
-			volatile bool AhbError : 1;								// @2
-			volatile bool Stall : 1;								// @3
-			volatile bool NegativeAcknowledgement : 1;				// @4
-			volatile bool Acknowledgement : 1;						// @5
-			volatile bool NotYet : 1;								// @6
-			volatile bool TransactionError : 1;						// @7
-			volatile bool BabbleError : 1;							// @8
-			volatile bool FrameOverrun : 1;							// @9
-			volatile bool DataToggleError : 1;						// @10
-			volatile bool BufferNotAvailable : 1;					// @11
-			volatile bool ExcessiveTransmission : 1;				// @12
-			volatile bool FrameListRollover : 1;					// @13
-			unsigned _reserved14_31 : 18;							// @14-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef union 
+{
+	struct 
+	{
+		unsigned TransferComplete : 1;								// @0
+		unsigned Halt : 1;											// @1
+		unsigned AhbError : 1;										// @2
+		unsigned Stall : 1;											// @3
+		unsigned NegativeAcknowledgement : 1;						// @4
+		unsigned Acknowledgement : 1;								// @5
+		unsigned NotYet : 1;										// @6
+		unsigned TransactionError : 1;								// @7
+		unsigned BabbleError : 1;									// @8
+		unsigned FrameOverrun : 1;									// @9
+		unsigned DataToggleError : 1;								// @10
+		unsigned BufferNotAvailable : 1;							// @11
+		unsigned ExcessiveTransmission : 1;							// @12
+		unsigned FrameListRollover : 1;								// @13
+		unsigned _reserved14_31 : 18;								// @14-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CHANNEL_INTERRUPTS;
 
 /*--------------------------------------------------------------------------}
 {	   FIFOSIZE STRUCTURE .. THERE ARE A FEW OF THESE ON DESIGNWARE 2.0     }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) FifoSize {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned StartAddress : 16;					// @0
-			volatile unsigned Depth : 16;							// @16
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned StartAddress : 16;									// @0
+		unsigned Depth : 16;										// @16
 	};
-};
+	volatile uint32_t Raw32;										// Union to access all 32 bits as a uint32_t
+} FIFO_SIZE;
 
 /*--------------------------------------------------------------------------}
 {					   USB CORE OTG CONTROL STRUCTURE					    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreOtgControl {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool sesreqscs : 1;							// @0
-			volatile bool sesreq : 1;								// @1
-			volatile bool vbvalidoven : 1;							// @2
-			volatile bool vbvalidovval : 1;							// @3
-			volatile bool avalidoven : 1;							// @4
-			volatile bool avalidovval : 1;							// @5
-			volatile bool bvalidoven : 1;							// @6
-			volatile bool bvalidovval : 1;							// @7
-			volatile bool hstnegscs : 1;							// @8
-			volatile bool hnpreq : 1;								// @9
-			volatile bool HostSetHnpEnable : 1;						// @10
-			volatile bool devhnpen : 1;								// @11
-			volatile unsigned _reserved12_15 : 4;					// @12-15
-			volatile bool conidsts : 1;								// @16
-			volatile unsigned dbnctime : 1;							// @17
-			volatile bool ASessionValid : 1;						// @18
-			volatile bool BSessionValid : 1;						// @19
-			volatile unsigned OtgVersion : 1;						// @20
-			volatile unsigned _reserved21 : 1;						// @21
-			volatile unsigned multvalidbc : 5;						// @22-26
-			volatile bool chirpen : 1;								// @27
-			volatile unsigned _reserved28_31 : 4;					// @28-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union
+{
+	struct 
+	{
+		unsigned sesreqscs : 1;										// @0
+		unsigned sesreq : 1;										// @1
+		unsigned vbvalidoven : 1;									// @2
+		unsigned vbvalidovval : 1;									// @3
+		unsigned avalidoven : 1;									// @4
+		unsigned avalidovval : 1;									// @5
+		unsigned bvalidoven : 1;									// @6
+		unsigned bvalidovval : 1;									// @7
+		unsigned hstnegscs : 1;										// @8
+		unsigned hnpreq : 1;										// @9
+		unsigned HostSetHnpEnable : 1;								// @10
+		unsigned devhnpen : 1;										// @11
+		unsigned _reserved12_15 : 4;								// @12-15
+		unsigned conidsts : 1;										// @16
+		unsigned dbnctime : 1;										// @17
+		unsigned ASessionValid : 1;									// @18
+		unsigned BSessionValid : 1;									// @19
+		unsigned OtgVersion : 1;									// @20
+		unsigned _reserved21 : 1;									// @21
+		unsigned multvalidbc : 5;									// @22-26
+		unsigned chirpen : 1;										// @27
+		unsigned _reserved28_31 : 4;								// @28-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CORE_OTG_CONTROL;
 
 /*--------------------------------------------------------------------------}
 {					 USB CORE OTG INTERRUPT STRUCTURE					    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreOtgInterrupt {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned _reserved0_1 : 2;						// @0
-			volatile bool SessionEndDetected : 1;					// @2
-			volatile unsigned _reserved3_7 : 5;						// @3
-			volatile bool SessionRequestSuccessStatusChange : 1;	// @8
-			volatile bool HostNegotiationSuccessStatusChange : 1;	// @9
-			volatile unsigned _reserved10_16 : 7;					// @10
-			volatile bool HostNegotiationDetected : 1;				// @17
-			volatile bool ADeviceTimeoutChange : 1;					// @18
-			volatile bool DebounceDone : 1;							// @19
-			volatile unsigned _reserved20_31 : 12;					// @20-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned _reserved0_1 : 2;									// @0
+		unsigned SessionEndDetected : 1;							// @2
+		unsigned _reserved3_7 : 5;									// @3
+		unsigned SessionRequestSuccessStatusChange : 1;				// @8
+		unsigned HostNegotiationSuccessStatusChange : 1;			// @9
+		unsigned _reserved10_16 : 7;								// @10
+		unsigned HostNegotiationDetected : 1;						// @17
+		unsigned ADeviceTimeoutChange : 1;							// @18
+		unsigned DebounceDone : 1;									// @19
+		unsigned _reserved20_31 : 12;								// @20-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CORE_OTG_INTERRUPT;
 
 /*--------------------------------------------------------------------------}
-{	 USB CORE AHB STRUCTURE ... CARE WRITE WHOLE REGISTER .. NO BIT OPS	    }
+{							USB CORE AHB STRUCTURE							}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreAhb {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool InterruptEnable : 1;						// @0
-			volatile enum {
-				Length4 = 0,
-				Length3 = 1,
-				Length2 = 2,
-				Length1 = 3,
-			} AxiBurstLength : 2;									// @1
-			volatile unsigned _reserved3 : 1;						// @3
-			volatile bool WaitForAxiWrites : 1;						// @4
-			volatile bool DmaEnable : 1;							// @5
-			volatile unsigned _reserved6 : 1;						// @6
-			volatile enum EmptyLevel {
-				Empty = 1,
-				Half = 0,
-			} TransferEmptyLevel : 1;								// @7
-			volatile enum EmptyLevel PeriodicTransferEmptyLevel : 1;// @8
-			volatile unsigned _reserved9_20 : 12;					// @9
-			volatile bool remmemsupp : 1;							// @21
-			volatile bool notialldmawrit : 1;						// @22
-			volatile enum {
-				Incremental = 0,
-				Single = 1, // (default)
-			} DmaRemainderMode : 1;									// @23
-			volatile unsigned _reserved24_31 : 8;					// @24-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned InterruptEnable : 1;								// @0
+		enum {
+			Length4 = 0,
+			Length3 = 1,
+			Length2 = 2,
+			Length1 = 3,
+		} AxiBurstLength : 2;										// @1
+		unsigned _reserved3 : 1;									// @3
+		unsigned WaitForAxiWrites : 1;								// @4
+		unsigned DmaEnable : 1;										// @5
+		unsigned _reserved6 : 1;									// @6
+		enum EmptyLevel {
+			Empty = 1,
+			Half = 0,
+		} TransferEmptyLevel : 1;									// @7
+		enum EmptyLevel PeriodicTransferEmptyLevel : 1;				// @8
+		unsigned _reserved9_20 : 12;								// @9
+		unsigned remmemsupp : 1;									// @21
+		unsigned notialldmawrit : 1;								// @22
+		enum {
+			Incremental = 0,
+			Single = 1, // (default)
+		} DmaRemainderMode : 1;										// @23
+		unsigned _reserved24_31 : 8;								// @24-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CORE_AHB_REG;
 
 /*--------------------------------------------------------------------------}
-{	USB CORE CONTROL STRUCTURE	.. CARE WRITE WHOLE REGISTER .. NO BIT OPS  }
+{						USB CORE CONTROL STRUCTURE							}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) UsbControl {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned toutcal : 3;							// @0
-			volatile bool PhyInterface : 1;							// @3
-			volatile enum UMode {
-				ULPI,
-				UTMI,
-			}  ModeSelect : 1;										// @4
-			volatile bool fsintf : 1;								// @5
-			volatile bool physel : 1;								// @6
-			volatile bool ddrsel : 1;								// @7
-			volatile bool SrpCapable : 1;							// @8
-			volatile bool HnpCapable : 1;							// @9
-			volatile unsigned usbtrdtim : 4;						// @10
-			volatile unsigned reserved1 : 1;						// @14
-			volatile bool phy_lpm_clk_sel : 1;						// @15
-			volatile bool otgutmifssel : 1;							// @16
-			volatile bool UlpiFsls : 1;								// @17
-			volatile bool ulpi_auto_res : 1;						// @18
-			volatile bool ulpi_clk_sus_m : 1;						// @19
-			volatile bool UlpiDriveExternalVbus : 1;				// @20
-			volatile bool ulpi_int_vbus_indicator : 1;				// @21
-			volatile bool TsDlinePulseEnable : 1;					// @22
-			volatile bool indicator_complement : 1;					// @23
-			volatile bool indicator_pass_through : 1;				// @24
-			volatile bool ulpi_int_prot_dis : 1;					// @25
-			volatile bool ic_usb_capable : 1;						// @26
-			volatile bool ic_traffic_pull_remove : 1;				// @27
-			volatile bool tx_end_delay : 1;							// @28
-			volatile bool force_host_mode : 1;						// @29
-			volatile bool force_dev_mode : 1;						// @30
-			volatile unsigned _reserved31 : 1;						// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned toutcal : 3;										// @0
+		unsigned PhyInterface : 1;									// @3
+		enum UMode {
+			ULPI,
+			UTMI,
+		}  ModeSelect : 1;											// @4
+		unsigned fsintf : 1;										// @5
+		unsigned physel : 1;										// @6
+		unsigned ddrsel : 1;										// @7
+		unsigned SrpCapable : 1;									// @8
+		unsigned HnpCapable : 1;									// @9
+		unsigned usbtrdtim : 4;										// @10
+		unsigned reserved1 : 1;										// @14
+		unsigned phy_lpm_clk_sel : 1;								// @15
+		unsigned otgutmifssel : 1;									// @16
+		unsigned UlpiFsls : 1;										// @17
+		unsigned ulpi_auto_res : 1;									// @18
+		unsigned ulpi_clk_sus_m : 1;								// @19
+		unsigned UlpiDriveExternalVbus : 1;							// @20
+		unsigned ulpi_int_vbus_indicator : 1;						// @21
+		unsigned TsDlinePulseEnable : 1;							// @22
+		unsigned indicator_complement : 1;							// @23
+		unsigned indicator_pass_through : 1;						// @24
+		unsigned ulpi_int_prot_dis : 1;								// @25
+		unsigned ic_usb_capable : 1;								// @26
+		unsigned ic_traffic_pull_remove : 1;						// @27
+		unsigned tx_end_delay : 1;									// @28
+		unsigned force_host_mode : 1;								// @29
+		unsigned force_dev_mode : 1;								// @30
+		unsigned _reserved31 : 1;									// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} USB_CONTROL_REG;
 
 /*--------------------------------------------------------------------------}
-{							 USB CORE RESET STRUCTURE					    }
+{						 USB CORE RESET STRUCTURE						    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreReset {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool CoreSoft : 1;								// @0
-			volatile bool HclkSoft : 1;								// @1
-			volatile bool HostFrameCounter : 1;						// @2
-			volatile bool InTokenQueueFlush : 1;					// @3
-			volatile bool ReceiveFifoFlush : 1;						// @4
-			volatile bool TransmitFifoFlush : 1;					// @5
-			volatile unsigned TransmitFifoFlushNumber : 5;			// @6
-			volatile unsigned _reserved11_29 : 19;					// @11
-			volatile bool DmaRequestSignal : 1;						// @30
-			volatile bool AhbMasterIdle : 1;						// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct
+	{
+		unsigned CoreSoft : 1;										// @0
+		unsigned HclkSoft : 1;										// @1
+		unsigned HostFrameCounter : 1;								// @2
+		unsigned InTokenQueueFlush : 1;								// @3
+		unsigned ReceiveFifoFlush : 1;								// @4
+		unsigned TransmitFifoFlush : 1;								// @5
+		unsigned TransmitFifoFlushNumber : 5;						// @6
+		unsigned _reserved11_29 : 19;								// @11
+		unsigned DmaRequestSignal : 1;								// @30
+		unsigned AhbMasterIdle : 1;									// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CORE_RESET_REG;
 
 /*--------------------------------------------------------------------------}
 {	       INTERRUPT BITS ON THE USB CORE OF THE DESIGNWARE 2.0		        }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreInterrupts {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool CurrentMode : 1;							// @0
-			volatile bool ModeMismatch : 1;							// @1
-			volatile bool Otg : 1;									// @2
-			volatile bool DmaStartOfFrame : 1;						// @3
-			volatile bool ReceiveStatusLevel : 1;					// @4
-			volatile bool NpTransmitFifoEmpty : 1;					// @5
-			volatile bool ginnakeff : 1;							// @6
-			volatile bool goutnakeff : 1;							// @7
-			volatile bool ulpick : 1;								// @8
-			volatile bool I2c : 1;									// @9
-			volatile bool EarlySuspend : 1;							// @10
-			volatile bool UsbSuspend : 1;							// @11
-			volatile bool UsbReset : 1;								// @12
-			volatile bool EnumerationDone : 1;						// @13
-			volatile bool IsochronousOutDrop : 1;					// @14
-			volatile bool eopframe : 1;								// @15
-			volatile bool RestoreDone : 1;							// @16
-			volatile bool EndPointMismatch : 1;						// @17
-			volatile bool InEndPoint : 1;							// @18
-			volatile bool OutEndPoint : 1;							// @19
-			volatile bool IncompleteIsochronousIn : 1;				// @20
-			volatile bool IncompleteIsochronousOut : 1;				// @21
-			volatile bool fetsetup : 1;								// @22
-			volatile bool ResetDetect : 1;							// @23
-			volatile bool Port : 1;									// @24
-			volatile bool HostChannel : 1;							// @25
-			volatile bool HpTransmitFifoEmpty : 1;					// @26
-			volatile bool LowPowerModeTransmitReceived : 1;			// @27
-			volatile bool ConnectionIdStatusChange : 1;				// @28
-			volatile bool Disconnect : 1;							// @29
-			volatile bool SessionRequest : 1;						// @30
-			volatile bool Wakeup : 1;								// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned CurrentMode : 1;									// @0
+		unsigned ModeMismatch : 1;									// @1
+		unsigned Otg : 1;											// @2
+		unsigned DmaStartOfFrame : 1;								// @3
+		unsigned ReceiveStatusLevel : 1;							// @4
+		unsigned NpTransmitFifoEmpty : 1;							// @5
+		unsigned ginnakeff : 1;										// @6
+		unsigned goutnakeff : 1;									// @7
+		unsigned ulpick : 1;										// @8
+		unsigned I2c : 1;											// @9
+		unsigned EarlySuspend : 1;									// @10
+		unsigned UsbSuspend : 1;									// @11
+		unsigned UsbReset : 1;										// @12
+		unsigned EnumerationDone : 1;								// @13
+		unsigned IsochronousOutDrop : 1;							// @14
+		unsigned eopframe : 1;										// @15
+		unsigned RestoreDone : 1;									// @16
+		unsigned EndPointMismatch : 1;								// @17
+		unsigned InEndPoint : 1;									// @18
+		unsigned OutEndPoint : 1;									// @19
+		unsigned IncompleteIsochronousIn : 1;						// @20
+		unsigned IncompleteIsochronousOut : 1;						// @21
+		unsigned fetsetup : 1;										// @22
+		unsigned ResetDetect : 1;									// @23
+		unsigned Port : 1;											// @24
+		unsigned HostChannel : 1;									// @25
+		unsigned HpTransmitFifoEmpty : 1;							// @26
+		unsigned LowPowerModeTransmitReceived : 1;					// @27
+		unsigned ConnectionIdStatusChange : 1;						// @28
+		unsigned Disconnect : 1;									// @29
+		unsigned SessionRequest : 1;								// @30
+		unsigned Wakeup : 1;										// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} CORE_INTERRUPT_REG;
 
 /*--------------------------------------------------------------------------}
 {				 USB CORE NON PERIODIC FIFO STATUS STRUCTURE			    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) NonPeriodicFifoStatus {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned SpaceAvailable : 16;					// @0
-			volatile unsigned QueueSpaceAvailable : 8;				// @16
-			volatile unsigned Terminate : 1;						// @24
-			volatile enum {
-				InOut = 0,
-				ZeroLengthOut = 1,
-				PingCompleteSplit = 2,
-				ChannelHalt = 3,
-			} TokenType : 2;										// @25
-			volatile unsigned Channel : 4;							// @27
-			volatile unsigned Odd : 1;								// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct
+	{
+		unsigned SpaceAvailable : 16;								// @0
+		unsigned QueueSpaceAvailable : 8;							// @16
+		unsigned Terminate : 1;										// @24
+		enum {
+			InOut = 0,
+			ZeroLengthOut = 1,
+			PingCompleteSplit = 2,
+			ChannelHalt = 3,
+		} TokenType : 2;											// @25
+		unsigned Channel : 4;										// @27
+		unsigned Odd : 1;											// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_
+} NON_PERIODIC_FIFO_STATUS;
 
 /*--------------------------------------------------------------------------}
 {				 USB CORE NON PERIODIC INFO STRUCTURE					    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreNonPeriodicInfo {
-	volatile __attribute__((aligned(4))) struct FifoSize Size;		// +0x28
-	volatile __attribute__((aligned(4))) const struct NonPeriodicFifoStatus Status;	// Read Only +0x2c
-};
+typedef struct CoreNonPeriodicInfo 
+{
+	FIFO_SIZE Size;													// +0x28
+	const NON_PERIODIC_FIFO_STATUS Status;							// Read Only +0x2c
+} CORE_NON_PERIODIC_INFO;
 
 /*--------------------------------------------------------------------------}
 {						 USB CORE HARDWARE STRUCTURE					    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CoreHardware {
-	struct __attribute__((__packed__, aligned(1))) {
-		volatile const unsigned Direction0 : 2;						// @0
-		volatile const unsigned Direction1 : 2;						// @2
-		volatile const unsigned Direction2 : 2;						// @4
-		volatile const unsigned Direction3 : 2;						// @6
-		volatile const unsigned Direction4 : 2;						// @8
-		volatile const unsigned Direction5 : 2;						// @10
-		volatile const unsigned Direction6 : 2;						// @12
-		volatile const unsigned Direction7 : 2;						// @14
-		volatile const unsigned Direction8 : 2;						// @16
-		volatile const unsigned Direction9 : 2;						// @18
-		volatile const unsigned Direction10 : 2;					// @20
-		volatile const unsigned Direction11 : 2;					// @22
-		volatile const unsigned Direction12 : 2;					// @24
-		volatile const unsigned Direction13 : 2;					// @26
-		volatile const unsigned Direction14 : 2;					// @28
-		volatile const unsigned Direction15 : 2;					// @30
-		volatile const enum {
-			HNP_SRP_CAPABLE,
-			SRP_ONLY_CAPABLE,
-			NO_HNP_SRP_CAPABLE,
-			SRP_CAPABLE_DEVICE,
-			NO_SRP_CAPABLE_DEVICE,
-			SRP_CAPABLE_HOST,
-			NO_SRP_CAPABLE_HOST,
-		} OperatingMode : 3;										// @32-34
-		volatile const enum {
-			SlaveOnly,
-			ExternalDma,
-			InternalDma,
-		} Architecture : 2;											// @35
-		volatile bool PointToPoint : 1;								// @37
-		volatile const enum {
-			NotSupported,
-			Utmi,
-			Ulpi,
-			UtmiUlpi,
-		} HighSpeedPhysical : 2;									// @38-39
-		volatile const enum {
-			Physical0,
-			Dedicated,
-			Physical2,
-			Physcial3,
-		} FullSpeedPhysical : 2;									// @40-41
-		volatile const unsigned DeviceEndPointCount : 4;			// @42
-		volatile const unsigned HostChannelCount : 4;				// @46
-		volatile const bool SupportsPeriodicEndpoints : 1;			// @50
-		volatile const bool DynamicFifo : 1;						// @51
-		volatile const bool multi_proc_int : 1;						// @52
-		volatile const unsigned _reserver21 : 1;					// @53
-		volatile const unsigned NonPeriodicQueueDepth : 2;			// @54
-		volatile const unsigned HostPeriodicQueueDepth : 2;			// @56
-		volatile const unsigned DeviceTokenQueueDepth : 5;			// @58
-		volatile const bool EnableIcUsb : 1;						// @63
-		volatile const unsigned TransferSizeControlWidth : 4;		// @64
-		volatile const unsigned PacketSizeControlWidth : 3;			// @68
-		volatile const bool otg_func : 1;							// @71
-		volatile const bool I2c : 1;								// @72
-		volatile const bool VendorControlInterface : 1;				// @73
-		volatile const bool OptionalFeatures : 1;					// @74
-		volatile const bool SynchronousResetType : 1;				// @75
-		volatile const bool AdpSupport : 1;							// @76
-		volatile const bool otg_enable_hsic : 1;					// @77
-		volatile const bool bc_support : 1;							// @78
-		volatile const bool LowPowerModeEnabled : 1;				// @79
-		volatile const unsigned FifoDepth : 16;						// @80
-		volatile const unsigned PeriodicInEndpointCount : 4;		// @96
-		volatile const bool PowerOptimisation : 1;					// @100
-		volatile const bool MinimumAhbFrequency : 1;				// @101
-		volatile const bool PartialPowerOff : 1;					// @102
-		volatile const unsigned _reserved103_109 : 7;				// @103
-		volatile const enum {
-			Width8bit,
-			Width16bit,
-			Width8or16bit,
-		} UtmiPhysicalDataWidth : 2;								// @110
-		volatile const unsigned ModeControlEndpointCount : 4;		// @112
-		volatile const bool ValidFilterIddigEnabled : 1;			// @116
-		volatile const bool VbusValidFilterEnabled : 1;				// @117
-		volatile const bool ValidFilterAEnabled : 1;				// @118
-		volatile const bool ValidFilterBEnabled : 1;				// @119
-		volatile const bool SessionEndFilterEnabled : 1;			// @120
-		volatile const bool ded_fifo_en : 1;						// @121
-		volatile const unsigned InEndpointCount : 4;				// @122
-		volatile const bool DmaDescription : 1;						// @126
-		volatile const bool DmaDynamicDescription : 1;				// @127
+typedef struct CoreHardware {
+	union
+	{
+		struct
+		{
+			const unsigned Direction0 : 2;							// @0
+			const unsigned Direction1 : 2;							// @2
+			const unsigned Direction2 : 2;							// @4
+			const unsigned Direction3 : 2;							// @6
+			const unsigned Direction4 : 2;							// @8
+			const unsigned Direction5 : 2;							// @10
+			const unsigned Direction6 : 2;							// @12
+			const unsigned Direction7 : 2;							// @14
+			const unsigned Direction8 : 2;							// @16
+			const unsigned Direction9 : 2;							// @18
+			const unsigned Direction10 : 2;							// @20
+			const unsigned Direction11 : 2;							// @22
+			const unsigned Direction12 : 2;							// @24
+			const unsigned Direction13 : 2;							// @26
+			const unsigned Direction14 : 2;							// @28
+			const unsigned Direction15 : 2;							// @30
+		};
+		const uint32_t Raw32_1;										// Union to access first 32 bits as a uint32_t
 	};
-};
+	union
+	{
+		struct
+		{
+			const enum {
+				HNP_SRP_CAPABLE,
+				SRP_ONLY_CAPABLE,
+				NO_HNP_SRP_CAPABLE,
+				SRP_CAPABLE_DEVICE,
+				NO_SRP_CAPABLE_DEVICE,
+				SRP_CAPABLE_HOST,
+				NO_SRP_CAPABLE_HOST,
+			} OperatingMode : 3;									// @32-34
+			const enum {
+				SlaveOnly,
+				ExternalDma,
+				InternalDma,
+			} Architecture : 2;										// @35
+			const unsigned PointToPoint : 1;						// @37
+			const enum {
+				NotSupported,
+				Utmi,
+				Ulpi,
+				UtmiUlpi,
+			} HighSpeedPhysical : 2;								// @38-39
+			const enum {
+				Physical0,
+				Dedicated,
+				Physical2,
+				Physcial3,
+			} FullSpeedPhysical : 2;								// @40-41
+			const unsigned DeviceEndPointCount : 4;					// @42
+			const unsigned HostChannelCount : 4;					// @46
+			const unsigned SupportsPeriodicEndpoints : 1;			// @50
+			const unsigned DynamicFifo : 1;							// @51
+			const unsigned multi_proc_int : 1;						// @52
+			const unsigned _reserver21 : 1;							// @53
+			const unsigned NonPeriodicQueueDepth : 2;				// @54
+			const unsigned HostPeriodicQueueDepth : 2;				// @56
+			const unsigned DeviceTokenQueueDepth : 5;				// @58
+			const unsigned EnableIcUsb : 1;							// @63
+		};
+		const uint32_t Raw32_2;										// Union to access second 32 bits as a uint32_t
+	};
+	union
+	{
+		struct
+		{
+			const unsigned TransferSizeControlWidth : 4;			// @64
+			const unsigned PacketSizeControlWidth : 3;				// @68
+			const unsigned otg_func : 1;							// @71
+			const unsigned I2c : 1;									// @72
+			const unsigned VendorControlInterface : 1;				// @73
+			const unsigned OptionalFeatures : 1;					// @74
+			const unsigned SynchronousResetType : 1;				// @75
+			const unsigned AdpSupport : 1;							// @76
+			const unsigned otg_enable_hsic : 1;						// @77
+			const unsigned bc_support : 1;							// @78
+			const unsigned LowPowerModeEnabled : 1;					// @79
+			const unsigned FifoDepth : 16;							// @80
+		};
+		const uint32_t Raw32_3;										// Union to access third 32 bits as a uint32_t
+	};
+	union
+	{
+		struct
+		{
+			const unsigned PeriodicInEndpointCount : 4;				// @96
+			const unsigned PowerOptimisation : 1;					// @100
+			const unsigned MinimumAhbFrequency : 1;					// @101
+			const unsigned PartialPowerOff : 1;						// @102
+			const unsigned _reserved103_109 : 7;					// @103
+			const enum {
+				Width8bit,
+				Width16bit,
+				Width8or16bit,
+			} UtmiPhysicalDataWidth : 2;							// @110
+			const unsigned ModeControlEndpointCount : 4;			// @112
+			const unsigned ValidFilterIddigEnabled : 1;				// @116
+			const unsigned VbusValidFilterEnabled : 1;				// @117
+			const unsigned ValidFilterAEnabled : 1;					// @118
+			const unsigned ValidFilterBEnabled : 1;					// @119
+			const unsigned SessionEndFilterEnabled : 1;				// @120
+			const unsigned ded_fifo_en : 1;							// @121
+			const unsigned InEndpointCount : 4;						// @122
+			const unsigned DmaDescription : 1;						// @126
+			const unsigned DmaDynamicDescription : 1;				// @127
+		};
+		const uint32_t Raw32_4;										// Union to access fourth 32 bits as a uint32_t
+	};
+} CORE_HARDWARE;
 
 /*--------------------------------------------------------------------------}
 {                       USB CORE PERIODIC INFO STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) CorePeriodicInfo {
-	volatile __attribute__((aligned(4))) struct FifoSize HostSize;	// +0x100
-	volatile __attribute__((aligned(4))) struct FifoSize DataSize[15];// +0x104
-};
+typedef struct CorePeriodicInfo {
+	FIFO_SIZE HostSize;												// +0x100
+	FIFO_SIZE DataSize[15];											// +0x104
+} CORE_PERIODIC_INFO;
 
 /***************************************************************************}
 {         PRIVATE INTERNAL DESIGNWARE 2.0 HOST REGISTER STRUCTURES          }
@@ -429,73 +457,73 @@ enum ClockRate {
 /*--------------------------------------------------------------------------}
 {                          USB HOST CONFIG STRUCTURE					    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostConfig {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned ClockRate : 2;						// @0
-			volatile bool FslsOnly : 1;								// @2
-			volatile unsigned _reserved3_6 : 4;						// @3
-			volatile unsigned en_32khz_susp : 1;					// @7
-			volatile unsigned res_val_period : 8;					// @8
-			volatile unsigned _reserved16_22 : 7;					// @16
-			volatile bool EnableDmaDescriptor : 1;					// @23
-			volatile unsigned FrameListEntries : 2;					// @24
-			volatile bool PeriodicScheduleEnable : 1;				// @26
-			volatile bool PeriodicScheduleStatus : 1;				// @27
-			volatile unsigned reserved28_30 : 3;					// @28
-			volatile bool mode_chg_time : 1;						// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned ClockRate : 2;										// @0
+		unsigned FslsOnly : 1;										// @2
+		unsigned _reserved3_6 : 4;									// @3
+		unsigned en_32khz_susp : 1;									// @7
+		unsigned res_val_period : 8;								// @8
+		unsigned _reserved16_22 : 7;								// @16
+		unsigned EnableDmaDescriptor : 1;							// @23
+		unsigned FrameListEntries : 2;								// @24
+		unsigned PeriodicScheduleEnable : 1;						// @26
+		unsigned PeriodicScheduleStatus : 1;						// @27
+		unsigned reserved28_30 : 3;									// @28
+		unsigned mode_chg_time : 1;									// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_CONFIG_REG;
 
 /*--------------------------------------------------------------------------}
 {                       USB HOST FRAME INTERVAL STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostFrameInterval {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned Interval : 16;						// @0
-			volatile bool DynamicFrameReload : 1;					// @16
-			volatile unsigned _reserved17_31 : 15;					// @17-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef union 
+{
+	struct 
+	{
+		unsigned Interval : 16;										// @0
+		unsigned DynamicFrameReload : 1;							// @16
+		unsigned _reserved17_31 : 15;								// @17-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_FRAME_INTERVAL;
 
 /*--------------------------------------------------------------------------}
 {                       USB HOST FRAME CONTROL STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostFrameControl {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned FrameNumber : 16;						// @0
-			volatile unsigned FrameRemaining : 16;					// @16
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 	
+	{
+		unsigned FrameNumber : 16;									// @0
+		unsigned FrameRemaining : 16;								// @16
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_FRAME_CONTROL;
 
 /*--------------------------------------------------------------------------}
 {                         USB FIFO STATUS STRUCTURE						    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostFifoStatus {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned SpaceAvailable : 16;					// @0
-			volatile unsigned QueueSpaceAvailable : 8;				// @16
-			volatile unsigned Terminate : 1;						// @24
-			volatile enum {
-				ZeroLength = 0,
-				Ping = 1,
-				Disable = 2,
-			} TokenType : 2;										// @25
-			volatile unsigned Channel : 4;							// @27
-			volatile unsigned Odd : 1;								// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned SpaceAvailable : 16;								// @0
+		unsigned QueueSpaceAvailable : 8;							// @16
+		unsigned Terminate : 1;										// @24
+		enum {
+			ZeroLength = 0,
+			Ping = 1,
+			Disable = 2,
+		} TokenType : 2;											// @25
+		unsigned Channel : 4;										// @27
+		unsigned Odd : 1;											// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_FIFO_STATUS;
 
 /*--------------------------------------------------------------------------}
 {                         USB HOST PORT STRUCTURE						    }
@@ -503,147 +531,148 @@ struct __attribute__((__packed__, aligned(4))) HostFifoStatus {
 /* Due to the inconsistent design of the bits in this register, sometime it requires  zeroing 
    bits in the register before the write, so you do not unintentionally write 1's to them. */
 #define HOSTPORTMASK  ~0x2E								// These are the funky bits on this register and we "NOT" them to make "AND" mask
-struct __attribute__((__packed__, aligned(4))) HostPort {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool Connect : 1;								// @0
-			volatile bool ConnectChanged : 1;						// @1
-			volatile bool Enable : 1;								// @2
-			volatile bool EnableChanged : 1;						// @3
-			volatile bool OverCurrent : 1;							// @4
-			volatile bool OverCurrentChanged : 1;					// @5
-			volatile bool Resume : 1;								// @6
-			volatile bool Suspend : 1;								// @7
-			volatile bool Reset : 1;								// @8
-			volatile unsigned _reserved9 : 1;						// @9
-			volatile unsigned PortLineStatus : 2;					// @10
-			volatile bool Power : 1;								// @12
-			volatile unsigned TestControl : 4;						// @13
-			volatile UsbSpeed Speed : 2;							// @17
-			volatile unsigned _reserved19_31 : 13;					// @19-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned Connect : 1;										// @0
+		unsigned ConnectChanged : 1;								// @1
+		unsigned Enable : 1;										// @2
+		unsigned EnableChanged : 1;									// @3
+		unsigned OverCurrent : 1;									// @4
+		unsigned OverCurrentChanged : 1;							// @5
+		unsigned Resume : 1;										// @6
+		unsigned Suspend : 1;										// @7
+		unsigned Reset : 1;											// @8
+		unsigned _reserved9 : 1;									// @9
+		unsigned PortLineStatus : 2;								// @10
+		unsigned Power : 1;											// @12
+		unsigned TestControl : 4;									// @13
+		USB_SPEED Speed : 2;										// @17
+		unsigned _reserved19_31 : 13;								// @19-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_PORT_REG;
 
 /*--------------------------------------------------------------------------}
 {                USB HOST CHANNEL CHARACTERISTIC STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostChannelCharacteristic {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned MaximumPacketSize : 11;				// @0
-			volatile unsigned EndPointNumber : 4;					// @11
-			volatile UsbDirection EndPointDirection : 1;			// @15
-			volatile unsigned _reserved16 : 1;						// @16
-			volatile bool LowSpeed : 1;								// @17
-			volatile UsbTransfer Type : 2;							// @18
-			volatile unsigned PacketsPerFrame : 2;					// @20
-			volatile unsigned DeviceAddress : 7;					// @22
-			volatile unsigned OddFrame : 1;							// @29
-			volatile bool Disable : 1;								// @30
-			volatile bool Enable : 1;								// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct
+	{
+		unsigned MaximumPacketSize : 11;							// @0
+		unsigned EndPointNumber : 4;								// @11
+		USB_DIRECTION EndPointDirection : 1;						// @15
+		unsigned _reserved16 : 1;									// @16
+		unsigned LowSpeed : 1;										// @17
+		USB_TRANSFER Type : 2;										// @18
+		unsigned PacketsPerFrame : 2;								// @20
+		unsigned DeviceAddress : 7;									// @22
+		unsigned OddFrame : 1;										// @29
+		unsigned Disable : 1;										// @30
+		unsigned Enable : 1;										// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_CHANNEL_CHARACTERISTIC;
 
 /*--------------------------------------------------------------------------}
 {                USB HOST CHANNEL SPLIT CONTROL STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostChannelSplitControl {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned PortAddress : 7;						// @0
-			volatile unsigned HubAddress : 7;						// @7
-			volatile enum {
-				Middle = 0,
-				End = 1,
-				Begin = 2,
-				All = 3,
-			} TransactionPosition : 2;								// @14
-			volatile bool CompleteSplit : 1;						// @16
-			volatile unsigned _reserved17_30 : 14;					// @17
-			volatile bool SplitEnable : 1;							// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct
+	{
+		unsigned PortAddress : 7;									// @0
+		unsigned HubAddress : 7;									// @7
+		enum {
+			Middle = 0,
+			End = 1,
+			Begin = 2,
+			All = 3,
+		} TransactionPosition : 2;									// @14
+		unsigned CompleteSplit : 1;									// @16
+		unsigned _reserved17_30 : 14;								// @17
+		unsigned SplitEnable : 1;									// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_CHANNEL_SPLIT_CONTROL;
 
 /*--------------------------------------------------------------------------}
 {                USB HOST CHANNEL TRANSFER SIZE STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostTransferSize {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile unsigned TransferSize : 19;					// @0
-			volatile unsigned PacketCount : 10;						// @19
-			volatile enum PacketId {
-				USB_PID_DATA0 = 0,
-				USB_PID_DATA1 = 2,
-				USB_PID_DATA2 = 1,
-				USB_PID_SETUP = 3,
-				MData = 3,
-			} PacketId : 2;											// @29
-			volatile bool DoPing : 1;								// @31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct
+	{
+		unsigned TransferSize : 19;									// @0
+		unsigned PacketCount : 10;									// @19
+		enum PacketId {
+			USB_PID_DATA0 = 0,
+			USB_PID_DATA1 = 2,
+			USB_PID_DATA2 = 1,
+			USB_PID_SETUP = 3,
+			MData = 3,
+		} PacketId : 2;												// @29
+		unsigned DoPing : 1;										// @31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} HOST_TRANSFER_SIZE;
 
 /*--------------------------------------------------------------------------}
 {					  USB HOST CHANNEL STRUCTURE						    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) HostChannel {
-	volatile __attribute__((aligned(4))) struct HostChannelCharacteristic Characteristic;	// +0x0
-	volatile __attribute__((aligned(4))) struct HostChannelSplitControl SplitCtrl;			// +0x4
-	volatile __attribute__((aligned(4))) struct ChannelInterrupts Interrupt;				// +0x8
-	volatile __attribute__((aligned(4))) struct ChannelInterrupts InterruptMask;			// +0xc
-	volatile __attribute__((aligned(4))) struct HostTransferSize TransferSize;				// +0x10
-	volatile __attribute__((aligned(4))) uint32_t  DmaAddr;									// +0x14
-	volatile __attribute__((aligned(4))) uint32_t _reserved18;								// +0x18
-	volatile __attribute__((aligned(4))) uint32_t _reserved1c;								// +0x1c
-};
+typedef struct HostChannel 
+{
+	HOST_CHANNEL_CHARACTERISTIC Characteristic;						// +0x0
+	HOST_CHANNEL_SPLIT_CONTROL SplitCtrl;							// +0x4
+	CHANNEL_INTERRUPTS Interrupt;									// +0x8
+	CHANNEL_INTERRUPTS InterruptMask;								// +0xc
+	HOST_TRANSFER_SIZE TransferSize;								// +0x10
+	uint32_t  DmaAddr;												// +0x14
+	uint32_t _reserved18;											// +0x18
+	uint32_t _reserved1c;											// +0x1c
+} HOST_CHANNEL;
 
 /*--------------------------------------------------------------------------}
 {					DWC POWER AND CLOCK REGISTER STRUCTURE				    }
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) PowerReg {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			volatile bool StopPClock : 1;							// @0
-			volatile bool GateHClock : 1;							// @1
-			volatile bool PowerClamp : 1;							// @2
-			volatile bool PowerDownModules : 1;						// @3
-			volatile bool PhySuspended : 1;							// @4
-			volatile bool EnableSleepClockGating : 1;				// @5
-			volatile bool PhySleeping : 1;							// @6
-			volatile bool DeepSleep : 1;							// @7
-			volatile unsigned _reserved8_31 : 24;					// @8-31
-		};
-		volatile uint32_t Raw32;									// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned StopPClock : 1;									// @0
+		unsigned GateHClock : 1;									// @1
+		unsigned PowerClamp : 1;									// @2
+		unsigned PowerDownModules : 1;								// @3
+		unsigned PhySuspended : 1;									// @4
+		unsigned EnableSleepClockGating : 1;						// @5
+		unsigned PhySleeping : 1;									// @6
+		unsigned DeepSleep : 1;										// @7
+		unsigned _reserved8_31 : 24;								// @8-31
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} POWER_REG;
 
 /*--------------------------------------------------------------------------}
 { 				USB control used solely by internal routines				}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__, aligned(4))) UsbSendControl {
-	union {
-		struct __attribute__((__packed__, aligned(1))) {
-			unsigned SplitTries : 8;								// @0  Count of attempts to send packet as a split
-			unsigned PacketTries : 8;								// @8  Count of attempts to send current packet
-			unsigned GlobalTries : 8;								// @16 Count of global tries (more serious errors increment)
-			unsigned reserved : 3;									// @24 Padding to make 32 bit
-			bool	 LongerDelay : 1;								// @27 Longer delay .. not yet was response
-			bool	 ActionResendSplit : 1;							// @28 Resend split packet
-			bool	 ActionRetry : 1;								// @29 Retry sending 
-			bool	 ActionFatalError : 1;							// @30 Some fatal error occured ... so bail
-			bool	 Success : 1;									// @31 Success .. tansfer complete
-		};
-		uint32_t Raw32;												// Union to access all 32 bits as a uint32_t
+typedef	union 
+{
+	struct 
+	{
+		unsigned SplitTries : 8;									// @0  Count of attempts to send packet as a split
+		unsigned PacketTries : 8;									// @8  Count of attempts to send current packet
+		unsigned GlobalTries : 8;									// @16 Count of global tries (more serious errors increment)
+		unsigned reserved : 3;										// @24 Padding to make 32 bit
+		unsigned LongerDelay : 1;									// @27 Longer delay .. not yet was response
+		unsigned ActionResendSplit : 1;								// @28 Resend split packet
+		unsigned ActionRetry : 1;									// @29 Retry sending 
+		unsigned ActionFatalError : 1;								// @30 Some fatal error occured ... so bail
+		unsigned Success : 1;										// @31 Success .. tansfer complete
 	};
-};
+	uint32_t Raw32;													// Union to access all 32 bits as a uint32_t
+} USB_SEND_CONTROL;
 
 /***************************************************************************}
 {    PRIVATE POINTERS TO ALL OUR DESIGNWARE 2.0 HOST REGISTER STRUCTURES    }
@@ -654,37 +683,37 @@ struct __attribute__((__packed__, aligned(4))) UsbSendControl {
 /*--------------------------------------------------------------------------}
 {					 DWC USB CORE REGISTER POINTERS						    }
 {--------------------------------------------------------------------------*/
-#define DWC_CORE_OTGCONTROL			((volatile __attribute__((aligned(4))) struct CoreOtgControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x00))
-#define DWC_CORE_OTGINTERRUPT		((volatile __attribute__((aligned(4))) struct CoreOtgInterrupt*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x04))
-#define DWC_CORE_AHB				((volatile __attribute__((aligned(4))) struct CoreAhb*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x08))
-#define DWC_CORE_CONTROL			((volatile __attribute__((aligned(4))) struct UsbControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x0C))
-#define DWC_CORE_RESET				((volatile __attribute__((aligned(4))) struct CoreReset*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x10))
-#define DWC_CORE_INTERRUPT			((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x14))
-#define DWC_CORE_INTERRUPTMASK		((volatile __attribute__((aligned(4))) struct CoreInterrupts*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x18))
+#define DWC_CORE_OTGCONTROL			((volatile __attribute__((aligned(4))) CORE_OTG_CONTROL*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x00))
+#define DWC_CORE_OTGINTERRUPT		((volatile __attribute__((aligned(4))) CORE_OTG_INTERRUPT*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x04))
+#define DWC_CORE_AHB				((volatile __attribute__((aligned(4))) CORE_AHB_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x08))
+#define DWC_CORE_CONTROL			((volatile __attribute__((aligned(4))) USB_CONTROL_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x0C))
+#define DWC_CORE_RESET				((volatile __attribute__((aligned(4))) CORE_RESET_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x10))
+#define DWC_CORE_INTERRUPT			((volatile __attribute__((aligned(4))) CORE_INTERRUPT_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x14))
+#define DWC_CORE_INTERRUPTMASK		((volatile __attribute__((aligned(4))) CORE_INTERRUPT_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x18))
 #define DWC_CORE_RECEIVESIZE		((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x24))
-#define DWC_CORE_NONPERIODICFIFO	((volatile __attribute__((aligned(4))) struct CoreNonPeriodicInfo*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x28))
+#define DWC_CORE_NONPERIODICFIFO	((volatile __attribute__((aligned(4))) CORE_NON_PERIODIC_INFO*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x28))
 #define DWC_CORE_USERID				((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x3C))
 #define DWC_CORE_VENDORID			((volatile __attribute__((aligned(4))) const uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x40))
-#define DWC_CORE_HARDWARE			((volatile __attribute__((aligned(4))) const struct CoreHardware*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x44))
-#define DWC_CORE_PERIODICINFO		((volatile __attribute__((aligned(4))) struct CorePeriodicInfo*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x100))
+#define DWC_CORE_HARDWARE			((volatile __attribute__((aligned(4))) const CORE_HARDWARE*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x44))
+#define DWC_CORE_PERIODICINFO		((volatile __attribute__((aligned(4))) CORE_PERIODIC_INFO*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x100))
 
 /*--------------------------------------------------------------------------}
 {					DWC USB HOST REGISTER POINTERS						    }
 {--------------------------------------------------------------------------*/
-#define DWC_HOST_CONFIG				((volatile __attribute__((aligned(4))) struct HostConfig*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x400))
-#define DWC_HOST_FRAMEINTERVAL		((volatile __attribute__((aligned(4))) struct HostFrameInterval*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x404))
-#define DWC_HOST_FRAMECONTROL		((volatile __attribute__((aligned(4))) struct HostFrameControl*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x408))
-#define DWC_HOST_FIFOSTATUS			((volatile __attribute__((aligned(4))) struct HostFifoStatus*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x410))
+#define DWC_HOST_CONFIG				((volatile __attribute__((aligned(4))) HOST_CONFIG_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x400))
+#define DWC_HOST_FRAMEINTERVAL		((volatile __attribute__((aligned(4))) HOST_FRAME_INTERVAL*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x404))
+#define DWC_HOST_FRAMECONTROL		((volatile __attribute__((aligned(4))) HOST_FRAME_CONTROL*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x408))
+#define DWC_HOST_FIFOSTATUS			((volatile __attribute__((aligned(4))) HOST_FIFO_STATUS*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x410))
 #define DWC_HOST_INTERRUPT			((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x414))
 #define DWC_HOST_INTERRUPTMASK		((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x418))
 #define DWC_HOST_FRAMELIST			((volatile __attribute__((aligned(4))) uint32_t*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x41C))
-#define DWC_HOST_PORT				((volatile __attribute__((aligned(4))) struct HostPort*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x440))
-#define DWC_HOST_CHANNEL			((volatile __attribute__((aligned(4))) struct HostChannel*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x500))
+#define DWC_HOST_PORT				((volatile __attribute__((aligned(4))) HOST_PORT_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x440))
+#define DWC_HOST_CHANNEL			((volatile __attribute__((aligned(4))) HOST_CHANNEL*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0x500))
 
 /*--------------------------------------------------------------------------}
 {					DWC POWER AND CLOCK REGISTER POINTER				    }
 {--------------------------------------------------------------------------*/
-#define DWC_POWER_AND_CLOCK			((__attribute__((aligned(4))) struct PowerReg*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0xE00))
+#define DWC_POWER_AND_CLOCK			((volatile __attribute__((aligned(4))) POWER_REG*)(uintptr_t)(RPi_IO_Base_Addr + USB_CORE_OFFSET + 0xE00))
 
 
 /*--------------------------------------------------------------------------}
@@ -700,22 +729,27 @@ struct __attribute__((__packed__, aligned(4))) UsbSendControl {
 #include <assert.h>								// Need for compile time static_assert
 
 /* DESIGNWARE 2.0 REGISTERS */
-static_assert(sizeof(struct CoreOtgControl) == 0x04, "Register/Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct CoreOtgInterrupt) == 0x04, "Register/Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct CoreAhb) == 0x04, "Register/Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct UsbControl) == 0x04, "Register/Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct CoreReset) == 0x04, "Register/Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct CoreInterrupts) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(CORE_OTG_CONTROL) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(CORE_OTG_INTERRUPT) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(CORE_AHB_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(USB_CONTROL_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(CORE_RESET_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(CORE_INTERRUPT_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HOST_CONFIG_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HOST_FRAME_INTERVAL) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HOST_FRAME_CONTROL) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HOST_FIFO_STATUS) == 0x04, "Register/Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HOST_PORT_REG) == 0x04, "Register/Structure should be 32bits (4 bytes)");
 
-static_assert(sizeof(struct CoreNonPeriodicInfo) == 0x08, "Register/Structure should be 2x32bits (8 bytes)");
+static_assert(sizeof(CORE_NON_PERIODIC_INFO) == 0x08, "Register/Structure should be 2x32bits (8 bytes)");
 
-static_assert(sizeof(struct CoreHardware) == 0x10, "Register/Structure should be 4x32bits (16 bytes)");
+static_assert(sizeof(CORE_HARDWARE) == 0x10, "Register/Structure should be 4x32bits (16 bytes)");
 
-static_assert(sizeof(struct HostChannel) == 0x20, "Register/Structure should be 8x32bits (32 bytes)");
+static_assert(sizeof(HOST_CHANNEL) == 0x20, "Register/Structure should be 8x32bits (32 bytes)");
 
 /* USB SPECIFICATION STRUCTURES */
 static_assert(sizeof(struct HubPortFullStatus) == 0x04, "Structure should be 32bits (4 bytes)");
-static_assert(sizeof(struct HubFullStatus) == 0x04, "Structure should be 32bits (4 bytes)");
+static_assert(sizeof(HUB_FULL_STATUS) == 0x04, "Structure should be 32bits (4 bytes)");
 static_assert(sizeof(struct UsbDescriptorHeader) == 0x02, "Structure should be 2 bytes");
 static_assert(sizeof(struct UsbEndpointDescriptor) == 0x07, "Structure should be 7 bytes");
 static_assert(sizeof(struct UsbDeviceRequest) == 0x08, "Structure should be 8 bytes");
@@ -725,13 +759,12 @@ static_assert(sizeof(struct UsbConfigurationDescriptor) == 0x09, "Structure shou
 static_assert(sizeof(struct UsbDeviceDescriptor) == 0x12, "Structure should be 18 bytes");
 
 /* INTERNAL STRUCTURES */
-static_assert(sizeof(struct UsbSendControl) == 0x04, "Structure should be 32bits (4 bytes)");
+static_assert(sizeof(USB_SEND_CONTROL) == 0x04, "Structure should be 32bits (4 bytes)");
 
 /***************************************************************************}
 {					      PRIVATE INTERNAL VARIABLES	                    }
 ****************************************************************************/
 bool PhyInitialised = false;
-uint8_t dmaBuffer[1024] __attribute__((aligned(4)));
 uint8_t RootHubDeviceNumber = 0;
 
 struct UsbDevice DeviceTable[MaximumDevices] = { 0 };				// Usb node device allocation table
@@ -889,31 +922,23 @@ struct __attribute__((aligned(4))) HubDescriptor RootHubDescriptor = {
 };
 
 /*==========================================================================}
-{	 MY MEMORY COPY .. YEAH I AM OVER THE ARM MEMCOPY ALIGNMENT	ISSUES	    }
-{==========================================================================*/
-void myMemCopy (uint8_t* dest, uint8_t* source, uint32_t size){
-	while (size) {													// While data to copy
-		*dest++ = *source++;										// Copy 1 byte from source to dest and increment pointers
-		size--;														// Decerement size
-	}
-}
-
-/*==========================================================================}
 {			    INTERNAL FAKE ROOT HUB MESSAGE HANDLER					    }
 {==========================================================================*/
 RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct UsbDeviceRequest *request, uint32_t *bytesTransferred)
 {
 	RESULT result = OK;
 	uint32_t replyLength = 0;
-	struct HostPort tempPort;
+	HOST_PORT_REG tempPort;
+	
 	union {										// Place a union over these to stop having to mess around .. its a 4 bytes whatever the case .. look carefully
 		uint8_t* replyBytes;					// Pointer to bytes to return can be anything 
 		uint8_t	reply8;							// 8 bit return
 		uint16_t reply16;						// 16 bit return
 		uint32_t reply32;						// 32 bit return
-		struct HubFullStatus replyHub;			// Hub status return
+		HUB_FULL_STATUS replyHub;				// Hub status return
 		struct HubPortFullStatus replyPort;		// Port status return
 	} replyBuf;
+
 	bool ptrTransfer = false;					// Default is not a pointer transfer
 	switch (request->Request) {
 	/* Details on GetStatus from here http://www.beyondlogic.org/usbnutshell/usb6.shtml */
@@ -974,20 +999,14 @@ RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct 
 			break;													// Only options DEVICE_REMOTE_WAKEUP and TEST_MODE neither which we support
 		case  bmREQ_PORT_FEATURE /*0x23*/:							// Port clear feature request
 			if (request->Index == 1) {								// Remember we have only one port so any other port is an error
-				switch ((enum HubPortFeature)request->Value) {		// Check what request to clear is
-				case FeatureEnable:
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.Enable = true;							// Set enable change bit ... This is one of those set bit to write bits (bit 2)
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+				switch ((HUB_PORT_FEATURE)request->Value) {			// Check what request to clear is
+				case PORT_FEATURE_ENABLE:
+					DWC_HOST_PORT->Enable = 1;						// Set enable change bit ... This is one of those set bit to write bits (bit 2)
 					break;
-				case FeatureSuspend:
+				case PORT_FEATURE_SUSPEND:
 					DWC_POWER_AND_CLOCK->Raw32 = 0;
 					timer_wait(5000);
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.Resume = true;							// Set the bit we want
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+					DWC_HOST_PORT->Resume = 1;						// Set resume bit
 					timer_wait(100000);
 					tempPort = *DWC_HOST_PORT;						// Read the host port
 					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
@@ -995,30 +1014,18 @@ RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct 
 					tempPort.Resume = false;						// Clear the bit we want
 					*DWC_HOST_PORT = tempPort;						// Write the value back
 					break;
-				case FeaturePower:
+				case PORT_FEATURE_POWER:
 					LOG("Physical host power off\n");
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.Power = false;							// Clear the bit we want
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+					DWC_HOST_PORT->Power = 0;						// Turn power signal off
 					break;
-				case FeatureConnectionChange:
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.ConnectChanged = true;					// Set connect change bit ... This is one of those set bit to write bits (bit 1)
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+				case PORT_FEATURE_CONNECTION_CHANGED:
+					DWC_HOST_PORT->ConnectChanged = 1;				// Set connect change bit ... This is one of those set bit to write bits (bit 1)
 					break;
-				case FeatureEnableChange:
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.EnableChanged = true;					// Set enable change bit ... This is one of those set bit to write bits (bit 3)
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+				case PORT_FEATURE_ENABLE_CHANGE:
+					DWC_HOST_PORT->EnableChanged = 1;				// Set enable change bit ... This is one of those set bit to write bits (bit 3)
 					break;
-				case FeatureOverCurrentChange:
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.OverCurrentChanged = true;				// Set overcurrent change bit ... This is one of those set bit to write bits (bit 5)
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+				case PORT_FEATURE_OVERCURRENT_CHANGE:
+					DWC_HOST_PORT->OverCurrentChanged = 1;			// Set overcurrent change bit ... This is one of those set bit to write bits (bit 5)
 					break;
 				default:
 					break;											// Any other clear feature rtequest just ignore
@@ -1042,30 +1049,21 @@ RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct 
 			break;													// 16 bits only options DEVICE_REMOTE_WAKEUP and TEST_MODE neither which we support
 		case bmREQ_PORT_FEATURE /* 0x23 */:							// Port set feature request
 			if (request->Index == 1) {								// Remember we have only one port so any other port is an error
-				struct PowerReg tempPower;
-				switch ((enum HubPortFeature)request->Value) {
-				case FeatureReset:			
-					tempPower = *DWC_POWER_AND_CLOCK;				// read power and clock
-					tempPower.EnableSleepClockGating = false;		// Turn off sleep clock gating if on
-					tempPower.StopPClock = false;					// Turn off stop clock
-					*DWC_POWER_AND_CLOCK = tempPower;				// Write back to register
+				//struct PowerReg tempPower;
+				switch ((HUB_PORT_FEATURE)request->Value) {
+				case PORT_FEATURE_RESET:
+					DWC_POWER_AND_CLOCK->EnableSleepClockGating = 0;// Turn off sleep clock gating if on
+					DWC_POWER_AND_CLOCK->StopPClock = 0;			// Turn off stop clock
 					timer_wait(10000);								// Small delay
 					DWC_POWER_AND_CLOCK->Raw32 = 0;					// Now clear everything
-
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.Suspend = false;						// Clear the bit we want
-					tempPort.Reset = true;							// Set bit we want
-					tempPort.Power = true;							// Set the bit we want
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+					DWC_HOST_PORT->Suspend = 0;						// Clear the suspend bit
+					DWC_HOST_PORT->Reset = 1;						// Set the reset bit to on
+					DWC_HOST_PORT->Power = 1;						// Set the power bit to on
 					timer_wait(60000);
-					tempPort = *DWC_HOST_PORT;						// Read the host port
-					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
-					tempPort.Reset = false;							// Clear bit we want
-					*DWC_HOST_PORT = tempPort;						// Write the value back
+					DWC_HOST_PORT->Reset = 0;						// Clear reset signal
 					LOG_DEBUG("Reset physical port .. rootHub %i\n", RootHubDeviceNumber);
 					break;
-				case FeaturePower:
+				case PORT_FEATURE_POWER:
 					LOG("Physical host power on\n");
 					tempPort = *DWC_HOST_PORT;						// Read the host port
 					tempPort.Raw32 &= HOSTPORTMASK;					// Cleave off all the triggers
@@ -1149,8 +1147,11 @@ RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct 
 		break;
 	}
 	if (replyLength > bufferLength) replyLength = bufferLength;		// The buffer length does not have enough room so truncate our respone to fit
-	if (ptrTransfer) myMemCopy(&buffer[0], replyBuf.replyBytes, replyLength); // For a pointer transfer replyBuf has the pointer
-	   else myMemCopy(&buffer[0], (uint8_t*)&replyBuf, replyLength);// Otherwise we want the raw data in the replyBuf
+	uint8_t* src;
+	if (ptrTransfer) src = replyBuf.replyBytes;						// Pointer transfer first 4 bytes are the pointer
+		else src = (uint8_t*)&replyBuf;								// Otherwise pointer to the reply buffer
+	for (int i = 0; i < replyLength; i++)							// For reply length
+		 buffer[i] = src[i];										// Transfer bytes to buffer
 	if (bytesTransferred) *bytesTransferred = replyLength;			// If bytes transferred return requested provide it
 	return result;													// Return result
 }
@@ -1164,23 +1165,10 @@ RESULT HcdProcessRootHubMessage (uint8_t* buffer, uint32_t bufferLength, struct 
  https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface
  11Feb17 LdB
  --------------------------------------------------------------------------*/
-RESULT PowerOnUsb(void) {
-	uint32_t __attribute__((aligned(16))) mailbox_message[8];
-	mailbox_message[0] = sizeof(mailbox_message);
-	mailbox_message[1] = 0;
-	mailbox_message[2] = MAILBOX_TAG_SET_POWER_STATE;
-	mailbox_message[3] = 8;
-	mailbox_message[4] = 8;
-	mailbox_message[5] = 0x3;    // device = USB
-	mailbox_message[6] = 0x1;	 // 1 = on	
-	mailbox_message[7] = 0x0;
-
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
-	mailbox_read(MB_CHANNEL_TAGS);
-
-	if ((mailbox_message[1] == 0x80000000) && (mailbox_message[4] == 0x80000008)) {
-		return OK;
-	}
+RESULT PowerOnUsb (void)
+{
+	if (mailbox_tag_message(0, 5, MAILBOX_TAG_SET_POWER_STATE, 8, 8, PB_USBHCD, 1))
+		return OK;													// Return success
 	return ErrorDevice;												// Failed to turn on
 }
 
@@ -1189,23 +1177,10 @@ RESULT PowerOnUsb(void) {
  https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface
  11Feb17 LdB
  --------------------------------------------------------------------------*/
-RESULT PowerOffUsb(void) {
-	uint32_t __attribute__((aligned(16))) mailbox_message[8];
-	mailbox_message[0] = sizeof(mailbox_message);
-	mailbox_message[1] = 0;
-	mailbox_message[2] = MAILBOX_TAG_SET_POWER_STATE;
-	mailbox_message[3] = 8;
-	mailbox_message[4] = 8;
-	mailbox_message[5] = 0x3;    // device = USB
-	mailbox_message[6] = 0x0;	 // 1 = off	
-	mailbox_message[7] = 0x0;
-
-	mailbox_write(MB_CHANNEL_TAGS, mailbox_ARM_to_VC(&mailbox_message[0]));
-	mailbox_read(MB_CHANNEL_TAGS);
-
-	if ((mailbox_message[1] == 0x80000000) && (mailbox_message[4] == 0x80000008)) {
-		return OK;
-	}
+RESULT PowerOffUsb (void) 
+{
+	if (mailbox_tag_message(0, 5, MAILBOX_TAG_SET_POWER_STATE, 8, 8, PB_USBHCD, 0))
+		return OK;													// Return success
 	return ErrorDevice;												// Failed to turn on
 }
 
@@ -1218,21 +1193,17 @@ RESULT HCDReset(void) {
 
 	original_tick = timer_getTickCount();							// Hold original tickcount
 	do {
-		if (tick_difference(original_tick, timer_getTickCount())> 100000) {
+		if (tick_difference(original_tick, timer_getTickCount())> 100000)
 			return ErrorTimeout;									// Return timeout error
-		}
-	} while (DWC_CORE_RESET->AhbMasterIdle == false);				// Keep looping until idle or timeout
+	} while (DWC_CORE_RESET->AhbMasterIdle == 0);					// Keep looping until idle or timeout
 
-	DWC_CORE_RESET->CoreSoft = true;								// Reset the soft core
+	DWC_CORE_RESET->CoreSoft = 1;									// Reset the soft core
 
-	volatile struct CoreReset temp;
 	original_tick = timer_getTickCount();							// Hold original tickcount
 	do {
-		if (tick_difference(original_tick, timer_getTickCount())> 100000) {
+		if (tick_difference(original_tick, timer_getTickCount())> 100000)
 			return ErrorTimeout;									// Return timeout error
-		}
-		temp = *DWC_CORE_RESET;										// Read reset register
-	} while (temp.CoreSoft == true || temp.AhbMasterIdle == false); // Keep looping until soft reset low/idle high or timeout
+	} while (DWC_CORE_RESET->CoreSoft == 1 || DWC_CORE_RESET->AhbMasterIdle == 0); // Keep looping until soft reset low/idle high or timeout
 
 	return OK;														// Return success
 }
@@ -1249,9 +1220,8 @@ RESULT HCDTransmitFifoFlush(enum CoreFifoFlush fifo) {
 
 	original_tick = timer_getTickCount();							// Hold original tick count
 	do {
-		if (tick_difference(original_tick, timer_getTickCount())> 100000) {
+		if (tick_difference(original_tick, timer_getTickCount())> 100000)
 			return ErrorTimeout;									// Return timeout error
-		}
 	} while (DWC_CORE_RESET->TransmitFifoFlush == true);			// Loop until flush signal low or timeout
 
 	return OK;														// Return success
@@ -1268,9 +1238,8 @@ RESULT HCDReceiveFifoFlush(void) {
 
 	original_tick = timer_getTickCount();							// Hold original tick count
 	do {
-		if (tick_difference(original_tick, timer_getTickCount())> 100000) {
+		if (tick_difference(original_tick, timer_getTickCount())> 100000)
 			return ErrorTimeout;									// Return timeout error
-		}
 	} while (DWC_CORE_RESET->ReceiveFifoFlush == true);				// Loop until flush signal low or timeout
 
 	return OK;														// Return success
@@ -1292,12 +1261,9 @@ RESULT HCDReceiveFifoFlush(void) {
 /*-------------------------------------------------------------------------*/
 RESULT HCDStart (void) {
 	RESULT result;
-	struct UsbControl coreUsb;
 
-	coreUsb = *DWC_CORE_CONTROL;									// Read core control register
-	coreUsb.UlpiDriveExternalVbus = 0;								// ULPI bit UseExternalVbusIndicator set to 0
-	coreUsb.TsDlinePulseEnable = 0;									// Dline pulsing set to zero
-	*DWC_CORE_CONTROL = coreUsb;									// Write control register
+	DWC_CORE_CONTROL->UlpiDriveExternalVbus = 0;					// ULPI bit UseExternalVbusIndicator set to 0
+	DWC_CORE_CONTROL->TsDlinePulseEnable = 0;						// Dline pulsing set to zero
 
 	LOG_DEBUG("HCD: Master reset.\n");								
 	if ((result = HCDReset()) != OK) {								// Attempt a HCD reset which will soft reset the USB core
@@ -1307,60 +1273,52 @@ RESULT HCDStart (void) {
 
 	if (!PhyInitialised) {											// If physical interface hasn't been initialized
 		LOG_DEBUG("HCD: One time phy initialisation.\n");
-		PhyInitialised = true;										// Read that we have done this one time call
-		coreUsb = *DWC_CORE_CONTROL;								// Read core control register
-		coreUsb.ModeSelect = UTMI;									// We will bring up UTMI+ interface .. no ULPI
-		LOG_DEBUG("HCD: Interface: UTMI+.\n");						
-		coreUsb.PhyInterface = false;								// Take existing phy interface down .. I assume
-		*DWC_CORE_CONTROL = coreUsb;								// Write control register
+		PhyInitialised = true;										// Read that we have done this one time call	
+		DWC_CORE_CONTROL->ModeSelect = UTMI;						// We will bring up UTMI+ interface .. no ULPI
+		LOG_DEBUG("HCD: Interface: UTMI+.\n");	
+		DWC_CORE_CONTROL->PhyInterface = 0;							// Take existing phy interface down .. I assume	
 		if ((result = HCDReset()) != OK) {							// You need to do a soft reset to make those settings happen
 			LOG("FATAL ERROR: Could not do a Master reset on HCD.\n");// Log the fatal error
 			return result;											// Return fail result
 		}
 	}
-
-	coreUsb = *DWC_CORE_CONTROL;									// Read control again after possible reset above									
+									
 	if (DWC_CORE_HARDWARE->HighSpeedPhysical == Ulpi
 		&& DWC_CORE_HARDWARE->FullSpeedPhysical == Dedicated) {
 		LOG_DEBUG("HCD: ULPI FSLS configuration: enabled.\n");	
-		coreUsb.UlpiFsls = true;								
-		coreUsb.ulpi_clk_sus_m = true;
+		DWC_CORE_CONTROL->UlpiFsls = 1;
+		DWC_CORE_CONTROL->ulpi_clk_sus_m = 1;
 	} else {
 		LOG_DEBUG("HCD: ULPI FSLS configuration: disabled.\n");
-		coreUsb.UlpiFsls = false;
-		coreUsb.ulpi_clk_sus_m = false;
+		DWC_CORE_CONTROL->UlpiFsls = 0;
+		DWC_CORE_CONTROL->ulpi_clk_sus_m = 0;
 	}
-	*DWC_CORE_CONTROL = coreUsb;									// Write control register
 
-	struct CoreAhb tempAhb;
-	tempAhb = *DWC_CORE_AHB;										// Read the AHB register
-	tempAhb.DmaEnable = true;										// Set the DMA on
-	tempAhb.DmaRemainderMode = Incremental;							// DMA remainders that aren't aligned use incremental 
-	*DWC_CORE_AHB = tempAhb;										// Write the AHB register
+	DWC_CORE_AHB->DmaEnable = 1;									// Set the DMA on
+	DWC_CORE_AHB->DmaRemainderMode = Incremental;					// DMA remainders that aren't aligned use incremental
 
-	coreUsb = *DWC_CORE_CONTROL;									// Read control register ... again	
 	switch (DWC_CORE_HARDWARE->OperatingMode) {						// Switch based on capabilities read from hardware
 	case HNP_SRP_CAPABLE:
 		LOG_DEBUG("HCD: HNP/SRP configuration: HNP, SRP.\n");
-		coreUsb.HnpCapable = true;
-		coreUsb.SrpCapable = true;
+		DWC_CORE_CONTROL->HnpCapable = 1;
+		DWC_CORE_CONTROL->SrpCapable = 1;
 		break;
 	case SRP_ONLY_CAPABLE:
 	case SRP_CAPABLE_DEVICE:
 	case SRP_CAPABLE_HOST:
 		LOG_DEBUG("HCD: HNP/SRP configuration: SRP.\n");
-		coreUsb.HnpCapable = false;
-		coreUsb.SrpCapable = true;
+		DWC_CORE_CONTROL->HnpCapable = 0;
+		DWC_CORE_CONTROL->SrpCapable = 1;
 		break;
 	case NO_HNP_SRP_CAPABLE:
 	case NO_SRP_CAPABLE_DEVICE:
 	case NO_SRP_CAPABLE_HOST:
 		LOG_DEBUG("HCD: HNP/SRP configuration: none.\n");
-		coreUsb.HnpCapable = false;
-		coreUsb.SrpCapable = false;
+		DWC_CORE_CONTROL->HnpCapable = 0;
+		DWC_CORE_CONTROL->SrpCapable = 0;
 		break;
 	}
-	*DWC_CORE_CONTROL = coreUsb;									// Write control register 
+
 	LOG_DEBUG("HCD: Core started.\n");
 	LOG_DEBUG("HCD: Starting host.\n");
 
@@ -1368,7 +1326,7 @@ RESULT HCDStart (void) {
 
 	if (DWC_CORE_HARDWARE->HighSpeedPhysical == Ulpi
 		&& DWC_CORE_HARDWARE->FullSpeedPhysical == Dedicated
-		&& coreUsb.UlpiFsls) {										// ULPI FsLs Host mode must have 48Mhz clock
+		&& DWC_CORE_CONTROL->UlpiFsls) {							// ULPI FsLs Host mode must have 48Mhz clock
 		LOG_DEBUG("HCD: Host clock: 48Mhz.\n");
 		DWC_HOST_CONFIG->ClockRate = Clock48MHz;					// Select 48Mhz clock
 	} else {
@@ -1376,7 +1334,7 @@ RESULT HCDStart (void) {
 		DWC_HOST_CONFIG->ClockRate = Clock30_60MHz;					// Select 30-60Mhz clock
 	}
 
-	DWC_HOST_CONFIG->FslsOnly = true;								// ULPI FsLs Host mode, I assume other mode is ULPI only  .. documentation would be nice
+	DWC_HOST_CONFIG->FslsOnly = 1;									// ULPI FsLs Host mode, I assume other mode is ULPI only  .. documentation would be nice
 
 	*DWC_CORE_RECEIVESIZE = ReceiveFifoSize;						// Set recieve fifo size
 
@@ -1387,11 +1345,7 @@ RESULT HCDStart (void) {
 	DWC_CORE_PERIODICINFO->HostSize.StartAddress = ReceiveFifoSize + NonPeriodicFifoSize; // Set periodic start address
 
 	LOG_DEBUG("HCD: Set HNP: enabled.\n");
-
-	struct CoreOtgControl tempOtgControl;
-	tempOtgControl = *DWC_CORE_OTGCONTROL;							// Read the OTG register
-	tempOtgControl.HostSetHnpEnable = true;							// Enable the host
-	*DWC_CORE_OTGCONTROL = tempOtgControl;							// Write the Otg register
+	DWC_CORE_OTGCONTROL->HostSetHnpEnable = 1;						// Enable the host
 
 	if ((result = HCDTransmitFifoFlush(FlushAll)) != OK)			// Flush the transmit FIFO
 		return result;												// Return error source if fatal fail
@@ -1400,7 +1354,7 @@ RESULT HCDStart (void) {
 
 	if (!DWC_HOST_CONFIG->EnableDmaDescriptor) {
 		for (int channel = 0; channel < DWC_CORE_HARDWARE->HostChannelCount; channel++) {
-			struct HostChannelCharacteristic tempChar;
+			HOST_CHANNEL_CHARACTERISTIC tempChar;
 			tempChar = DWC_HOST_CHANNEL[channel].Characteristic;	// Read and hold characteristic	
 			tempChar.Enable = false;								// Clear host channel enable
 			tempChar.Disable = true;								// Set host channel disable
@@ -1410,7 +1364,7 @@ RESULT HCDStart (void) {
 
 		// Halt channels to put them into known state.
 		for (int channel = 0; channel < DWC_CORE_HARDWARE->HostChannelCount; channel++) {
-			struct HostChannelCharacteristic tempChar;
+			HOST_CHANNEL_CHARACTERISTIC tempChar;
 			tempChar = DWC_HOST_CHANNEL[channel].Characteristic;	// Read and hold characteristic	
 			tempChar.Enable = true;									// Set host channel enable
 			tempChar.Disable = true;								// Set host channel disable
@@ -1427,25 +1381,15 @@ RESULT HCDStart (void) {
 		}
 	}
 
-	struct HostPort tempPort;
-	tempPort = *DWC_HOST_PORT;										// Fetch host port 
-	if (!tempPort.Power) {
+
+	if (!DWC_HOST_PORT->Power) {
 		LOG_DEBUG("HCD: Initial power physical host up.\n");
-		tempPort.Raw32 &= HOSTPORTMASK;								// Cleave off all the temp bits	
-		tempPort.Power = true;										// Set the power bit
-		*DWC_HOST_PORT = tempPort;									// Write value to port
+		DWC_HOST_PORT->Power = 1;									// Set the power bit
 	}
 
 	LOG_DEBUG("HCD: Initial resetting physical host.\n");
-	tempPort = *DWC_HOST_PORT;										// Fetch host port 
-	tempPort.Raw32 &= HOSTPORTMASK;									// Cleave off all the temp bits	
-	tempPort.Reset = true;											// Set the reset bit
-	*DWC_HOST_PORT = tempPort;										// Write value to port
+	DWC_HOST_PORT->Reset = 1;										// Set the reset bit
 	timer_wait(60000);												// 60ms delay
-	tempPort = *DWC_HOST_PORT;										// Fetch host port 
-	tempPort.Raw32 &= HOSTPORTMASK;									// Cleave off all the temp bits	
-	tempPort.Reset = false;											// Clear the reset bit
-	*DWC_HOST_PORT = tempPort;										// Write value to port
 
 	LOG_DEBUG("HCD: Successfully started.\n");
 
@@ -1462,7 +1406,7 @@ RESULT HCDStart (void) {
  it will set sendControl structure with what to do next.
  24Feb17 LdB
  --------------------------------------------------------------------------*/
-RESULT HCDCheckErrorAndAction(struct ChannelInterrupts interrupts, bool packetSplit, struct UsbSendControl* sendCtrl) {
+RESULT HCDCheckErrorAndAction (CHANNEL_INTERRUPTS interrupts, bool packetSplit, USB_SEND_CONTROL* sendCtrl) {
 	sendCtrl->ActionResendSplit = false;							// Make sure resend split flag is cleared
 	sendCtrl->ActionRetry = false;									// Make sure retry flag is cleared
 	/* First deal with all the fatal errors .. no use dealing with trivial errors if these are set */
@@ -1537,8 +1481,8 @@ RESULT HCDCheckErrorAndAction(struct ChannelInterrupts interrupts, bool packetSp
  options on sending the packets this static polled is just one way.
  19Feb17 LdB
  --------------------------------------------------------------------------*/
-RESULT HCDWaitOnTransmissionResult(uint32_t timeout, uint8_t channel, struct ChannelInterrupts *IntFlags) {
-	struct ChannelInterrupts tempInt;
+RESULT HCDWaitOnTransmissionResult(uint32_t timeout, uint8_t channel, CHANNEL_INTERRUPTS *IntFlags) {
+	CHANNEL_INTERRUPTS tempInt;
 	uint64_t original_tick = timer_getTickCount();					// Hold original tick count
 	do {
 		timer_wait(100);
@@ -1559,8 +1503,8 @@ RESULT HCDWaitOnTransmissionResult(uint32_t timeout, uint8_t channel, struct Cha
  --------------------------------------------------------------------------*/
 RESULT HCDChannelTransfer(const struct UsbPipe pipe, const struct UsbPipeControl pipectrl, uint8_t* buffer, uint32_t bufferLength, enum PacketId packetId) {
 	RESULT result;
-	struct ChannelInterrupts tempInt;
-	struct UsbSendControl sendCtrl = { 0 };							// Zero send control structure
+	CHANNEL_INTERRUPTS tempInt;
+	USB_SEND_CONTROL sendCtrl = { 0 };								// Zero send control structure
 	uint32_t offset = 0;											// Zero transfer position 
 	uint16_t maxPacketSize;
 	if (pipectrl.Channel > DWC_CORE_HARDWARE->HostChannelCount) {
@@ -1574,7 +1518,7 @@ RESULT HCDChannelTransfer(const struct UsbPipe pipe, const struct UsbPipeControl
 	DWC_HOST_CHANNEL[pipectrl.Channel].InterruptMask.Raw32 = 0x0;   // Clear all interrupt masks
 
 	/* Program the channel. */
-	struct HostChannelCharacteristic tempChar = { 0 };
+	HOST_CHANNEL_CHARACTERISTIC tempChar = { 0 };
 	tempChar.DeviceAddress = pipe.Number;							// Set host channel address
 	tempChar.EndPointNumber = pipe.EndPoint;						// Set host channel endpoint
 	tempChar.EndPointDirection = pipectrl.Direction;				// Set host channel direction
@@ -1586,7 +1530,7 @@ RESULT HCDChannelTransfer(const struct UsbPipe pipe, const struct UsbPipeControl
 	DWC_HOST_CHANNEL[pipectrl.Channel].Characteristic = tempChar;	// Write those value to host characteristics
 
 	/* Clear and setup split control to low speed devices */
-	struct HostChannelSplitControl tempSplit = { 0 };
+	HOST_CHANNEL_SPLIT_CONTROL tempSplit = { 0 };
 	if (pipe.Speed != USB_SPEED_HIGH) {								// If not high speed
 		LOG_DEBUG("Setting split control, addr: %i port: %i, packetSize: PacketSize: %i\n",
 			pipe.lowSpeedNodePoint, pipe.lowSpeedNodePort, maxPacketSize);
@@ -1597,7 +1541,7 @@ RESULT HCDChannelTransfer(const struct UsbPipe pipe, const struct UsbPipeControl
 	DWC_HOST_CHANNEL[pipectrl.Channel].SplitCtrl = tempSplit;		// Write channel split control
 
 	/* Set transfer size. */
-	struct HostTransferSize tempXfer = { 0 };
+	HOST_TRANSFER_SIZE tempXfer = { 0 };
 	tempXfer.TransferSize = bufferLength;							// Set transfer length
 	if (pipe.Speed == USB_SPEED_LOW) tempXfer.PacketCount = (bufferLength + 7) / 8;
 	else tempXfer.PacketCount = (bufferLength + maxPacketSize - 1) / maxPacketSize;
@@ -1620,7 +1564,7 @@ RESULT HCDChannelTransfer(const struct UsbPipe pipe, const struct UsbPipeControl
 		if (((uint32_t)(intptr_t)&buffer[offset] & 3) != 0)
 			LOG("HCD: Transfer buffer %08x is not DWORD aligned. Ignored, but dangerous.\n", (intptr_t)&buffer[offset]);
 		// C gets a little bit quirky because I have deferenced using the array of the structure .. help C out 
-		*(uint32_t*)&DWC_HOST_CHANNEL[pipectrl.Channel].DmaAddr = mailbox_ARM_to_VC(&buffer[offset]);
+		*(uint32_t*)&DWC_HOST_CHANNEL[pipectrl.Channel].DmaAddr = ARMaddrToGPUaddr(&buffer[offset]);
 
 		/* Launch transmission */
 		tempChar = DWC_HOST_CHANNEL[pipectrl.Channel].Characteristic;// Read host channel characteristic
@@ -1700,6 +1644,7 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
 								uint32_t* bytesTransferred)			// Value at pointer will be updated with bytes transfered to/from buffer (NULL to ignore)				
 {
 	RESULT result;
+	uint8_t dmaBuffer[1024] __attribute__((aligned(4)));
 	if (pipe.Number == RootHubDeviceNumber) {
 		return HcdProcessRootHubMessage(buffer, bufferLength, request, bytesTransferred);
 	}
@@ -1720,7 +1665,8 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
 	// Data transfer phase
 	if (buffer != NULL) {											// Buffer must be valid for any transfer to occur
 		if (pipectrl.Direction == USB_DIRECTION_OUT) {				// Out bound pipe got from original
-			myMemCopy(&dmaBuffer[0], buffer, bufferLength);			// Transfer data from buffer to DMA buffer which is align 4
+			for (int i = 0; i < bufferLength; i++)
+				dmaBuffer[i] = buffer[i];							// Transfer data from buffer to DMA buffer which is align 4
 		}
 		intPipeCtrl.Direction = pipectrl.Direction;					// Set pipe direction as requested	
 		if ((result = HCDChannelTransfer(pipe, intPipeCtrl,
@@ -1732,7 +1678,8 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
 		}
 		if (pipectrl.Direction == USB_DIRECTION_IN) {				// In bound pipe as per original
 			lastTransfer = bufferLength - DWC_HOST_CHANNEL[0].TransferSize.TransferSize;
-			myMemCopy(buffer, &dmaBuffer[0], lastTransfer);			// Transfer data from DMA buffer to buffer
+			for (int i = 0; i < lastTransfer; i++)
+				buffer[i] = dmaBuffer[i];							// Transfer data from DMA buffer to buffer
 		}
 		else {
 			lastTransfer = bufferLength;							// Success so transfer is full buffer for send 
@@ -1832,7 +1779,7 @@ RESULT HCDReadHubPortStatus (const struct UsbPipe pipe,				// Control pipe to th
 {
 	RESULT result;
 	uint32_t transfer = 0;
-	uint32_t status __attribute__((aligned(4)));					// aligned for DMA transfer 
+	uint32_t status __attribute__((aligned(4))) = { 0 };			// aligned for DMA transfer 
 	if (Status == NULL) return ErrorArgument;						// Make sure return pointer is valid
 	if ((result = HCDSumbitControlMessage(
 		pipe,														// Pass control pipe thru unchanged
@@ -1861,7 +1808,7 @@ RESULT HCDReadHubPortStatus (const struct UsbPipe pipe,				// Control pipe to th
 			pipe.Number, port);										// Log error
 		return ErrorDevice;											// Some quirk in enumeration usually
 	}
-	myMemCopy((uint8_t*)Status, (uint8_t*)&status, sizeof(uint32_t));// Transfer what we read to user pointer
+	if (Status) *Status = status;									// Transfer what we read to user pointer
 	return OK;														// Return success
 }
 
@@ -1872,7 +1819,7 @@ RESULT HCDReadHubPortStatus (const struct UsbPipe pipe,				// Control pipe to th
  21Mar17 LdB
  --------------------------------------------------------------------------*/
 RESULT HCDChangeHubPortFeature (const struct UsbPipe pipe,			// Control pipe to the hub 
-								enum HubPortFeature feature,		// Which feature to change
+								HUB_PORT_FEATURE feature,			// Which feature to change
 								uint8_t port,						// Port to change feature  OR  0 = Gateway node
 								bool set)							// Set or clear the feature
 {
@@ -2039,9 +1986,7 @@ RESULT HCDInitialise(void) {
 		return ErrorIncompatible;									// Return hardware incompatible
 	}
 
-	struct CoreAhb tempAhb = *DWC_CORE_AHB;							// Read the AHB register to temp
-	tempAhb.InterruptEnable = false;								// Clear interrupt enable bit
-	*DWC_CORE_AHB = tempAhb;										// Write temp back to AHB register
+	DWC_CORE_AHB->InterruptEnable = 0;								// Clear interrupt enable bit
 	DWC_CORE_INTERRUPTMASK->Raw32 = 0;								// Clear all interrupt masks
 
 	if (PowerOnUsb() != OK) {										// Power up the USB hardware
@@ -2195,7 +2140,7 @@ RESULT HubPortReset(struct UsbDevice *device, uint8_t port) {
 	LOG_DEBUG("HUB: Reseting device: %i Port: %d. source: %i\n", device->Pipe0.Number, port, source);
 	for (retry = 0; retry < 3; retry++) {
 		if ((result = HCDChangeHubPortFeature(device->Pipe0,
-			FeatureReset, port + 1, true)) != OK) 					// Issue a setfeature of reset
+			PORT_FEATURE_RESET, port + 1, true)) != OK) 			// Issue a port reset
 		{
 			LOG("HUB: Device %i Failed to reset Port%d.\n",
 				device->Pipe0.Number, port + 1);					// Log any failure
@@ -2227,7 +2172,7 @@ RESULT HubPortReset(struct UsbDevice *device, uint8_t port) {
 		return ErrorDevice;
 	}
 
-	if ((result = HCDChangeHubPortFeature(device->Pipe0, FeatureResetChange, port + 1, false)) != OK) {
+	if ((result = HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_RESET_CHANGE, port + 1, false)) != OK) {
 		LOG("HUB: Failed to clear reset on %s.Port%d.\n", UsbGetDescription(device), port + 1);
 	}
 	return OK;
@@ -2254,7 +2199,7 @@ RESULT HubPortConnectionChanged(struct UsbDevice *device, uint8_t port) {
 	}
 	LOG_DEBUG("HUB: %s.Port%d Status %x:%x.\n", UsbGetDescription(device), port + 1, portStatus.RawStatus, portStatus.RawChange);
 
-	if ((result = HCDChangeHubPortFeature(device->Pipe0, FeatureConnectionChange, port + 1, false)) != OK) {
+	if ((result = HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_CONNECTION_CHANGED, port + 1, false)) != OK) {
 		LOG("HUB: Failed to clear change on %s.Port%d.\n", UsbGetDescription(device), port + 1);
 	}
 
@@ -2295,7 +2240,7 @@ RESULT HubPortConnectionChanged(struct UsbDevice *device, uint8_t port) {
 		LOG("HUB: Could not connect to new device in %s.Port%d. Disabling.\n", UsbGetDescription(device), port + 1);
 		UsbDeallocateDevice(data->Children[port]);
 		data->Children[port] = NULL;
-		if (HCDChangeHubPortFeature(device->Pipe0, FeatureEnable, port + 1, false) != OK) {
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_ENABLE, port + 1, false) != OK) {
 			LOG("HUB: Failed to disable %s.Port%d.\n", UsbGetDescription(device), port + 1);
 		}
 		return result;
@@ -2330,7 +2275,7 @@ RESULT HubCheckConnection(struct UsbDevice *device, uint8_t port) {
 	}
 
 	if (portStatus.Change.EnabledChanged) {
-		if (HCDChangeHubPortFeature(device->Pipe0, FeatureEnableChange, port + 1, false) != OK) {
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_ENABLE_CHANGE, port + 1, false) != OK) {
 			LOG("HUB: Failed to clear enable change %s.Port%d.\n", UsbGetDescription(device), port + 1);
 		}
 
@@ -2342,19 +2287,19 @@ RESULT HubCheckConnection(struct UsbDevice *device, uint8_t port) {
 	}
 
 	if (portStatus.Status.Suspended) {
-		if (HCDChangeHubPortFeature(device->Pipe0, FeatureSuspend, port + 1, false) != OK) {
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_SUSPEND, port + 1, false) != OK) {
 			LOG("HUB: Failed to clear suspended port - %s.Port%d.\n", UsbGetDescription(device), port + 1);
 		}
 	}
 
 	if (portStatus.Change.OverCurrentChanged) {
-		if (HCDChangeHubPortFeature(device->Pipe0, FeatureOverCurrentChange, port + 1, false) != OK) {
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_OVERCURRENT_CHANGE, port + 1, false) != OK) {
 			LOG("HUB: Failed to clear over current port - %s.Port%d.\n", UsbGetDescription(device), port + 1);
 		}
 	}
 
 	if (portStatus.Change.ResetChanged) {
-		if (HCDChangeHubPortFeature(device->Pipe0, FeatureResetChange, port + 1, false) != OK) {
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_RESET_CHANGE, port + 1, false) != OK) {
 			LOG("HUB: Failed to clear reset port - %s.Port%d.\n", UsbGetDescription(device), port + 1);
 		}
 	}
@@ -2387,15 +2332,11 @@ void HubCheckForChange(struct UsbDevice *device) {
  11Feb17 LdB
  --------------------------------------------------------------------------*/
 RESULT EnumerateHID (const struct UsbPipe pipe, struct UsbDevice *device) {
-	volatile uint8_t Hi;
-	volatile uint8_t Lo;
-	uint8_t Buf[1024];
+	uint8_t Buf[1024] __attribute__((aligned(4)));
 	for (int i = 0; i < device->HidPayload->MaxHID; i++) {
-		Hi = *(uint8_t*)&device->HidPayload->Descriptor[i].HidVersionHi; // ARM7/8 alignment issue
-		Lo = *(uint8_t*)&device->HidPayload->Descriptor[i].HidVersionLo; // ARM7/8 alignment issue
 		int interface = device->HidPayload->HIDInterface[i];
 		LOG("HID details: Version: %4x, Language: %i Descriptions: %i, Type: %i, Protocol: %i, NumInterface: %i\n",
-			(unsigned int)((uint32_t)Hi << 8 | Lo),
+			(unsigned int)device->HidPayload->Descriptor[i].HidVersion,
 			device->HidPayload->Descriptor[i].Countrycode,
 			device->HidPayload->Descriptor[i].DescriptorCount,
 			device->HidPayload->Descriptor[i].Type,
@@ -2411,6 +2352,7 @@ RESULT EnumerateHID (const struct UsbPipe pipe, struct UsbDevice *device) {
 			LOG_DEBUG("Bytes: %02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\n",
 				Buf[38], Buf[39], Buf[40], Buf[41], Buf[42], Buf[43], Buf[44], Buf[45], Buf[46], Buf[47], Buf[48], Buf[49], Buf[50], Buf[51]);
 		}
+
 	}
 	return OK;														// Return success
 }
@@ -2423,7 +2365,7 @@ RESULT EnumerateHub (struct UsbDevice *device) {
 	RESULT result;
 	uint32_t transfer;
 	struct HubDevice *data;
-	struct HubFullStatus status;
+	HUB_FULL_STATUS status;
 
 	if ((result = AddHubPayload(device)) != OK) {					// We are a hub so we need a hub payload
 		LOG("Could not allocate hub payload, Error ID %i\n", result);
@@ -2463,7 +2405,7 @@ RESULT EnumerateHub (struct UsbDevice *device) {
 
 	LOG_DEBUG("HUB: Hub powering ports on.\n");
 	for (int i = 0; i < data->MaxChildren; i++) {					// For each port
-		if (HCDChangeHubPortFeature(device->Pipe0, FeaturePower,
+		if (HCDChangeHubPortFeature(device->Pipe0, PORT_FEATURE_POWER,
 			i + 1, true) != OK)										// Power the port							
 			LOG("HUB: device: %i could not power Port%d.\n",
 				device->Pipe0.Number, i + 1);						// Log error
@@ -2489,7 +2431,7 @@ RESULT EnumerateDevice (struct UsbDevice *device, struct UsbDevice* ParentHub, u
 	RESULT result;
 	uint8_t address;
 	uint32_t transferred;
-	struct UsbDeviceDescriptor desc __attribute__((aligned(4)));	// Device descriptor DMA aligned
+	struct UsbDeviceDescriptor desc __attribute__((aligned(4))) = { 0 };// Device descriptor DMA aligned
 	char buffer[256] __attribute__((aligned(4)));					// Text buffer
 
 	/* Store the unique address until it is actually assigned. */
@@ -2615,18 +2557,20 @@ RESULT EnumerateDevice (struct UsbDevice *device, struct UsbDevice* ParentHub, u
 	uint32_t i = 0;													// Start array search at zero
 	while (i < configDesc.TotalLength - 1) {						// So while we havent reached end of config data
 		switch (configBuffer[i + 1]) {								// i will be on a descriptor header i+1 is decsriptor type 
-		case Interface: {											// Ok we have an interface descriptor we need to add it
-			myMemCopy((uint8_t*)&device->Interfaces[device->MaxInterface],
-				&configBuffer[i], 
-				sizeof(struct UsbInterfaceDescriptor));				// configBuffer[i] is descriptor size as well as first byte
+		case Interface: {											// Ok we have an interface descriptor we need to add it	
+			uint8_t* tp;
+			tp = (uint8_t*)&device->Interfaces[device->MaxInterface];
+			for (int j = 0; j < sizeof(struct UsbInterfaceDescriptor); j++)
+				tp[j] = configBuffer[i + j];						// Transfer USB interface descriptor
 			device->MaxInterface++;									// One interface added
 			EndPtCnt = 0;											// Reset endpoint count to zero (we are on new interface now)
 			break;
 		}
 		case Endpoint: {											// Ok we have an endpoint descriptor we need to add it
-			myMemCopy((uint8_t*)&device->Endpoints[device->MaxInterface - 1][EndPtCnt], 
-				&configBuffer[i],
-				sizeof(struct UsbEndpointDescriptor));				// configBuffer[i] is descriptor size as well as first byte
+			uint8_t* tp;
+			tp = (uint8_t*)&device->Endpoints[device->MaxInterface - 1][EndPtCnt];
+			for (int j = 0; j < sizeof(struct UsbEndpointDescriptor); j++)
+				tp[j] = configBuffer[i + j];						// Transfer USB endpoint descriptor
 			EndPtCnt++;												// One endpoint added so move index
 			break;
 		}
@@ -2638,8 +2582,10 @@ RESULT EnumerateDevice (struct UsbDevice *device, struct UsbDevice* ParentHub, u
 				};
 			}
 			if (hidCount < MaxHIDPerDevice) {						// We can hold a limited sane number of HID descriptors
-				myMemCopy((uint8_t*)&device->HidPayload->Descriptor[hidCount],
-					&configBuffer[i], sizeof(struct HidDescriptor));// Copy descriptor to HID data block
+				uint8_t* tp;
+				tp = (uint8_t*)&device->HidPayload->Descriptor[hidCount];
+				for (int j = 0; j < sizeof(struct HidDescriptor); j++)
+					tp[j] = configBuffer[i + j];					// Transfer HID descriptor
 				device->HidPayload->HIDInterface[hidCount] = device->MaxInterface - 1; // Hold the interface the HID is on
 				hidCount++;											// Add one to HID count
 			}
@@ -2810,7 +2756,7 @@ RESULT HCDGetDescriptor (const struct UsbPipe pipe,					// Pipe structure to sen
 		&transfer);													// Set pointer to fetch transfer bytes
 	if (length != transfer) result = ErrorTransmission; 			// The requested length does not match read length
 	if (result != OK) {
-		LOG("HCD: Failed to get descriptor %#x:%#x for device:%i. RESULT %#x.\n",
+		LOG("HCD: Failed to get descriptor %#x:%#x for device:%i. RESULT %d.\n",
 			type, index, pipe.Number, result);						// Log any error
 	}
 	if (bytesTransferred) *bytesTransferred = transfer;				// Return the bytes transferred
@@ -3091,8 +3037,8 @@ void UsbShowTree(struct UsbDevice *root, const int level, const char tee) {
 		int lastChild = root->HubPayload->MaxChildren;
 		for (int i = 0; i < lastChild; i++) {						// For each child of hub
 			char nodetee = '\xC0';									// Preset nodetee to end node ... "L"
-			for (int j = i; j < lastChild - 1; j++) {				// Check if any following child node is valid
-				if (root->HubPayload->Children[j + 1]) {			// We found a following node in use					
+			for (int j = i + 1; j < lastChild; j++) {				// Check if any following child node is valid
+				if (root->HubPayload->Children[j]) {				// We found a following node in use					
 					TreeLevelInUse[level] = 1;						// Set tree level in use flag
 					nodetee = (char)0xc3;							// Change the node character to tee looks like this "├"
 					break;											// Exit loop j
@@ -3119,7 +3065,7 @@ void UsbShowTree(struct UsbDevice *root, const int level, const char tee) {
 RESULT HIDReadDescriptor (uint8_t devNumber,						// Device number (address) of the device to read 
 						  uint8_t hidIndex,							// Which hid configuration information is requested from
 						  uint8_t* Buffer,							// Pointer to a buffer to receive the descriptor
-						  uint16_t Length)							// Maxium length of the buffer 
+						  uint16_t Length)							// Maximum length of the buffer 
 {
 	RESULT result;
 	struct UsbDevice* device;
@@ -3156,7 +3102,7 @@ RESULT HIDReadDescriptor (uint8_t devNumber,						// Device number (address) of 
 
 	// We buffered for DMA alignment .. Now transfer to user pointer
 	if (Length < sizeToRead) sizeToRead = Length;					// Insufficient buffer size for descriptor
-	myMemCopy(Buffer, &buf[0], sizeToRead);							// Transfer as much of what we read, or as big as fits in buffer given
+	for (int i = 0; i < sizeToRead; i++) Buffer[i] = buf[i];		// Transfer as much of what we read, or as big as fits in buffer given
 	return OK;														// Return success
 }
 
@@ -3175,7 +3121,7 @@ RESULT HIDReadReport (uint8_t devNumber,							// Device number (address) of the
 	RESULT result;
 	struct UsbDevice* device;
 	uint32_t transfer = 0;											// Preset transfer to zero
-	uint8_t buf[1024] __attribute__((aligned(4)));					// aligned for DMA transfer 
+	uint8_t buf[1024] __attribute__((aligned(4))) = { 0 };			// aligned for DMA transfer 
 	if ((Buffer == NULL) || (Length == 0))	return ErrorArgument;	// Check buffer and length is valid
 	if ((devNumber == 0) || (devNumber > MaximumDevices))
 		return ErrorDeviceNumber;									// Device number not valid
@@ -3204,7 +3150,7 @@ RESULT HIDReadReport (uint8_t devNumber,							// Device number (address) of the
 		&transfer);													// Monitor transfer byte count
 	if (result != OK) return result;								// Return error
 	if (Length < transfer) transfer = Length;						// If report read is bigger than buffer size truncate report return to max size of buffer 
-	myMemCopy(Buffer, &buf[0], transfer);							// Transfer from DMA buffer to user buffer (the amount returned .. may differ from length)
+	for (int i = 0; i < transfer; i++) Buffer[i] = buf[i];			// Transfer from DMA buffer to user buffer (the amount returned .. may differ from length)
 	return OK;														// Return success
 }
 
@@ -3232,7 +3178,7 @@ RESULT HIDWriteReport (uint8_t devNumber,							// Device number (address) of th
 	if (device->PayLoadId == 0) return ErrorDeviceNumber;			// The requested device isn't in use
 	if ((device->PayLoadId != HidPayload) || (device->HidPayload == NULL))
 		return ErrorNotHID;											// The device requested isn't a HID device
-	myMemCopy(&buf[0], Buffer, Length);								// Transfer user buffer to an aligned buffer
+	for (int i = 0; i < Length; i++) buf[i] = Buffer[i];			// Transfer user buffer to an aligned buffer
 
 	result = HCDSumbitControlMessage(
 		device->Pipe0,												// Control pipe
