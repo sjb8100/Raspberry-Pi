@@ -12,7 +12,7 @@
 {       Filename: SDCard.c													}
 {       Copyright(c): Leon de Boer(LdB) 2017								}
 {       Version: 1.01														}
-{       Original start code from Holdswrthy use from the Pi Forum           }
+{       Original start code from hldswrth use from the Pi Forum             }
 {																			}
 {***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
 {																            }
@@ -417,7 +417,7 @@ struct __attribute__((__packed__, aligned(4))) regSCR {
 							SD_SEC_2 = 3,				// ..enum..	SDHC Card (Security Version 2.00)
 							SD_SEC_3 = 4,				// ..enum..	SDXC Card (Security Version 3.xx)
 						  } SD_SECURITY : 3;			// @12-14	Card security in use
-			volatile unsigned DATA_AFTER_ERASE : 1;		// @15		Defines the data status after erase, whether it is ‘0’ or ‘1
+			volatile unsigned DATA_AFTER_ERASE : 1;		// @15		Defines the data status after erase, whether it is Â‘0Â’ or Â‘1
 			unsigned reserved : 3;						// @16-18	Write as zero read as don't care
 			volatile enum {	EX_SEC_NONE = 0,			// ..enum..	No extended Security
 						  } EX_SECURITY : 4;			// @19-22	Extended security
@@ -468,7 +468,7 @@ struct __attribute__((__packed__, aligned(4))) regCID {
 	union {
 		struct __attribute__((__packed__, aligned(1))) {
 			volatile unsigned ManufactureMonth : 4;		// @0-3		Manufacturing date month (1=Jan, 2=Feb, 3=Mar etc)
-			volatile unsigned ManufactureYear : 8;		// @4-11	Manufacturing date–year (offset from 2000 .. 1=2001,2=2002,3=2003 etc)
+			volatile unsigned ManufactureYear : 8;		// @4-11	Manufacturing dateÂ–year (offset from 2000 .. 1=2001,2=2002,3=2003 etc)
 			unsigned reserved1 : 4;						// @12-15 	Write as zero read as don't care
 			volatile unsigned SerialNumLo : 16;			// @16-23	Serial number lower 16 bits
 		};
