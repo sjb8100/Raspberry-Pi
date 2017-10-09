@@ -1523,6 +1523,17 @@ uint32_t GetConsole_Height(void) {
 	return (uint32_t)console.ht;
 }
 
+void WhereXY (uint32_t* x, uint32_t* y)
+{
+	if (x) *x = console.cursor.x;
+	if (y) *y = console.cursor.y;
+}
+
+void GotoXY(uint32_t x, uint32_t y)
+{
+	console.cursor.x = x;
+	console.cursor.y = y;
+}
 
 /* Increase program data space. As malloc and related functions depend on this,
 it is useful to have a working implementation. The following suffices for a
@@ -1544,80 +1555,3 @@ caddr_t __attribute__((weak)) _sbrk (int incr)
 	return (caddr_t)prev_heap_end;
 }
 
-#include <errno.h>
-#undef errno
-extern int errno;
-/* Send a signal. Minimal implementation: */
-int __attribute__((weak)) _kill (int pid, int sig)
-{
-	errno = EINVAL;
-	return -1;
-}
-
-/* Process-ID; this is sometimes used to generate strings unlikely to conflict
-with other processes. Minimal implementation, for a system without
-processes: */
-int __attribute__((weak)) _getpid(void)
-{
-	return 1;
-}
-
-
-/* Read from a file. Minimal implementation: */
-int __attribute__((weak)) _read(int file, char *ptr, int len)
-{
-	return 0;
-}
-
-/* There's currently no implementation of a file system because there's no
-file system! */
-int __attribute__((weak)) _close(int file)
-{
-	return -1;
-}
-
-/* Set position in a file. Minimal implementation: */
-int __attribute__((weak)) _lseek(int file, int ptr, int dir)
-{
-	return 0;
-}
-
-/* Query whether output stream is a terminal. For consistency with the other
-minimal implementations, which only support output to stdout, this minimal
-implementation is suggested: */
-int __attribute__((weak)) _isatty(int file)
-{
-	return 1;
-}
-
-/* Status of an open file. For consistency with other minimal implementations
-in these examples, all files are regarded as character special devices. The
-sys/stat.h header file required is distributed in the include subdirectory
-for this C library. */
-#include <sys/stat.h>
-int __attribute__((weak)) _fstat(int file, struct stat *st)
-{
-	st->st_mode = S_IFCHR;
-	return 0;
-}
-
-/* Never return from _exit as there's no OS to exit to, so instead we trap here */
-void __attribute__((weak)) _exit(int status)
-{
-	/* Stop the compiler complaining about unused variables by "using" it */
-	(void)status;
-
-	while (1)
-	{
-		/* TRAP HERE */
-	}
-}
-
-int _write (int file, char *ptr, int len) {
-
-	for (int todo = 0; todo < len; todo++) {
-		char Ch = *ptr++;
-		Embedded_Console_WriteChar(Ch);
-	}
-	return len;
-}

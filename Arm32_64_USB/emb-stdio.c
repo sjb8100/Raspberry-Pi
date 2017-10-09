@@ -3,9 +3,10 @@
 #include <stdarg.h>			// Varadic arguments
 #include <string.h>			// strnlen used
 #include <stdlib.h>			// strtol
+#include <stddef.h>			// Needed for ptrdiff_t
 #include <ctype.h>			// Needed for toupper, isdigit etc
 #include <wchar.h>			// Needed for wchar_t
-#include "rpi-smartstart.h" // Smartstart header
+#include "rpi-SmartStart.h" // Smartstart header
 #include "emb-stdio.h"		// This units header
 
 /* If you are compiling under POSIX it won't have strnlen in library string.h so provide it as a weak backup */

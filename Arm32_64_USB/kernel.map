@@ -1,772 +1,967 @@
 Archive member included to satisfy reference by file (symbol)
 
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (__locale_ctype_ptr)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (mbstowcs)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o) (_mbstowcs_r)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (__ascii_mbtowc)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
-                              C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o (memset)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o (errno)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strcasecmp)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strcat)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strchr)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strcmp)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strcpy)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strlcpy)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o (strlen)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strncasecmp)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (strncmp)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strncpy)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtod)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtol)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtold)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtoll)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o) (_strtorx_l)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtoul)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (strtoull)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
-                              C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o (wcscpy)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
-                              C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o (wctob)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (__ascii_wctomb)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (__set_ctype)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o) (_free_r)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (__gethex)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (__match)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (_getenv_r)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o) (_impure_ptr)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (__localeconv_l)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o) (__malloc_current_mallinfo)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (memcpy)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o) (__malloc_lock)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (_Balloc)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o) (_sbrk_r)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o) (nanf)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o) (_strtodg_l)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o) (_calloc_r)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o) (environ)
-g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-                              g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o) (__env_lock)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (__locale_ctype_ptr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (mbstowcs)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o) (__ascii_mbtowc)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o (memcpy)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o (memset)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strchr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o) (strcmp)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strcpy)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o (strlen)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strncpy)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtod)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtol)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtold)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtoll)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtoul)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (strtoull)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (wcscpy)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o (wctob)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o) (__ascii_wctomb)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o) (_ctype_)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (__gethex)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (__match)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o) (_impure_ptr)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (__localeconv_l)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (_Balloc)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (nanf)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o) (strncmp)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o) (_calloc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o) (_malloc_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o) (__malloc_lock)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o) (_sbrk_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o) (_free_r)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o) (__retarget_lock_acquire_recursive)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o) (errno)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o (__aeabi_uidiv)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+                              C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o (__aeabi_uldivmod)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o) (__udivmoddi4)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o) (__clzdi2)
+g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzsi2.o)
+                              g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o) (__clzsi2)
 
 Allocating common symbols
 Common symbol       size              file
 
-__errno             0x4               C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
-errno               0x4               g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
+__lock___atexit_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___arc4random_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__errno             0x4               C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+errno               0x4               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+__lock___env_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___sinit_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___malloc_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___at_quick_exit_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___dd_hash_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___tz_mutex   0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+__lock___sfp_recursive_mutex
+                    0x1               g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
 
 Discarded input sections
 
- .data          0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
- .comment       0x0000000000000000       0x2e C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
- .text          0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
- .data          0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
- .bss           0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
- .comment       0x0000000000000000       0x2e C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
- .data          0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
- .bss           0x0000000000000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
- .comment       0x0000000000000000       0x2e C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
- .comment       0x0000000000000000       0x2e C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_frame   0x0000000000000000      0x2c8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_frame   0x0000000000000000       0x38 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_frame   0x0000000000000000       0xa8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_frame   0x0000000000000000      0x128 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .text          0x0000000000000000      0x144 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_frame   0x0000000000000000       0x90 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_frame   0x0000000000000000       0x60 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_frame   0x0000000000000000       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_frame   0x0000000000000000       0x28 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_frame   0x0000000000000000       0x60 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_frame   0x0000000000000000       0x28 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_frame   0x0000000000000000      0x330 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_frame   0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_frame   0x0000000000000000       0x88 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_frame   0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_frame   0x0000000000000000       0x58 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_frame   0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_frame   0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_frame   0x0000000000000000       0x28 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_frame   0x0000000000000000       0x48 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_frame   0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_frame   0x0000000000000000       0x28 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_frame   0x0000000000000000       0xb0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_frame   0x0000000000000000       0x88 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_frame   0x0000000000000000       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_frame   0x0000000000000000       0xb8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .text          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .rodata        0x0000000000000000        0x8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_frame   0x0000000000000000       0x58 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_frame   0x0000000000000000      0x100 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .debug_frame   0x0000000000000000       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_frame   0x0000000000000000      0x3b0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_frame   0x0000000000000000       0x50 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .debug_frame   0x0000000000000000       0x28 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_frame   0x0000000000000000      0x328 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .debug_frame   0x0000000000000000       0x48 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .text          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .data          0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
- .bss           0x0000000000000000        0x0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
- .comment       0x0000000000000000       0x2e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
- .debug_frame   0x0000000000000000       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+ COMMON         0x00000000        0x4 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+ .text          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+ .data          0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+ .bss           0x00000000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+ .comment       0x00000000       0x80 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .text._setlocale_r
+                0x00000000       0x68 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .text.__locale_mb_cur_max
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .text.setlocale
+                0x00000000       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .bss._PathLocale
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .debug_frame   0x00000000       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .text._mbtowc_r
+                0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .debug_frame   0x00000000       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000000       0x44 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+ .debug_frame   0x00000000       0x54 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+ .text          0x00000000      0x224 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+ .ARM.attributes
+                0x00000000       0x16 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcmp.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .text._strtod_r
+                0x00000000       0x24 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .text.strtod_l
+                0x00000000       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .text.strtof_l
+                0x00000000       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .debug_frame   0x00000000      0x144 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .text._strtol_r
+                0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .text.strtol_l
+                0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .debug_frame   0x00000000       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .text._strtold_r
+                0x00000000       0x30 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .text.strtold_l
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .debug_frame   0x00000000       0x64 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .text._strtoll_r
+                0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .text.strtoll_l
+                0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .debug_frame   0x00000000       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .text._strtoul_r
+                0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .text.strtoul_l
+                0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .debug_frame   0x00000000       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .text._strtoull_r
+                0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .text.strtoull_l
+                0x00000000       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .debug_frame   0x00000000       0xac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .text._wctomb_r
+                0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .debug_frame   0x00000000       0xa8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .debug_frame   0x00000000       0x90 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .text._localeconv_r
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .text.localeconv
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .debug_frame   0x00000000       0x40 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .text._mprec_log10
+                0x00000000       0x44 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .rodata.__mprec_tinytens
+                0x00000000       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .debug_frame   0x00000000      0x2dc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+ .debug_frame   0x00000000       0x50 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+ .debug_frame   0x00000000       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+ .debug_frame   0x00000000       0x84 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+ .debug_frame   0x00000000       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+ .debug_frame   0x00000000       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+ .debug_frame   0x00000000       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_init
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_init_recursive
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_close
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_close_recursive
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_acquire
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_try_acquire
+                0x00000000        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_try_acquire_recursive
+                0x00000000        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text.__retarget_lock_release
+                0x00000000        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .debug_frame   0x00000000       0xb0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .text          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .text.cleanup_glue
+                0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .text._reclaim_reent
+                0x00000000       0xf4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .debug_frame   0x00000000       0x64 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000000       0x20 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00000000       0x2c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.extab     0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x00000000        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000000       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o)
+ .data          0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzsi2.o)
+ .bss           0x00000000        0x0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzsi2.o)
 
 Memory Configuration
 
 Name             Origin             Length             Attributes
-RAM              0x0000000000080000 0x0000000008000000 xrw
-*default*        0x0000000000000000 0xffffffffffffffff
+RAM              0x00008000         0x08000000         xrw
+*default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
 
-.text           0x0000000000080000    0x163d4
-                0x0000000000080000                . = ALIGN (0x4)
-                0x0000000000080000                __text_start__ = .
-                0x0000000000080000                _start = .
+.text           0x00008000    0x13694
+                0x00008000                . = ALIGN (0x4)
+                0x00008000                __text_start__ = .
+                0x00008000                _start = .
  *(.text.startup)
- .text.startup  0x0000000000080000      0x2f8 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-                0x000000000008029c                EnableInterrupts
-                0x00000000000802a4                DisableInterrupts
-                0x00000000000802ac                CoreExecute
+ .text.startup  0x00008000      0x3e4 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x0000839c                EnableInterrupts
+                0x000083a4                DisableInterrupts
+                0x000083ac                CoreExecute
  *(.text .text.* .gnu.linkonce.t.*)
- *fill*         0x00000000000802f8        0x8 
- .text          0x0000000000080300       0xa8 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
-                0x0000000000080300                c_irq_handler
-                0x0000000000080330                kernel_main
+ .text          0x000083e4      0x1ec C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+                0x000083e4                c_irq_handler
+                0x00008400                kernel_main
  .text.setTimerIrqAddress
-                0x00000000000803a8       0x20 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-                0x00000000000803a8                setTimerIrqAddress
+                0x000085d0       0x1c C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x000085d0                setTimerIrqAddress
  .text.ARMaddrToGPUaddr
-                0x00000000000803c8        0xc C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-                0x00000000000803c8                ARMaddrToGPUaddr
- *fill*         0x00000000000803d4      0x42c 
+                0x000085ec       0x14 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x000085ec                ARMaddrToGPUaddr
  .text.GPUaddrToARMaddr
-                0x0000000000080800      0xf98 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-                0x0000000000080800                GPUaddrToARMaddr
-                0x000000000008080c                irq_handler
-                0x0000000000081000                VectorTable
- *fill*         0x0000000000081798        0x8 
- .text          0x00000000000817a0     0x2868 C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
-                0x00000000000829d0                RPi_CpuIdString
-                0x0000000000082a30                gpio_setup
-                0x0000000000082aa0                gpio_output
-                0x0000000000082b10                gpio_input
-                0x0000000000082b60                gpio_checkEvent
-                0x0000000000082ba0                gpio_clearEvent
-                0x0000000000082be0                gpio_edgeDetect
-                0x0000000000082c90                gpio_fixResistor
-                0x0000000000082d80                timer_getTickCount
-                0x0000000000082db0                timer_wait
-                0x0000000000082e10                tick_difference
-                0x0000000000082e20                mailbox_write
-                0x0000000000082e60                mailbox_read
-                0x0000000000082eb0                mailbox_tag_message
-                0x0000000000083030                TimerIrqSetup
-                0x0000000000083130                set_Activity_LED
-                0x00000000000832c0                ARM_setmaxspeed
-                0x0000000000083370                displaySmartStart
-                0x0000000000083450                Embedded_Console_WriteChar
-                0x0000000000083510                WriteText
-                0x0000000000083610                SetDCPenColor
-                0x0000000000083630                SetDCBrushColor
-                0x0000000000083650                MoveToEx
-                0x0000000000083680                LineTo
-                0x0000000000083740                TextOut
-                0x00000000000837d0                TransparentTextOut
-                0x0000000000083840                BmpOut
-                0x0000000000083890                CvtBmpLine
-                0x0000000000083b30                Rectangle
-                0x0000000000083b60                PiConsole_Init
-                0x0000000000083e20                GetConsoleDC
-                0x0000000000083e30                GetConsole_FrameBuffer
-                0x0000000000083e40                GetConsole_Width
-                0x0000000000083e50                GetConsole_Height
-                0x0000000000083e60                _sbrk
-                0x0000000000083e90                _kill
-                0x0000000000083eb0                _getpid
-                0x0000000000083ec0                _read
-                0x0000000000083ed0                _close
-                0x0000000000083ee0                _lseek
-                0x0000000000083ef0                _isatty
-                0x0000000000083f00                _fstat
-                0x0000000000083f10                _exit
-                0x0000000000083f20                _write
- *fill*         0x0000000000084008        0x8 
- .text          0x0000000000084010     0x1acc C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
-                0x00000000000842c0                strnlen
-                0x0000000000084300                emb_vsprintf
-                0x0000000000084be0                vsscanf
-                0x0000000000085900                sscanf
-                0x0000000000085990                emb_sprintf
-                0x0000000000085a10                printf
- *fill*         0x0000000000085adc        0x4 
- .text          0x0000000000085ae0     0x7d78 C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
-                0x0000000000085ae0                HcdProcessRootHubMessage
-                0x0000000000086140                PowerOnUsb
-                0x0000000000086180                PowerOffUsb
-                0x00000000000861c0                HCDReset
-                0x00000000000862a0                HCDTransmitFifoFlush
-                0x0000000000086350                HCDReceiveFifoFlush
-                0x00000000000863f0                HCDStart
-                0x0000000000086a50                HCDCheckErrorAndAction
-                0x0000000000086b90                HCDWaitOnTransmissionResult
-                0x0000000000086c50                HCDChannelTransfer
-                0x00000000000878f0                HCDSumbitControlMessage
-                0x0000000000087bf0                HCDSetAddress
-                0x0000000000087c40                HCDSetConfiguration
-                0x0000000000087ca0                HCDReadHubPortStatus
-                0x0000000000087da0                HCDChangeHubPortFeature
-                0x0000000000087e30                HCDInitialise
-                0x0000000000087f90                AddHidPayload
-                0x0000000000088100                RemoveHidPayload
-                0x0000000000088150                AddHubPayload
-                0x00000000000882c0                UsbAllocateDevice
-                0x0000000000088350                UsbDeallocateDevice
-                0x00000000000885e0                RemoveHubPayload
-                0x00000000000888f0                EnumerateHID
-                0x0000000000088de0                HCDGetDescriptor
-                0x0000000000088f90                HCDReadStringDescriptor
-                0x0000000000089850                IsHub
-                0x00000000000898b0                IsHid
-                0x0000000000089910                IsMassStorage
-                0x0000000000089970                IsMouse
-                0x00000000000899d0                IsKeyboard
-                0x0000000000089a30                UsbGetRootHub
-                0x0000000000089a50                UsbDeviceAtAddress
-                0x0000000000089a90                UsbGetDescription
-                0x0000000000089d60                HubPortReset
-                0x000000000008a0e0                HubCheckConnection
-                0x000000000008a530                EnumerateHub
-                0x000000000008aa50                EnumerateDevice
-                0x000000000008b550                HubPortConnectionChanged
-                0x000000000008bb40                UsbAttachRootHub
-                0x000000000008bc10                UsbInitialise
-                0x000000000008be70                HubCheckForChange
-                0x000000000008c360                UsbCheckForChange
-                0x000000000008c970                UsbShowTree
-                0x000000000008ccc0                HIDReadDescriptor
-                0x000000000008d1b0                HIDReadReport
-                0x000000000008d530                HIDWriteReport
-                0x000000000008d7c0                HIDSetProtocol
- .text          0x000000000008d858      0xd0c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                0x000000000008d910                __loadlocale
-                0x000000000008e0a8                __get_locale_env
-                0x000000000008e138                _setlocale_r
-                0x000000000008e4f8                __locale_mb_cur_max
-                0x000000000008e520                __locale_ctype_ptr_l
-                0x000000000008e528                __locale_ctype_ptr
-                0x000000000008e550                setlocale
- *fill*         0x000000000008e564        0x4 
- .text          0x000000000008e568       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
-                0x000000000008e568                mbstowcs
- .text          0x000000000008e598       0xfc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
-                0x000000000008e598                _mbstowcs_r
- *fill*         0x000000000008e694        0x4 
- .text          0x000000000008e698      0x6e4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
-                0x000000000008e698                _mbtowc_r
-                0x000000000008e6c0                __ascii_mbtowc
-                0x000000000008e700                __utf8_mbtowc
-                0x000000000008e9c8                __sjis_mbtowc
-                0x000000000008ea98                __eucjp_mbtowc
-                0x000000000008ebb8                __jis_mbtowc
- *fill*         0x000000000008ed7c        0x4 
- .text          0x000000000008ed80      0x1d8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
-                0x000000000008ed80                memset
- .text          0x000000000008ef58       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
-                0x000000000008ef58                strcasecmp
- .text          0x000000000008eff8       0x74 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
-                0x000000000008eff8                strcat
- .text          0x000000000008f06c       0xdc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
-                0x000000000008f06c                strchr
- *fill*         0x000000000008f148       0x38 
- .text          0x000000000008f180       0xa4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
-                0x000000000008f180                strcmp
- *fill*         0x000000000008f224       0x1c 
- .text          0x000000000008f240      0x1b8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
-                0x000000000008f240                strcpy
- .text          0x000000000008f3f8       0x44 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
-                0x000000000008f3f8                strlcpy
- *fill*         0x000000000008f43c        0x4 
- .text          0x000000000008f440      0x140 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
-                0x000000000008f440                strlen
- .text          0x000000000008f580       0xcc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
-                0x000000000008f580                strncasecmp
- *fill*         0x000000000008f64c       0x34 
- .text          0x000000000008f680      0x124 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
-                0x000000000008f69c                strncmp
- *fill*         0x000000000008f7a4        0x4 
- .text          0x000000000008f7a8       0xb0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
-                0x000000000008f7a8                strncpy
- .text          0x000000000008f858     0x1288 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
-                0x000000000008f858                _strtod_l
-                0x0000000000090950                _strtod_r
-                0x0000000000090970                strtod_l
-                0x0000000000090988                strtod
-                0x00000000000909b8                strtof_l
-                0x0000000000090a40                strtof
- .text.unlikely
-                0x0000000000090ae0       0x54 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- *fill*         0x0000000000090b34        0x4 
- .text          0x0000000000090b38      0x240 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
-                0x0000000000090d08                _strtol_r
-                0x0000000000090d28                strtol_l
-                0x0000000000090d48                strtol
- .text          0x0000000000090d78       0xc0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
-                0x0000000000090d78                _strtold_r
-                0x0000000000090db8                strtold_l
-                0x0000000000090df0                strtold
- .text          0x0000000000090e38      0x240 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
-                0x0000000000091008                _strtoll_r
-                0x0000000000091028                strtoll_l
-                0x0000000000091048                strtoll
- .text          0x0000000000091078      0x12c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
-                0x0000000000091078                ULtox
-                0x0000000000091128                _strtorx_l
- *fill*         0x00000000000911a4        0x4 
- .text          0x00000000000911a8      0x250 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
-                0x0000000000091388                _strtoul_r
-                0x00000000000913a8                strtoul_l
-                0x00000000000913c8                strtoul
- .text          0x00000000000913f8      0x250 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
-                0x00000000000915d8                _strtoull_r
-                0x00000000000915f8                strtoull_l
-                0x0000000000091618                strtoull
- .text          0x0000000000091648       0x24 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
-                0x0000000000091648                wcscpy
- *fill*         0x000000000009166c        0x4 
- .text          0x0000000000091670       0x84 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
-                0x0000000000091670                wctob
- *fill*         0x00000000000916f4        0x4 
- .text          0x00000000000916f8      0x310 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
-                0x00000000000916f8                _wctomb_r
-                0x0000000000091720                __ascii_wctomb
-                0x0000000000091750                __utf8_wctomb
-                0x0000000000091830                __sjis_wctomb
-                0x00000000000918b0                __eucjp_wctomb
-                0x0000000000091958                __jis_wctomb
- .text          0x0000000000091a08       0x10 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
-                0x0000000000091a08                __set_ctype
- .text          0x0000000000091a18      0x410 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
-                0x0000000000091a18                _malloc_trim_r
-                0x0000000000091b28                _free_r
- .text          0x0000000000091e28      0x8b4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
-                0x0000000000091f20                __gethex
- *fill*         0x00000000000926dc        0x4 
- .text          0x00000000000926e0      0x270 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
-                0x00000000000926e0                __match
-                0x0000000000092728                __hexnan
- .text          0x0000000000092950      0x128 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
-                0x0000000000092950                _findenv_r
-                0x0000000000092a60                _getenv_r
- .text          0x0000000000092a78       0x54 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
-                0x0000000000092a78                __localeconv_l
-                0x0000000000092a80                _localeconv_r
-                0x0000000000092aa8                localeconv
- *fill*         0x0000000000092acc        0x4 
- .text          0x0000000000092ad0      0x848 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
-                0x0000000000092ad0                _malloc_r
- *fill*         0x0000000000093318       0x28 
- .text          0x0000000000093340      0x16c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
-                0x0000000000093340                memcpy
- *fill*         0x00000000000934ac        0x4 
- .text          0x00000000000934b0        0xc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
-                0x00000000000934b0                __malloc_lock
-                0x00000000000934b8                __malloc_unlock
- *fill*         0x00000000000934bc        0x4 
- .text          0x00000000000934c0      0xe5c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
-                0x00000000000934c0                _Balloc
-                0x0000000000093568                _Bfree
-                0x0000000000093588                __multadd
-                0x0000000000093670                __s2b
-                0x0000000000093790                __hi0bits
-                0x00000000000937f0                __lo0bits
-                0x0000000000093890                __i2b
-                0x00000000000938c0                __multiply
-                0x0000000000093a80                __pow5mult
-                0x0000000000093ba8                __lshift
-                0x0000000000093ce0                __mcmp
-                0x0000000000093d30                __mdiff
-                0x0000000000093ec0                __ulp
-                0x0000000000093f30                __b2d
-                0x0000000000094050                __d2b
-                0x0000000000094170                __ratio
-                0x00000000000941f8                _mprec_log10
-                0x0000000000094230                __copybits
-                0x0000000000094298                __any_on
- *fill*         0x000000000009431c        0x4 
- .text          0x0000000000094320       0x4c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
-                0x0000000000094320                _sbrk_r
- *fill*         0x000000000009436c        0x4 
- .text          0x0000000000094370        0xc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
-                0x0000000000094370                nanf
- *fill*         0x000000000009437c        0x4 
- .text          0x0000000000094380     0x1fb8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
-                0x0000000000094478                increment
-                0x0000000000094910                decrement
-                0x0000000000094948                set_ones
-                0x0000000000094a10                _strtodg_l
- .text          0x0000000000096338       0x90 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
-                0x0000000000096338                _calloc_r
- .text          0x00000000000963c8        0xc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-                0x00000000000963c8                __env_lock
-                0x00000000000963d0                __env_unlock
+                0x00008600       0x98 C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x00008600                GPUaddrToARMaddr
+ .text._sbrk    0x00008698       0x2c C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x00008698                _sbrk
+ .text          0x000086c4     0x2558 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+                0x000097c4                RPi_CpuIdString
+                0x0000982c                gpio_setup
+                0x00009890                gpio_output
+                0x000098fc                gpio_input
+                0x00009944                gpio_checkEvent
+                0x00009988                gpio_clearEvent
+                0x000099c8                gpio_edgeDetect
+                0x00009a8c                gpio_fixResistor
+                0x00009bbc                timer_getTickCount
+                0x00009c0c                timer_wait
+                0x00009c8c                tick_difference
+                0x00009c98                mailbox_write
+                0x00009cdc                mailbox_read
+                0x00009d28                mailbox_tag_message
+                0x00009e48                TimerIrqSetup
+                0x00009f3c                set_Activity_LED
+                0x0000a0ac                ARM_setmaxspeed
+                0x0000a160                displaySmartStart
+                0x0000a220                Embedded_Console_WriteChar
+                0x0000a2d4                WriteText
+                0x0000a3b0                SetDCPenColor
+                0x0000a3c4                SetDCBrushColor
+                0x0000a3d8                MoveToEx
+                0x0000a410                LineTo
+                0x0000a4b0                TextOut
+                0x0000a51c                TransparentTextOut
+                0x0000a580                BmpOut
+                0x0000a5d0                CvtBmpLine
+                0x0000a890                Rectangle
+                0x0000a8c4                PiConsole_Init
+                0x0000ab78                GetConsoleDC
+                0x0000ab84                GetConsole_FrameBuffer
+                0x0000ab94                GetConsole_Width
+                0x0000aba4                GetConsole_Height
+                0x0000abb4                WhereXY
+                0x0000abdc                GotoXY
+ .text          0x0000ac1c     0x21b4 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+                0x0000b304                strnlen
+                0x0000b34c                emb_vsprintf
+                0x0000bf74                vsscanf
+                0x0000cd04                sscanf
+                0x0000cd40                emb_sprintf
+                0x0000cd70                printf
+ .text          0x0000cdd0     0x96d4 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+                0x0000cfcc                HcdProcessRootHubMessage
+                0x0000d7e8                PowerOnUsb
+                0x0000d830                PowerOffUsb
+                0x0000d874                HCDReset
+                0x0000d94c                HCDTransmitFifoFlush
+                0x0000d9e4                HCDReceiveFifoFlush
+                0x0000da68                HCDStart
+                0x0000e1a8                HCDCheckErrorAndAction
+                0x0000e2e8                HCDWaitOnTransmissionResult
+                0x0000e3a0                HCDChannelTransfer
+                0x0000ea9c                HCDSubmitControlMessage
+                0x0000ef54                HCDSetAddress
+                0x0000ef9c                HCDSetConfiguration
+                0x0000f008                HCDReadHubPortStatus
+                0x0000f138                HCDChangeHubPortFeature
+                0x0000f1d0                HCDInitialise
+                0x0000f3c0                AddHidPayload
+                0x0000f554                RemoveHidPayload
+                0x0000f598                AddHubPayload
+                0x0000f72c                UsbAllocateDevice
+                0x0000f7c4                UsbDeallocateDevice
+                0x0000f928                RemoveHubPayload
+                0x0000fafc                HubPortReset
+                0x000102a4                EnumerateHID
+                0x00010710                HCDGetDescriptor
+                0x000108c4                HCDReadStringDescriptor
+                0x00010fe8                IsHub
+                0x0001102c                IsHid
+                0x00011070                IsMassStorage
+                0x000110b4                IsMouse
+                0x00011108                IsKeyboard
+                0x0001115c                UsbGetRootHub
+                0x0001117c                UsbDeviceAtAddress
+                0x000111b8                UsbGetDescription
+                0x000112d0                EnumerateDevice
+                0x00012088                HubPortConnectionChanged
+                0x0001305c                HubCheckConnection
+                0x00013ad0                EnumerateHub
+                0x000140b0                HubCheckForChange
+                0x00014ec8                UsbCheckForChange
+                0x00015528                UsbAttachRootHub
+                0x00015624                UsbInitialise
+                0x00015970                UsbShowTree
+                0x00015d9c                HIDReadDescriptor
+                0x00016034                HIDReadReport
+                0x0001621c                HIDWriteReport
+                0x000163f0                HIDSetProtocol
+ .text.__locale_ctype_ptr_l
+                0x000164a4        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+                0x000164a4                __locale_ctype_ptr_l
+ .text.__locale_ctype_ptr
+                0x000164ac       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+                0x000164ac                __locale_ctype_ptr
+ .text.mbstowcs
+                0x000164d4       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+                0x000164d4                mbstowcs
+ .text.__ascii_mbtowc
+                0x00016520       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+                0x00016520                __ascii_mbtowc
+ .text.memcpy   0x0001656c      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+                0x0001656c                memcpy
+ .text.memset   0x00016680      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+                0x00016680                memset
+ .text.strchr   0x00016794      0x1ac g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+                0x00016794                strchr
+ .text.strcpy   0x00016940       0xf0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+                0x00016940                strcpy
+ .text.strlen   0x00016a30       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+                0x00016a30                strlen
+ .text.strncpy  0x00016a90       0xdc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+                0x00016a90                strncpy
+ .text.unlikely.sulp
+                0x00016b6c       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ *fill*         0x00016bc4        0x4 
+ .text._strtod_l
+                0x00016bc8     0x14a0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+                0x00016bc8                _strtod_l
+ .text.strtod   0x00018068       0x38 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+                0x00018068                strtod
+ .text.strtof   0x000180a0       0x9c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+                0x000180a0                strtof
+ .text._strtol_l.isra.0
+                0x0001813c      0x220 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .text.strtol   0x0001835c       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+                0x0001835c                strtol
+ .text.strtold  0x000183a8       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+                0x000183a8                strtold
+ .text._strtoll_l.isra.0
+                0x000183e4      0x2e0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .text.strtoll  0x000186c4       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+                0x000186c4                strtoll
+ .text._strtoul_l.isra.0
+                0x00018710      0x1e8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .text.strtoul  0x000188f8       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+                0x000188f8                strtoul
+ *fill*         0x00018944        0x4 
+ .text._strtoull_l.isra.0
+                0x00018948      0x278 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .text.strtoull
+                0x00018bc0       0x4c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+                0x00018bc0                strtoull
+ .text.wcscpy   0x00018c0c       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+                0x00018c0c                wcscpy
+ .text.wctob    0x00018c40       0x8c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+                0x00018c40                wctob
+ .text.__ascii_wctomb
+                0x00018ccc       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+                0x00018ccc                __ascii_wctomb
+ .text.rshift   0x00018cf4       0xf8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text.__gethex
+                0x00018dec      0x804 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+                0x00018dec                __gethex
+ .text.__match  0x000195f0       0x6c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                0x000195f0                __match
+ .text.__hexnan
+                0x0001965c      0x270 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                0x0001965c                __hexnan
+ .text.__localeconv_l
+                0x000198cc        0x8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+                0x000198cc                __localeconv_l
+ .text._Balloc  0x000198d4       0x8c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x000198d4                _Balloc
+ .text._Bfree   0x00019960       0x1c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019960                _Bfree
+ .text.__multadd
+                0x0001997c       0xdc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001997c                __multadd
+ .text.__s2b    0x00019a58       0xf0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019a58                __s2b
+ .text.__hi0bits
+                0x00019b48       0x58 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019b48                __hi0bits
+ .text.__lo0bits
+                0x00019ba0       0xa0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019ba0                __lo0bits
+ .text.__i2b    0x00019c40       0x24 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019c40                __i2b
+ .text.__multiply
+                0x00019c64      0x1d0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019c64                __multiply
+ .text.__pow5mult
+                0x00019e34      0x104 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019e34                __pow5mult
+ .text.__lshift
+                0x00019f38       0xe8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00019f38                __lshift
+ .text.__mcmp   0x0001a020       0x60 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a020                __mcmp
+ .text.__mdiff  0x0001a080      0x1a8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a080                __mdiff
+ .text.__ulp    0x0001a228       0x78 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a228                __ulp
+ .text.__b2d    0x0001a2a0       0xe0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a2a0                __b2d
+ .text.__d2b    0x0001a380      0x110 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a380                __d2b
+ .text.__ratio  0x0001a490       0x88 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a490                __ratio
+ .text.__copybits
+                0x0001a518       0x70 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a518                __copybits
+ .text.__any_on
+                0x0001a588       0x80 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x0001a588                __any_on
+ .text.nanf     0x0001a608        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+                0x0001a608                nanf
+ .text.strncmp  0x0001a614      0x110 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+                0x0001a614                strncmp
+ .text._calloc_r
+                0x0001a724       0x98 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+                0x0001a724                _calloc_r
+ .text._malloc_r
+                0x0001a7bc      0x78c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x0001a7bc                _malloc_r
+ .text.__malloc_lock
+                0x0001af48       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+                0x0001af48                __malloc_lock
+ .text.__malloc_unlock
+                0x0001af60       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+                0x0001af60                __malloc_unlock
+ .text._sbrk_r  0x0001af78       0x44 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+                0x0001af78                _sbrk_r
+ .text._malloc_trim_r
+                0x0001afbc      0x100 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+                0x0001afbc                _malloc_trim_r
+ .text._free_r  0x0001b0bc      0x2e0 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+                0x0001b0bc                _free_r
+ .text.__retarget_lock_acquire_recursive
+                0x0001b39c        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+                0x0001b39c                __retarget_lock_acquire_recursive
+ .text.__retarget_lock_release_recursive
+                0x0001b3a0        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+                0x0001b3a0                __retarget_lock_release_recursive
+ .text          0x0001b3a4      0x114 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+                0x0001b3a4                __aeabi_uidiv
+                0x0001b3a4                __udivsi3
+                0x0001b498                __aeabi_uidivmod
+ .text          0x0001b4b8        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+                0x0001b4b8                __aeabi_idiv0
+                0x0001b4b8                __aeabi_ldiv0
+ .text          0x0001b4bc       0x3c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+                0x0001b4bc                __aeabi_uldivmod
+ .text          0x0001b4f8      0x12c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+                0x0001b4f8                __udivmoddi4
+ .text          0x0001b624       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o)
+                0x0001b624                __clzdi2
+ .text          0x0001b64c       0x48 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzsi2.o)
+                0x0001b64c                __clzsi2
  *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
  *(.init .init.*)
-                0x00000000000963d4                . = ALIGN (0x4)
-                0x00000000000963d4                __text_end__ = .
+                0x0001b694                . = ALIGN (0x4)
+                0x0001b694                __text_end__ = .
 
-.iplt           0x00000000000963d4        0x0
- .iplt          0x00000000000963d4        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
+.glue_7         0x0001b694        0x0
+ .glue_7        0x0001b694        0x0 linker stubs
 
-.bss            0x00000000000963d8     0x8be8
-                0x00000000000963d8                . = ALIGN (0x4)
-                0x00000000000963d8                __bss_start__ = .
+.glue_7t        0x0001b694        0x0
+ .glue_7t       0x0001b694        0x0 linker stubs
+
+.vfp11_veneer   0x0001b694        0x0
+ .vfp11_veneer  0x0001b694        0x0 linker stubs
+
+.v4_bx          0x0001b694        0x0
+ .v4_bx         0x0001b694        0x0 linker stubs
+
+.iplt           0x0001b694        0x0
+ .iplt          0x0001b694        0x0 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+
+.bss            0x0001b694     0x854c
+                0x0001b694                . = ALIGN (0x4)
+                0x0001b694                __bss_start__ = .
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x00000000000963d8        0x1 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
- *fill*         0x00000000000963d9        0x7 
- .bss           0x00000000000963e0       0x78 C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
-                0x00000000000963e4                console
- .bss           0x0000000000096458     0x8868 C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
-                0x0000000000096458                RootHubDeviceNumber
-                0x0000000000096459                PhyInitialised
-                0x0000000000096460                HidTable
-                0x00000000000966f0                HubTable
-                0x0000000000096dc0                DeviceTable
- .bss           0x000000000009ecc0      0x2b0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                0x000000000009ef68                _PathLocale
- .bss           0x000000000009ef70       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
-                0x000000000009ef70                __malloc_top_pad
-                0x000000000009ef78                __malloc_current_mallinfo
-                0x000000000009efa0                __malloc_max_sbrked_mem
-                0x000000000009efa8                __malloc_max_total_mem
- .bss           0x000000000009efb0        0x8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
+ .bss           0x0001b694        0x3 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+ *fill*         0x0001b697        0x1 
+ .bss           0x0001b698       0x50 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+                0x0001b69c                console
+ .bss           0x0001b6e8     0x849c C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+ .bss.__malloc_current_mallinfo
+                0x00023b84       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00023b84                __malloc_current_mallinfo
+ .bss.__malloc_max_sbrked_mem
+                0x00023bac        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00023bac                __malloc_max_sbrked_mem
+ .bss.__malloc_max_total_mem
+                0x00023bb0        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00023bb0                __malloc_max_total_mem
+ .bss.__malloc_top_pad
+                0x00023bb4        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00023bb4                __malloc_top_pad
  *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
  *(COMMON)
- COMMON         0x000000000009efb8        0x4 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
-                0x000000000009efb8                __errno
- COMMON         0x000000000009efbc        0x4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
-                0x000000000009efbc                errno
-                0x000000000009efc0                . = ALIGN (0x4)
-                0x000000000009efc0                __bss_end__ = .
+ COMMON         0x00023bb8       0x21 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+                0x00023bb8                __lock___atexit_recursive_mutex
+                0x00023bbc                __lock___arc4random_mutex
+                0x00023bc0                __lock___env_recursive_mutex
+                0x00023bc4                __lock___sinit_recursive_mutex
+                0x00023bc8                __lock___malloc_recursive_mutex
+                0x00023bcc                __lock___at_quick_exit_mutex
+                0x00023bd0                __lock___dd_hash_mutex
+                0x00023bd4                __lock___tz_mutex
+                0x00023bd8                __lock___sfp_recursive_mutex
+ *fill*         0x00023bd9        0x3 
+ COMMON         0x00023bdc        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+                0x00023bdc                errno
+                0x00023be0                . = ALIGN (0x4)
+                0x00023be0                __bss_end__ = .
 
-.rodata         0x000000000009efc0     0x2dfc
-                0x000000000009efc0                . = ALIGN (0x4)
-                0x000000000009efc0                __rodata_start__ = .
+.rodata         0x00023be0     0x2d6c
+                0x00023be0                . = ALIGN (0x4)
+                0x00023be0                __rodata_start__ = .
  *(.rodata .rodata.*)
- .rodata.str1.8
-                0x000000000009efc0        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
-                                          0x2 (size before relaxing)
- .rodata        0x000000000009efc0     0x1004 C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
-                0x000000000009ffc0                BitFontEnd
- *fill*         0x000000000009ffc4        0x4 
- .rodata.str1.8
-                0x000000000009ffc8      0x114 C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
- *fill*         0x00000000000a00dc        0x4 
- .rodata        0x00000000000a00e0      0x108 C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
- .rodata        0x00000000000a01e8      0x279 C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
- *fill*         0x00000000000a0461        0x7 
- .rodata.str1.8
-                0x00000000000a0468     0x10ec C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
-                                       0x10f4 (size before relaxing)
- *fill*         0x00000000000a1554        0x4 
- .rodata        0x00000000000a1558      0x250 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                0x00000000000a1600                __C_locale
- .rodata.str1.8
-                0x00000000000a17a8      0x184 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                                        0x18c (size before relaxing)
- *fill*         0x00000000000a192c        0x4 
- .rodata        0x00000000000a1930       0x90 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .rodata        0x00000000000a19c0       0x58 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .rodata.str1.8
-                0x00000000000a1a18       0x18 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
-                                         0x13 (size before relaxing)
- .rodata        0x00000000000a1a30      0x101 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
-                0x00000000000a1a30                _ctype_
- *fill*         0x00000000000a1b31        0x7 
- .rodata        0x00000000000a1b38      0x100 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
-                0x00000000000a1b38                __hexdig
- .rodata        0x00000000000a1c38      0x128 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
-                0x00000000000a1c48                __mprec_tens
-                0x00000000000a1d10                __mprec_tinytens
-                0x00000000000a1d38                __mprec_bigtens
- .rodata        0x00000000000a1d60       0x5c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .rodata.str1.8
-                0x00000000000a1dbc       0x13 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
+ .rodata.str1.4
+                0x00023be0       0xb9 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+                                 0xbd (size before relaxing)
+ *fill*         0x00023c99        0x3 
+ .rodata        0x00023c9c     0x1000 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+ .rodata.str1.4
+                0x00024c9c      0x108 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+ .rodata        0x00024da4       0x10 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+ .rodata        0x00024db4      0x2c5 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+ *fill*         0x00025079        0x3 
+ .rodata.str1.4
+                0x0002507c     0x1558 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+                               0x155c (size before relaxing)
+ .rodata._setlocale_r.str1.4
+                0x000265d4        0xa g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+                                  0xd (size before relaxing)
+ *fill*         0x000265de        0x2 
+ .rodata.str1.4
+                0x000265e0        0x2 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ *fill*         0x000265e2        0x2 
+ .rodata._strtod_l.str1.4
+                0x000265e4       0x10 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+                                  0xf (size before relaxing)
+ .rodata.fpi.7264
+                0x000265f4       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .rodata.fpinan.7300
+                0x00026608       0x14 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ *fill*         0x0002661c        0x4 
+ .rodata.tinytens
+                0x00026620       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .rodata._ctype_
+                0x00026648      0x101 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+                0x00026648                _ctype_
+ *fill*         0x00026749        0x3 
+ .rodata.__hexdig
+                0x0002674c      0x100 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+                0x0002674c                __hexdig
+ *fill*         0x0002684c        0x4 
+ .rodata.__mprec_bigtens
+                0x00026850       0x28 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00026850                __mprec_bigtens
+ .rodata.__mprec_tens
+                0x00026878       0xc8 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+                0x00026878                __mprec_tens
+ .rodata.p05.7178
+                0x00026940        0xc g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
  *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
-                0x00000000000a1dd0                . = ALIGN (0x4)
-                0x00000000000a1dd0                __rodata_end__ = .
+                0x0002694c                . = ALIGN (0x4)
+                0x0002694c                __rodata_end__ = .
 
-.rela.dyn       0x00000000000a1dc0        0x0
- .rela.iplt     0x00000000000a1dc0        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
+.rel.dyn        0x0002694c        0x0
+ .rel.iplt      0x0002694c        0x0 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
 
-.data           0x00000000000a1dc0     0x1240
-                0x00000000000a1dc0                . = ALIGN (0x4)
-                0x00000000000a1dc0                __data_start__ = .
+.data           0x00026950      0xa00
+                0x00026950                . = ALIGN (0x4)
+                0x00026950                __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
- .data.smartstart64
-                0x00000000000a1dc0       0x20 C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-                0x00000000000a1dc0                RPi_IO_Base_Addr
-                0x00000000000a1dc4                RPi_BootAddr
-                0x00000000000a1dc8                RPi_CoresReady
-                0x00000000000a1dcc                RPi_CPUBootMode
-                0x00000000000a1dd0                RPi_CpuId
-                0x00000000000a1dd4                RPi_CompileMode
- .data          0x00000000000a1de0        0x4 C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
- *fill*         0x00000000000a1de4        0x4 
- .data          0x00000000000a1de8       0xc0 C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
-                0x00000000000a1de8                RootHubString0
-                0x00000000000a1df0                RootHubString1
-                0x00000000000a1e20                RootHubConfigurationDescriptor
-                0x00000000000a1e40                RootHubDeviceDescriptor
-                0x00000000000a1e58                RootHubString2
-                0x00000000000a1e80                RootHubDescriptor
-                0x00000000000a1e90                SpeedString
- .data          0x00000000000a1ea8      0x1c8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                0x00000000000a1ea8                __global_locale
-                0x00000000000a2050                __default_locale
- .data          0x00000000000a2070       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- *fill*         0x00000000000a2084        0x4 
- .data          0x00000000000a2088      0x750 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
-                0x00000000000a2088                _impure_ptr
- .data          0x00000000000a27d8      0x820 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
-                0x00000000000a27d8                __malloc_av_
-                0x00000000000a2fe8                __malloc_sbrk_base
-                0x00000000000a2ff0                __malloc_trim_threshold
- .data          0x00000000000a2ff8        0x8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
-                0x00000000000a2ff8                environ
+ .data.smartstart
+                0x00026950        0xc C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x00026954                RPi_CPUCurrentMode
+                0x00026958                RPi_Heap
+ .data.smartstart32
+                0x0002695c       0x1c C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+                0x0002695c                RPi_IO_Base_Addr
+                0x00026960                RPi_BootAddr
+                0x00026964                RPi_CoresReady
+                0x00026968                RPi_CPUBootMode
+                0x0002696c                RPi_CpuId
+                0x00026970                RPi_CompileMode
+ .data          0x00026978        0x4 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+ .data          0x0002697c       0x28 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+                0x00026998                SpeedString
+ .data.__global_locale
+                0x000269a4      0x16c g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+                0x000269a4                __global_locale
+ .data._impure_ptr
+                0x00026b10        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+                0x00026b10                _impure_ptr
+ *fill*         0x00026b14        0x4 
+ .data.impure_data
+                0x00026b18      0x428 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .data.__malloc_av_
+                0x00026f40      0x408 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00026f40                __malloc_av_
+ .data.__malloc_sbrk_base
+                0x00027348        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x00027348                __malloc_sbrk_base
+ .data.__malloc_trim_threshold
+                0x0002734c        0x4 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+                0x0002734c                __malloc_trim_threshold
  *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
-                0x00000000000a3000                . = ALIGN (0x4)
-                0x00000000000a3000                __data_end__ = .
+                0x00027350                . = ALIGN (0x4)
+                0x00027350                __data_end__ = .
 
-.igot.plt       0x00000000000a3000        0x0
- .igot.plt      0x00000000000a3000        0x0 C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
+.igot.plt       0x00027350        0x0
+ .igot.plt      0x00027350        0x0 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
 
-.data1          0x00000000000a3000        0x0
-                0x00000000000a3000                . = ALIGN (0x10)
-                0x00000000000a3000                __data1_start__ = .
+.data1          0x00027350        0x0
+                0x00027350                . = ALIGN (0x10)
+                0x00027350                __data1_start__ = .
  *(.data1 .data1.*)
  *(.rel.data1 .rel.data1.*)
-                0x00000000000a3000                . = ALIGN (0x10)
-                0x00000000000a3000                __data1_end__ = .
+                0x00027350                . = ALIGN (0x10)
+                0x00027350                __data1_end__ = .
 
-.stack          0x00000000000a3000     0xc200
-                0x00000000000a3000                . = ALIGN (0x10)
-                0x00000000000a3000                __stack_start__ = .
-                0x00000000000a3200                . = (. + 0x200)
- *fill*         0x00000000000a3000      0x200 
-                0x00000000000a3200                __EL0_stack_core0 = .
-                0x00000000000ab200                . = (. + 0x8000)
- *fill*         0x00000000000a3200     0x8000 
-                0x00000000000ab200                __EL1_stack_core0 = .
-                0x00000000000af200                . = (. + 0x4000)
- *fill*         0x00000000000ab200     0x4000 
-                0x00000000000af200                __EL2_stack_core0 = .
-                0x00000000000af200                . = ALIGN (0x10)
-                0x00000000000af200                __stack_end__ = .
+.stack          0x00027350     0xa200
+                0x00027350                . = ALIGN (0x8)
+                0x00027350                __stack_start__core0 = .
+                0x00027550                . = (. + 0x200)
+ *fill*         0x00027350      0x200 
+                0x00027550                __HYP_stack_core0 = .
+                0x0002f550                . = (. + 0x8000)
+ *fill*         0x00027550     0x8000 
+                0x0002f550                __SVC_stack_core0 = .
+                0x00030550                . = (. + 0x1000)
+ *fill*         0x0002f550     0x1000 
+                0x00030550                __IRQ_stack_core0 = .
+                0x00031550                . = (. + 0x1000)
+ *fill*         0x00030550     0x1000 
+                0x00031550                __FIQ_stack_core0 = .
+                0x00031550                . = ALIGN (0x8)
+                0x00031550                __stack_end__core0 = .
 
-.stack_core1    0x00000000000af200     0x1400
-                0x00000000000af200                . = ALIGN (0x10)
-                0x00000000000af200                __stack_start_core1__ = .
-                0x00000000000af400                . = (. + 0x200)
- *fill*         0x00000000000af200      0x200 
-                0x00000000000af400                __EL0_stack_core1 = .
-                0x00000000000af600                . = (. + 0x200)
- *fill*         0x00000000000af400      0x200 
-                0x00000000000af600                __EL1_stack_core1 = .
-                0x00000000000b0600                . = (. + 0x1000)
- *fill*         0x00000000000af600     0x1000 
-                0x00000000000b0600                __EL2_stack_core1 = .
-                0x00000000000b0600                . = ALIGN (0x10)
-                0x00000000000b0600                __stack_end_core1__ = .
+.stack_core1    0x00031550     0x1600
+                0x00031550                . = ALIGN (0x8)
+                0x00031550                __stack_start__core1 = .
+                0x00031750                . = (. + 0x200)
+ *fill*         0x00031550      0x200 
+                0x00031750                __HYP_stack_core1 = .
+                0x00032750                . = (. + 0x1000)
+ *fill*         0x00031750     0x1000 
+                0x00032750                __SVC_stack_core1 = .
+                0x00032950                . = (. + 0x200)
+ *fill*         0x00032750      0x200 
+                0x00032950                __IRQ_stack_core1 = .
+                0x00032b50                . = (. + 0x200)
+ *fill*         0x00032950      0x200 
+                0x00032b50                __FIQ_stack_core1 = .
+                0x00032b50                . = ALIGN (0x8)
+                0x00032b50                __stack_end__core1 = .
 
-.stack_core2    0x00000000000b0600     0x1400
-                0x00000000000b0600                . = ALIGN (0x10)
-                0x00000000000b0600                __stack_start_core2__ = .
-                0x00000000000b0800                . = (. + 0x200)
- *fill*         0x00000000000b0600      0x200 
-                0x00000000000b0800                __EL0_stack_core2 = .
-                0x00000000000b0a00                . = (. + 0x200)
- *fill*         0x00000000000b0800      0x200 
-                0x00000000000b0a00                __EL1_stack_core2 = .
-                0x00000000000b1a00                . = (. + 0x1000)
- *fill*         0x00000000000b0a00     0x1000 
-                0x00000000000b1a00                __EL2_stack_core2 = .
-                0x00000000000b1a00                . = ALIGN (0x10)
-                0x00000000000b1a00                __stack_end_core2__ = .
+.stack_core2    0x00032b50     0x1600
+                0x00032b50                . = ALIGN (0x8)
+                0x00032b50                __stack_start__core2 = .
+                0x00032d50                . = (. + 0x200)
+ *fill*         0x00032b50      0x200 
+                0x00032d50                __HYP_stack_core2 = .
+                0x00033d50                . = (. + 0x1000)
+ *fill*         0x00032d50     0x1000 
+                0x00033d50                __SVC_stack_core2 = .
+                0x00033f50                . = (. + 0x200)
+ *fill*         0x00033d50      0x200 
+                0x00033f50                __IRQ_stack_core2 = .
+                0x00034150                . = (. + 0x200)
+ *fill*         0x00033f50      0x200 
+                0x00034150                __FIQ_stack_core2 = .
+                0x00034150                . = ALIGN (0x8)
+                0x00034150                __stack_end__core2 = .
 
-.stack_core3    0x00000000000b1a00     0x1400
-                0x00000000000b1a00                . = ALIGN (0x10)
-                0x00000000000b1a00                __stack_start_core3__ = .
-                0x00000000000b1c00                . = (. + 0x200)
- *fill*         0x00000000000b1a00      0x200 
-                0x00000000000b1c00                __EL0_stack_core3 = .
-                0x00000000000b1e00                . = (. + 0x200)
- *fill*         0x00000000000b1c00      0x200 
-                0x00000000000b1e00                __EL1_stack_core3 = .
-                0x00000000000b2e00                . = (. + 0x1000)
- *fill*         0x00000000000b1e00     0x1000 
-                0x00000000000b2e00                __EL2_stack_core3 = .
-                0x00000000000b2e00                . = ALIGN (0x10)
-                0x00000000000b2e00                __stack_end_core3__ = .
+.stack_core3    0x00034150     0x1600
+                0x00034150                . = ALIGN (0x8)
+                0x00034150                __stack_start__core3 = .
+                0x00034350                . = (. + 0x200)
+ *fill*         0x00034150      0x200 
+                0x00034350                __HYP_stack_core3 = .
+                0x00035350                . = (. + 0x1000)
+ *fill*         0x00034350     0x1000 
+                0x00035350                __SVC_stack_core3 = .
+                0x00035550                . = (. + 0x200)
+ *fill*         0x00035350      0x200 
+                0x00035550                __IRQ_stack_core3 = .
+                0x00035750                . = (. + 0x200)
+ *fill*         0x00035550      0x200 
+                0x00035750                __FIQ_stack_core3 = .
+                0x00035750                . = ALIGN (0x8)
+                0x00035750                __stack_end__core3 = .
 
 .ARM.attributes
+                0x00000000       0x2f
  *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x31 C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+ .ARM.attributes
+                0x00000031       0x1f C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+ .ARM.attributes
+                0x00000050       0x31 C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+ .ARM.attributes
+                0x00000081       0x31 C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+ .ARM.attributes
+                0x000000b2       0x31 C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+ .ARM.attributes
+                0x000000e3       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-locale.o)
+ .ARM.attributes
+                0x00000117       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbstowcs.o)
+ .ARM.attributes
+                0x0000014b       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mbtowc_r.o)
+ .ARM.attributes
+                0x0000017f       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memcpy-stub.o)
+ .ARM.attributes
+                0x000001b3       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x000001e7       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strchr.o)
+ .ARM.attributes
+                0x0000021b       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strcpy.o)
+ .ARM.attributes
+                0x0000024f       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strlen-stub.o)
+ .ARM.attributes
+                0x00000283       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncpy.o)
+ .ARM.attributes
+                0x000002b7       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtod.o)
+ .ARM.attributes
+                0x000002eb       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtol.o)
+ .ARM.attributes
+                0x0000031f       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtold.o)
+ .ARM.attributes
+                0x00000353       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoll.o)
+ .ARM.attributes
+                0x00000387       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoul.o)
+ .ARM.attributes
+                0x000003bb       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strtoull.o)
+ .ARM.attributes
+                0x000003ef       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wcscpy.o)
+ .ARM.attributes
+                0x00000423       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctob.o)
+ .ARM.attributes
+                0x00000457       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-wctomb_r.o)
+ .ARM.attributes
+                0x0000048b       0x32 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-ctype_.o)
+ .ARM.attributes
+                0x000004bd       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .ARM.attributes
+                0x000004f1       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .ARM.attributes
+                0x00000525       0x32 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-impure.o)
+ .ARM.attributes
+                0x00000557       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-localeconv.o)
+ .ARM.attributes
+                0x0000058b       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mprec.o)
+ .ARM.attributes
+                0x000005bf       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sf_nan.o)
+ .ARM.attributes
+                0x000005f3       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-strncmp.o)
+ .ARM.attributes
+                0x00000627       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-callocr.o)
+ .ARM.attributes
+                0x0000065b       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mallocr.o)
+ .ARM.attributes
+                0x0000068f       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-mlock.o)
+ .ARM.attributes
+                0x000006c3       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-sbrkr.o)
+ .ARM.attributes
+                0x000006f7       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-freer.o)
+ .ARM.attributes
+                0x0000072b       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-lock.o)
+ .ARM.attributes
+                0x0000075f       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a(lib_a-reent.o)
+ .ARM.attributes
+                0x00000793       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x000007ab       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x000007c3       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_aeabi_uldivmod.o)
+ .ARM.attributes
+                0x000007db       0x34 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.attributes
+                0x0000080f       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzdi2.o)
+ .ARM.attributes
+                0x00000827       0x18 g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a(_clzsi2.o)
 
-.Heap           0x00000000000b2e00        0x0
-                0x00000000000b2e00                . = ALIGN (0x4)
-                0x00000000000b2e00                __heap_start__ = .
-                0x00000000000b2e00                __end__ = .
-                [!provide]                        PROVIDE (__end__, .)
-                0x00000000000b2e00                _end = .
-                [!provide]                        PROVIDE (end, .)
+.Heap           0x00035750        0x0
+                0x00035750                . = ALIGN (0x4)
+                0x00035750                __heap_start__ = .
+                0x00035750                _end = .
+                [!provide]                PROVIDE (end, .)
 
 /DISCARD/
  *(.ARM.exidx .ARM.exidx.*)
@@ -782,362 +977,13 @@ Linker script and memory map
  *(.note.GNU-stack)
  *(.gnu_debuglink)
  *(.gnu.lto_*)
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccQ2nSMS.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccpgmJl0.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\cc62Olj6.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\cc6gZd4b.o
-LOAD C:\Users\ldebo\AppData\Local\Temp\ccOYJ2OM.o
-LOAD g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a
-LOAD g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libm.a
-LOAD g:/pi/gcc_linaro_7_1/bin/../lib/gcc/aarch64-elf/7.1.1\libgcc.a
-OUTPUT(kernel.elf elf64-littleaarch64)
-
-.debug_info     0x0000000000000000    0x223d2
- .debug_info    0x0000000000000000     0x1d43 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_info    0x0000000000001d43      0x960 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_info    0x00000000000026a3      0xf04 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_info    0x00000000000035a7     0x13a2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_info    0x0000000000004949      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .debug_info    0x0000000000004b0b      0xa8d g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_info    0x0000000000005598      0x972 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_info    0x0000000000005f0a      0x92e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_info    0x0000000000006838      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .debug_info    0x00000000000069fa      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .debug_info    0x0000000000006bbc      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .debug_info    0x0000000000006d7e      0x911 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_info    0x000000000000768f      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .debug_info    0x0000000000007851      0x98a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_info    0x00000000000081db      0x1c3 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .debug_info    0x000000000000839e      0x945 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_info    0x0000000000008ce3     0x1da4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_info    0x000000000000aa87     0x112c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_info    0x000000000000bbb3     0x10b9 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_info    0x000000000000cc6c     0x112e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_info    0x000000000000dd9a     0x1131 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_info    0x000000000000eecb     0x112c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_info    0x000000000000fff7     0x112e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_info    0x0000000000011125      0x913 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_info    0x0000000000011a38      0xedf g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_info    0x0000000000012917     0x1172 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_info    0x0000000000013a89      0xe29 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_info    0x00000000000148b2      0xd0a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_info    0x00000000000155bc     0x1566 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_info    0x0000000000016b22     0x1141 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_info    0x0000000000017c63      0xa34 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_info    0x0000000000018697      0x8b9 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .debug_info    0x0000000000018f50      0xed4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_info    0x0000000000019e24      0xe5c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_info    0x000000000001ac80      0x1c2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .debug_info    0x000000000001ae42      0x8f0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .debug_info    0x000000000001b732     0x1d7b g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_info    0x000000000001d4ad      0x976 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_info    0x000000000001de23      0x915 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .debug_info    0x000000000001e738     0x27b3 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_info    0x0000000000020eeb      0xb85 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .debug_info    0x0000000000021a70       0x72 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .debug_info    0x0000000000021ae2      0x8f0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-
-.debug_abbrev   0x0000000000000000     0x5a79
- .debug_abbrev  0x0000000000000000      0x3cc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_abbrev  0x00000000000003cc      0x214 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_abbrev  0x00000000000005e0      0x26b g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_abbrev  0x000000000000084b      0x321 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_abbrev  0x0000000000000b6c       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .debug_abbrev  0x0000000000000b80      0x29e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_abbrev  0x0000000000000e1e      0x214 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_abbrev  0x0000000000001032      0x202 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_abbrev  0x0000000000001234       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .debug_abbrev  0x0000000000001248       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .debug_abbrev  0x000000000000125c       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .debug_abbrev  0x0000000000001270      0x1d2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_abbrev  0x0000000000001442       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .debug_abbrev  0x0000000000001456      0x214 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_abbrev  0x000000000000166a       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .debug_abbrev  0x000000000000167e      0x1ea g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_abbrev  0x0000000000001868      0x3f6 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_abbrev  0x0000000000001c5e      0x2dc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_abbrev  0x0000000000001f3a      0x282 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_abbrev  0x00000000000021bc      0x2f8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_abbrev  0x00000000000024b4      0x2cb g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_abbrev  0x000000000000277f      0x2dc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_abbrev  0x0000000000002a5b      0x2f8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_abbrev  0x0000000000002d53      0x1db g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_abbrev  0x0000000000002f2e      0x254 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_abbrev  0x0000000000003182      0x28c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_abbrev  0x000000000000340e      0x1f5 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_abbrev  0x0000000000003603      0x29e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_abbrev  0x00000000000038a1      0x347 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_abbrev  0x0000000000003be8      0x2d8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_abbrev  0x0000000000003ec0      0x227 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_abbrev  0x00000000000040e7      0x19f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .debug_abbrev  0x0000000000004286      0x262 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_abbrev  0x00000000000044e8      0x2da g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_abbrev  0x00000000000047c2       0x14 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .debug_abbrev  0x00000000000047d6      0x1e0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .debug_abbrev  0x00000000000049b6      0x3c3 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_abbrev  0x0000000000004d79      0x222 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_abbrev  0x0000000000004f9b      0x1e8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .debug_abbrev  0x0000000000005183      0x46f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_abbrev  0x00000000000055f2      0x24d g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .debug_abbrev  0x000000000000583f       0x56 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .debug_abbrev  0x0000000000005895      0x1e4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-
-.debug_loc      0x0000000000000000    0x19493
- .debug_loc     0x0000000000000000     0x11a0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_loc     0x00000000000011a0       0xe4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_loc     0x0000000000001284      0x32c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_loc     0x00000000000015b0     0x142f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_loc     0x00000000000029df      0x283 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_loc     0x0000000000002c62      0x20d g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_loc     0x0000000000002e6f      0x118 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_loc     0x0000000000002f87      0x1de g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_loc     0x0000000000003165      0x2bf g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_loc     0x0000000000003424      0x300 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_loc     0x0000000000003724     0x3f75 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_loc     0x0000000000007699      0x977 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_loc     0x0000000000008010      0x227 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_loc     0x0000000000008237      0x977 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_loc     0x0000000000008bae      0x3d2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_loc     0x0000000000008f80      0x88e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_loc     0x000000000000980e      0x88e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_loc     0x000000000000a09c       0xa7 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_loc     0x000000000000a143       0xbe g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_loc     0x000000000000a201      0xb0a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_loc     0x000000000000ad0b       0x39 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_loc     0x000000000000ad44      0x9ea g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_loc     0x000000000000b72e     0x1c16 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_loc     0x000000000000d344      0x92d g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_loc     0x000000000000dc71      0x30f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_loc     0x000000000000df80       0xab g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_loc     0x000000000000e02b     0x16ed g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_loc     0x000000000000f718     0x2f83 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_loc     0x000000000001269b       0xae g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_loc     0x0000000000012749     0x6a27 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_loc     0x0000000000019170      0x323 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
-
-.debug_aranges  0x0000000000000000      0x800
- .debug_aranges
-                0x0000000000000000       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_aranges
-                0x0000000000000030       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_aranges
-                0x0000000000000060       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_aranges
-                0x0000000000000090       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_aranges
-                0x00000000000000c0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .debug_aranges
-                0x00000000000000f0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_aranges
-                0x0000000000000120       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_aranges
-                0x0000000000000150       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_aranges
-                0x0000000000000180       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .debug_aranges
-                0x00000000000001b0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .debug_aranges
-                0x00000000000001e0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .debug_aranges
-                0x0000000000000210       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_aranges
-                0x0000000000000240       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .debug_aranges
-                0x0000000000000270       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_aranges
-                0x00000000000002a0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .debug_aranges
-                0x00000000000002d0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_aranges
-                0x0000000000000300       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_aranges
-                0x0000000000000340       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_aranges
-                0x0000000000000370       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_aranges
-                0x00000000000003a0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_aranges
-                0x00000000000003d0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_aranges
-                0x0000000000000400       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_aranges
-                0x0000000000000430       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_aranges
-                0x0000000000000460       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_aranges
-                0x0000000000000490       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_aranges
-                0x00000000000004c0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_aranges
-                0x00000000000004f0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_aranges
-                0x0000000000000520       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_aranges
-                0x0000000000000550       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_aranges
-                0x0000000000000580       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_aranges
-                0x00000000000005b0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_aranges
-                0x00000000000005e0       0x20 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .debug_aranges
-                0x0000000000000600       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_aranges
-                0x0000000000000630       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_aranges
-                0x0000000000000660       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .debug_aranges
-                0x0000000000000690       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .debug_aranges
-                0x00000000000006c0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_aranges
-                0x00000000000006f0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_aranges
-                0x0000000000000720       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .debug_aranges
-                0x0000000000000750       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_aranges
-                0x0000000000000780       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .debug_aranges
-                0x00000000000007b0       0x20 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .debug_aranges
-                0x00000000000007d0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-
-.debug_ranges   0x0000000000000000      0x8d0
- .debug_ranges  0x0000000000000000       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_ranges  0x00000000000000a0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_ranges  0x00000000000000d0       0x80 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_ranges  0x0000000000000150       0xa0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_ranges  0x00000000000001f0       0x90 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_ranges  0x0000000000000280      0x1b0 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_ranges  0x0000000000000430       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_ranges  0x0000000000000460       0x70 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_ranges  0x00000000000004d0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_ranges  0x0000000000000500       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_ranges  0x0000000000000530       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_ranges  0x0000000000000560       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_ranges  0x0000000000000590       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_ranges  0x00000000000005d0       0x40 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_ranges  0x0000000000000610       0x70 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_ranges  0x0000000000000680      0x110 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_ranges  0x0000000000000790      0x110 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_ranges  0x00000000000008a0       0x30 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
-
-.debug_line     0x0000000000000000     0xa8d1
- .debug_line    0x0000000000000000      0x672 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
- .debug_line    0x0000000000000672      0x343 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
- .debug_line    0x00000000000009b5      0x445 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
- .debug_line    0x0000000000000dfa      0x5f8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
- .debug_line    0x00000000000013f2      0x15e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memset.o)
- .debug_line    0x0000000000001550      0x365 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
- .debug_line    0x00000000000018b5      0x358 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
- .debug_line    0x0000000000001c0d      0x33c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
- .debug_line    0x0000000000001f49      0x121 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strchr.o)
- .debug_line    0x000000000000206a      0x115 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcmp.o)
- .debug_line    0x000000000000217f      0x153 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcpy.o)
- .debug_line    0x00000000000022d2      0x346 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
- .debug_line    0x0000000000002618      0x13e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlen.o)
- .debug_line    0x0000000000002756      0x366 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
- .debug_line    0x0000000000002abc      0x12f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncmp.o)
- .debug_line    0x0000000000002beb      0x351 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
- .debug_line    0x0000000000002f3c      0x94f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
- .debug_line    0x000000000000388b      0x495 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
- .debug_line    0x0000000000003d20      0x488 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
- .debug_line    0x00000000000041a8      0x496 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
- .debug_line    0x000000000000463e      0x537 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
- .debug_line    0x0000000000004b75      0x48c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
- .debug_line    0x0000000000005001      0x48d g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
- .debug_line    0x000000000000548e      0x332 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
- .debug_line    0x00000000000057c0      0x44a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
- .debug_line    0x0000000000005c0a      0x4f4 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
- .debug_line    0x00000000000060fe      0x40e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
- .debug_line    0x000000000000650c      0x45f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
- .debug_line    0x000000000000696b      0x695 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
- .debug_line    0x0000000000007000      0x4c3 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
- .debug_line    0x00000000000074c3      0x378 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
- .debug_line    0x000000000000783b      0x265 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
- .debug_line    0x0000000000007aa0      0x370 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
- .debug_line    0x0000000000007e10      0x558 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
- .debug_line    0x0000000000008368      0x144 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-memcpy.o)
- .debug_line    0x00000000000084ac      0x279 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
- .debug_line    0x0000000000008725      0x8ee g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
- .debug_line    0x0000000000009013      0x341 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
- .debug_line    0x0000000000009354      0x32a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
- .debug_line    0x000000000000967e      0xb8e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
- .debug_line    0x000000000000a20c      0x2c8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
- .debug_line    0x000000000000a4d4       0xcf g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
- .debug_line    0x000000000000a5a3      0x32e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-
-.debug_str      0x0000000000000000     0x300e
- .debug_str     0x0000000000000000      0xa3a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-locale.o)
-                                        0xb94 (size before relaxing)
- .debug_str     0x0000000000000a3a      0x19c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs.o)
-                                        0x68e (size before relaxing)
- .debug_str     0x0000000000000bd6       0xb8 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbstowcs_r.o)
-                                        0x9ed (size before relaxing)
- .debug_str     0x0000000000000c8e      0x25a g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mbtowc_r.o)
-                                        0xb2c (size before relaxing)
- .debug_str     0x0000000000000ee8      0x1b1 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-reent.o)
-                                        0x68f (size before relaxing)
- .debug_str     0x0000000000001099      0x184 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcasecmp.o)
-                                        0x673 (size before relaxing)
- .debug_str     0x000000000000121d       0xb9 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strcat.o)
-                                        0x662 (size before relaxing)
- .debug_str     0x00000000000012d6       0xaf g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strlcpy.o)
-                                        0x659 (size before relaxing)
- .debug_str     0x0000000000001385       0xb3 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncasecmp.o)
-                                        0x67c (size before relaxing)
- .debug_str     0x0000000000001438       0xd1 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strncpy.o)
-                                        0x681 (size before relaxing)
- .debug_str     0x0000000000001509      0x3ad g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtod.o)
-                                        0xcf4 (size before relaxing)
- .debug_str     0x00000000000018b6       0xdc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtol.o)
-                                        0xa23 (size before relaxing)
- .debug_str     0x0000000000001992       0xd7 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtold.o)
-                                        0xaa7 (size before relaxing)
- .debug_str     0x0000000000001a69       0xcd g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoll.o)
-                                        0xa28 (size before relaxing)
- .debug_str     0x0000000000001b36      0x119 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtorx.o)
-                                        0xba2 (size before relaxing)
- .debug_str     0x0000000000001c4f       0xcd g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoul.o)
-                                        0xa28 (size before relaxing)
- .debug_str     0x0000000000001d1c       0xd1 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtoull.o)
-                                        0xa2d (size before relaxing)
- .debug_str     0x0000000000001ded       0xb5 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wcscpy.o)
-                                        0x658 (size before relaxing)
- .debug_str     0x0000000000001ea2       0xba g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctob.o)
-                                        0x9ca (size before relaxing)
- .debug_str     0x0000000000001f5c      0x114 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-wctomb_r.o)
-                                        0xa41 (size before relaxing)
- .debug_str     0x0000000000002070      0x17e g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-ctype_.o)
-                                        0x97f (size before relaxing)
- .debug_str     0x00000000000021ee      0x239 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-freer.o)
-                                        0x834 (size before relaxing)
- .debug_str     0x0000000000002427      0x11c g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-gethex.o)
-                                        0xc2b (size before relaxing)
- .debug_str     0x0000000000002543       0xbc g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-gdtoa-hexnan.o)
-                                        0xb36 (size before relaxing)
- .debug_str     0x00000000000025ff       0xe2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-getenv_r.o)
-                                        0x6b2 (size before relaxing)
- .debug_str     0x00000000000026e1       0xb9 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-impure.o)
-                                        0x653 (size before relaxing)
- .debug_str     0x000000000000279a       0xda g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-localeconv.o)
-                                        0x9f0 (size before relaxing)
- .debug_str     0x0000000000002874       0xba g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mallocr.o)
-                                        0x8bb (size before relaxing)
- .debug_str     0x000000000000292e       0xc2 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mlock.o)
-                                        0x67b (size before relaxing)
- .debug_str     0x00000000000029f0      0x103 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-mprec.o)
-                                        0xb02 (size before relaxing)
- .debug_str     0x0000000000002af3       0xc1 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sbrkr.o)
-                                        0x696 (size before relaxing)
- .debug_str     0x0000000000002bb4      0x180 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-sf_nan.o)
-                                        0x6bd (size before relaxing)
- .debug_str     0x0000000000002d34      0x14f g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-strtodg.o)
-                                        0xd5b (size before relaxing)
- .debug_str     0x0000000000002e83        0xf g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-callocr.o)
-                                        0x7df (size before relaxing)
- .debug_str     0x0000000000002e92       0xbb g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-environ.o)
-                                        0x201 (size before relaxing)
- .debug_str     0x0000000000002f4d       0xc1 g:/pi/gcc_linaro_7_1/bin/../aarch64-elf/libc/usr/lib\libc.a(lib_a-envlock.o)
-                                        0x674 (size before relaxing)
+LOAD C:\Users\ldebo\AppData\Local\Temp\cc4GNEcj.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccQcKcd2.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccVEucuD.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccdnWPjb.o
+LOAD C:\Users\ldebo\AppData\Local\Temp\ccdmkDIc.o
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libc.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libm.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/hard\libg.a
+LOAD g:/pi/gcc_pi_6_3/bin/../lib/gcc/arm-none-eabi/6.3.1/hard\libgcc.a
+OUTPUT(kernel.elf elf32-littlearm)

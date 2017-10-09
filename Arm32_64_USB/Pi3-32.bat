@@ -2,10 +2,10 @@
 @echo off
 set "bindir=g:\pi\gcc_pi_6_3\bin\"
 set "cpuflags=-Wall -O3 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv8-a -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize"
-set "asmflags=-nostdlib -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer -Wa,-a>list.txt"
+set "asmflags=-nostdlib -nodefaultlibs -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer -Wa,-a>list.txt"
 set "linkerflags=-Wl,-gc-sections -Wl,--build-id=none -Wl,-Bdynamic -Wl,-Map,kernel.map"
 set "outflags=-o kernel.elf"
-set "libflags=-lc -lm -lgcc -lnosys"
+set "libflags=-lc -lm -lgcc"
 @echo on
 %bindir%arm-none-eabi-gcc %cpuflags% %asmflags% %linkerflags% -Wl,-T,rpi32.ld main.c SmartStart32.S rpi-SmartStart.c emb-stdio.c rpi-USB.c %outflags% %libflags% 
 @echo off
