@@ -1,4 +1,4 @@
-#*** Sorry For Delay in releases
+# **** Sorry For Delay in releases
 >
 I have a 4 sets of new opensource code being worked on which is stretching my time
 1.) I have been working with Raster to Vector conversion on the Pi
