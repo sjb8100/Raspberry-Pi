@@ -6,6 +6,8 @@ I have a 4 sets of new opensource code being worked on which is stretching my ti
 3.) USB hard drive and ethernet code
 4.) A basic muticore task switcher system
 
+I have made small changes at the moment to bring everything onto the same version of SmartStart bootloader. A couple of big changes will be up on weekend. 
+
 # BareMetal Raspberry-Pi (Linux free zone)
 >
 Code background: 
