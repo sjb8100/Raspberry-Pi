@@ -1,19 +1,38 @@
-﻿/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{       Filename: smartstart64.s								}
-{       Copyright(c): Leon de Boer(LdB) 2017					}
-{       Version: 2.01											}
-{******************[ THIS CODE IS FREEWARE ]********************}
-{																}
-{     This sourcecode is released for the purpose to promote	}
-{   programming on the Raspberry Pi. You may redistribute it    }
-{   and/or modify with the following disclaimer.                }
-{																}
-{   The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES	}
-{   AS TO PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR   } 
-{   IMPLIED. Redistributions of source code must retain the     }
-{   copyright notices.                                          }	
-{																}
-{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+﻿;/*"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+;@"																			"			
+;@"      Filename: smartstart64.s											"
+;@"      Copyright(c): Leon de Boer(LdB) 2017								"
+;@"      Version: 2.03														"
+;@"																			"		
+;@"***************[ THIS CODE IS FREEWARE UNDER CC Attribution]*************"
+;@"																            "
+;@"     This sourcecode is released for the purpose to promote programming  "
+;@"  on the Raspberry Pi. You may redistribute it and/or modify with the    "
+;@"  following disclaimer and condition.                                    "
+;@"																            "
+;@"      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO    "
+;@"   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.          "
+;@"   Redistributions of source code must retain the copyright notices to   "
+;@"   maintain the author credit (attribution) .							"
+;@"																			"
+;@"*************************************************************************"
+;@"                                                                         "
+;@"       This code expands on my earlier SmartStart bootstub assembler for "
+;@" the Pi3. It directly supports multicore operation in C/C++. To do that  "
+;@" it provides stack space to each core and provides a modified bootloader " 
+;@" spinlock that protects against registers X0-X7 trashed. As any C/C++    "
+;@" 64 bit compiler will trash those registers, to use C/C++ in multicore   "
+;@" programming this protection must be done.								"
+;@"       This is a matching paired AARCH64 stub for the 64bit linker file  "
+;@" and carries the samme arrangement as AARCH32 to ease porting.		    "
+;@"																            "
+;@"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
+;@"  1.01 Initial release .. Pi autodetection main aim                      "
+;@"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
+;@"  2.01 Futher reductions to bare minmum assembeler code                  "
+;@"  2.02 Multicore functionality added                                     "
+;@"  2.03 Timer Irq support added  											"
+;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
 
 .section ".text.startup", "ax", %progbits
 .balign	4
@@ -112,6 +131,8 @@ set_stacks:
 	 *  CP15BEN,SA0,SA,C,A,M to 0 */
 	mov	x0, #0x0800
 	movk	x0, #0x30d0, lsl #16
+	orr    x0, x0, #(0x1 << 2)            // The C bit on (data cache). 
+	orr    x0, x0, #(0x1 << 12)           // The I bit on (instruction cache)
 	msr	sctlr_el1, x0
 
 //"================================================================"
@@ -228,14 +249,6 @@ secondary_spin:
 	b StartSecondarySpin					// Loop back to spinlock
 
 
-.globl RPi_CpuIdString
-RPi_CpuIdString:
-	ldr x0, =ARM8_STR						// Can not be anything but a Cortex-a53 						
-	ret										// Return
-.balign	4
-.ltorg										/* Tell assembler ltorg data for code above can go here */
-
-
 .globl EnableInterrupts
 EnableInterrupts:
 	msr daifclr,#2
@@ -269,7 +282,27 @@ CoreExecuteFail:
 .ltorg										// Tell assembler ltorg data for this code can go here
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
+.section .text.setTimerIrqAddress, "ax", %progbits
+.balign	4
+.globl setTimerIrqAddress;
+.type setTimerIrqAddress, %function
+setTimerIrqAddress:
+	msr daifset,#2							// Disable irq interrupts as we are clearly changing call
+	ldr x1, =RPi_TimerIrqAddr				// Load address of function to call on interrupt 
+	ldr x2, [x1]							// Load current irq call address
+	str x0, [x1]							// Store the new function pointer address we were given
+	mov x0, x2								// return the old call function
+	ret										// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	setTimerIrqAddress, .-setTimerIrqAddress
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			VC4 ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
@@ -309,15 +342,6 @@ GPUaddrToARMaddr:
 .ltorg										// Tell assembler ltorg data for this code can go here
 .size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
-/* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
-.weak c_irq_handler
-c_irq_handler:
-	ret
-
-/* Provide weak reference c_irq_identify_and_clear_source so if user does not use it functions as dummy */
-.weak c_irq_identify_and_clear_source
-c_irq_identify_and_clear_source:
-	ret
 
 /* Re-entrant interrupt handler stub */
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/ch10s05.html */
@@ -343,10 +367,34 @@ irq_handler:
 	mrs	x1, SPSR_EL1
 	mrs	x2, ELR_EL1
 	stp	x1, x2, [sp, #-16]!
-	bl c_irq_identify_and_clear_source  /* User will provide or will use weak stub */
-	msr daifclr,#2
-	bl	c_irq_handler					/* User will provide or will use weak stub */
-	msr daifset,#2
+
+	
+	//  if (IRQ->IRQBasicPending.Timer_IRQ_pending) {				// Check irq on timer is triggered
+	//	  ARMTIMER->Clear = 1;										// Write any value to register to clear irq ... PAGE 198
+	//	  IRQ->IRQPending1 &= ~0x1;									// Clear timer pending irq bit 0
+	//  }
+	ldr x0, =RPi_IO_Base_Addr
+	ldr	w0, [x0]						// Fetch Pi IO base address
+	mov	w3, 45568						// W3 = 0xB200
+	add	w1, w0, w3						// W1 = Pi IO base addres + 0xB200
+	ldr	w2, [x1]						// W2 = IRQ->IRQBasicPending
+	tbz	x2, 0, .TimerIrqNotPending	    // If timer IRQ pending not yet exit		
+	mov	w2, 46080						// W2 = 0xB400
+	add	w0, w0, w2						// Add Pi Base Addr + 0xB400
+	str	w2, [x0, 12]					// Store W2 to IRQPending1 clearing it				
+	ldr	w0, [x1, 4]						// W0 = IRQPending1
+	and	w0, w0, -2						// Clear timer pending irq bit 0
+	str	w0, [x1, 4]						// Write IRQPending1 clearing
+.TimerIrqNotPending:
+
+	msr daifclr,#2						// Enable irq interrupts
+	ldr x0, =RPi_TimerIrqAddr			// Address to TimerIrqAddr
+	ldr x0, [x0]						// Load TimerIrqAddr value
+	cbz x0, no_irqset					// If zero no irq set 
+	blr x0								// Call Irqhandler that has been set
+	msr daifset,#2						// Disable irq interrupts
+no_irqset:
+
 
 	ldp	x1, x2, [sp], #16
 	msr	ELR_EL1, x2
@@ -403,13 +451,6 @@ VectorTable:
 	vector	hang			/* FIQ */
 	vector	hang			/* SErrorStub */
 
-/*==========================================================================}
-;{					  CPU STRING CONSTANT DEFINITIONS					    }
-;{=========================================================================*/
-.section ".rodata.cpuid", "a", %progbits
-.balign	4
-ARM8_STR: .string "cortex-a53\0"
-
 /****************************************************************
        	   DATA FOR SMARTSTART64  EXPOSED TO INTERFACE 
 ****************************************************************/
@@ -433,3 +474,8 @@ RPi_CpuId : .4byte 0;					// CPU Id is 4 byte variable in 64bit mode
 
 .globl RPi_CompileMode;					// Make sure RPi_CompileMode label is global
 RPi_CompileMode : .4byte 0;				// Compile mode is 4 byte variable in 64bit mode
+
+/****************************************************************
+       	   DATA FOR SMARTSTART64  NOT EXPOSED TO INTERFACE 
+****************************************************************/
+RPi_TimerIrqAddr : .8byte 0;			// Timer Irq Address

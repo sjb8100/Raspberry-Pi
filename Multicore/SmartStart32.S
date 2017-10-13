@@ -1,70 +1,83 @@
-﻿/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{																			}			
-{       Filename: smartstart.s												}
-{       Copyright(c): Leon de Boer(LdB) 2017								}
-{       Version: 2.01														}
-{																			}		
-{***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
-{																            }
-{     This sourcecode is released for the purpose to promote programming    }
-{  on the Raspberry Pi. You may redistribute it and/or modify with the      }
-{  following disclaimer and condition.                                      }
-{																            }
-{      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO      }
-{   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.            }
-{   Redistributions of source code must retain the copyright notices to     }
-{   maintain the author credit (attribution) .								}
-{																			}
-{***************************************************************************}
-{                                                                           }
-{       This code expands on my earlier SmartStart bootstub assembler for   }
-{  the Pi 1/2/3. It simplifies some of the autodetect code but importantly  }
-{  directly supports multicore operation in C/C++. To do that it provides   }
-{  stack space to each core and provides a modified bootloader spinlock     }
-{  that protects against registers R0-R3 trashed. As any C/C++ compiler     }
-{  code will trash those registers, to use C/C++ in multicore programming   }
-{  this protection must be done.											}
-{       The downside is this bootstub must be a little more complex in      }
-{  that it must start and setup multiple cores. The code is much more       }
-{  connected to the linker file which provides memory space to each core.   }
-{        There is however matching paired AARCH64 stub and linker files     }
-{  so code written for this setup can be ported to AARCH64 with ease.		}
-{																            }
-{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+﻿;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+;@"																			"			
+;@"      Filename: smartstart32.s											"
+;@"      Copyright(c): Leon de Boer(LdB) 2017								"
+;@"      Version: 2.03														"
+;@"																			"		
+;@"**************[ THIS CODE IS FREEWARE UNDER CC Attribution]**************"
+;@"																            "
+;@"     This sourcecode is released for the purpose to promote programming  "
+;@"  on the Raspberry Pi. You may redistribute it and/or modify with the    "
+;@"  following disclaimer and condition.                                    "
+;@"																            "
+;@"      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO    "
+;@"   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.          "
+;@"   Redistributions of source code must retain the copyright notices to   "
+;@"   maintain the author credit (attribution) .							"
+;@"																			"
+;@"*************************************************************************"
+;@"                                                                         "
+;@"       This code expands on my earlier SmartStart bootstub assembler for "
+;@" the Pi 1/2/3. It simplifies some of the autodetect code but importantly "
+;@" directly supports multicore operation in C/C++. To do that it provides  "
+;@" stack space to each core and provides a modified bootloader spinlock    "
+;@" that protects against registers R0-R3 trashed. As any C/C++ compiler    "
+;@" code will trash those registers, to use C/C++ in multicore programming  "
+;@" this protection must be done.											"
+;@"      The downside is this bootstub must be a little more complex in     "
+;@" that it must start and setup multiple cores. The code is much more      "
+;@" connected to the linker file which provides memory space to each core.  "
+;@"       There is however matching paired AARCH64 stub and linker files    "
+;@" so code written for this setup can be ported to AARCH64 with ease.		"
+;@"																            "
+;@"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
+;@"  1.01 Initial release .. Pi autodetection main aim                      "
+;@"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
+;@"  2.01 Futher reductions to bare minmum assembeler code                  "
+;@"  2.02 Multicore functionality added                                     "
+;@"  2.03 Timer Irq support added  											"
+;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
 
-/*==========================================================================}
-;{				 	 ARM CPU ID CONSTANT DEFINITIONS					    }
-;{=========================================================================*/
-#define ARM6_CPU_ID 0x410FB767					// CPU id a BCM2835 reports
-#define ARM7_CPU_ID 0x410FC073					// CPU id a BCM2836 reports
-#define ARM8_CPU_ID 0x410FD034					// CPU id a BCM2837 reports
+;@"========================================================================="
+;@"				 	 ARM CPU ID CONSTANT DEFINITIONS					    "
+;@"========================================================================="
+.equ ARM6_CPU_ID, 0x410FB767					;@ CPU id a BCM2835 reports
+.equ ARM7_CPU_ID, 0x410FC073					;@ CPU id a BCM2836 reports
+.equ ARM8_CPU_ID, 0x410FD034					;@ CPU id a BCM2837 reports
 
-/*==========================================================================}
-;{				 	 ARM CPU MODE CONSTANT DEFINITIONS					    }
-;{=========================================================================*/
-#define CPU_FIQMODE 0x11						// CPU in FIQ mode
-#define CPU_IRQMODE 0x12						// CPU in IRQ mode
-#define CPU_SVCMODE 0x13						// CPU in SVC mode
-#define CPU_HYPMODE 0x1A						// CPU in HYP mode
+;@"========================================================================="
+;@"				 	 ARM CPU MODE CONSTANT DEFINITIONS					    "
+;@"========================================================================="
+.equ CPU_FIQMODE, 0x11							;@ CPU in FIQ mode
+.equ CPU_IRQMODE, 0x12							;@ CPU in IRQ mode
+.equ CPU_SVCMODE, 0x13							;@ CPU in SVC mode
+.equ CPU_HYPMODE, 0x1A							;@ CPU in HYP mode
 
-/*==========================================================================}
-;{				 ARM CPU IRQ/FIQ BIT CONSTANT DEFINITIONS				    }
-;{=========================================================================*/
+;@"========================================================================="
+;@"				 ARM CPU IRQ/FIQ BIT CONSTANT DEFINITIONS				    "
+;@"========================================================================="
 #define I_Bit  (1 << 7)							// Irq flag bit in cpsr (CPUMODE register)
 #define F_Bit  (1 << 6)							// Fiq flag bit in cpsr (CPUMODE register)
 
+;@"========================================================================="
+;@"				 	 ARM CPU MODE CONSTANT DEFINITIONS					    "
+;@"========================================================================="
+.equ CPU_FIQMODE_VALUE, (CPU_FIQMODE | I_Bit | F_Bit)	;@ CPU in FIQ mode with irq, fiq off
+.equ CPU_IRQMODE_VALUE, (CPU_IRQMODE | I_Bit | F_Bit)	;@ CPU in IRQ mode with irq, fiq off
+.equ CPU_SVCMODE_VALUE, (CPU_SVCMODE | I_Bit | F_Bit)	;@ CPU in SVC mode with irq, fiq off
 
-;@"****************************************************************"
-;@      INTERNAL DATA FOR SMARTSTART NOT EXPOSED TO INTERFACE 
-;@"****************************************************************"
+;@"*************************************************************************"
+;@"          INTERNAL DATA FOR SMARTSTART NOT EXPOSED TO INTERFACE			"
+;@"*************************************************************************"
 .section ".data.smartstart", "aw"
 .balign 4
 
-RPi_BusAlias	: .4byte 0;				// Address offset between physical addressand ARM address needed for all DMA
+RPi_BusAlias	: .4byte 0;				// Address offset between VC4 physical address and ARM address needed for all DMA
+
+
 
 .globl RPi_CPUCurrentMode;				// Make sure RPi_CPUCurrentMode label is global
 RPi_CPUCurrentMode : .4byte 0;			//  CPU current Mode is 4 byte variable
-
 
 .globl RPi_Heap; @ Make sure RPi_Heap label is global
 RPi_Heap : .4byte 0; @ RPi_Heap is 4 byte variable
@@ -90,7 +103,7 @@ multicore_start:
  	cmp r1, #CPU_HYPMODE					;@ Check we are in HYP_MODE											
 	bne .NotInHypMode						;@ Branch if not equal meaning was not in HYP_MODE  
 	bic r0,r0,#0x1F							;@ Clear the CPU mode bits in register r0							
-	orr r0, r0, #CPU_SVCMODE | I_Bit | F_Bit;@ Logical OR SVC_MODE bits onto register with Irq/Fiq disabled	
+	orr r0, r0, #CPU_SVCMODE_VALUE			;@ SVC_MODE bits onto register with Irq/Fiq disabled	
     msr spsr_cxsf,r0						;@ Hold value in spsr_cxsf
     add lr,pc,#4							;@ Calculate address of .NotInHypMode label
 	/* I borrowed this trick from Ultibo because ARM6 code running on an ARM7/8 needs this opcode  */
@@ -130,15 +143,15 @@ set_svc_stack:
 	mov sp, r2								;@ Set the stack pointer for SVC_MODE 
     mrs r0,cpsr								;@ Fetch the cpsr register which includes CPU mode bits 
 	bic r0,r0,#0x1F							;@ Clear the CPU mode bits in register r0							
-	orr r0, r0, #CPU_FIQMODE | I_Bit | F_Bit;@ Logical OR FIQ_MODE bits onto register with Irq/Fiq disabled
+	orr r0, r0, #CPU_FIQMODE_VALUE			;@ FIQ_MODE bits onto register with Irq/Fiq disabled
     msr CPSR_c, r0							;@ Switch to FIQ_MODE
 	mov sp, r3								;@ Set the stack pointer for FIQ_MODE 
 	bic r0,r0,#0x1F							;@ Clear the CPU mode bits in register r0	
-	orr r0, r0, #CPU_IRQMODE | I_Bit | F_Bit;@ Logical OR IRQ_MODE bits onto register with Irq/Fiq disabled	
+	orr r0, r0, #CPU_IRQMODE_VALUE			;@ IRQ_MODE bits onto register with Irq/Fiq disabled	
     msr CPSR_c, r0							;@ Switch to IRQ_MODE
 	mov sp, r4								;@ Set the stack pointer for IRQ_MODE 
 	bic r0,r0,#0x1F							;@ Clear the CPU mode bits in register r0							
-	orr r0, r0, #CPU_SVCMODE | I_Bit | F_Bit;@ Logical OR SVC_MODE bits onto register with Irq/Fiq disabled	
+	orr r0, r0, #CPU_SVCMODE_VALUE			;@ SVC_MODE bits onto register with Irq/Fiq disabled	
     msr CPSR_c, r0							;@ Switch to SVC_MODE again all stacks ready to go
 @"================================================================"
 ;@ PI NSACR regsister setup for access to floating point unit
@@ -162,9 +175,9 @@ set_svc_stack:
 ;@"================================================================"
 ;@ Enable L1 cache
 ;@"================================================================"
-#define SCTLR_ENABLE_DATA_CACHE			0x4
-#define SCTLR_ENABLE_BRANCH_PREDICTION	0x800
-#define SCTLR_ENABLE_INSTRUCTION_CACHE  0x1000
+.equ SCTLR_ENABLE_DATA_CACHE,			0x4
+.equ SCTLR_ENABLE_BRANCH_PREDICTION,	0x800
+.equ SCTLR_ENABLE_INSTRUCTION_CACHE,	0x1000
     mrc p15,0,r0,c1,c0,0					;@ R0 = System Control Register
 
     /* Enable caches and branch prediction */
@@ -401,27 +414,6 @@ atags:  .4byte 0x100
 .balign	4
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 
-.globl RPi_CpuIdString
-RPi_CpuIdString:
-	ldr r0, =ARM6_STR						
-	mrc p15,0,r2,c0,c0,0					;@ Read Main ID Register
-	ldr r1, =#ARM6_CPU_ID					;@ Fetch ARM6_CPU_ID
-	cmp r1, r2								;@ Check for match	
-	beq CpuIdStringDone
-	ldr r0, =ARM7_STR
-	ldr r1, =#ARM7_CPU_ID					;@ Fetch ARM7_CPU_ID
-	cmp r1, r2								;@ Check for match
-	beq CpuIdStringDone
-	ldr r0, =ARM8_STR
-	ldr r1, =#ARM8_CPU_ID					;@ Fetch ARM8_CPU_ID
-	cmp r1, r2								;@ Check for match
-	beq CpuIdStringDone	
-	ldr r0, =ARMX_STR
-CpuIdStringDone:
-	bx  lr									;@ Return
-.balign	4
-.ltorg										;@ Tell assembler ltorg data for this code can go here
-
 .globl EnableInterrupts
 EnableInterrupts:
 	cpsie i									;@ Enable IRQ
@@ -452,7 +444,26 @@ CoreExecuteFail:
 .ltorg										// Tell assembler ltorg data for this code can go here
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{			MEMORY HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
+.section .text.setTimerIrqAddress, "ax", %progbits
+.balign	4
+.globl setTimerIrqAddress;
+.type setTimerIrqAddress, %function
+setTimerIrqAddress:
+    	cpsid i								// Disable irq interrupts as we are clearly changing call
+	ldr r1, =RPi_TimerIrqAddr						// Load address of function to call on interrupt 
+	ldr r2, [r1]							// Load current irq call address
+	str r0, [r1]							// Store the new function pointer address we were given
+	mov r0, r2							// return the old call function
+	bx  lr								// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	setTimerIrqAddress, .-setTimerIrqAddress
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{		VC4 GPU ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
@@ -498,15 +509,6 @@ GPUaddrToARMaddr:
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 .size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
-/* Provide weak reference c_irq_handler so if user does not use it functions as dummy */
-.weak c_irq_handler
-c_irq_handler:
-	bx  lr									;@ Return
-
-/* Provide weak reference c_irq_identify_and_clear_source so if user does not use it functions as dummy */
-.weak c_irq_identify_and_clear_source
-c_irq_identify_and_clear_source:
-	bx  lr									;@ Return
 
 /* Re-entrant interrupt handler stub */
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka13552.html */
@@ -522,9 +524,34 @@ _irq_handler_stub:
     sub sp, sp, r1							;@ …adjust stack as necessary
     push {r1, lr}							;@ Store adjustment and LR_svc
 
-    bl c_irq_identify_and_clear_source		;@ Clear IRQ source
+
+	//  if (IRQ->IRQBasicPending.Timer_IRQ_pending) {				// Check irq on timer is triggered
+	//	  ARMTIMER->Clear = 1;										// Write any value to register to clear irq ... PAGE 198
+	//	  IRQ->IRQPending1 &= ~0x1;									// Clear timer pending irq bit 0
+	//  }
+	ldr	r3, = RPi_IO_Base_Addr
+	ldr	r3, [r3]							// Fetch Pi IO base Address
+	add	r2, r3, #45568						// Add 0xB200
+	ldr	r1, [r2]							// IRQ->IRQBasicPending
+	tst	r1, #1								// If timer IRQ pending not yet pending
+	beq	.NoTimerIrq							// Nothing to do
+	add	r3, r3, #46080						// Add 0xB400
+	mov	r1, #1								// Load #1
+	str	r1, [r3, #12]						// Write to clear register
+	ldr	r3, [r2, #4]						// Fetch Irq pending
+	bic	r3, r3, #1							// Clear pending bit
+	str	r3, [r2, #4]						// Write value back
+.NoTimerIrq:
+
     cpsie i									;@ Enable IRQ
-    bl c_irq_handler						;@ Branch to 2nd level handler
+
+  	ldr r0, =RPi_TimerIrqAddr				// Address to TimerIrqAddr
+	ldr r0, [r0]							// Load TimerIrqAddr value
+	cmp r0, #0
+	beq no_irqset							// If zero no irq set 
+	blx r0									// Call Irqhandler that has been set  
+no_irqset:	
+
     cpsid i									;@ Disable IRQ
 
     pop {r1, lr}							;@ Restore LR_svc
@@ -553,16 +580,6 @@ _sbrk:
 .ltorg										;@ Tell assembler ltorg data for this code can go here
 .size	_sbrk, .-_sbrk
 
-/*==========================================================================}
-;{					  CPU STRING CONSTANT DEFINITIONS					    }
-;{=========================================================================*/
-.section ".rodata.cpuid", "a", %progbits
-.balign	4
-ARM6_STR: .string "arm1176jzf-s\0"
-ARM7_STR: .string "cortex-a7\0"
-ARM8_STR: .string "cortex-a53\0"
-ARMX_STR: .string "unknown ARM cpu\0"
-
 /****************************************************************
        	   DATA FOR SMARTSTART32 EXPOSED TO INTERFACE 
 ****************************************************************/
@@ -587,3 +604,7 @@ RPi_CpuId : .4byte 0;					// CPU Id is 4 byte variable in 32bit mode
 .globl RPi_CompileMode;					// Make sure RPi_CompileMode label is global
 RPi_CompileMode : .4byte 0;				// Compile mode is 4 byte variable in 32bit mode
 
+/****************************************************************
+       	   DATA FOR SMARTSTART32  NOT EXPOSED TO INTERFACE 
+****************************************************************/
+RPi_TimerIrqAddr : .4byte 0;			// Timer Irq Address
