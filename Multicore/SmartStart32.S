@@ -395,6 +395,7 @@ SecondarySpin:
 	mov	r3, #0			@ magic
 	add	r5, #(0x400000CC-0x4000008C)	@ mbox
 SecondarySpinLoop:
+	wfe										// Lets CPU core sleep
 	ldr	r4, [r5, r0, lsl #4]
 	cmp	r4, r3
 	beq	SecondarySpinLoop
@@ -435,6 +436,7 @@ CoreExecute:
 	bcs	CoreExecuteFail
 	ldr r3, =#0x4000008C					// Load address of spins
 	str r1, [r3, r0, lsl #4]				// Save caller address
+	sev
 	mov r0, #1
 	bx  lr
 CoreExecuteFail:
