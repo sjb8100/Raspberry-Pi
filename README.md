@@ -1,3 +1,11 @@
+#*** Sorry For Delay in releases
+>
+I have a 4 sets of new opensource code being worked on which is stretching my time
+1.) I have been working with Raster to Vector conversion on the Pi
+2.) The shader compiler for my baremetal VC4 sample
+3.) USB hard drive and ethernet code
+4.) A basic muticore task switcher system
+
 # BareMetal Raspberry-Pi (Linux free zone)
 >
 Code background: 
