@@ -7,7 +7,7 @@ set "linkerflags=-Wl,-gc-sections -Wl,--build-id=none -Wl,-Bdynamic -Wl,-Map,ker
 set "outflags=-o kernel.elf"
 set "libflags=-lc -lm -lgcc"
 @echo on
-%bindir%aarch64-elf-gcc.exe %cpuflags% %asmflags% %linkerflags% -Wl,-T,rpi64.ld main.c SmartStart64.S rpi-SmartStart.c emb-stdio.c %outflags% %libflags% 
+%bindir%aarch64-elf-gcc.exe %cpuflags% %asmflags% %linkerflags% -Wl,-T,source\smartstart\rpi64.ld source\main.c source\smartstart\SmartStart64.S source\smartstart\rpi-smartstart.c source\smartstart\emb-stdio.c %outflags% %libflags% 
 @echo off
 if %errorlevel% EQU 1 (goto build_fail)
 
