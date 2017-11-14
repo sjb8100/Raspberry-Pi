@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Pi1|Win32">
+      <Configuration>Pi1</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pi2|Win32">
+      <Configuration>Pi2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pi3|Win32">
+      <Configuration>Pi3</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{FB5F83C9-A5AF-4DE9-9B5D-1FEC06969BA7}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi2|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi3|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi1|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pi2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pi3|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pi1|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi2|Win32'">
+    <NMakeBuildCommandLine>make $(Configuration)</NMakeBuildCommandLine>
+    <NMakeOutput>MulticoreVS.exe</NMakeOutput>
+    <NMakeCleanCommandLine>make $(Configuration)clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>make $(Configuration)Rebuild</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IntDir>$(SolutionDir)</IntDir>
+    <OutDir>$(SolutionDir)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi3|Win32'">
+    <NMakeBuildCommandLine>make $(Configuration)</NMakeBuildCommandLine>
+    <NMakeOutput>MulticoreVS.exe</NMakeOutput>
+    <NMakeCleanCommandLine>make $(Configuration)clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>make $(Configuration)Rebuild</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IntDir>$(SolutionDir)</IntDir>
+    <OutDir>$(SolutionDir)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pi1|Win32'">
+    <NMakeBuildCommandLine>make $(Configuration)</NMakeBuildCommandLine>
+    <NMakeOutput>MulticoreVS.exe</NMakeOutput>
+    <NMakeCleanCommandLine>make $(Configuration)clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>make $(Configuration)Rebuild</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IntDir>$(SolutionDir)</IntDir>
+    <OutDir>$(SolutionDir)</OutDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="diskimg\bootcode.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\main.c" />
+    <ClCompile Include="Source\SmartStart\emb-stdio.c" />
+    <ClCompile Include="Source\SmartStart\rpi-SmartStart.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\SmartStart\emb-stdio.h" />
+    <ClInclude Include="Source\SmartStart\Font8x16.h" />
+    <ClInclude Include="Source\SmartStart\rpi-SmartStart.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
