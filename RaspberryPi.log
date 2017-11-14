@@ -1,4 +1,0 @@
-﻿  arm-none-eabi-gcc -Wall -O3 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv8-a -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wnonnull -nostdlib -nodefaultlibs -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer -Wl,-gc-sections -Wl,--build-id=none -Wl,-Bdynamic -Wl,-T,source/SmartStart/rpi32.ld -I source/ source/SmartStart/SmartStart32.s source/SmartStart/emb-stdio.c source/SmartStart/rpi-SmartStart.c source/main.c -o kernel.elf -lc -lm -lgcc
-  arm-none-eabi-objdump -d kernel.elf > kernel.list
-  arm-none-eabi-objcopy kernel.elf -O binary DiskImg/kernel8-32.img
-  arm-none-eabi-nm -n kernel.elf > kernel.map
