@@ -1,23 +1,13 @@
-# **** Sorry For Delay in releases
+# **** Finally getting time to do the updates
 >
-I have a 4 sets of new opensource code being worked on which is stretching my time
+Visual Studio 2017 recently added direct make support so I am finally switching to make files so linux users can directly compile.
 >
-1.) I have been working with Raster to Vector conversion on the Pi
+The compiling background has been quickly documented. I will try to add in more detail in next few days.
 >
-2.) The shader compiler for my baremetal VC4 sample
->
-3.) USB hard drive and ethernet code
->
-4.) A basic muticore task switcher system
-
-I have made small changes at the moment to bring everything onto the same version of SmartStart bootloader. A couple of big changes will be up on weekend. 
-
-# BareMetal Raspberry-Pi (Linux free zone)
->
-Code background: 
 https://github.com/LdB-ECM/Docs_and_Images/tree/master/Documentation/Code_Background.md
 >
-There are no make files for the repo's as I am a commercial embedded developer and I use Windows and Visual Studio as my IDE. So I am cross compiling to the PI which comes out thru a commercial toolchain. Rather than waste time with rather complex make files I provide a batch file which contains the compile and link commands as they need to be executed. The path to the compiler executables will need to be changed if you want to use them. My path will look like "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-gcc" and "g:\pi\gcc_pi_6_3\bin\arm-none-eabi-objcopy" you will need to change it to the path of arm-none-eabi-gcc.exe and arm-none-eabi-objcopy.exe on your system. The files usually have only 2 active lines and easy enough to convert to bash scripts for linux users. I am slowly providing basic bash scripts in the directory bash_scripts on each sample for copying into the main directory if needed.
+
+# BareMetal Raspberry-Pi (Linux free zone)
 
 32 Bit Cross Compiler Toolchain I use (Multiple O/S are supported):
 >https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
