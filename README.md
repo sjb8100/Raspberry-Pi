@@ -1,8 +1,6 @@
 # **** Finally getting time to do the updates
 >
-Visual Studio 2017 recently added direct make support so I am finally switching to make files so linux users can directly compile.
->
-The compiling background has been quickly documented. I will try to add in more detail in next few days.
+Visual Studio 2017 recently added direct make support so I am finally switching to make files so linux users can directly compile. The compiling background has been quickly documented. I will try to add in more detail in next few days.
 >
 https://github.com/LdB-ECM/Docs_and_Images/tree/master/Documentation/Code_Background.md
 >
