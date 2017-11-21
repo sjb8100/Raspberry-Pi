@@ -64,7 +64,7 @@ So we continue our GL pipe adventure slowly crawling towards something that ress
 >
 So we work on rotating an actual LightWave OBJ 3D mesh model:
 >
-![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/spacecraft.jpg?raw=true)
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/biplane.jpg?raw=true)
 
 Streaming video of output:
 >
