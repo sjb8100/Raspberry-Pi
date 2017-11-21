@@ -68,7 +68,7 @@ So we work on rotating an actual LightWave OBJ 3D mesh model:
 
 Streaming video of output:
 >
-https://streamable.com/yte1n
+https://streamable.com/t6efv
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test 
 
