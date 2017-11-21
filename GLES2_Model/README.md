@@ -2,6 +2,7 @@
 >
 Code background: 
 http://latchup.blogspot.com.au/2016/02/life-of-triangle.html
+>
 You will require this reference
 https://docs.broadcom.com/docs/12358545
 >
@@ -14,3 +15,6 @@ different halfs of the virtual screen the new render always going to the non dis
 
 As we get a bit further I will do more of a right feel free to ask questions on the Raspberry forum
 https://www.raspberrypi.org/forums/viewtopic.php?f=72&p=1206923#p1206923
+>
+The default model:
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/biplane.jpg?raw=true)
