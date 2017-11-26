@@ -27,7 +27,7 @@
 .equ CPU_SVCMODE_VALUE, (CPU_SVCMODE | I_Bit | F_Bit)	;@ CPU in SVC mode with irq, fiq off
 
 /* here starts our .text.startup where our startup code is present */
-.section ".text.startup" 
+.section ".init" 
 .globl _start
 .balign 4
 _start: 

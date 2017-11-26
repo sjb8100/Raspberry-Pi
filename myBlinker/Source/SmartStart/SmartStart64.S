@@ -34,7 +34,7 @@
 ;@"  2.03 Timer Irq support added  											"
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
 
-.section ".text.startup", "ax", %progbits
+.section ".init", "ax", %progbits
 .balign	4
 .globl _start
 _start:	
