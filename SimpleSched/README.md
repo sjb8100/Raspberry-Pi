@@ -20,4 +20,8 @@ Make       ... creates a Pi3 kernel8-32.img in directory DiskImg
 Make Clean ... clears all temp files which are in the directory Build
 >
 >
+>
+There tasks can be made to one shot and or execute immediately on startup as well as the standard execute simply on a timed interval.
+>
+>
 In the next example we will add context switching and non ending tasks to create a simple task switcher.
