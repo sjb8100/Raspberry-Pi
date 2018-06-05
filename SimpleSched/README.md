@@ -1,10 +1,16 @@
 
-# USB alpha ... PI3 AARCH64 and PI 1,2,3 AARCH32
-My redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick was converted to 32/64 bit compatible code. I also merged nested interrupt code which blinks the LED while the USB runs. Finally the 32 bit version also had the multicore operation merged from the multicore code.
+# Simple Round Robin Scheduler ... PI 1,2,3 AARCH32
+Simple Round Robin Scheduler I am working on as a lead in to Task Switchers and RTOS. 
 
-Having got the interrupts nested and running I will now complete the USB channels and implement a complete interrupt driven USB system.
+This is the basic start point where tasks at same priority basically roll thru executing in round robin. It is assumed the tasks would always complete within the time between the schedule intervals. It is setup to run one task at 5 seconds and 1 at 9 seconds so it's quite obvious to see.
 
-I have yet to port the whole of the standards library in 64bit so the printf is currently produced by a printf.c implementation. The graphics text support is very basic it supports only 32 bit color depth. It's all a bit rough but this is simply a snapshot of a work in progress and as a sample of a fairly complex AARCH64 code running.
+Makefile instructions:
+Make Pi1   ... creates a Pi1 kernel.img in directory DiskImg
+Make Pi2   ... creates a Pi2 kernel7.img in directory DiskImg
+Make Pi3   ... creates a Pi3 kernel8-32.img in directory DiskImg
+OR
+Make       ... creates a Pi3 kernel8-32.img in directory DiskImg
 
-If you just want to see it just put the files in the firmware directory on a formatted SD card and place in Pi3.
-![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/USB_HID.jpg)
+Make Clean ... clears all temp files which are in the directory Build
+
+In the next example we will add context switching and non ending tasks to create a simple task switcher.
