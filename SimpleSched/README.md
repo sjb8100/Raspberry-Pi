@@ -24,4 +24,7 @@ Make Clean ... clears all temp files which are in the directory Build
 There tasks can be made to one shot and or execute immediately on startup as well as the standard execute simply on a timed interval.
 >
 >
-In the next example we will add context switching and non ending tasks to create a simple task switcher.
+As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test
+>
+>
+This example might be useful for some basic slow task situations but it is really targetted as a learning step. In the next example we will add context switching and never ending tasks to create a simple task switcher.
