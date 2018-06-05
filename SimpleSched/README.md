@@ -3,7 +3,7 @@
 Simple Round Robin Scheduler I am working on as a lead in to Task Switchers and RTOS. 
 >
 >
-This is the basic start point where tasks at same priority basically roll thru executing in round robin. It is assumed the tasks would always complete within the time between the schedule intervals. It is setup to run one task at 5 seconds and 1 at 9 seconds so it's quite obvious to see.
+This is the basic start point where tasks at same priority basically roll thru executing in round robin. It is assumed the tasks would always complete within the time between the schedule intervals. It is setup to run task one at 5 seconds and task two at 9 seconds so it's quite obvious to see.
 >
 >
 Makefile instructions:
