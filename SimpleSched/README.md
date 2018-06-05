@@ -21,7 +21,7 @@ Make Clean ... clears all temp files which are in the directory Build
 >
 >
 >
-There tasks can be made to one shot and or execute immediately on startup as well as the standard execute simply on a timed interval.
+There tasks can be made to one shot and or execute immediately on startup as well as the standard execute repeatedly on a timed interval.
 >
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test
