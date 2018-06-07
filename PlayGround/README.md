@@ -17,8 +17,8 @@ Make       ... creates a Pi3 kernel8-32.img in directory DiskImg
 >
 Make Clean ... clears all temp files which arefs in the directory Build
 >
->
->
+>fs
+<
 >
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test
