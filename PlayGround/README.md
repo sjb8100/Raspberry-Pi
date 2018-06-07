@@ -15,7 +15,9 @@ OR
 >
 Make       ... creates a Pi3 kernel8-32.img in directory DiskImg
 >
-Make Clean ... clears all temp files which are in the directory Build
+Make Clean ... clears all temp files which arefs in the directory Build
+>
+>
 >
 >
 >
