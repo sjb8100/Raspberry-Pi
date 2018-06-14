@@ -116,7 +116,6 @@ void init_page_table (void) {
 	/* 880Mb of ram */
 	for (base = 0; base < 440; base++) {
 		// Each block descriptor (2 MB)
-		//L3map1to1[base] = base << 21 | 0x0000000000000621ul;
 		Stage2map1to1[base] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)base << (21-12), .AF = 1, .SH = STAGE2_SH_INNER_SHAREABLE, 
 			                                                        .MemAttr = MT_NORMAL, .EntryType = 1 };
 		if (base < 4)
@@ -126,20 +125,17 @@ void init_page_table (void) {
 	/* VC ram up to 0x3F000000 */
 	for (; base < 512 - 8; base++) {
 		// Each block descriptor (2 MB)
-		//L3map1to1[base] = base << 21 | 0x0000000000000665ul;
 		Stage2map1to1[base] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)base << (21 - 12), .AF = 1, .MemAttr = MT_NORMAL_NC, .EntryType = 1 };
 	}
 
 	/* 16 MB peripherals at 0x3F000000 - 0x40000000*/
 	for (; base < 512; base++) {
 		// Each block descriptor (2 MB)
-		//L3map1to1[base] = base << 21 | 0x0000000000000665ul;
 		Stage2map1to1[base] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)base << (21 - 12), .AF = 1, .MemAttr = MT_DEVICE_NGNRNE, .EntryType = 1 };
 	}
 	
 	// 2 MB for mailboxes at 0x40000000
 	// shared device, never execute
-	//L3map1to1[512] = 512 << 21 | 0x0000000000000665ul;
 	Stage2map1to1[512] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)512 << (21 - 12), .AF = 1, .MemAttr = MT_DEVICE_NGNRNE, .EntryType = 1 };
 
 	// unused up to 0x7FFFFFFF
@@ -160,7 +156,7 @@ void init_page_table (void) {
 	// initialize virtual mapping for TTBR1 .. basic 1 page  .. 512 entries x 4096
 	// 2MB of ram memory memory  0xFFFFFFFFFFE00000 to 0xFFFFFFFFFFFFFFFF
 	
-	// Initially no valid entry maps in 512 entries in L1 virtual table we will add them via virtualmap call
+	// Initially no valid entry maps in 512 entries in Stage3 virtual table we will add them via virtualmap call
 	for (uint_fast16_t i = 0; i < 512; i++) {
 		Stage3virtual[i].Raw64 = 0;
 	}
@@ -181,19 +177,13 @@ void init_page_table (void) {
 
 
 /**
- * Set up page translation tables and enable virtual memory
+ * Use the previous setup page translation tables
  */
 void mmu_init(void)
 {
     uint64_t r;
-    /* okay, now we have to set system registers to enable MMU */
-
-    // first, set Memory Attributes array, indexed by PT_MEM, PT_DEV, PT_NC in our example
-    //r=  (0xFF << 0) |    // AttrIdx=0: normal, IWBWA, OWBWA, NTR
-    //    (0x04 << 8) |    // AttrIdx=1: device, nGnRE (must be OSH too)
-    //    (0x44 <<16);     // AttrIdx=2: non cacheable
-
-	//r = 0xEE4404EEEE4404EEul;
+   
+	/* okay, now we have to set system registers to enable MMU */
 	asm volatile("dsb sy");
 	r = MEMORY_ATTRIBUTES;
     asm volatile ("msr mair_el1, %0" : : "r" (r));
@@ -220,7 +210,6 @@ void mmu_init(void)
         (25LL   << 0);   // T0SZ=25 (512G)  ... The region size is 2 POWER (64-T0SZ) bytes
     asm volatile ("msr tcr_el1, %0; isb" : : "r" (r));
 	
-
 	// finally, toggle some bits in system control register to enable page translation
     asm volatile ("isb; mrs %0, sctlr_el1" : "=r" (r));
     r |= 0xC00800;     // set mandatory reserved bits
