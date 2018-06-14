@@ -457,8 +457,7 @@ CoreExecuteFail:
 .globl semaphore_inc;
 .type semaphore_inc, %function
 semaphore_inc:
-     isb
-     mov   w2, 1
+      mov   w2, 1
 	.p2align 2
 .lockloop:
     ldaxr   w1, [x0]
@@ -482,9 +481,8 @@ semaphore_inc:
 .globl semaphore_dec;
 .type semaphore_dec, %function
 semaphore_dec:
-    dmb ish
 	stlrb	wzr, [x0]
-	isb
+	dmb ish
 	ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
