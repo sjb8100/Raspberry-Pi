@@ -38,8 +38,6 @@ SECTIONS
         __rodata_end__ = .;			/* Label in case we want address of rodata section start */
    	} > RAM
 
-	. = ALIGN(4096);
-	PROVIDE(_data = .);
 	/* 
 	* Next we put the data.
 	*/
@@ -120,8 +118,8 @@ SECTIONS
         __stack_end_core3__ = .;	/* Label in case we want address of stack core2 ends */
     } > RAM
 
-	. = ALIGN(4096);
 	.heap : {
+		. = ALIGN(4);
      	__heap_start__ = .;			/* Label in case we want address of heap section start */
     	 _end = .; 
 		 PROVIDE (end = .);			/* Any memory from here is free to use so this is end of code and start of heap */
