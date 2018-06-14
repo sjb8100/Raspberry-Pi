@@ -1,8 +1,8 @@
-﻿;/*"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+;/*"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ;@"																			"			
 ;@"      Filename: smartstart64.s											"
-;@"      Copyright(c): Leon de Boer(LdB) 2017								"
-;@"      Version: 2.03														"
+;@"      Copyright(c): Leon de Boer(LdB) 2017,2018							"
+;@"      Version: 2.04														"
 ;@"																			"		
 ;@"***************[ THIS CODE IS FREEWARE UNDER CC Attribution]*************"
 ;@"																            "
@@ -32,6 +32,7 @@
 ;@"  2.01 Futher reductions to bare minmum assembeler code                  "
 ;@"  2.02 Multicore functionality added                                     "
 ;@"  2.03 Timer Irq support added  											"
+;@"  2.04 Semaphore code added												"			
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
 
 .section ".init", "ax", %progbits
@@ -221,71 +222,76 @@ cpu0_exit_multicore_park:
 "================================================================*/
 hang:
 	b hang
-.balign	4
-.ltorg										/* Tell assembler ltorg data for code above can go here */
-
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {    Modified bootloader Spin loop but tolerant on registers X0-X7 for C    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-#define spin_cpu0 0xd8
 .balign	4
 StartSecondarySpin:
-	mrs x6, MPIDR_EL1						// Fetch core Id
-	and x6, x6, #0x3						// Create 2 bit mask of core Id
-	mov x5, #spin_cpu0						// Load address of spins
-	mov x1, #0                              // zero x1 register
-	str x1, [x5, x6, lsl #3]				// Make sure caller address is zeroed
-secondary_spin:
 	wfe										// This is all I really want processor to sleep
-    ldr x4, [x5, x6, lsl #3]				// Fetch address that has been set
-	cbz x4, secondary_spin					// If zero spin 
-	mov x0, #0
-	str x0, [x5, x6, lsl #3]				// Zero caller address
-	mov x1, #0
-	mov x2, #0
-	mov x3, #0
-	blr x4									// Call the function set
+	mov	x2, 204
+	movk x2, 0x4000, lsl 16					// Load mailbox0 read address  = 0x400000CC
+	mrs x0, MPIDR_EL1						// Fetch core Id
+	ubfiz x0, x0, 4, 4						// Multiply core ID x 16
+	ldr	w1, [x0, x2]						// Read the mailbox	
+	cbz w1, StartSecondarySpin				// If zero spin again
+	str	w1, [x0, x2]						// Clear the read address
+	uxtw x1, w1								// Expand 32bit addr to 64bit addr
+	dmb sy
+	blr x1									// Call the function set
+	dmb sy
 	b StartSecondarySpin					// Loop back to spinlock
+.balign	4
+.ltorg										/* Tell assembler ltorg data for code above can go here */
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			  GLOBAL INTERRUPT CONTROL PROVIDE BY SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-.globl EnableInterrupts
+//"========================================================================="
+//	EnableInterrupts -- AARCH64 Pi3 code
+//	C Function: "void EnableInterrupts (void);"
+//	Entry: nothing
+//	Return: nothing
+//"========================================================================="
+.section .text.EnableInterrupts, "ax", %progbits
+.balign	4
+.globl EnableInterrupts;
 EnableInterrupts:
 	msr daifclr,#2
 	ret
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	EnableInterrupts, .-EnableInterrupts
 
-.globl DisableInterrupts
+//"========================================================================="
+//	DisableInterrupts -- AARCH64 Pi3 code
+//	C Function: "void DisableInterrupts (void);"
+//	Entry: nothing
+//	Return: nothing
+//"========================================================================="
+.section .text.DisableInterrupts, "ax", %progbits
+.balign	4
+.globl DisableInterrupts;
+.type DisableInterrupts, %function
 DisableInterrupts:
 	msr daifset,#2
 	ret
-
-.globl CoreExecute
-CoreExecute:
-	ands x0, x0, #255
-	beq CoreExecuteFail
-	ldr x3, =RPi_CoresReady
-	ldr w2, [x3]							// Fetch cores ready count
-	cmp w0, w2
-	bcs	CoreExecuteFail
-	mov x6, #0
-	mov w6, w0
-	mov x5, #spin_cpu0						// Load address of spins
-	str x1, [x5, x6, lsl #3]				// Save caller address
-	dsb sy
-	sev
-	mov x0, #1
-	ret
-CoreExecuteFail:
-	mov x0, #0
-	ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
+.size	DisableInterrupts, .-DisableInterrupts
+
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
+//"========================================================================="
+//	setTimerIrqAddress -- AARCH64 Pi3 code
+//	C Function: "TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);"
+//	Entry: X0 has address for new Irq call
+//	Return: X0 has address of lats old Irq call
+//"========================================================================="
 .section .text.setTimerIrqAddress, "ax", %progbits
 .balign	4
 .globl setTimerIrqAddress;
@@ -305,16 +311,16 @@ setTimerIrqAddress:
 {			VC4 ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/* "PROVIDE C FUNCTION: uint32_t ARMaddrToGPUaddr (void* ARMaddress);" */
+//"================================================================"
+//	ARMaddrToGPUaddr -- AARCH64 Pi3 code
+//	C Function: "uint32_t ARMaddrToGPUaddr (void* ARMaddress);"
+//	Entry: X0 will have ARMAddress value
+//	Return: X0 will have the converted GPU address
+//"================================================================"
 .section .text.ARMaddrToGPUaddr, "ax", %progbits
 .balign	4
 .globl ARMaddrToGPUaddr;		
 .type ARMaddrToGPUaddr, %function
-//"================================================================"
-// ARMaddrToGPUaddr -- AARCH64 Pi3 code
-// C Function: uint32_t ARMaddrToGPUaddr (void* ARMaddress);
-// Entry: x0 will have ARMAddress value
-//"================================================================"
 ARMaddrToGPUaddr:
 	mov x1, #0xC0000000						// ARM to VC conversion value
 	orr x0, x0, x1							// Create bus address
@@ -323,17 +329,16 @@ ARMaddrToGPUaddr:
 .ltorg										// Tell assembler ltorg data for this code can go here
 .size	ARMaddrToGPUaddr, .-ARMaddrToGPUaddr
 
-
-/* "PROVIDE C FUNCTION: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);" */
+//"================================================================"
+// GPUaddrToARMaddr -- AARCH64 Pi3 code
+// C Function: "uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);"
+// Entry: X0 will have GPUAddress value
+//	Return: X0 will have the converted ARM address
+//"================================================================"
 .section .text.GPUaddrToARMaddr, "ax", %progbits
 .balign	4
 .globl GPUaddrToARMaddr;		
 .type GPUaddrToARMaddr, %function
-//"================================================================"
-// GPUaddrToARMaddr -- AARCH64 Pi3 code
-// C Function: uint32_t GPUaddrToARMaddr (uint32_t BUSaddress);
-// Entry: x0 will have GPUAddress value
-//"================================================================"
 GPUaddrToARMaddr:
 	mov x1, #0xC0000000						// ARM to VC conversion value	
 	bic x0, x0, x1							// Create arm address
@@ -346,7 +351,12 @@ GPUaddrToARMaddr:
 //	  RPi-SmartStart Compatability for David Welch CALLS he always uses	    }
 //"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-/* "PROVIDE C FUNCTION: void PUT32 (uint32_t addr, uint32_t value);" */
+//"========================================================================="
+//	PUT32 -- AARCH64 Pi3 code
+//	C Function: "void PUT32 (uint32_t addr, uint32_t value);"
+//	Entry: X0 contains address   X1 contains value
+//	Return: nothing
+//"========================================================================="
 .section .text.PUT32, "ax", %progbits
 .balign	4
 .globl PUT32
@@ -358,7 +368,12 @@ PUT32:
 .ltorg										// Tell assembler ltorg data for this code can go here
 .size	PUT32, .-PUT32
 
- /* "PROVIDE C FUNCTION: uint32_t GET32 (uint32_t addr);" */
+ //"========================================================================="
+//	GET32 -- AARCH64 Pi3 code
+//	C Function: "uint32_t GET32 (uint32_t addr);"
+//	Entry: X0 contains address
+//	Return: X) conatins value read
+//"========================================================================="
  .section .text.GET32, "ax", %progbits
 .balign	4
 .globl GET32
@@ -373,43 +388,103 @@ GET32:
 .size	GET32, .-GET32
 
 //"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+//		 SmartStart API TO GET CORE ID & EXECUTE ROUTINE AT ADDRESS 		    
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
+//"========================================================================="
+//	GetCoreID -- AARCH64 Pi3 code
+//	C Function: "uint8_t GetCoreID (void);"
+//	Entry: nothing
+//	Return: X0 with the read Core ID
+//"========================================================================="
+ .section .text.GetCoreID, "ax", %progbits
+.balign	4
+.globl GetCoreID
+.type GetCoreID, %function
+GetCoreID:
+	mrs x0, MPIDR_EL1						// Fetch core Id
+	and x0, x0, #0x3						// Create 2 bit mask of core Id
+	ret										// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	GetCoreID, .-GetCoreID
+
+//"========================================================================="
+//	CoreExcute -- AARCH64 Pi3 code
+//	C Function: "bool CoreExecute (uint8_t core, void (*func)(void));"
+//	Entry: X0 will have core id  X1 will have address of function to run
+//	Return: nothing
+//"========================================================================="
+.section .text.CoreExecute, "ax", %progbits
+.balign	4
+.globl CoreExecute;
+.type CoreExecute, %function
+CoreExecute:
+    dmb sy
+	adrp x2, RPi_CoresReady
+	ldr	w2, [x2, #:lo12:RPi_CoresReady]
+	and	w0, w0, 255
+	cmp	w0, w2
+	bcs CoreExecuteFail
+	ubfiz x0, x0, 2, 8						// multiply core number x16
+	mov	x2, 140
+	movk x2, 0x4000, lsl 16					// Load address of mailbox0 write addr = 0x4000008C
+	str	w1, [x2, x0, lsl 2]					// Save caller address
+	sev
+	dmb sy
+ 	mov	w0, 1
+	ret
+CoreExecuteFail:
+	dmb sy
+	mov x0, #0
+	ret
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	CoreExecute, .-CoreExecute
+
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 //				SEMAPHORE ROUTINES PROVIDE BY RPi-SmartStart API		    
 //"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 //"========================================================================="
-//		semaphore_inc -- AARCH64 Pi3 code
-//		C Function: void semaphore_inc (uint32_t* sem);
-//		Entry: R0 will have semaphore address value
-//		Return: nothing
+//	semaphore_inc -- AARCH64 Pi3 code
+//	C Function: "void semaphore_inc (uint32_t* sem);"
+//	Entry: X0 will have semaphore address value
+//	Return: nothing
 //"========================================================================="
 .section .text.semaphore_inc, "ax", %progbits
 .balign	4
 .globl semaphore_inc;
 .type semaphore_inc, %function
 semaphore_inc:
+     isb
      mov   w2, 1
+	.p2align 2
 .lockloop:
-	ldaxr  w1, [x0]    
-	cbnz   w1, .lockloop    
-	stxr   w1, w2, [x0]    
-	cbnz   w1, .lockloop
-	ret
+    ldaxr   w1, [x0]
+    stxr    w3, w2, [x0]
+    cbnz    w3, .lockloop
+    cbnz    w1, .lockloop
+	dmb ish
+    ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
 .size	semaphore_inc, .-semaphore_inc
 
 //"========================================================================="
-//		semaphore_dec -- Composite Pi1, Pi2 & Pi3 code
-//		C Function: void semaphore_dec (uint32_t* sem);
-//		Entry: R0 will have semaphore address value
-//		Return: nothing
+//	semaphore_dec -- Composite Pi1, Pi2 & Pi3 code
+//	C Function: "void semaphore_dec (uint32_t* sem);"
+//	Entry: X0 will have semaphore address value
+//	Return: nothing
 //"========================================================================="
 .section .text.semaphore_dec, "ax", %progbits
 .balign	4
 .globl semaphore_dec;
 .type semaphore_dec, %function
 semaphore_dec:
-	stlr	wzr, [x0]
+    dmb ish
+	stlrb	wzr, [x0]
+	isb
 	ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here

@@ -55,6 +55,26 @@ extern "C" {									// Put extern C directive wrapper around
 typedef void (*TimerIrqHandler) (void);
 
 /***************************************************************************}
+{						  PUBLIC MEMORY BARRIER ROUTINES				    }
+{***************************************************************************/
+#if (__ARM_ARCH == 6)							// Compiling for ARM 6
+#define ISB(x) asm volatile ("mcr p15, 0, r3, c7, c5, 4" : : "r3" : "memory")
+#define DSB(x) asm volatile ("mcr p15, 0, r3, c7, c10, 4" : : "r3" : "memory")
+#define DMB(x) asm volatile ("mcr p15, 0, r3, c7, c10, 5" : : "r3" : "memory")
+#endif
+#if (__ARM_ARCH == 7)							// Compiling for ARM 7
+#define ISB(option) asm volatile ("isb " #option : : : "memory")
+#define DSB(option) asm volatile ("dsb " #option : : : "memory")
+#define DMB(option) asm volatile ("dmb " #option : : : "memory")
+#endif
+
+#if (__ARM_ARCH == 8)  							// Compiling for an ARM 8
+#define ISB(option) asm volatile ("isb " #option : : : "memory")
+#define DSB(option) asm volatile ("dsb " #option : : : "memory")
+#define DMB(option) asm volatile ("dmb " #option : : : "memory")
+#endif
+
+/***************************************************************************}
 {					     PUBLIC ENUMERATION CONSTANTS			            }
 ****************************************************************************/
 
@@ -338,22 +358,23 @@ extern void EnableInterrupts (void);			// Enable global interrupts
 extern void DisableInterrupts (void);			// Disable global interrupts
 
 
-typedef void (*CORECALLFUNC) (void);
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{	   	RPi-SmartStart API TO SET CORE EXECUTE ROUTINE AT ADDRESS 		    }
+{	 	RPi-SmartStart API TO GET CORE ID & EXECUTE ROUTINE AT ADDRESS 	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+uint8_t GetCoreID (void);
+
 /* Execute function on (1..CoresReady) */
-extern bool CoreExecute (uint8_t coreNum, CORECALLFUNC func); 
+bool CoreExecute (uint8_t coreNum, void (*func) (void)); 
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {		VC4 GPU ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* ARM bus address to GPU bus address */
-extern uint32_t ARMaddrToGPUaddr (void* ARMaddress);
+uint32_t ARMaddrToGPUaddr (void* ARMaddress);
 
 /* GPU bus address to ARM bus address */
-extern uint32_t GPUaddrToARMaddr (uint32_t GPUaddress);
+uint32_t GPUaddrToARMaddr (uint32_t GPUaddress);
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {	  RPi-SmartStart Compatability for David Welch CALLS he always uses	    }

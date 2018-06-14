@@ -22,6 +22,9 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
+extern uint32_t table_loaded;
 
-void mmu_init();
+void init_page_table (void);
+
+void mmu_init (void);
 uint64_t virtualmap(uint32_t phys_addr);

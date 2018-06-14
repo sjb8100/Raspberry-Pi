@@ -887,8 +887,8 @@ uint64_t timer_getTickCount64 (void)
 .--------------------------------------------------------------------------*/
 void timer_wait (uint64_t us) 
 {
-	us += timer_getTickCount();										// Add current tickcount onto delay
-	while (timer_getTickCount() < us) {};							// Loop on timeout function until timeout
+	us += timer_getTickCount64();									// Add current tickcount onto delay
+	while (timer_getTickCount64() < us) {};							// Loop on timeout function until timeout
 }
 
 
@@ -1100,7 +1100,7 @@ bool ARM_setmaxspeed ( int(*printhandler) (const char *fmt, ...) ) {
 .--------------------------------------------------------------------------*/
 void displaySmartStart ( int(*printhandler) (const char *fmt, ...) ) {
 	if (printhandler) {
-		printhandler("SmartStart v2.02 compiled for Arm%d, AARCH%d with %u core s/w support\n",
+		printhandler("SmartStart v2.04 compiled for Arm%d, AARCH%d with %u core s/w support\n",
 			RPi_CompileMode.ArmCodeTarget, RPi_CompileMode.AArchMode * 32 + 32,
 			(unsigned int)RPi_CompileMode.CoresSupported);							// Write text
 		printhandler("Detected %s CPU, part id: 0x%03X, Cores made ready for use: %u\n",
@@ -1120,7 +1120,7 @@ bool miniuart_init(uint32_t baudrate)
 		8, 8, CLK_CORE_ID, 0);										// Get core clock frequency
 	uint32_t Divisor = (Buffer[4] / (baudrate * 8)) - 1;			// calculate divisor
 	if (Divisor <= 0xFFFF) {
-
+		DMB(sy);													// First access to hardware so memory barrier 
 		PUT32(AUX_ENABLES, 1);										// Enable miniuart
 
 		MINIUART->CNTL.RXE = 0;										// Disable receiver
@@ -1138,7 +1138,7 @@ bool miniuart_init(uint32_t baudrate)
 
 		MINIUART->CNTL.RXE = 1;										// Enable receiver
 		MINIUART->CNTL.TXE = 1;										// Enable transmitter
-
+		DMB(sy);													// Last access to hardware so memory barrier
 		return true;												// Return success
 	}
 	return false;													// Invalid baudrate can't set
@@ -1146,14 +1146,18 @@ bool miniuart_init(uint32_t baudrate)
 
 char miniuart_getc (void)
 {
+	DMB(sy);														// First access to hardware so memory barrier 
 	while (MINIUART->LSR.RXFDA == 0) {};
 	return(MINIUART->IO.DATA);
+	DMB(sy);														// Last access to hardware so memory barrier
 }
 
 void miniuart_putc (const char c)
 {
+	DMB(sy);														// First access to hardware so memory barrier 
 	while (MINIUART->LSR.TXFE == 0) {};
 	MINIUART->IO.DATA = c;
+	DMB(sy);														// Last access to hardware so memory barrier
 }
 
 void miniuart_puts (const char *str)
@@ -1169,6 +1173,7 @@ bool pl011_uart_init(uint32_t baudrate)
 {
 	uint32_t divisor, fracpart;
 	uint32_t Buffer[5] = { 0 };
+	DMB(sy);														// First access to hardware so memory barrier 
 	PL011UART->CR.Raw32 = 0;										// Disable all the UART
 	gpio_setup(14, GPIO_ALTFUNC0);									// GPIO 14 to ALT FUNC0 mode
 	gpio_setup(15, GPIO_ALTFUNC0);									// GPIO 15 to ALT FUNC0 mode
@@ -1188,25 +1193,30 @@ bool pl011_uart_init(uint32_t baudrate)
 	PL011UART->CR.UARTEN = 1;										// Uart enable
 	PL011UART->CR.RXE = 1;											// Transmit enable
 	PL011UART->CR.TXE = 1;											// Receive enable
+	DMB(sy);														// Last access to hardware so memory barrier
 	return true;													// Return success
 }
 
 char pl011_uart_getc (void) {
-	while (PL011UART->FR.RXFE != 0) {};
-	return(PL011UART->DR.DATA);
+	DMB(sy);														// First access to hardware so memory barrier 
+	while (PL011UART->FR.RXFE != 0) {};								// Check recieve fifo is not empty
+	return(PL011UART->DR.DATA);										// Read the receive data
+	DMB(sy);														// Last access to hardware so memory barrier
 }
 
 void pl011_uart_putc (const char c) 
 {
-	while (PL011UART->FR.TXFF != 0) {};
-	PL011UART->DR.DATA = c;
+	DMB(sy);														// First access to hardware so memory barrier 
+	while (PL011UART->FR.TXFF != 0) {};								// Check tx fifo is not full
+	PL011UART->DR.DATA = c;											// Transfer character
+	DMB(sy);														// Last access to hardware so memory barrier
 }
 
 void pl011_uart_puts (const char *str)
 {
-	while (*str)
+	while (*str)													// For each character that isn't \0 terminator
 	{
-		pl011_uart_putc(*str++);
+		pl011_uart_putc(*str++);									// Output that character
 	}
 }
 
