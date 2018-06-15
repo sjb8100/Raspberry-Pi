@@ -4,12 +4,23 @@
 #include "mmu.h"
 
 static uint32_t check_sem = 0;
+static uint32_t check_hello = 0;
+static volatile uint32_t hellocount = 0;
 
 void Check_Semaphore (void) 
 {
 	printf("Core %u checked table semaphore and reports %i\n", GetCoreID(), table_loaded);
 	semaphore_dec(&check_sem);
 }
+
+void Core_SayHello(void)
+{
+	semaphore_inc(&check_hello);
+	printf("Core %u says hello\n", GetCoreID());
+	hellocount++;
+	semaphore_dec(&check_hello);
+}
+
 
 static const char Spin[4] = { '|', '/', '-', '\\' };
 void main(void)
@@ -70,11 +81,29 @@ void main(void)
 	semaphore_inc(&check_sem);
 	CoreExecute(3, Check_Semaphore);
 
-
 	semaphore_inc(&check_sem);  // need to wait for check to finish writing to screen
-	printf("test all done ... now deadlooping stop\n");
 	semaphore_dec(&check_sem); // lets be pretty and release sem
+	printf("Testing semaphore queue ability\n");
+	semaphore_inc(&check_hello); // lock hello semaphore
+	CoreExecute(1, Core_SayHello);
+	CoreExecute(2, Core_SayHello);
+	CoreExecute(3, Core_SayHello);
+	printf("Cores queued we will waiting 10 seconds to release\n");
+
 	int i = 0;
+	uint64_t endtime = timer_getTickCount64() + 10000000ul;
+	while (timer_getTickCount64() < endtime) {
+		printf("waiting %c\r", Spin[i]);
+		timer_wait(50000);
+		i++;
+		i %= 4;
+	}
+	printf("Releasing semaphore\n");
+	semaphore_dec(&check_hello); // release hello semaphore
+	while (hellocount != 3) {};
+
+	printf("test all done ... now deadlooping stop\n");
+	i = 0;
 	while (1) {
 		printf("Deadloop %c\r", Spin[i]);
 		timer_wait(50000);

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "rpi-SmartStart.h"
-#include "emb-stdio.h"
+#include "mmu.h"
 
 /* REFERENCE FOR STAGE 1 NEXT LEVEL ENTRY */
 /* ARMv8-A_Architecture_Reference_Manual_(Issue_A.a).pdf  D5-1776 */
@@ -60,18 +60,6 @@ typedef union {
 } VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR;
 
 
-#define MT_DEVICE_NGNRNE	0
-#define MT_DEVICE_NGNRE		1
-#define MT_DEVICE_GRE		2
-#define MT_NORMAL_NC		3
-#define MT_NORMAL		    4
-
-#define MEMORY_ATTRIBUTES	( (0x00ul << (MT_DEVICE_NGNRNE*8)) |	\
-							  (0x04ul << (MT_DEVICE_NGNRE*8))  |	\
-				              (0x0cul << (MT_DEVICE_GRE*8))    |	\
-				              (0x44ul << (MT_NORMAL_NC*8))     |	\
-				              (0xfful << (MT_NORMAL*8)) )
-
 /*--------------------------------------------------------------------------}
 {					 CODE TYPE STRUCTURE COMPILE TIME CHECKS	            }
 {--------------------------------------------------------------------------*/
@@ -112,14 +100,13 @@ void init_page_table (void) {
 	// 1024MB of ram memory (some belongs to the VC)
 	// default: 880 MB ARM ram, 128MB VC
 
+	/* The 21-12 entries are because that is only for 4K granual it makes it obvious to change for other granual sizes */
 
 	/* 880Mb of ram */
 	for (base = 0; base < 440; base++) {
 		// Each block descriptor (2 MB)
 		Stage2map1to1[base] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)base << (21-12), .AF = 1, .SH = STAGE2_SH_INNER_SHAREABLE, 
 			                                                        .MemAttr = MT_NORMAL, .EntryType = 1 };
-		if (base < 4)
-			printf("Entry %u: %08p:%08p\n", base, (void*)(Stage2map1to1[base].Raw64 >> 32), (void*)(Stage2map1to1[base].Raw64 & 0xFFFFFFFFul));
 	}
 
 	/* VC ram up to 0x3F000000 */
@@ -183,9 +170,13 @@ void mmu_init(void)
 {
     uint64_t r;
    
-	/* okay, now we have to set system registers to enable MMU */
+	/* Set the memattrs values into mair_el1*/
 	asm volatile("dsb sy");
-	r = MEMORY_ATTRIBUTES;
+	r = ((0x00ul << (MT_DEVICE_NGNRNE * 8)) | \
+		 (0x04ul << (MT_DEVICE_NGNRE * 8)) | \
+		 (0x0cul << (MT_DEVICE_GRE * 8)) | \
+		 (0x44ul << (MT_NORMAL_NC * 8)) | \
+		 (0xfful << (MT_NORMAL * 8)));
     asm volatile ("msr mair_el1, %0" : : "r" (r));
 
 	// Bring both tables online and execute memory barrier
@@ -225,13 +216,13 @@ void mmu_init(void)
 	semaphore_dec(&table_loaded);
 }
 
-uint64_t virtualmap (uint32_t phys_addr) {
+uint64_t virtualmap (uint32_t phys_addr, uint8_t memattrs) {
 	uint64_t addr = 0;
 	for (int i = 0; i < 512; i++)
 	{
-		if (Stage3virtual[i].Raw64 == 0) {				// Find the first vacant L1 table slot
+		if (Stage3virtual[i].Raw64 == 0) {							// Find the first vacant stage3 table slot
 			uint64_t offset;
-			Stage3virtual[i] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)phys_addr << (21 - 12), .AF = 1, .MemAttr = MT_DEVICE_NGNRNE, .EntryType = 3 };
+			Stage3virtual[i] = (VMSAv8_64_STAGE2_BLOCK_DESCRIPTOR) { .Address = (uintptr_t)phys_addr << (21 - 12), .AF = 1, .MemAttr = memattrs, .EntryType = 3 };
 			asm volatile ("dmb sy" ::: "memory");
 			offset = ((512 - i) * 4096) - 1;
 			addr = 0xFFFFFFFFFFFFFFFFul;
@@ -239,5 +230,5 @@ uint64_t virtualmap (uint32_t phys_addr) {
 			return(addr);
 		}
 	}
-	return (addr);   // error
+	return (addr);													// error
 }
