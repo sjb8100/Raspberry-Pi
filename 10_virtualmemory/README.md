@@ -32,7 +32,7 @@ In operation the first call will always return 0xFFFFFFFFFFE00000, the second ca
 Now it's obvious that it is setup to have an unmap function where the stage3 table entry is simply zeroed marking it not in use.
 
 
-The provided sample "main.c" uses my smartstart ability to task the cores to a C function (that feature is done by smartstart assembler stub). So once core 0 has setup the MMU table and engaged it then semaphores are possible. So the core then tasks each other core to engage the same table with a check semaphore running between them. So all 4 cores end up sharing the same MMU table. All 4 cores are then quickly checked to make sure that semaphores do run between the cores.
+The provided sample "main.c" uses my smartstart ability to task the cores to a C function (that feature is done by smartstart assembler stub). So once core 0 has setup the MMU table and engaged it then semaphores are possible. So the core then tasks each other core to engage the same table with a check semaphore running between them. So all 4 cores end up sharing the same MMU table. All 4 cores are then quickly checked to make sure that semaphores do run between the cores and check that you could queue the cores on a semaphore lock and then release them.
 
 This is all just for testing, I don't suggest you really do this for real work.  You would also obviously extend the range of synchronising primitives but this at least gives you a start.
 
