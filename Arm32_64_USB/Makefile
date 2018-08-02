@@ -1,5 +1,6 @@
-# If cross compiling from windows use native GNU-Make 3.81
-# http://gnuwin32.sourceforge.net/packages/make.htm
+# If cross compiling from windows use native GNU-Make 4.2.1
+# https://sourceforge.net/projects/ezwinports/files/
+# download "make-4.2.1-without-guile-w32-bin.zip" and set it on the enviroment path
 # There is no need to install cygwin or any of that sort of rubbish
 
 ifeq ($(OS), Windows_NT)
