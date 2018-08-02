@@ -86,7 +86,7 @@ struct __attribute__((__packed__, aligned(4))) SystemTimerRegisters {
 {--------------------------------------------------------------------------*/
 typedef union  
 {
-	struct
+	struct __attribute__((__packed__, aligned(4))) 
 	{
 		unsigned unused : 1;										// @0 Unused bit
 		unsigned Counter32Bit : 1;									// @1 Counter32 bit (16bit if false)
@@ -119,7 +119,7 @@ struct __attribute__((__packed__, aligned(4))) ArmTimerRegisters {
 {--------------------------------------------------------------------------*/
 typedef union
 {
-	struct 
+	struct __attribute__((__packed__, aligned(4)))
 	{
 		const unsigned Timer_IRQ_pending : 1;						// @0 Timer Irq pending  ** Read only
 		const unsigned Mailbox_IRQ_pending : 1;						// @1 Mailbox Irq pending  ** Read only
@@ -152,7 +152,7 @@ typedef union
 {--------------------------------------------------------------------------*/
 typedef union
 {
-	struct 
+	struct __attribute__((__packed__, aligned(4)))
 	{
 		unsigned SelectFIQSource : 7;								// @0-6 Select FIQ source
 		unsigned EnableFIQ : 1;										// @7 enable FIQ
@@ -166,7 +166,8 @@ typedef union
 {--------------------------------------------------------------------------*/
 typedef union
 {
-	struct {
+	struct __attribute__((__packed__, aligned(4)))
+	{
 		unsigned Enable_Timer_IRQ : 1;								// @0 Timer Irq enable
 		unsigned Enable_Mailbox_IRQ : 1;							// @1 Mailbox Irq enable
 		unsigned Enable_Doorbell0_IRQ : 1;							// @2 Arm Doorbell0 Irq enable
@@ -185,7 +186,7 @@ typedef union
 {--------------------------------------------------------------------------*/
 typedef union
 {
-	struct 
+	struct __attribute__((__packed__, aligned(4)))
 	{
 		unsigned Disable_Timer_IRQ : 1;								// @0 Timer Irq disable
 		unsigned Disable_Mailbox_IRQ : 1;							// @1 Mailbox Irq disable
@@ -281,22 +282,25 @@ typedef struct __attribute__((__packed__, aligned(4))) tagINTDC {
 	uint32_t wth;													// Screen width (of frame buffer)
 	uint32_t ht;													// Screen height (of frame buffer)
 	uint32_t depth;													// Colour depth (of frame buffer)
-																	/* Position control */
-	POINT curPos;													// Current position
+	uint32_t pitch;													// Pitch (Line to line offset)
+
+	/* Position control */
+	POINT curPos;													// Current position of graphics pointer
 	POINT cursor;													// Current cursor position
 
-																	/* Text colour control */
+	/* Text colour control */
 	RGBA TxtColor;													// Text colour to write
 	RGBA BkColor;													// Background colour to write
 	RGBA BrushColor;												// Brush colour to write
 
-	void(*ClearArea) (struct tagINTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fast32_t x2, uint_fast32_t y2);
-	void(*VertLine) (struct tagINTDC* dc, uint_fast32_t cy, int_fast8_t dir);
-	void(*HorzLine) (struct tagINTDC* dc, uint_fast32_t cx, int_fast8_t dir);
-	void(*DiagLine) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir);
-	void(*WriteChar) (struct tagINTDC* dc, uint8_t Ch);
-	void(*TransparentWriteChar) (struct tagINTDC* dc, uint8_t Ch);
-	void(*PutImage) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP imgSrc, bool BottomUp);
+	/* Function pointers that are set to graphics primitives depending on colour depth */
+	void (*ClearArea) (struct tagINTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fast32_t x2, uint_fast32_t y2);
+	void (*VertLine) (struct tagINTDC* dc, uint_fast32_t cy, int_fast8_t dir);
+	void (*HorzLine) (struct tagINTDC* dc, uint_fast32_t cx, int_fast8_t dir);
+	void (*DiagLine) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir);
+	void (*WriteChar) (struct tagINTDC* dc, uint8_t Ch);
+	void (*TransparentWriteChar) (struct tagINTDC* dc, uint8_t Ch);
+	void (*PutImage) (struct tagINTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP imgSrc, bool BottomUp);
 } INTDC;
 
 
@@ -357,14 +361,17 @@ bool gpio_setup (uint_fast8_t gpio, GPIOMODE mode)
 .--------------------------------------------------------------------------*/
 bool gpio_output (uint_fast8_t gpio, bool on) 
 {
-	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
-	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
-	if (on) {														// ON request
-		GPIO->GPSET[gpio / 32] = bit;								// Set bit to make GPIO high output
-	} else {
-		GPIO->GPCLR[gpio / 32] = bit;								// Set bit to make GPIO low output
+	if (gpio < 54) 													// Check GPIO pin number valid, return false if invalid
+	{
+		uint_fast32_t regnum = gpio / 32;							// Register number
+		uint_fast32_t bit = 1 << (gpio % 32);						// Create mask bit
+		volatile uint32_t* p;										// Create temp pointer
+		if (on) p = &GPIO->GPSET[regnum];							// On == true means set
+		else p = &GPIO->GPCLR[regnum];								// On == false means clear
+		*p = bit;													// Output bit	
+		return true;												// Return true
 	}
-	return true;													// Return true
+	return false;													// Return false
 }
 
 /*-[gpio_input]-------------------------------------------------------------}
@@ -374,10 +381,12 @@ bool gpio_output (uint_fast8_t gpio, bool on)
 .--------------------------------------------------------------------------*/
 bool gpio_input (uint_fast8_t gpio) 
 {
-	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
-	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
-	uint32_t mem = GPIO->GPLEV[gpio / 32];							// Read port level
-	if (mem & bit) return true;										// Return true if bit set
+	if (gpio < 54)													// Check GPIO pin number valid, return false if invalid
+	{
+		uint_fast32_t bit = 1 << (gpio % 32);						// Create mask bit
+		uint32_t mem = GPIO->GPLEV[gpio / 32];						// Read port level
+		if (mem & bit) return true;									// Return true if bit set
+	}
 	return false;													// Return false
 }
 
@@ -388,10 +397,12 @@ bool gpio_input (uint_fast8_t gpio)
 .-------------------------------------------------------------------------*/
 bool gpio_checkEvent (uint_fast8_t gpio) 
 {
-	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
-	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
-	uint32_t mem = GPIO->GPEDS[gpio / 32];							// Read event detect status register
-	if (mem & bit) return true;										// Return true if bit set
+	if (gpio < 54)													// Check GPIO pin number valid, return false if invalid
+	{
+		uint_fast32_t bit = 1 << (gpio % 32);						// Create mask bit
+		uint32_t mem = GPIO->GPEDS[gpio / 32];						// Read event detect status register
+		if (mem & bit) return true;									// Return true if bit set
+	}
 	return false;													// Return false
 }
 
@@ -402,10 +413,13 @@ bool gpio_checkEvent (uint_fast8_t gpio)
 .-------------------------------------------------------------------------*/
 bool gpio_clearEvent (uint_fast8_t gpio) 
 {
-	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
-	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
-	GPIO->GPEDS[gpio / 32] = bit;									// Clear the event from GPIO register
-	return true;													// Return true
+	if (gpio < 54)													// Check GPIO pin number valid, return false if invalid
+	{
+		uint_fast32_t bit = 1 << (gpio % 32);						// Create mask bit
+		GPIO->GPEDS[gpio / 32] = bit;								// Clear the event from GPIO register
+		return true;												// Return true
+	}
+	return false;													// Return false
 }
 
 /*-[gpio_edgeDetect]-------------------------------------------------------}
@@ -415,16 +429,20 @@ bool gpio_clearEvent (uint_fast8_t gpio)
 .-------------------------------------------------------------------------*/
 bool gpio_edgeDetect (uint_fast8_t gpio, bool lifting, bool Async) 
 {
-	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
-	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
-	if (lifting) {													// Lifting edge detect
-		if (Async) GPIO->GPAREN[gpio / 32] = bit;					// Asynchronous lifting edge detect register bit set
+	if (gpio < 54)													// Check GPIO pin number valid, return false if invalid
+	{
+		uint_fast32_t bit = 1 << (gpio % 32);						// Create mask bit
+		if (lifting) {												// Lifting edge detect
+			if (Async) GPIO->GPAREN[gpio / 32] = bit;				// Asynchronous lifting edge detect register bit set
 			else GPIO->GPREN[gpio / 32] = bit;						// Synchronous lifting edge detect register bit set
-	} else {														// Falling edge detect
-		if (Async) GPIO->GPAFEN[gpio / 32] = bit;					// Asynchronous falling edge detect register bit set
+		}
+		else {														// Falling edge detect
+			if (Async) GPIO->GPAFEN[gpio / 32] = bit;				// Asynchronous falling edge detect register bit set
 			else GPIO->GPFEN[gpio / 32] = bit;						// Synchronous falling edge detect register bit set
+		}
+		return true;												// Return true
 	}
-	return true;													// Return true
+	return false;													// Return false
 }
 
 /*-[gpio_fixResistor]------------------------------------------------------}
@@ -438,12 +456,12 @@ bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor)
 	if (gpio > 54) return false;									// Check GPIO pin number valid, return false if invalid
 	if (resistor < 0 || resistor > PULLDOWN) return false;			// Check requested resistor is valid, return false if invalid
 	GPIO->GPPUD = resistor;											// Set fixed resistor request to PUD register
-	endTime = timer_getTickCount() + 2;								// We want a 2 usec delay					
-	while (timer_getTickCount() < endTime) {}						// Wait for the timeout
+	endTime = timer_getTickCount64() + 2;							// We want a 2 usec delay					
+	while (timer_getTickCount64() < endTime) {}						// Wait for the timeout
 	uint_fast32_t bit = 1 << (gpio % 32);							// Create mask bit
 	GPIO->GPPUDCLK[gpio / 32] = bit;								// Set the PUD clock bit register
-	endTime = timer_getTickCount() + 2;								// We want a 2 usec delay					
-	while (timer_getTickCount() < endTime) {}						// Wait for the timeout
+	endTime = timer_getTickCount64() + 2;							// We want a 2 usec delay					
+	while (timer_getTickCount64() < endTime) {}						// Wait for the timeout
 	GPIO->GPPUD = 0;												// Clear GPIO resister setting
 	GPIO->GPPUDCLK[gpio / 32] = 0;									// Clear PUDCLK from GPIO
 	return true;													// Return true
@@ -453,13 +471,13 @@ bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor)
 {		   PUBLIC TIMER ROUTINES PROVIDED BY RPi-SmartStart API				}
 {==========================================================================*/
 
-/*-[timer_getTickCount]-----------------------------------------------------}
+/*-[timer_getTickCount64]---------------------------------------------------}
 . Get 1Mhz ARM system timer tick count in full 64 bit.
 . The timer read is as per the Broadcom specification of two 32bit reads
-. RETURN: tickcount value as an unsigned 64bit value
+. RETURN: tickcount value as an unsigned 64bit value in microseconds (usec)
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-uint64_t timer_getTickCount (void) 
+uint64_t timer_getTickCount64(void)
 {
 	uint64_t resVal;
 	uint32_t lowCount;
@@ -477,8 +495,8 @@ uint64_t timer_getTickCount (void)
 .--------------------------------------------------------------------------*/
 void timer_wait (uint64_t us) 
 {
-	us += timer_getTickCount();										// Add current tickcount onto delay
-	while (timer_getTickCount() < us) {};							// Loop on timeout function until timeout
+	us += timer_getTickCount64();									// Add current tickcount onto delay
+	while (timer_getTickCount64() < us) {};							// Loop on timeout function until timeout
 }
 
 
@@ -611,7 +629,8 @@ TimerIrqHandler TimerIrqSetup (uint32_t period_in_us,				// Period between timer
 /*==========================================================================}
 {				     PUBLIC PI ACTIVITY LED ROUTINES						}
 {==========================================================================*/
-static bool ModelCheckHasRun = false;								// Flag set if model check has run					
+static bool ModelCheckHasRun = false;								// Flag set if model check has run
+static bool UseExpanderGPIO = false;								// Flag set if we need to use GPIO expander								
 static uint_fast8_t ActivityGPIOPort = 47;							// Default GPIO for activity led is 47
 
 /*-[set_Activity_LED]-------------------------------------------------------}
@@ -621,33 +640,42 @@ static uint_fast8_t ActivityGPIOPort = 47;							// Default GPIO for activity le
 . 04Jul17 LdB
 .--------------------------------------------------------------------------*/
 bool set_Activity_LED (bool on) {
-	switch (RPi_CpuId.PartNumber) {
-		case 0xb76: {												// arm1176jzf-s AKA Pi1
-			if (!ModelCheckHasRun) {								// Just check board isn't early Pi1 on GPIO16
-				uint32_t model[4];
-				ModelCheckHasRun = true;							// Set we have run the model check
-				if (mailbox_tag_message(&model[0], 4,
-					MAILBOX_TAG_GET_BOARD_REVISION, 4, 0, 0)) {
-					if ((model[3] >= 0x0002) && (model[3] <= 0x000F)) 
-					{												// Models A, B return 0002 to 000F
-						ActivityGPIOPort = 16;						// GPIO port 16 is activity led
-					} else ActivityGPIOPort = 47;					// GPIO port 47 activity as default
-				}
+	// THIS IS ALL BASED ON PI MODEL HISTORY:  https://elinux.org/RPi_HardwareHistory
+	if (!ModelCheckHasRun) {
+		uint32_t model[4];
+		ModelCheckHasRun = true;									// Set we have run the model check
+		if (mailbox_tag_message(&model[0], 4,
+			MAILBOX_TAG_GET_BOARD_REVISION, 4, 0, 0))				// Fetch the model revision from mailbox   
+		{
+			model[3] &= 0x00FFFFFF;									// Mask off the warranty upper 8 bits
+			if ((model[3] >= 0x0002) && (model[3] <= 0x000f))		// These are Model A,B which use GPIO 16
+			{														// Model A, B return 0x0002 to 0x000F
+				ActivityGPIOPort = 16;								// GPIO port 16 is activity led
+				UseExpanderGPIO = false;							// Dont use expander GPIO
 			}
-			gpio_output(ActivityGPIOPort, on);						// GPIO activity (port 16 or 47 depends on model) on/off
-			return true;											// Return true
-		}
-		case 0xc07: {												// cortex-a7 AKA Pi2
-			gpio_output(47, on);									// GPIO port 47 on/off
-			return true;											// Return true
-		}
-		case 0xd03: {												// cortex-a53 AKA Pi3 
-			return (mailbox_tag_message(0, 5, 
-				MAILBOX_TAG_SET_GPIO_STATE, 
-				8, 8, 130, (uint32_t)on));							// Mailbox message,set GPIO port 130, on/off
-		}
+			else if (model[3] < 0xa02082) {							// These are Pi2, PiZero or Compute models (They may be ARM7 or ARM8)
+				ActivityGPIOPort = 47;								// GPIO port 47 is activity led
+				UseExpanderGPIO = false;							// Dont use expander GPIO
+			}
+			else if ( (model[3] == 0xa02082) ||
+					  (model[3] == 0xa020a0) ||
+					  (model[3] == 0xa22082) ||
+					  (model[3] == 0xa32082) )						// These are Pi3B series originals (ARM8)
+			{
+				ActivityGPIOPort = 130;								// GPIO port 130 is activity led
+				UseExpanderGPIO = true;								// Must use expander GPIO
+			}
+			else {													// These are Pi3B+ series (ARM8)
+				ActivityGPIOPort = 29;								// GPIO port 29 is activity led
+				UseExpanderGPIO = false;							// Don't use expander GPIO
+			}
+		} else return (false);										// Model check message failed
 	}
-	return false;													// Return false if above fail
+	if (UseExpanderGPIO) {											// Activity LED uses expander GPIO
+		return (mailbox_tag_message(0, 5, MAILBOX_TAG_SET_GPIO_STATE,
+			8, 8, ActivityGPIOPort, (uint32_t)on));					// Mailbox message,set GPIO port 130, on/off
+	} else gpio_output(ActivityGPIOPort, on);						// Not using GPIO expander so use standard GPIO port
+	return (true);													// Return success
 }
 
 /*==========================================================================}
@@ -662,8 +690,8 @@ bool set_Activity_LED (bool on) {
 .--------------------------------------------------------------------------*/
 bool ARM_setmaxspeed (printhandler prn_handler) {
 	uint32_t Buffer[5] = { 0 };
-	if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_GET_MAX_CLOCK_RATE, 8, 8, 3, 0))
-		if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_SET_CLOCK_RATE, 8, 8, 3, Buffer[4])) {
+	if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_GET_MAX_CLOCK_RATE, 8, 8, CLK_ARM_ID, 0))
+		if (mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_SET_CLOCK_RATE, 8, 8, CLK_ARM_ID, Buffer[4])) {
 			if (prn_handler) prn_handler("CPU frequency set to %u Hz\n", Buffer[4]);
 			return true;											// Return success
 		}
@@ -988,7 +1016,7 @@ BOOL CvtBmpLine (HDC hdc,
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void ClearArea16 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fast32_t x2, uint_fast32_t y2) {
-	RGB565* __attribute__((__packed__, aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (y1 * dc->wth * 2) + (x1 * 2));
+	RGB565* __attribute__((__packed__, aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (y1 * dc->pitch * 2) + (x1 * 2));
 	RGB565 Bc;
 	Bc.R = dc->BrushColor.rgbRed >> 3;
 	Bc.G = dc->BrushColor.rgbGreen >> 2;
@@ -997,7 +1025,7 @@ static void ClearArea16 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fas
 		for (uint_fast32_t x = 0; x < (x2 - x1); x++) {				// For each x between x1 and x2
 			video_wr_ptr[x] = Bc;									// Write the colour
 		}
-		video_wr_ptr += dc->wth;									// Offset to next line
+		video_wr_ptr += dc->pitch;									// Offset to next line
 	}
 }
 
@@ -1008,15 +1036,15 @@ static void ClearArea16 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fas
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void VertLine16 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
-	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	RGB565 Fc;
 	Fc.R = dc->TxtColor.rgbRed >> 3;
 	Fc.G = dc->TxtColor.rgbGreen >> 2;
 	Fc.B = dc->TxtColor.rgbBlue >> 3;
 	for (uint_fast32_t i = 0; i < cy; i++) {						// For each y line
 		video_wr_ptr[0] = Fc;										// Write the colour
-		if (dir == 1) video_wr_ptr += dc->wth;						// Positive offset to next line
-			else  video_wr_ptr -= dc->wth;							// Negative offset to next line
+		if (dir == 1) video_wr_ptr += dc->pitch;					// Positive offset to next line
+			else  video_wr_ptr -= dc->pitch;						// Negative offset to next line
 	}
 	dc->curPos.y += (cy * dir);										// Set current y position
 }
@@ -1028,7 +1056,7 @@ static void VertLine16 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void HorzLine16 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
-	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	RGB565 Fc;
 	Fc.R = dc->TxtColor.rgbRed >> 3;
 	Fc.G = dc->TxtColor.rgbGreen >> 2;
@@ -1047,7 +1075,7 @@ static void HorzLine16 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void DiagLine16 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir) {
-	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	uint_fast32_t tx = 0;											// Zero test x value
 	uint_fast32_t ty = 0;											// Zero test y value
 	RGB565 Fc;
@@ -1066,7 +1094,7 @@ static void DiagLine16 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 		ty += dy;													// Increment test y value by dy
 		if (ty >= eulerMax) {										// If ty >= eulerMax we step
 			ty -= eulerMax;											// Subtract eulerMax
-			video_wr_ptr += (ydir*dc->wth);							// Move pointer up/down 1 line
+			video_wr_ptr += (ydir*dc->pitch);						// Move pointer up/down 1 line
 		}
 	}
 	dc->curPos.x += (dx * xdir);									// Set current x2 position
@@ -1079,7 +1107,7 @@ static void DiagLine16 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void WriteChar16 (INTDC* dc, uint8_t Ch) {
-	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	RGB565 Fc, Bc;
 	Fc.R = dc->TxtColor.rgbRed >> 3;
 	Fc.G = dc->TxtColor.rgbGreen >> 2;
@@ -1095,7 +1123,7 @@ static void WriteChar16 (INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0) col = Fc;					// If bit set take text colour
 			video_wr_ptr[xoffs] = col;								// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1108,7 +1136,7 @@ static void WriteChar16 (INTDC* dc, uint8_t Ch) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void TransparentWriteChar16 (INTDC* dc, uint8_t Ch) {
-	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	RGB565* __attribute__((aligned(2))) video_wr_ptr = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	RGB565 Fc;
 	Fc.R = dc->TxtColor.rgbRed >> 3;
 	Fc.G = dc->TxtColor.rgbGreen >> 2;
@@ -1120,7 +1148,7 @@ static void TransparentWriteChar16 (INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0) 								// If bit set take text colour
 				video_wr_ptr[xoffs] = Fc;							// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1134,13 +1162,13 @@ static void TransparentWriteChar16 (INTDC* dc, uint8_t Ch) {
 .--------------------------------------------------------------------------*/
 static void PutImage16 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP ImageSrc, bool BottomUp) {
 	HBITMAP video_wr_ptr;
-	video_wr_ptr.ptrRGB565 = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 2) + (dc->curPos.x * 2));
+	video_wr_ptr.ptrRGB565 = (RGB565*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 2) + (dc->curPos.x * 2));
 	for (uint_fast32_t y = 0; y < dy; y++) {						// For each line
 		for (uint_fast32_t x = 0; x < dx; x++) {					// For each pixel
 			video_wr_ptr.ptrRGB565[x] = *ImageSrc.ptrRGB565++;		// Transfer pixel
 		}
-		if (BottomUp) video_wr_ptr.ptrRGB565 -= dc->wth;			// Next line up
-			else video_wr_ptr.ptrRGB565 += dc->wth;					// Next line down
+		if (BottomUp) video_wr_ptr.ptrRGB565 -= dc->pitch;			// Next line up
+			else video_wr_ptr.ptrRGB565 += dc->pitch;				// Next line down
 	}
 }
 
@@ -1155,12 +1183,12 @@ static void PutImage16 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP I
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void ClearArea24 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fast32_t x2, uint_fast32_t y2) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (y1 * dc->wth * 3) + (x1 * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (y1 * dc->pitch * 3) + (x1 * 3));
 	for (uint_fast32_t y = 0; y < (y2 - y1); y++) {					// For each y line
 		for (uint_fast32_t x = 0; x < (x2 - x1); x++) {				// For each x between x1 and x2
 			video_wr_ptr[x] = dc->BrushColor.rgb;					// Write the colour
 		}
-		video_wr_ptr += dc->wth;									// Offset to next line
+		video_wr_ptr += dc->pitch;									// Offset to next line
 	}
 }
 
@@ -1171,11 +1199,11 @@ static void ClearArea24 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fas
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void VertLine24 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	for (uint_fast32_t i = 0; i < cy; i++) {						// For each y line
 		video_wr_ptr[0] = dc->TxtColor.rgb;							// Write the colour
-		if (dir == 1) video_wr_ptr += dc->wth;						// Positive offset to next line
-			else  video_wr_ptr -= dc->wth;							// Negative offset to next line
+		if (dir == 1) video_wr_ptr += dc->pitch;					// Positive offset to next line
+			else  video_wr_ptr -= dc->pitch;						// Negative offset to next line
 	}
 	dc->curPos.y += (cy * dir);										// Set current y position
 }
@@ -1187,7 +1215,7 @@ static void VertLine24 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void HorzLine24 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	for (uint_fast32_t i = 0; i < cx; i++) {						// For each x pixel
 		video_wr_ptr[0] = dc->TxtColor.rgb;							// Write the colour
 		video_wr_ptr += dir;										// Positive offset to next pixel
@@ -1202,7 +1230,7 @@ static void HorzLine24 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void DiagLine24 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	uint_fast32_t tx = 0;
 	uint_fast32_t ty = 0;
 	uint_fast32_t eulerMax = dx;									// Start with dx value
@@ -1217,7 +1245,7 @@ static void DiagLine24 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 		ty += dy;													// Increment test y value by dy
 		if (ty >= eulerMax) {										// If ty >= eulerMax we step
 			ty -= eulerMax;											// Subtract eulerMax
-			video_wr_ptr += (ydir*dc->wth);							// Move pointer up/down 1 line
+			video_wr_ptr += (ydir*dc->pitch);						// Move pointer up/down 1 line
 		}
 	}
 	dc->curPos.x += (dx * xdir);									// Set current x2 position
@@ -1230,7 +1258,7 @@ static void DiagLine24 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void WriteChar24 (INTDC* dc, uint8_t Ch) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	for (uint_fast32_t y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
 		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
@@ -1239,7 +1267,7 @@ static void WriteChar24 (INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0) col = dc->TxtColor.rgb;		// If bit set take text colour
 			video_wr_ptr[xoffs] = col;								// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1252,7 +1280,7 @@ static void WriteChar24 (INTDC* dc, uint8_t Ch) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void TransparentWriteChar24 (INTDC* dc, uint8_t Ch) {
-	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	RGB* __attribute__((aligned(1))) video_wr_ptr = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	for (uint_fast32_t y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
 		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
@@ -1260,7 +1288,7 @@ static void TransparentWriteChar24 (INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0)								// If bit set take text colour
 			   video_wr_ptr[xoffs] = dc->TxtColor.rgb;				// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1274,13 +1302,13 @@ static void TransparentWriteChar24 (INTDC* dc, uint8_t Ch) {
 .--------------------------------------------------------------------------*/
 static void PutImage24 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP ImageSrc, bool BottomUp) {
 	HBITMAP video_wr_ptr;
-	video_wr_ptr.ptrRGB = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 3) + (dc->curPos.x * 3));
+	video_wr_ptr.ptrRGB = (RGB*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 3) + (dc->curPos.x * 3));
 	for (uint_fast32_t y = 0; y < dy; y++) {						// For each line
 		for (uint_fast32_t x = 0; x < dx; x++) {					// For each pixel
 			video_wr_ptr.ptrRGB[x] = *ImageSrc.ptrRGB++;			// Transfer pixel
 		}
-		if (BottomUp) video_wr_ptr.ptrRGB -= dc->wth;				// Next line up
-			else video_wr_ptr.ptrRGB += dc->wth;					// Next line down
+		if (BottomUp) video_wr_ptr.ptrRGB -= dc->pitch;				// Next line up
+			else video_wr_ptr.ptrRGB += dc->pitch;					// Next line down
 	}
 }
 
@@ -1295,12 +1323,12 @@ static void PutImage24 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP I
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void ClearArea32 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fast32_t x2, uint_fast32_t y2) {
-	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (y1 * dc->wth * 4) + (y1 * 4));
+	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (y1 * dc->pitch * 4) + (y1 * 4));
 	for (uint_fast32_t y = 0; y < (y2 - y1); y++) {					// For each y line
 		for (uint_fast32_t x = 0; x < (x2 - x1); x++) {				// For each x between x1 and x2
 			video_wr_ptr[x] = dc->BrushColor;						// Write the current brush colour
 		}
-		video_wr_ptr += dc->wth;									// Next line down
+		video_wr_ptr += dc->pitch;									// Next line down
 	}
 }
 
@@ -1311,11 +1339,11 @@ static void ClearArea32 (INTDC* dc, uint_fast32_t x1, uint_fast32_t y1, uint_fas
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void VertLine32 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
-	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	for (uint_fast32_t i = 0; i < cy; i++) {						// For each y line
 		video_wr_ptr[0] = dc->TxtColor;								// Write the colour
-		if (dir == 1) video_wr_ptr += dc->wth;						// Positive offset to next line
-			else  video_wr_ptr -= dc->wth;							// Negative offset to next line
+		if (dir == 1) video_wr_ptr += dc->pitch;					// Positive offset to next line
+			else  video_wr_ptr -= dc->pitch;						// Negative offset to next line
 	}
 	dc->curPos.y += (cy * dir);										// Set current y position
 }
@@ -1327,7 +1355,7 @@ static void VertLine32 (INTDC* dc, uint_fast32_t cy, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void HorzLine32 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
-	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	for (uint_fast32_t i = 0; i < cx; i++) {						// For each x pixel
 		video_wr_ptr[0] = dc->TxtColor;								// Write the colour
 		video_wr_ptr += dir;										// Positive offset to next pixel
@@ -1342,7 +1370,7 @@ static void HorzLine32 (INTDC* dc, uint_fast32_t cx, int_fast8_t dir) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void DiagLine32 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8_t xdir, int_fast8_t ydir) {
-	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	RGBA* __attribute__((aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	uint_fast32_t tx = 0;
 	uint_fast32_t ty = 0;
 	uint_fast32_t eulerMax = dx;									// Start with dx value
@@ -1357,7 +1385,7 @@ static void DiagLine32 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 		ty += dy;													// Increment test y value by dy
 		if (ty >= eulerMax) {										// If ty >= eulerMax we step
 			ty -= eulerMax;											// Subtract eulerMax
-			video_wr_ptr += (ydir*dc->wth);							// Move pointer up/down 1 line
+			video_wr_ptr += (ydir*dc->pitch);						// Move pointer up/down 1 line
 		}
 	}
 	dc->curPos.x += (dx * xdir);									// Set current x2 position
@@ -1370,7 +1398,7 @@ static void DiagLine32 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, int_fast8
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void WriteChar32 (INTDC* dc, uint8_t Ch) {
-	RGBA* __attribute__((__packed__, aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	RGBA* __attribute__((__packed__, aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	for (uint_fast32_t y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
 		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
@@ -1379,7 +1407,7 @@ static void WriteChar32 (INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0) col = dc->TxtColor;			// If bit set take text colour
 			video_wr_ptr[xoffs] = col;								// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1392,7 +1420,7 @@ static void WriteChar32 (INTDC* dc, uint8_t Ch) {
 . 10Aug17 LdB
 .--------------------------------------------------------------------------*/
 static void TransparentWriteChar32(INTDC* dc, uint8_t Ch) {
-	RGBA* __attribute__((__packed__, aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	RGBA* __attribute__((__packed__, aligned(4))) video_wr_ptr = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	for (uint_fast32_t y = 0; y < 4; y++) {
 		uint32_t b = BitFont[(Ch * 4) + y];							// Fetch character bits
 		for (uint_fast32_t i = 0; i < 32; i++) {					// For each bit
@@ -1400,7 +1428,7 @@ static void TransparentWriteChar32(INTDC* dc, uint8_t Ch) {
 			if ((b & 0x80000000) != 0)								// If bit set take text colour
 				video_wr_ptr[xoffs] = dc->TxtColor;					// Write pixel
 			b <<= 1;												// Roll font bits left
-			if (xoffs == 7) video_wr_ptr += dc->wth;				// If was bit 7 next line down
+			if (xoffs == 7) video_wr_ptr += dc->pitch;				// If was bit 7 next line down
 		}
 	}
 	dc->curPos.x += BitFontWth;										// Increment x position
@@ -1414,13 +1442,13 @@ static void TransparentWriteChar32(INTDC* dc, uint8_t Ch) {
 .--------------------------------------------------------------------------*/
 static void PutImage32 (INTDC* dc, uint_fast32_t dx, uint_fast32_t dy, HBITMAP ImageSrc, bool BottomUp) {
 	HBITMAP video_wr_ptr;
-	video_wr_ptr.ptrRGBA = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->wth * 4) + (dc->curPos.x * 4));
+	video_wr_ptr.ptrRGBA = (RGBA*)(uintptr_t)(dc->fb + (dc->curPos.y * dc->pitch * 4) + (dc->curPos.x * 4));
 	for (uint_fast32_t y = 0; y < dy; y++) {						// For each line
 		for (uint_fast32_t x = 0; x < dx; x++) {					// For each pixel
 			video_wr_ptr.ptrRGBA[x] = *ImageSrc.ptrRGBA++;			// Transfer pixel
 		}
-		if (BottomUp) video_wr_ptr.ptrRGBA -= dc->wth;				// Next line up
-			else video_wr_ptr.ptrRGBA += dc->wth;					// Next line down
+		if (BottomUp) video_wr_ptr.ptrRGBA -= dc->pitch;			// Next line up
+			else video_wr_ptr.ptrRGBA += dc->pitch;					// Next line down
 	}
 }
 
@@ -1442,7 +1470,7 @@ BOOL Rectangle(HDC hdc,
 
 
 bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler) {
-	uint32_t buffer[19];
+	uint32_t buffer[23];
 	if ((Width == 0) || (Height == 0)) {							// Has auto width or heigth been requested
 		if (mailbox_tag_message(&buffer[0], 5,
 			MAILBOX_TAG_GET_PHYSICAL_WIDTH_HEIGHT,
@@ -1458,12 +1486,14 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 			Depth = buffer[3];										// Depth passed in as zero set set current screen colour depth
 		} else return false;										// For some reason get screen depth failed
 	}
-	if (!mailbox_tag_message(&buffer[0], 19,
+	if (!mailbox_tag_message(&buffer[0], 23,
 		MAILBOX_TAG_SET_PHYSICAL_WIDTH_HEIGHT, 8, 8, Width, Height,
 		MAILBOX_TAG_SET_VIRTUAL_WIDTH_HEIGHT, 8, 8, Width, Height,
 		MAILBOX_TAG_SET_COLOUR_DEPTH, 4, 4, Depth,
-		MAILBOX_TAG_ALLOCATE_FRAMEBUFFER, 8, 4, 16, 0)) return false;
+		MAILBOX_TAG_ALLOCATE_FRAMEBUFFER, 8, 4, 16, 0,
+		MAILBOX_TAG_GET_PITCH, 4, 0, 0)) return false;
 	console.fb = GPUaddrToARMaddr(buffer[17]);
+	console.pitch = buffer[22];
 
 	console.TxtColor.ref = 0xFFFFFFFF;
 	console.BkColor.ref = 0x00000000;
@@ -1481,6 +1511,7 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.WriteChar = WriteChar32;							// Set console function ptr to 32bit colour version of write character
 		console.TransparentWriteChar = TransparentWriteChar32;		// Set console function ptr to 32bit colour version of transparent write character
 		console.PutImage = PutImage32;								// Set console function ptr to 32bit colour version of put bitmap image
+		console.pitch /= 4;											// 4 bytes per write
 		break;
 	case 24:														/* 24 bit colour screen mode */
 		console.ClearArea = ClearArea24;							// Set console function ptr to 24bit colour version of clear area
@@ -1490,6 +1521,7 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.WriteChar = WriteChar24;							// Set console function ptr to 24bit colour version of write character
 		console.TransparentWriteChar = TransparentWriteChar24;		// Set console function ptr to 24bit colour version of transparent write character
 		console.PutImage = PutImage24;								// Set console function ptr to 24bit colour version of put bitmap image
+		console.pitch /= 3;											// 3 bytes per write
 		break;
 	case 16:														/* 16 bit colour screen mode */
 		console.ClearArea = ClearArea16;							// Set console function ptr to 16bit colour version of clear area
@@ -1499,11 +1531,12 @@ bool PiConsole_Init (int Width, int Height, int Depth, printhandler prn_handler)
 		console.WriteChar = WriteChar16;							// Set console function ptr to 16bit colour version of write character
 		console.TransparentWriteChar = TransparentWriteChar16;		// Set console function ptr to 16bit colour version of transparent write character
 		console.PutImage = PutImage16;								// Set console function ptr to 16bit colour version of put bitmap image
+		console.pitch /= 2;											// 2 bytes per write
 		break;
 	}
 
-	if (prn_handler) prn_handler("Screen resolution %i x %i Colour Depth: %i\n", 
-		Width, Height, Depth);										// If print handler valid print the display resolution message
+	if (prn_handler) prn_handler("Screen resolution %i x %i Colour Depth: %i Line Pitch: %i\n", 
+		Width, Height, Depth, console.pitch);						// If print handler valid print the display resolution message
 	return true;
 }
 

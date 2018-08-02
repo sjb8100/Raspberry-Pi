@@ -417,13 +417,13 @@ bool gpio_fixResistor (uint_fast8_t gpio, GPIO_FIX_RESISTOR resistor);
 {		   PUBLIC TIMER ROUTINES PROVIDED BY RPi-SmartStart API				}
 {==========================================================================*/
 
-/*-[timer_getTickCount]-----------------------------------------------------}
+/*-[timer_getTickCount64]---------------------------------------------------}
 . Get 1Mhz ARM system timer tick count in full 64 bit.
 . The timer read is as per the Broadcom specification of two 32bit reads
-. RETURN: tickcount value as an unsigned 64bit value
+. RETURN: tickcount value as an unsigned 64bit value in microseconds (usec)
 . 30Jun17 LdB
 .--------------------------------------------------------------------------*/
-uint64_t timer_getTickCount (void);
+uint64_t timer_getTickCount64 (void);
 
 /*-[timer_Wait]-------------------------------------------------------------}
 . This will simply wait the requested number of microseconds before return.
@@ -646,20 +646,6 @@ typedef struct __attribute__((__packed__, aligned(1)))
 } BITMAPINFOHEADER;
 
 
-/*--------------------------------------------------------------------------}
-{					 CODE TYPE STRUCTURE COMPILE TIME CHECKS	            }
-{--------------------------------------------------------------------------*/
-/* If you have never seen compile time assertions it's worth google search */
-/* on "Compile Time Assertions". It is part of the C11++ specification and */
-/* all compilers that support the standard will have them (GCC, MSC inc)   */
-/*-------------------------------------------------------------------------*/
-#include <assert.h>								// Need for compile time static_assert
-
-/* Check the code type structure size */
-static_assert(sizeof(RGB) == 0x03, "Structure RGB should be 0x03 bytes in size");
-static_assert(sizeof(RGBA) == 0x04, "Structure RGBA should be 0x04 bytes in size");
-static_assert(sizeof(RGB565) == 0x02, "Structure RGB565 should be 0x02 bytes in size");
-
 bool PiConsole_Init(int Width, int Height, int Depth, printhandler prn_handler);
 void WriteText(int x, int y, char* txt);
 void Embedded_Console_WriteChar (char Ch);
@@ -669,6 +655,8 @@ HDC GetConsoleDC(void);
 uint32_t GetConsole_FrameBuffer(void);
 uint32_t GetConsole_Width (void);
 uint32_t GetConsole_Height (void);
+void WhereXY(uint32_t* x, uint32_t* y);
+void GotoXY (uint32_t x, uint32_t y);
 
 COLORREF SetDCPenColor(HDC      hdc,							// Handle to the DC
 					  COLORREF crColor);						// The new pen color
@@ -711,18 +699,8 @@ BOOL CvtBmpLine(HDC hdc,
 	uint32_t imgDepth,
 	uint8_t* imgSrc);
 
-#include <sys/types.h>
+typedef char* caddr_t;
 caddr_t __attribute__((weak)) _sbrk(int incr);
-int __attribute__((weak)) _kill(int pid, int sig);
-int __attribute__((weak)) _getpid(void);
-int __attribute__((weak)) _read(int file, char *ptr, int len);
-int __attribute__((weak)) _close(int file);
-int __attribute__((weak)) _lseek(int file, int ptr, int dir);
-int __attribute__((weak)) _isatty(int file);
-#include <sys/stat.h>
-int __attribute__((weak)) _fstat(int file, struct stat *st);
-void __attribute__((weak)) _exit(int status);
-int _write(int file, char *ptr, int len);
 
 #ifdef __cplusplus								// If we are including to a C++ file
 }												// Close the extern C directive wrapper

@@ -1,43 +1,48 @@
-﻿;/*"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-;@"																			"			
-;@"      Filename: smartstart64.s											"
-;@"      Copyright(c): Leon de Boer(LdB) 2017								"
-;@"      Version: 2.03														"
-;@"																			"		
-;@"***************[ THIS CODE IS FREEWARE UNDER CC Attribution]*************"
-;@"																            "
-;@"     This sourcecode is released for the purpose to promote programming  "
-;@"  on the Raspberry Pi. You may redistribute it and/or modify with the    "
-;@"  following disclaimer and condition.                                    "
-;@"																            "
-;@"      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO    "
-;@"   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.          "
-;@"   Redistributions of source code must retain the copyright notices to   "
-;@"   maintain the author credit (attribution) .							"
-;@"																			"
-;@"*************************************************************************"
-;@"                                                                         "
-;@"       This code expands on my earlier SmartStart bootstub assembler for "
-;@" the Pi3. It directly supports multicore operation in C/C++. To do that  "
-;@" it provides stack space to each core and provides a modified bootloader " 
-;@" spinlock that protects against registers X0-X7 trashed. As any C/C++    "
-;@" 64 bit compiler will trash those registers, to use C/C++ in multicore   "
-;@" programming this protection must be done.								"
-;@"       This is a matching paired AARCH64 stub for the 64bit linker file  "
-;@" and carries the samme arrangement as AARCH32 to ease porting.		    "
-;@"																            "
-;@"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
-;@"  1.01 Initial release .. Pi autodetection main aim                      "
-;@"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
-;@"  2.01 Futher reductions to bare minmum assembeler code                  "
-;@"  2.02 Multicore functionality added                                     "
-;@"  2.03 Timer Irq support added  											"
-;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"*/
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+//"																			"			
+//"      Filename: smartstart64.s											"
+//"      Copyright(c): Leon de Boer(LdB) 2017								"
+//"      Version: 2.03														"
+//"																			"		
+//"***************[ THIS CODE IS FREEWARE UNDER CC Attribution]*************"
+//"																			"
+//"    This sourcecode is released for the purpose to promote programming   "
+//"  on the Raspberry Pi. You may redistribute it and/or modify with the    "
+//"  following disclaimer and condition.									"
+//"																			"
+//"      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO	"
+//"   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.			"
+//"   Redistributions of source code must retain the copyright notices to	"
+//"   maintain the author credit (attribution) .							"
+//"																			"
+//"*************************************************************************"
+//"                                                                         "
+//"      This code expands on my earlier SmartStart bootstub assembler for  "
+//" the Pi3. It directly supports multicore operation in C/C++. To do that  "
+//" it provides stack space to each core and provides modified bootloader   " 
+//" spinlock that protects against registers X0-X7 trashed. As any C/C++    "
+//" 64 bit compiler will trash those registers, to use C/C++ in multicore   "
+//" programming this protection must be done.								"
+//"       This is a matching paired AARCH64 stub for the 64bit linker file  "
+//" and carries the samme arrangement as AARCH32 to ease porting.		    "
+//"																			"
+//"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
+//"  1.01 Initial release .. Pi autodetection main aim                      "
+//"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
+//"  2.01 Futher reductions to bare minmum assembeler code                  "
+//"  2.02 Multicore functionality added                                     "
+//"  2.03 Timer Irq support added  											"
+//"  2.04 David Welch routines GET32/PUT32 compability added                "
+//"  2.05 Irq stub made weak linked so it can be easily overridden          "
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
-.section ".text.startup", "ax", %progbits
+.section ".init", "ax", %progbits
 .balign	4
 .globl _start
 _start:	
+//"================================================================"
+//  This simply hold startup data for SmartStart its trivial 
+//"================================================================"
 	adr x12, _start							// Hold boot address in high register R12
 	ldr x1, =RPi_BootAddr					// Address of RPi_BootAddr
 	str w12, [x1]							// Store the boot address
@@ -180,7 +185,7 @@ cpu0_exit_multicore_park:
 //"================================================================"
 //			Core0 will bring Core 1,2,3 to secondary spin 
 //"================================================================"
-#define spin_cpu1 0xe0
+.equ spin_cpu1, 0xe0
 	mov x1, #spin_cpu1						// Spin core1 jump address
 	ldr x2, =multicore_start				// Function we are going to call
 	str	x2, [x1]							// Store the function address to core1
@@ -190,7 +195,7 @@ cpu0_exit_multicore_park:
 	ldr	w1, [x3]							// Read CoresReady count
 	cmp	w1, #2								// Wait for setting of second core ready
 	bne	.WaitCore1ACK						// Core1 not ready so read again
-#define spin_cpu2 0xe8
+.equ spin_cpu2, 0xe8
 	mov x1, #spin_cpu2						// Spin core2 jump address
 	ldr x2, =multicore_start				// Function we are going to call
 	str	x2, [x1]							// Store the function address to core2
@@ -200,7 +205,7 @@ cpu0_exit_multicore_park:
 	ldr	w1, [x3]							// Read CoresReady count
 	cmp	w1, #3								// Wait for setting of third core ready
 	bne	.WaitCore2ACK						// Core2 not ready so read again
-#define spin_cpu3 0xf0
+.equ spin_cpu3, 0xf0
 	mov x1, #spin_cpu3						// Spin core3 jump address
 	ldr x2, =multicore_start				// Function we are going to call
 	str	x2, [x1]							// Store the function address to core3
@@ -221,14 +226,11 @@ cpu0_exit_multicore_park:
 "================================================================*/
 hang:
 	b hang
-.balign	4
-.ltorg										/* Tell assembler ltorg data for code above can go here */
-
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {    Modified bootloader Spin loop but tolerant on registers X0-X7 for C    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-#define spin_cpu0 0xd8
+.equ spin_cpu0, 0xd8
 .balign	4
 StartSecondarySpin:
 	mrs x6, MPIDR_EL1						// Fetch core Id
@@ -248,18 +250,46 @@ secondary_spin:
 	blr x4									// Call the function set
 	b StartSecondarySpin					// Loop back to spinlock
 
+.balign	4
+.ltorg										/* Tell assembler ltorg data for code above can go here */
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{			GLOBAL INTERRUPT CONTROL PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* "PROVIDE C FUNCTION: void EnableInterrupts (void);" */
+.section .text.EnableInterrupts, "ax", %progbits
+.balign	4
 .globl EnableInterrupts
+.type EnableInterrupts, %function
 EnableInterrupts:
 	msr daifclr,#2
 	ret
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	EnableInterrupts, .-EnableInterrupts
 
+/* "PROVIDE C FUNCTION: void DisableInterrupts (void);" */
+.section .text.DisableInterrupts, "ax", %progbits
+.balign	4
 .globl DisableInterrupts
+.type DisableInterrupts, %function
 DisableInterrupts:
 	msr daifset,#2
 	ret
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	DisableInterrupts, .-DisableInterrupts
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{	   	RPi-SmartStart API TO SET CORE EXECUTE ROUTINE AT ADDRESS 		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* "PROVIDE C FUNCTION: bool CoreExecute (uint8_t coreNum, void (*func) (void));" */
+.section .text.CoreExecute, "ax", %progbits
+.balign	4
 .globl CoreExecute
+.type CoreExecute, %function
 CoreExecute:
 	ands x0, x0, #255
 	beq CoreExecuteFail
@@ -280,26 +310,35 @@ CoreExecuteFail:
 	ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
+.size	CoreExecute, .-CoreExecute
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
-{				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{	  RPi-SmartStart Compatability for David Welch CALLS he always uses	    }
 {++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
-.section .text.setTimerIrqAddress, "ax", %progbits
+/* "PROVIDE C FUNCTION: void PUT32 (uint32_t addr, uint32_t value);" */
+.section .text.PUT32, "ax", %progbits
 .balign	4
-.globl setTimerIrqAddress;
-.type setTimerIrqAddress, %function
-setTimerIrqAddress:
-	msr daifset,#2							// Disable irq interrupts as we are clearly changing call
-	ldr x1, =RPi_TimerIrqAddr				// Load address of function to call on interrupt 
-	ldr x2, [x1]							// Load current irq call address
-	str x0, [x1]							// Store the new function pointer address we were given
-	mov x0, x2								// return the old call function
-	ret										// Return
+.globl PUT32
+.type PUT32, %function
+PUT32:
+  str w1,[x0]
+  ret
 .balign	4
 .ltorg										// Tell assembler ltorg data for this code can go here
-.size	setTimerIrqAddress, .-setTimerIrqAddress
+.size	PUT32, .-PUT32
+
+ /* "PROVIDE C FUNCTION: uint32_t GET32 (uint32_t addr);" */
+ .section .text.GET32, "ax", %progbits
+.balign	4
+.globl GET32
+.type GET32, %function
+GET32:
+    ldr w0,[x0]
+    ret
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	GET32, .-GET32
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
 {			VC4 ADDRESS HELPER ROUTINES PROVIDE BY RPi-SmartStart API	    }
@@ -342,11 +381,32 @@ GPUaddrToARMaddr:
 .ltorg										// Tell assembler ltorg data for this code can go here
 .size	GPUaddrToARMaddr, .-GPUaddrToARMaddr
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    }
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* "PROVIDE C FUNCTION: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);" */
+.section .text.setTimerIrqAddress, "ax", %progbits
+.balign	4
+.globl setTimerIrqAddress;
+.type setTimerIrqAddress, %function
+setTimerIrqAddress:
+	msr daifset,#2							// Disable irq interrupts as we are clearly changing call
+	ldr x1, =RPi_TimerIrqAddr				// Load address of function to call on interrupt 
+	ldr x2, [x1]							// Load current irq call address
+	str x0, [x1]							// Store the new function pointer address we were given
+	mov x0, x2								// return the old call function
+	ret										// Return
+.balign	4
+.ltorg										// Tell assembler ltorg data for this code can go here
+.size	setTimerIrqAddress, .-setTimerIrqAddress
+
+
 
 /* Re-entrant interrupt handler stub */
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/ch10s05.html */
-.globl irq_handler
-irq_handler:
+.weak irq_handler_stub
+irq_handler_stub:
 	stp	x29, x30, [sp, #-16]!
 	stp	x27, x28, [sp, #-16]!
 	stp	x25, x26, [sp, #-16]!
@@ -434,10 +494,10 @@ VectorTable:
 	vector	hang			/* SErrorStub */
 
 	/* from current EL with sp_elx, x != 0 */
-	vector	hang			/* Synchronous */
-	vector	irq_handler		/* IRQ */
-	vector	hang			/* FIQ */
-	vector	hang			/* SErrorStub */
+	vector	hang			 /* Synchronous */
+	vector	irq_handler_stub /* IRQ */
+	vector	hang			 /* FIQ */
+	vector	hang			 /* SErrorStub */
 
 	/* from lower EL, target EL minus 1 is AArch64 */
 	vector	hang			/* Synchronous */

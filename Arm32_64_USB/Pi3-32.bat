@@ -1,6 +1,6 @@
 @REM COMPILER COMMAND LINE
 @echo off
-set "bindir=g:\pi\gcc_pi_6_3\bin\"
+set "bindir=D:\gcc-arm-none-eabi-7\bin\"
 set "cpuflags=-Wall -O3 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv8-a -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize"
 set "asmflags=-nostdlib -nodefaultlibs -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer -Wa,-a>list.txt"
 set "linkerflags=-Wl,-gc-sections -Wl,--build-id=none -Wl,-Bdynamic -Wl,-Map,kernel.map"
