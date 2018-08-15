@@ -409,11 +409,6 @@ setTimerIrqAddress:
 
 /* Re-entrant interrupt handler stub */
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/ch10s05.html */
-
-.weak c_irq_handler
-c_irq_handler:								// A weak function in case it is not provided
-	ret										// Return havign done nothing
-
 irq_handler_stub:
 	stp	x29, x30, [sp, #-16]!
 	stp	x27, x28, [sp, #-16]!
@@ -432,7 +427,11 @@ irq_handler_stub:
 	stp	x1, x2, [sp, #-16]!
 	str	x0, [sp, #-16]!
 	
-	bl	c_irq_handler	/* User will provide or will use weak stub */
+	ldr x0, =RPi_TimerIrqAddr			// Address to TimerIrqAddr
+	ldr x0, [x0]						// Load TimerIrqAddr value
+	cbz x0, no_irqset					// If zero no irq set 
+	blr x0								// Call Irqhandler that has been set
+no_irqset:
 
 	ldr	x0, [sp], #16
 	ldp	x1, x2, [sp], #16

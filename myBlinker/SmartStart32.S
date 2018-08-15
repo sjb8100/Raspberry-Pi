@@ -357,10 +357,6 @@ atags:  .4byte 0x100
 @#					       Interrupt handler stub  
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 /* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka13552.html */
-.weak c_irq_handler
-c_irq_handler:											;@ A weak function in case it is not provided
-	bx  lr												;@ Return having done nothing
-
 irq_handler_stub:
     sub lr, lr, #4										;@ Use SRS to save LR_irq and SPSP_irq
     srsfd sp!, #0x13									;@ on to the SVC mode stack
@@ -373,7 +369,12 @@ irq_handler_stub:
     sub sp, sp, r1										;@ adjust stack as necessary
     push {r1, lr}										;@ Store adjustment and LR_svc
 
-	bl	c_irq_handler									;@ User will provide or will use weak stub
+  	ldr r0, =RPi_TimerIrqAddr							;@ Address to TimerIrqAddr
+	ldr r0, [r0]										;@ Load TimerIrqAddr value
+	cmp r0, #0											;@ compare to zero
+	beq no_irqset										;@ If zero no irq set 
+	blx r0												;@ Call Irqhandler that has been set  
+no_irqset:	
 
     pop {r1, lr}										;@ Restore LR_svc
     add sp, sp, r1										;@ Un-adjust stack
