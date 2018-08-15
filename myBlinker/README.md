@@ -5,13 +5,13 @@ As per usual you can simply copy the files in the DiskImg directory onto a forma
 
 To compile edit the makefile so the compiler path matches your compiler:
 For Pi1: 
-     Make Pi1
+>     Make Pi1
 For Pi2:
-     Make Pi2
+>     Make Pi2
 For Pi3 in 32 Bit:
-     Make Pi3
+>     Make Pi3
 For Pi3 in 64 Bit:
-     Make Pi3-64
+>     Make Pi3-64
      
 To clean for full compile:     
 Make Clean
