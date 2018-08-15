@@ -163,8 +163,8 @@ void c_irq_handler (void)
 
 void Core3_Deadloop(void) 
 {
-	EnableInterrupts();												// Start interrupts rolling
-	while(1) {}
+	EnableInterrupts();												// Start interrupts rolling on core3
+	while(1) {}														// Hard deadloop
 }
 
 
@@ -181,7 +181,7 @@ int main (void) {
 	printf("Setting up Local Timer Irq to Core3\n");
 	QA7->TimerRouting.Routing = LOCALTIMER_TO_CORE3_IRQ;			// Route local timer IRQ to Core0
 
-	QA7->TimerControlStatus.ReloadValue = 50000000;					// Timer period set
+	QA7->TimerControlStatus.ReloadValue = 20000000;					// Timer period set
 	QA7->TimerControlStatus.TimerEnable = 1;						// Timer enabled
 	QA7->TimerControlStatus.IntEnable = 1;							// Timer IRQ enabled
 
@@ -198,7 +198,7 @@ int main (void) {
 
 	int i = 0;
 	while (1) {
-		printf("Deadloop %c\r", Spin[i]);
+		printf("Core0 Deadloop %c\r", Spin[i]);
 		timer_wait(50000);
 		i++;
 		i %= 4;
