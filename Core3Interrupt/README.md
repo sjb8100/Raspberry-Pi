@@ -7,3 +7,18 @@ My SmartStart loader picks up each core and runs them thru most of the same star
 We then assign the interrupt vector (like you would on core0) but then command core3 to jump to a small code that simply enables it's interrupts and deadloops. As the interrupt is re-routed core3 it spends all it's time deadlooping and processing the interrupts.
 >
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test.
+
+To compile edit the makefile so the compiler path matches your compiler:
+>
+For Pi1: 
+>     NOT VALID PROCESSOR ONLY HAS 1 CORE
+For Pi2:
+>     Make Pi2
+For Pi3 in 32 Bit:
+>     Make Pi3
+For Pi3 in 64 Bit:
+>     Make Pi3-64
+     
+To clean for full compile:     
+>     Make Clean
+     
