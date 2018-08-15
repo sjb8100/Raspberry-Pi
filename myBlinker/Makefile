@@ -1,22 +1,41 @@
-###############################################################################
-#	makefile
-#	by Leon de Boer
-#
-#	A makefile script for use from command line or VS2017
-###############################################################################
+# If cross compiling from windows use native GNU-Make 4.2.1
+# https://sourceforge.net/projects/ezwinports/files/
+# download "make-4.2.1-without-guile-w32-bin.zip" and set it on the enviroment path
+# There is no need to install cygwin or any of that sort of rubbish
 
-# The toolchain to use. arm-none-eabi works, but there does exist 
-# arm-bcm2708-linux-gnueabi.
-ARMGNU ?= arm-none-eabi
+ifeq ($(OS), Windows_NT)
+	#WINDOWS USE THESE DEFINITIONS
+	RM = -del /q /f
+	SLASH = \\
+else
+	#LINUX USE THESE DEFINITIONS
+	RM = -rm -f
+	SLASH = /
+endif 
 
-Pi3: AFLAGS = -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv8-a
-Pi3: CFLAGS = -Wall -O3 -mfpu=neon-vfpv4 -mfloat-abi=hard -march=armv8-a -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wnonnull
+# The toolchain path and prefix for 32bit compiler .. 64bit compiler will override
+ARMGNU = D:/gcc-arm-none-eabi-7/bin/arm-none-eabi
+
+# The name of the linker script to use for 32 bit compiler ...  64bit compiler will override
+LINKERFILE = rpi32.ld
+
+# The bootloader file defaut is 32bit ... 64bit compiler will override
+SMARTSTART = SmartStart32.S
+
+Pi3-64: CFLAGS = -Wall -O3 -march=armv8-a+simd -mtune=cortex-a53 -mstrict-align -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
+Pi3-64: IMGFILE = kernel8.img
+Pi3-64: ARMGNU  = g:/pi/gcc_linaro_7_1/bin/aarch64-elf
+Pi3-64: LINKERFILE = rpi64.ld
+Pi3-64: SMARTSTART = SmartStart64.S
+
+Pi3: CFLAGS = -Wall -O3 -march=armv8-a -mfpu=neon-vfpv4 -mfloat-abi=hard -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi3: IMGFILE = kernel8-32.img
 
-Pi2: CFLAGS = -Wall -O3 -mfpu=neon -mfloat-abi=hard -march=armv7ve -mtune=cortex-a7 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wnonnull
+
+Pi2: CFLAGS = -Wall -O3 -mfpu=neon -mfloat-abi=hard -march=armv7ve -mtune=cortex-a7 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi2: IMGFILE = kernel7.img
 
-Pi1: CFLAGS = -Wall -O3 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wnonnull
+Pi1: CFLAGS = -Wall -O3 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi1: IMGFILE = kernel.img
 
 LDFLAGS = -nostdlib -nodefaultlibs -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer
@@ -26,7 +45,7 @@ LIBFLAGS=-lc -lm -lgcc
 LINKERFLAGS=-Wl,-gc-sections -Wl,--build-id=none -Wl,-Bdynamic
 
 # The directory in which source files are stored.
-SOURCE = source/
+SOURCE = ${CURDIR}
 
 # The name of the assembler listing file to generate.
 LIST = kernel.list
@@ -34,25 +53,15 @@ LIST = kernel.list
 # The name of the map file to generate.
 MAP = kernel.map
 
-# The directory SmartStart files are in
-SMARTSTARTDIR = $(SOURCE)SmartStart/
-
-# The name of the linker script to use.
-LINKERFILE = $(SMARTSTARTDIR)rpi32.ld
-
-# The SmartStart bootloader file.
-SMARTSTARTC := $(wildcard $(SMARTSTARTDIR)*.c)
-SMARTSTART = $(SMARTSTARTDIR)SmartStart32.s $(SMARTSTARTC)
-
 # The names of all object files that must be generated. Deduced from the 
 # assembly code files in source.
-OBJECTS := $(wildcard $(SOURCE)*.c)
+C_FILES := $(filter-out main.c, $(wildcard *.c))
 
 # Rule to make everything.
-Pi3 Pi2 Pi1: $(LIST)
+Pi3 Pi2 Pi1 Pi3-64: $(LIST)
 	
 # Rule to remake everything. Does not include clean.
-all: Pi3 Pi2 Pi1
+all: Pi3 Pi2 Pi1 Pi3-64
 
 # Rule to make the image & listing files.
 $(LIST) : kernel.elf
@@ -60,28 +69,39 @@ $(LIST) : kernel.elf
 	$(ARMGNU)-objcopy kernel.elf -O binary DiskImg/$(IMGFILE)
 	$(ARMGNU)-nm -n kernel.elf > $(MAP)
 
-# Rule to make the elf file.
-kernel.elf : $(OBJECTS) 
-	$(ARMGNU)-gcc $(CFLAGS) $(LDFLAGS) $(LINKERFLAGS) -Wl,-T,$(LINKERFILE) -I $(SOURCE) $(SMARTSTART) $(OBJECTS) -o $@ $(LIBFLAGS)
+OBJDIR := build
+target = ${OBJDIR}/$(patsubst %.c,%.o,$(notdir ${1}))
+obj.c :=
+define obj
+  $(call target,${1}) : ${1} | 
+  obj$(suffix ${1}) += $(call target,${1})
+endef
 
-# Rule to clean Pi1 files.
-Pi1clean : clean
-	-rm -f DiskImg/kernel.img
+define SOURCES
+  $(foreach src,${1},$(eval $(call obj,${src})))
+endef
 
-# Rule to clean Pi2 files.
-Pi2clean : clean
-	-rm -f DiskImg/kernel7.img
+$(eval $(call SOURCES,${C_FILES}))
 
-# Rule to clean Pi2 files.
-Pi3clean : clean
-	-rm -f DiskImg/kernel8-32.img
+main.c : ${obj.c}
 
+ ${obj.c} : % :
+	$(ARMGNU)-gcc -MMD -MP $(CFLAGS) $(LDFLAGS) -c $^ -o $@
+# Uncomment this if you want the assembler output of each object file
+#	$(ARMGNU)-gcc $(CFLAGS) $(LDFLAGS) -S $^ -o $(patsubst %.o,%.s,$(@))
+
+kernel.elf : main.c
+	$(ARMGNU)-gcc $(CFLAGS) $(LDFLAGS) $(LINKERFLAGS) -Wl,-T,$(LINKERFILE) $(wildcard $(OBJDIR)/*.o) main.c $(SMARTSTART) -o $@ $(LIBFLAGS)
+
+# Control silent mode  .... we want silent in clean
+.silent:clean
+
+# cleanup temp files
 clean:
-	-rm -f $(MAP)
-	-rm -f kernel.elf
-	-rm -f $(LIST)
+	$(RM) $(MAP)
+	$(RM) kernel.elf
+	$(RM) $(LIST)
+	$(RM) $(OBJDIR)$(SLASH)*.o
+	$(RM) $(OBJDIR)$(SLASH)*.d
+	echo CLEAN COMPLETED
 
-Pi3Rebuild: clean Pi3
-Pi2Rebuild: clean Pi2
-Pi1Rebuild: clean Pi1
-	
