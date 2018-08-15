@@ -15,6 +15,6 @@ For Pi3 in 64 Bit:
 >     Make Pi3-64
      
 To clean for full compile:     
-Make Clean
+>     Make Clean
      
 
