@@ -4,6 +4,7 @@ Yes it's the boring old interrupt timer and blinking LED this time in either 32B
 As per usual you can simply copy the files in the DiskImg directory onto a formatted SD card and place in Pi to test.
 
 To compile edit the makefile so the compiler path matches your compiler:
+>
 For Pi1: 
 >     Make Pi1
 For Pi2:
