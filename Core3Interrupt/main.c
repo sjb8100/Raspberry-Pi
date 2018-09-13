@@ -176,7 +176,7 @@ int main (void) {
 	displaySmartStart(printf);										// Display smart start details
 	ARM_setmaxspeed(printf);										// ARM CPU to max speed no message to screen
 
-	setTimerIrqAddress(c_irq_handler);								// Set the address for our interrupt handler
+	setIrqFuncAddress(c_irq_handler);								// Set the address for our interrupt handler
 
 	printf("Setting up Local Timer Irq to Core3\n");
 	QA7->TimerRouting.Routing = LOCALTIMER_TO_CORE3_IRQ;			// Route local timer IRQ to Core0

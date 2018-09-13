@@ -5,7 +5,7 @@
 
 ifeq ($(OS), Windows_NT)
 	#WINDOWS USE THESE DEFINITIONS
-	RM = -del /q /f
+	RM = -del /q
 	SLASH = \\
 else
 	#LINUX USE THESE DEFINITIONS
@@ -22,20 +22,20 @@ LINKERFILE = rpi32.ld
 # The bootloader file defaut is 32bit ... 64bit compiler will override
 SMARTSTART = SmartStart32.S
 
-Pi3-64: CFLAGS = -Wall -O3 -march=armv8-a+simd -mtune=cortex-a53 -mstrict-align -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
+Pi3-64: CFLAGS = -Wall -O3 -mcpu=cortex-a53+simd+fp -mstrict-align -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi3-64: IMGFILE = kernel8.img
-Pi3-64: ARMGNU  = g:/pi/gcc_linaro_7_1/bin/aarch64-elf
+Pi3-64: ARMGNU  = D:/gcc_linaro_7_1/bin/aarch64-elf
 Pi3-64: LINKERFILE = rpi64.ld
 Pi3-64: SMARTSTART = SmartStart64.S
 
-Pi3: CFLAGS = -Wall -O3 -march=armv8-a -mfpu=neon-vfpv4 -mfloat-abi=hard -mtune=cortex-a53 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
+Pi3: CFLAGS = -Wall -O3 -mcpu=cortex-a53 -mfpu=neon-vfpv4 -mfloat-abi=hard -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi3: IMGFILE = kernel8-32.img
 
 
-Pi2: CFLAGS = -Wall -O3 -mfpu=neon -mfloat-abi=hard -march=armv7ve -mtune=cortex-a7 -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
+Pi2: CFLAGS = -Wall -O3 -mcpu=cortex-a7 -mfpu=neon -mfloat-abi=hard -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi2: IMGFILE = kernel7.img
 
-Pi1: CFLAGS = -Wall -O3 -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
+Pi1: CFLAGS = -Wall -O3 -mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard -mno-unaligned-access -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Wno-nonnull-compare
 Pi1: IMGFILE = kernel.img
 
 LDFLAGS = -nostdlib -nodefaultlibs -nostartfiles -ffreestanding -fno-asynchronous-unwind-tables -fomit-frame-pointer
@@ -94,7 +94,7 @@ kernel.elf : main.c
 	$(ARMGNU)-gcc $(CFLAGS) $(LDFLAGS) $(LINKERFLAGS) -Wl,-T,$(LINKERFILE) $(wildcard $(OBJDIR)/*.o) main.c $(SMARTSTART) -o $@ $(LIBFLAGS)
 
 # Control silent mode  .... we want silent in clean
-.silent:clean
+.SILENT: clean
 
 # cleanup temp files
 clean:
@@ -104,4 +104,5 @@ clean:
 	$(RM) $(OBJDIR)$(SLASH)*.o
 	$(RM) $(OBJDIR)$(SLASH)*.d
 	echo CLEAN COMPLETED
+.PHONY: clean
 

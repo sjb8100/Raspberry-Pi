@@ -2,7 +2,7 @@
 {																			}
 {       Filename: rpi-smartstart.c											}
 {       Copyright(c): Leon de Boer(LdB) 2017								}
-{       Version: 2.02														}
+{       Version: 2.09														}
 {																			}
 {***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
 {																            }
@@ -628,7 +628,7 @@ uintptr_t TimerIrqSetup (uint32_t period_in_us,						// Period between timer int
 	temp = period_in_us;											// Transfer 32bit to 64bit we need the size
 	temp *= Buffer[4];												// Multiply the period by the clock speed
 	temp /= 1000000;												// Now divid by 1Mhz to get prescaler value
-	OldHandler = setTimerIrqAddress(ARMaddress);					// Set new interrupt handler
+	OldHandler = setIrqFuncAddress(ARMaddress);						// Set new interrupt handler
 	IRQ->EnableBasicIRQs.Enable_Timer_IRQ = true;					// Enable the timer interrupt IRQ
 	ARMTIMER->Load = (uint32_t)(temp & 0xFFFFFFFF);					// Set the load value to divisor
 	ARMTIMER->Control.Counter32Bit = true;							// Counter in 32 bit mode
@@ -718,15 +718,13 @@ bool ARM_setmaxspeed (printhandler prn_handler) {
 . This will print 2 lines of basic smart start details to given print handler
 . 04Jul17 LdB
 .--------------------------------------------------------------------------*/
-extern uint32_t RPi_SmartStartVer;								// Internal version to smartstart
 void displaySmartStart (printhandler prn_handler) {
 	if (prn_handler) {
-		prn_handler("SmartStart v%x.%x%x compiled for Arm%d, AARCH%d with %u core s/w support\n",
-			(unsigned int)(RPi_SmartStartVer >> 16), (unsigned int)((RPi_SmartStartVer & 0xFF00) >> 8), (unsigned int)(RPi_SmartStartVer & 0xFF),
+
+		prn_handler("SmartStart v%x.%x%x, ARM%d AARCH%d code, CPU: %#03X, Cores: %u FPU: %s\n",
+			(unsigned int)(RPi_SmartStartVer.HiVersion), (unsigned int)(RPi_SmartStartVer.LoVersion >> 8), (unsigned int)(RPi_SmartStartVer.LoVersion & 0xFF),
 			(unsigned int)RPi_CompileMode.ArmCodeTarget, (unsigned int)RPi_CompileMode.AArchMode * 32 + 32,
-			(unsigned int)RPi_CompileMode.CoresSupported);							// Write text
-		prn_handler("Detected %s CPU, part id: 0x%03X, Cores made ready for use: %u\n",
-			RPi_CpuIdString(), RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady); // Write text
+			(unsigned int)RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady, (RPi_CompileMode.HardFloats == 1) ? "HARD" : "SOFT");
 	}
 }
 

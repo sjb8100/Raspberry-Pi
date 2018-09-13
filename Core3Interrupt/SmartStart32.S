@@ -1,3 +1,45 @@
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+//"																			"			
+//"      Filename: smartstart32.s											"
+//"      Copyright(c): Leon de Boer(LdB) 2017. 2018							"
+//"      Version: 2.09														"
+//"																			"		
+//"***************[ THIS CODE IS FREEWARE UNDER CC Attribution]*************"
+//"																			"
+//"    This sourcecode is released for the purpose to promote programming   "
+//"  on the Raspberry Pi. You may redistribute it and/or modify with the    "
+//"  following disclaimer and condition.									"
+//"																			"
+//"      The SOURCE CODE is distributed "AS IS" WITHOUT WARRANTIES AS TO	"
+//"   PERFORMANCE OF MERCHANTABILITY WHETHER EXPRESSED OR IMPLIED.			"
+//"   Redistributions of source code must retain the copyright notices to	"
+//"   maintain the author credit (attribution) .							"
+//"																			"
+//"*************************************************************************"
+//"                                                                         "
+//"      This code expands on my earlier SmartStart bootstub assembler for  "
+//"  various Pi models. It directly supports multicore operation in C/C++.  "
+//"  To do that it provides stack space to each core and provides modified  "
+//"  bootloader spinlock that protects from trashing of registers r0-r3     "
+//"  As any C/C++ compiler will trash those registers, to use C/C++ in the  "
+//"  multicore programming this protection must be done.					"
+//"      This is a matching paired AARCH32 stub for the 32bit linker file   "
+//"  and carries the same arrangement as AARCH64 pair to ease porting.	    "
+//"																			"
+//"+++++++++++++++++++++++[ REVISIONS ]+++++++++++++++++++++++++++++++++++++"
+//"  1.01 Initial release .. Pi autodetection main aim                      "
+//"  1.02 Many functions moved out C to aide 32/64 bit compatability        "
+//"  2.01 Futher reductions to bare minmum assembeler code                  "
+//"  2.02 Multicore functionality added                                     "
+//"  2.03 Timer Irq support added  											"
+//"  2.04 David Welch routines GET32/PUT32 compability added                "
+//"  2.05 Irq stub made weak linked so it can be easily overridden          "
+//"  2.06 Added SmartStartVer											    "
+//"  2.07 Fiq stub made weak linked so it can be easily overridden          "
+//"  2.08 Added setIrqFuncAddress & setFiqFuncAddress                       "
+//"  2.09 Added Hard/Soft float compiler support							"
+//"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
 ;@"========================================================================="
 ;@#				 	 ARM CPU ID CONSTANT DEFINITIONS
 ;@"========================================================================="
@@ -109,25 +151,29 @@ set_svc_stack:
 	bic r0, r0, #ARM_MODE_MASK							;@ Clear the CPU mode bits in register r0							
 	orr r0, r0, #ARM_MODE_SYS							;@ SYS_MODE bits onto register
     msr CPSR_c, r0										;@ Switch back to SYS_MODE which will be our operation mode
+
+.if (__ARM_FP >= 12)	//# If hard float compiling selected
 ;@"========================================================================="
 @#    PI NSACR regsister setup for access to floating point unit
 @#    Cortex A-7 => Section 4.3.34. Non-Secure Access Control Register
 @#    Cortex A-53 => Section 4.5.32. Non-Secure Access Control Register
 ;@"========================================================================="
-	mrc p15, 0, r0, c1, c1, 2							;@ Read NSACR into R0
-	cmp r0, #0x00000C00									;@ Access turned on or in AARCH32 mode and can not touch register or EL3 fault
+	mrc p15, 0, r0, c1, c1, 2							// Read NSACR into R0
+	cmp r0, #0x00000C00									// Access turned on or in AARCH32 mode and can not touch register or EL3 fault
 	beq .free_to_enable_fpu1
-	orr r0, r0, #0x3<<10								;@ Set access to both secure and non secure modes
-	mcr p15, 0, r0, c1, c1, 2							;@ Write NSACR
+	orr r0, r0, #0x3<<10								// Set access to both secure and non secure modes
+	mcr p15, 0, r0, c1, c1, 2							// Write NSACR
 ;@"========================================================================="
 @#                               Bring fpu online
 ;@"========================================================================="
 .free_to_enable_fpu1:
-	mrc p15, 0, r0, c1, c0, #2							;@ R0 = Access Control Register
-	orr r0, #(0x300000 + 0xC00000)						;@ Enable Single & Double Precision
-	mcr p15,0,r0,c1,c0, #2								;@ Access Control Register = R0
-	mov r0, #0x40000000									;@ R0 = Enable VFP
-	vmsr fpexc, r0										;@ FPEXC = R0
+	mrc p15, 0, r0, c1, c0, #2							// R0 = Access Control Register
+	orr r0, #(0x300000 + 0xC00000)						// Enable Single & Double Precision
+	mcr p15,0,r0,c1,c0, #2								// Access Control Register = R0
+	mov r0, #0x40000000									// R0 = Enable VFP
+	vmsr fpexc, r0										// FPEXC = R0
+.endif					//# __ARM_FP >= 12 hard float on for compiling
+
 ;@"========================================================================="
 @#                              Enable L1 cache
 ;@"========================================================================="
@@ -204,7 +250,10 @@ set_svc_stack:
 .if (__ARM_ARCH == 8)									// Compiling for ARM8
 	mov r0, #0x08										;@ Compiled for ARM8 CPU
 .endif
-	orr r0, r0, #(4 << 5)								;@ Code is setup to support 4 cores			
+	orr r0, r0, #(4 << 5)								;@ Code is setup to support 4 cores	
+.if (__ARM_FP >= 12)
+	orr r0, #0x80000000									;@ Set the hard float flag
+.endif	
 	ldr r1, =RPi_CompileMode
 	str r0, [r1]										;@ Store the compiler mode  
 //"========================================================================="
@@ -319,7 +368,7 @@ _prefetch_abort_vector_h:           .word   hang
 _data_abort_vector_h:               .word   hang
 _unused_handler_h:                  .word   hang
 _interrupt_vector_h:                .word   irq_handler_stub
-_fast_interrupt_vector_h:           .word   hang	
+_fast_interrupt_vector_h:           .word   fiq_handler_stub	
 
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 ;@    Modified bootloader Spin loop but tolerant on registers R0-R3 for C   
@@ -351,41 +400,76 @@ atags:  .4byte 0x100
 .balign	4
 .ltorg													;@ Tell assembler ltorg data for this code can go here
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{  DEFAULT IRQ HANDLER STUB ON WEAK REFERENCE PROVIDE BY RPi-SmartStart API	}
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-
-;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-@#					       Interrupt handler stub  
-;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-/* http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka13552.html */
+/* Non re-entrant irq interrupt handler stub									     */
+/* We assume here we are calling C code so we know C will trash some registers and   */
+/* We assume interrupt code has no FPU use, if it does user must save FPU registers  */
+/* So we will need to save registers r0-r3, r9, r12, Lr    							 */
+.weak irq_handler_stub
 irq_handler_stub:
     sub lr, lr, #4										;@ Use SRS to save LR_irq and SPSP_irq
     srsfd sp!, #0x13									;@ on to the SVC mode stack
 
     cps #0x13											;@ Switch to SVC mode
-    push {r0-r3, r12}									;@ Store AAPCS regs on to SVC stack
+    push {r0-r3, r9, r12}								;@ Store AAPCS regs on to SVC stack
 
     mov r1, sp
     and r1, r1, #4										;@ Ensure 8-byte stack alignment
     sub sp, sp, r1										;@ adjust stack as necessary
     push {r1, lr}										;@ Store adjustment and LR_svc
 
-  	ldr r0, =RPi_TimerIrqAddr							;@ Address to TimerIrqAddr
-	ldr r0, [r0]										;@ Load TimerIrqAddr value
+  	ldr r0, =RPi_IrqFuncAddr							;@ Address to IrqFuncAddr
+	ldr r0, [r0]										;@ Load IrqFuncAddr value
 	cmp r0, #0											;@ compare to zero
-	beq no_irqset										;@ If zero no irq set 
+	beq no_irqset										;@ If zero no irq handler set .... prob fatal but all we can do is return
 	blx r0												;@ Call Irqhandler that has been set  
 no_irqset:	
 
     pop {r1, lr}										;@ Restore LR_svc
     add sp, sp, r1										;@ Un-adjust stack
 
-    pop {r0-r3, r12}									;@ Restore AAPCS registers
+    pop {r0-r3, r9, r12}								;@ Restore AAPCS registers
+    rfefd sp!											;@ Return from the SVC mode stack
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+{  DEFAULT FIQ HANDLER STUB ON WEAK REFERENCE PROVIDE BY RPi-SmartStart API	}
+{++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Non re-entrant irq interrupt handler stub									     */
+/* We assume here we are calling C code so we know C will trash some registers and   */
+/* We assume interrupt code has no FPU use, if it does user must save FPU registers  */
+/* So we will need to save registers r0-r3, r9, r12, Lr    							 */
+.weak fiq_handler_stub
+fiq_handler_stub:
+    sub lr, lr, #4										;@ Use SRS to save LR_irq and SPSP_irq
+    srsfd sp!, #0x13									;@ on to the SVC mode stack
+
+    cps #0x13											;@ Switch to SVC mode
+    push {r0-r3, r9, r12}								;@ Store AAPCS regs on to SVC stack
+
+    mov r1, sp
+    and r1, r1, #4										;@ Ensure 8-byte stack alignment
+    sub sp, sp, r1										;@ adjust stack as necessary
+    push {r1, lr}										;@ Store adjustment and LR_svc
+
+  	ldr r0, =RPi_FiqFuncAddr							;@ Address to FiqFuncAddr
+	ldr r0, [r0]										;@ Load IrqFuncAddr value
+	cmp r0, #0											;@ compare to zero
+	beq no_fiqset										;@ If zero no fiq handler set .. prob fatal but all we can do is return
+	blx r0												;@ Call Fiqhandler that has been set  
+no_fiqset:	
+
+    pop {r1, lr}										;@ Restore LR_svc
+    add sp, sp, r1										;@ Un-adjust stack
+
+    pop {r0-r3, r9, r12}								;@ Restore AAPCS registers
     rfefd sp!											;@ Return from the SVC mode stack
 
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 @#			GLOBAL INTERRUPT CONTROL PROVIDE BY RPi-SmartStart API
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-
 
 ;@"========================================================================="
 @#		EnableInterrupts -- Composite Pi1, Pi2 & Pi3 code
@@ -461,7 +545,7 @@ GPUaddrToARMaddr:
 
 ;@"========================================================================="
 @#		CoreExcute -- Composite Pi1, Pi2 & Pi3 code
-@#		C Function: bool CoreExcute (uint8_t corenum, uint32_t call_addr);
+@#		C Function: bool CoreExcute (uint8_t corenum, void (*ARMaddress)(void));
 @#		Entry: R0 will have core number, R1 will carry address to set core
 @#		Return: failure = 0, Success = 1 or any non zero value 
 ;@"========================================================================="
@@ -487,38 +571,61 @@ CoreExecuteFail:
 
 
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-@#				IRQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    
+@#			IRQ AND FIQ HELPER ROUTINES PROVIDE BY RPi-SmartStart API		    
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 ;@"========================================================================="
-@#		setTimerIrqAddress -- Composite Pi1, Pi2 & Pi3 code
-@#		C Function: TimerIrqHandler setTimerIrqAddress ( TimerIrqHandler* ARMaddress);
+@#		setIrqFuncAddress -- Composite Pi1, Pi2 & Pi3 code
+@#		C Function: uintptr_t setIrqFuncAddress (void (*ARMaddress)(void));
 @#		Entry: R0 will have ARMAddress value
-@#		Return: R0 will return with the previous value of the TimerIrqAddr
+@#		Return: R0 will return with the previous Irq function address
 ;@"========================================================================="
-.section .text.setTimerIrqAddress, "ax", %progbits
+.section .text.setIrqFuncAddress, "ax", %progbits
 .balign	4
-.globl setTimerIrqAddress;
-.type setTimerIrqAddress, %function
-setTimerIrqAddress:
-    cpsid i												;@ Disable irq interrupts as we are clearly changing call
-	ldr r1, =RPi_TimerIrqAddr							;@ Load address of function to call on interrupt 
-	ldr r2, [r1]										;@ Load current irq call address
-	str r0, [r1]										;@ Store the new function pointer address we were given
-	mov r0, r2											;@ return the old call function
-	bx  lr												;@ Return
+.globl setIrqFuncAddress;
+.type setIrqFuncAddress, %function
+setIrqFuncAddress:
+    cpsid i												// Disable irq interrupts as we are clearly changing call
+	ldr r1, =RPi_IrqFuncAddr							// Load address of function to call on interrupt 
+	ldr r2, [r1]										// Load current irq call address
+	str r0, [r1]										// Store the new function pointer address we were given
+	mov r0, r2											// return the old call function
+	bx  lr												// Return
 .balign	4
-.ltorg													;@ Tell assembler ltorg data for this code can go here
-.size	setTimerIrqAddress, .-setTimerIrqAddress
+.ltorg													// Tell assembler ltorg data for this code can go here
+.size	setIrqFuncAddress, .-setIrqFuncAddress
 
+;@"========================================================================="
+@#		setFiqFuncAddress -- Composite Pi1, Pi2 & Pi3 code
+@#		C Function: uintptr_t setFiqFuncAddress (void (*ARMaddress)(void));
+@#		Entry: R0 will have ARMAddress value
+@#		Return: R0 will return with the previous Fiq function address
+;@"========================================================================="
+.section .text.setFiqFuncAddress, "ax", %progbits
+.balign	4
+.globl setFiqFuncAddress;
+.type setFiqFuncAddress, %function
+setFiqFuncAddress:
+    cpsid i												// Disable irq interrupts as we are clearly changing call
+	ldr r1, =RPi_FiqFuncAddr							// Load address of function to call on interrupt 
+	ldr r2, [r1]										// Load current fiq call address
+	str r0, [r1]										// Store the new function pointer address we were given
+	mov r0, r2											// return the old call function
+	bx  lr												// Return
+.balign	4
+.ltorg													// Tell assembler ltorg data for this code can go here
+.size	setFiqFuncAddress, .-setFiqFuncAddress
 
 ;@"*************************************************************************"
 @#          INTERNAL DATA FOR SMARTSTART NOT EXPOSED TO INTERFACE			
 ;@"*************************************************************************"
-.section ".data.smartstart", "aw"
+.section ".data.notexposed_smartstart32", "aw"
 .balign 4
-.globl RPi_TimerIrqAddr;
-RPi_TimerIrqAddr : .4byte 0;							;@ Timer Irq Address
+.globl RPi_IrqFuncAddr;
+RPi_IrqFuncAddr : .4byte 0;								// Irq Func Address
+
+.globl RPi_FiqFuncAddr;
+RPi_FiqFuncAddr : .4byte 0;								// Irq Func Address
 
 ;@"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 @#     	          DATA FOR SMARTSTART32 EXPOSED TO INTERFACE 
@@ -551,4 +658,4 @@ RPi_CompileMode : .4byte 0;								;@ Compile mode is 4 byte variable in 32bit m
 RPi_CPUCurrentMode : .4byte 0;							;@ CPU current Mode is 4 byte variable in 32bit mode
 
 .globl RPi_SmartStartVer;								;@ Make sure RPi_SmartStartVer label is global
-RPi_SmartStartVer : .4byte 0x00020007;					;@ SmartStart version is 4 byte variable in 32bit mode
+RPi_SmartStartVer : .4byte 0x00020009;					;@ SmartStart version is 4 byte variable in 32bit mode
