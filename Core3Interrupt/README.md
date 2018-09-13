@@ -1,4 +1,4 @@
-# Core3 Interrupt (Pi2/3 AARCH32 or Pi3 AARCH64)
+## Core3 Interrupt (Pi2/3 AARCH32 or Pi3 AARCH64)
 Yes it's the boring old interrupt timer and blinking LED but this time the interrupts being processed by Core3. This wont work on a Pi1 because it has only 1 core.
 
 The technical background to this is we use the details on datasheet QA7_rev3.4.pdf to route the timer irq to core3.
@@ -11,7 +11,8 @@ As per usual you can simply copy the files in the DiskImg directory onto a forma
 To compile edit the makefile so the compiler path matches your compiler:
 >
 For Pi1: 
->     NOT VALID PROCESSOR ONLY HAS 1 CORE
+>     YOU CAN COMPILE BUT CAN NOT RUN AS ONLY HAS 1 CORE
+>     your compiled code however will work on a Pi2,Pi3 thanks to SmartStart
 For Pi2:
 >     Make Pi2
 For Pi3 in 32 Bit:
@@ -21,4 +22,5 @@ For Pi3 in 64 Bit:
      
 To clean for full compile:     
 >     Make Clean
+
      
