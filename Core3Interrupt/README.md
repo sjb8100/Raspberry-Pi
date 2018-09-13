@@ -1,4 +1,4 @@
-## Core3 Interrupt (Pi2/3 AARCH32 or Pi3 AARCH64)
+# Core3 Interrupt (Pi2/3 AARCH32 or Pi3 AARCH64)
 Yes it's the boring old interrupt timer and blinking LED but this time the interrupts being processed by Core3. This wont work on a Pi1 because it has only 1 core.
 
 The technical background to this is we use the details on datasheet QA7_rev3.4.pdf to route the timer irq to core3.
@@ -22,5 +22,4 @@ For Pi3 in 64 Bit:
      
 To clean for full compile:     
 >     Make Clean
-
      
