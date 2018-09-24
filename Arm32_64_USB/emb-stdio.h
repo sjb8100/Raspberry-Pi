@@ -9,7 +9,7 @@ extern "C" {									// Put extern C directive wrapper around
 {																			}			
 {       Filename: emd_stdio.h												}
 {       Copyright(c): Leon de Boer(LdB) 2017								}
-{       Version: 1.01														}
+{       Version: 1.02														}
 {																			}		
 {***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
 {																            }

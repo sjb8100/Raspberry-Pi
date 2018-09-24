@@ -1,6 +1,6 @@
 /***************************************************************}
 {  Complete redux of CSUD (Chadderz's Simple USB Driver) by		}
-{  Alex Chadwick by Leon de Boer(LdB) 2017						}
+{  Alex Chadwick by Leon de Boer(LdB) 2017, 2018				}
 {																}
 {  Version 2.0  (AARCH64 & AARCH32 compilation supported)		}
 {																}
@@ -32,7 +32,7 @@ extern "C"
 #endif
 
 #include <stdint.h>
-#include "emb-stdio.h"					// Needed for printf
+#include "emb-stdio.h"				// Needed for printf
 
 //#define LOG(...)
 #define LOG(...) printf(__VA_ARGS__)
@@ -144,7 +144,7 @@ typedef enum {
 	USB_SPEED_HIGH = 0,												// USB high speed
 	USB_SPEED_FULL = 1,												// USB full speed
 	USB_SPEED_LOW = 2,												// USB low speed
-} usb_speed;
+} UsbSpeed;
 extern const char* SpeedString[3];	// Speed strings High, Low, Full provided as constants 
 
 /*--------------------------------------------------------------------------}
@@ -318,8 +318,8 @@ struct __attribute__((__packed__)) UsbConfigurationDescriptor {
 	uint8_t StringIndex;											// +0x6 Index of String Descriptor describing the configuration
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned _reserved0_4 : 5;						// @0
-		bool RemoteWakeup : 1;							// @5
-		bool SelfPowered : 1;							// @6
+		unsigned RemoteWakeup : 1;						// @5
+		unsigned SelfPowered : 1;						// @6
 		unsigned _reserved7 : 1;						// @7
 	} Attributes;													// +0x7 Configuration characteristics
 	uint8_t MaximumPower;											// +0x8 Maximum power consumed by this configuration
@@ -336,8 +336,8 @@ struct __attribute__((__packed__)) UsbOtherSpeedConfigurationDescriptor {
 	uint8_t StringIndex;											// +0x6 Index of String Descriptor describing the configuration
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned _reserved0_4 : 5;						// @0
-		bool RemoteWakeup : 1;							// @5
-		bool SelfPowered : 1;							// @6
+		unsigned RemoteWakeup : 1;						// @5
+		unsigned SelfPowered : 1;						// @6
 		enum {
 			Valid = 1,
 		} _reserved7 : 1;								// @7
@@ -436,20 +436,20 @@ struct __attribute__((__packed__)) HubDescriptor {
 			Global = 0,
 			Individual = 1,
 		} PowerSwitchingMode : 2;						// @0
-		bool Compound : 1;								// @2
+		unsigned Compound : 1;							// @2
 		enum HubPortControl OverCurrentProtection : 2;	// @3
 		unsigned ThinkTime : 2;							// @5
-		bool Indicators : 1;							// @7
+		unsigned Indicators : 1;						// @7
 		unsigned _reserved8_15 : 8;						// @8
 	} Attributes;													// +0x3
 	uint8_t PowerGoodDelay;											// +0x5
 	uint8_t MaximumHubPower;										// +0x6
 	struct __attribute__((__packed__, aligned(1))) {
-		bool Reserved0 : 1;								// @0
-		bool Port1 : 1;									// @1
-		bool Port2 : 1;									// @2
-		bool Port3 : 1;									// @3
-		bool Port4 : 1;									// @4
+		unsigned Reserved0 : 1;							// @0
+		unsigned Port1 : 1;								// @1
+		unsigned Port2 : 1;								// @2
+		unsigned Port3 : 1;								// @3
+		unsigned Port4 : 1;								// @4
 		unsigned Reserved1 : 3;							// @5-8
 	} DeviceRemovable;												// +0x7
 	uint8_t PortPowerCtrlMask;										// +0x8
@@ -459,8 +459,8 @@ struct __attribute__((__packed__)) HubDescriptor {
 { 	     USB HUB status (16 bits) as per 11.24.2.6 of USB2.0 manual			}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubStatus {
-	bool LocalPower : 1;								// @0
-	bool OverCurrent : 1;								// @1
+	unsigned LocalPower : 1;							// @0
+	unsigned OverCurrent : 1;							// @1
 	unsigned _reserved2_15 : 14;						// @2
 };
 
@@ -468,8 +468,8 @@ struct __attribute__((__packed__)) HubStatus {
 { 	  USB HUB status change (16 Bits) as per 11.24.2.6 of USB2.0 manual		}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubStatusChange {
-	bool LocalPowerChanged : 1;							// @0
-	bool OverCurrentChanged : 1;						// @1
+	unsigned LocalPowerChanged : 1;						// @0
+	unsigned OverCurrentChanged : 1;					// @1
 	unsigned _reserved2_15 : 14;						// @2
 };
 
@@ -496,30 +496,30 @@ struct __attribute__((__packed__)) HubFullStatus {
 { 	USB HUB status structure (16 bits) as per 11.24.2.7.1 of USB2.0 manual  }
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubPortStatus {
-	bool Connected : 1;									// @0
-	bool Enabled : 1;									// @1
-	bool Suspended : 1;									// @2
-	bool OverCurrent : 1;								// @3
-	bool Reset : 1;										// @4
-	unsigned _reserved5_7 : 3;							// @5
-	bool Power : 1;										// @8
-	bool LowSpeedAttatched : 1;							// @9
-	bool HighSpeedAttatched : 1;						// @10
-	bool TestMode : 1;									// @11
-	bool IndicatorControl : 1;							// @12
-	unsigned _reserved13_15 : 3;						// @13
+	unsigned Connected : 1;									// @0
+	unsigned Enabled : 1;									// @1
+	unsigned Suspended : 1;									// @2
+	unsigned OverCurrent : 1;								// @3
+	unsigned Reset : 1;										// @4
+	unsigned _reserved5_7 : 3;								// @5
+	unsigned Power : 1;										// @8
+	unsigned LowSpeedAttatched : 1;							// @9
+	unsigned HighSpeedAttatched : 1;						// @10
+	unsigned TestMode : 1;									// @11
+	unsigned IndicatorControl : 1;							// @12
+	unsigned _reserved13_15 : 3;							// @13
 } ;
 
 /*--------------------------------------------------------------------------}
 { USB HUB status change structure (16 Bits) as 11.24.2.7.2 of USB2.0 manual }
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) HubPortStatusChange {
-	bool ConnectedChanged : 1;							// @0
-	bool EnabledChanged : 1;							// @1
-	bool SuspendedChanged : 1;							// @2
-	bool OverCurrentChanged : 1;						// @3
-	bool ResetChanged : 1;								// @4
-	unsigned _reserved5_15 : 11;						// @5
+	unsigned ConnectedChanged : 1;							// @0
+	unsigned EnabledChanged : 1;							// @1
+	unsigned SuspendedChanged : 1;							// @2
+	unsigned OverCurrentChanged : 1;						// @3
+	unsigned ResetChanged : 1;								// @4
+	unsigned _reserved5_15 : 11;							// @5
 };
 
 
@@ -662,7 +662,7 @@ struct __attribute__((__packed__)) HidDescriptor {
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbPipe {
 	UsbPacketSize MaxSize : 2;										// @0	Maximum packet size
-	usb_speed Speed : 2;											// @2	Speed of device
+	UsbSpeed Speed : 2;												// @2	Speed of device
 	unsigned EndPoint : 4;											// @4   Endpoint address
 	unsigned Number : 8;											// @8	Unique device number sometimes called address or id
 	unsigned lowSpeedNodePoint : 8;									// @16  In low speed transfers it is closest parent high speed hub
@@ -773,7 +773,7 @@ struct MassStorageDevice {
 {--------------------------------------------------------------------------*/
 
 /*-HCDGetDescriptor ---------------------------------------------------------
- Has the ability to fetch all the different descriptors from the device if
+ Has the ability to fetches all the different descriptors from the device if
  you provide the right parameters. It is a marshal call that many internal
  descriptor reads will use and it has no checking on parameters. So if you
  provide invalid parameters it will most likely fail and return with error.

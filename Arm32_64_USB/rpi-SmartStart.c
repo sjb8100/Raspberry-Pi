@@ -2,7 +2,7 @@
 {																			}
 {       Filename: rpi-smartstart.c											}
 {       Copyright(c): Leon de Boer(LdB) 2017								}
-{       Version: 2.02														}
+{       Version: 2.09														}
 {																			}
 {***************[ THIS CODE IS FREEWARE UNDER CC Attribution]***************}
 {																            }
@@ -86,7 +86,7 @@ struct __attribute__((__packed__, aligned(4))) SystemTimerRegisters {
 {--------------------------------------------------------------------------*/
 typedef union  
 {
-	struct __attribute__((__packed__, aligned(4))) 
+	struct 
 	{
 		unsigned unused : 1;										// @0 Unused bit
 		unsigned Counter32Bit : 1;									// @1 Counter32 bit (16bit if false)
@@ -263,7 +263,7 @@ static_assert(sizeof(struct MailBoxRegisters) == 0x40, "Structure MailBoxRegiste
 #define GPIO ((volatile __attribute__((aligned(4))) struct GPIORegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x200000))
 #define SYSTEMTIMER ((volatile __attribute__((aligned(4))) struct SystemTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0x3000))
 #define IRQ ((volatile __attribute__((aligned(4))) struct IrqControlRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB200))
-#define ARMTIMER ((volatile __attribute__((aligned(4))) struct  ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400))
+#define ARMTIMER ((volatile __attribute__((aligned(4))) struct ArmTimerRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB400))
 #define MAILBOX ((volatile __attribute__((aligned(4))) struct MailBoxRegisters*)(uintptr_t)(RPi_IO_Base_Addr + 0xB880))
 
 /***************************************************************************}
@@ -598,6 +598,16 @@ bool mailbox_tag_message (uint32_t* response_buf,					// Pointer to response buf
 {	  PUBLIC PI TIMER INTERRUPT ROUTINES PROVIDED BY RPi-SmartStart API		}
 {==========================================================================*/
 
+/*-[ClearTimerIrq]----------------------------------------------------------}
+. Simply clear the timer interupt by hitting the clear register. Any timer
+. interrupt should call this before exiting.
+. 19Sep17 LdB
+.--------------------------------------------------------------------------*/
+void ClearTimerIrq(void)
+{
+	ARMTIMER->Clear = 0x1;											// Hit clear register
+}
+
 /*-[TimerIrqSetup]----------------------------------------------------------}
 . Allocates the given TimerIrqHandler function pointer to be the irq call
 . when a timer interrupt occurs. The interrupt rate is set by providing a
@@ -605,20 +615,22 @@ bool mailbox_tag_message (uint32_t* response_buf,					// Pointer to response buf
 . RETURN: The old function pointer that was in use (will return 0 for 1st).
 . 19Sep17 LdB
 .--------------------------------------------------------------------------*/
-TimerIrqHandler TimerIrqSetup (uint32_t period_in_us,				// Period between timer interrupts in usec
-							   TimerIrqHandler ARMaddress)          // Function to call on interrupt
+uintptr_t TimerIrqSetup (uint32_t period_in_us,						// Period between timer interrupts in usec
+						 void (*ARMaddress)(void))					// Function to call on interrupt
 {
-	uint32_t divisor;
+	uint64_t temp;
 	uint32_t Buffer[5] = { 0 };
-	TimerIrqHandler OldHandler;
+	uint32_t OldHandler;
 	ARMTIMER->Control.TimerEnable = false;							// Make sure clock is stopped, illegal to change anything while running
 	mailbox_tag_message(&Buffer[0], 5, MAILBOX_TAG_GET_CLOCK_RATE,
-		8, 8, 4, Buffer[4]);										// Get GPU clock (it varies between 200-450Mhz)
+		8, 8, 4, 0);												// Get GPU clock (it varies between 200-450Mhz)
 	Buffer[4] /= 250;												// The prescaler divider is set to 250 (based on GPU=250MHz to give 1Mhz clock)
-	divisor = ((uint64_t)period_in_us*Buffer[4]) / 1000000;			// Divisor we would need at current clock speed
-	OldHandler = setTimerIrqAddress(ARMaddress);					// Set new interrupt handler
+	temp = period_in_us;											// Transfer 32bit to 64bit we need the size
+	temp *= Buffer[4];												// Multiply the period by the clock speed
+	temp /= 1000000;												// Now divid by 1Mhz to get prescaler value
+	OldHandler = setIrqFuncAddress(ARMaddress);						// Set new interrupt handler
 	IRQ->EnableBasicIRQs.Enable_Timer_IRQ = true;					// Enable the timer interrupt IRQ
-	ARMTIMER->Load = divisor;										// Set the load value to divisor
+	ARMTIMER->Load = (uint32_t)(temp & 0xFFFFFFFF);					// Set the load value to divisor
 	ARMTIMER->Control.Counter32Bit = true;							// Counter in 32 bit mode
 	ARMTIMER->Control.Prescale = Clkdiv1;							// Clock divider = 1
 	ARMTIMER->Control.TimerIrqEnable = true;						// Enable timer irq
@@ -708,11 +720,11 @@ bool ARM_setmaxspeed (printhandler prn_handler) {
 .--------------------------------------------------------------------------*/
 void displaySmartStart (printhandler prn_handler) {
 	if (prn_handler) {
-		prn_handler("SmartStart v2.02 compiled for Arm%d, AARCH%d with %u core s/w support\n",
-			RPi_CompileMode.ArmCodeTarget, RPi_CompileMode.AArchMode * 32 + 32,
-			(unsigned int)RPi_CompileMode.CoresSupported);							// Write text
-		prn_handler("Detected %s CPU, part id: 0x%03X, Cores made ready for use: %u\n",
-			RPi_CpuIdString(), RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady); // Write text
+
+		prn_handler("SmartStart v%x.%x%x, ARM%d AARCH%d code, CPU: %#03X, Cores: %u FPU: %s\n",
+			(unsigned int)(RPi_SmartStartVer.HiVersion), (unsigned int)(RPi_SmartStartVer.LoVersion >> 8), (unsigned int)(RPi_SmartStartVer.LoVersion & 0xFF),
+			(unsigned int)RPi_CompileMode.ArmCodeTarget, (unsigned int)RPi_CompileMode.AArchMode * 32 + 32,
+			(unsigned int)RPi_CpuId.PartNumber, (unsigned int)RPi_CoresReady, (RPi_CompileMode.HardFloats == 1) ? "HARD" : "SOFT");
 	}
 }
 

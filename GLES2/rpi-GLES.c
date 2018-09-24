@@ -105,18 +105,8 @@
 
 #define V3D_ERRSTAT (0xf20>>2) // Miscellaneous Error Signals (VPM, VDW, VCD, VCM, L2C)
 
+#define ALIGN_128BIT_MASK  0xFFFFFF80
 
-// Flags for allocate memory.
-enum {
-	MEM_FLAG_DISCARDABLE = 1 << 0,				/* can be resized to 0 at any time. Use for cached data */
-	MEM_FLAG_NORMAL = 0 << 2,					/* normal allocating alias. Don't use from ARM */
-	MEM_FLAG_DIRECT = 1 << 2,					/* 0xC alias uncached */
-	MEM_FLAG_COHERENT = 2 << 2,					/* 0x8 alias. Non-allocating in L2 but coherent */
-	MEM_FLAG_L1_NONALLOCATING = (MEM_FLAG_DIRECT | MEM_FLAG_COHERENT), /* Allocating in L2 */
-	MEM_FLAG_ZERO = 1 << 4,						/* initialise buffer to all zeros */
-	MEM_FLAG_NO_INIT = 1 << 5,					/* don't initialise (default is initialise to all ones */
-	MEM_FLAG_HINT_PERMALOCK = 1 << 6,			/* Likely to be locked for long periods of time. */
-};
 
 /* primitive typoe in the GL pipline */
 typedef enum {
@@ -182,49 +172,89 @@ struct __attribute__((__packed__, aligned(1))) EMITDATA {
 	uint8_t byte4;
 };
 
+/*==========================================================================}
+{						 PUBLIC GPU INITIALIZE FUNCTION						}
+{==========================================================================*/
 
+/*-[ InitV3D ]--------------------------------------------------------------}
+. This must be called before any other function is called in this unit and
+. should be called after the any changes to teh ARM system clocks. That is
+. because it needs to make settings based on the system clocks.
+. RETURN : TRUE if system could be initialized, FALSE if initialize fails
+.--------------------------------------------------------------------------*/
 bool InitV3D (void) {
 	if (mailbox_tag_message(0, 9,
-		MAILBOX_TAG_SET_CLOCK_RATE, 8, 8,
-		CLK_V3D_ID, 250000000,
-		MAILBOX_TAG_ENABLE_QPU, 4, 4, 1)) {
-		if (v3d[V3D_IDENT0] == 0x02443356) { // Magic number.
-			return true;
-		}
+		MAILBOX_TAG_SET_CLOCK_RATE, 8, 8, CLK_V3D_ID, 250000000,	// Set V3D clock to 250Mhz
+		MAILBOX_TAG_ENABLE_QPU, 4, 4, 1))							// Enable the QPU untis
+	{																// Message was successful
+		if (v3d[V3D_IDENT0] == 0x02443356) return true;				// We can read V3D ID number.
 	}
-	return false;
+	return false;													// Initialize failed
 }
 
-uint32_t V3D_mem_alloc (uint32_t size, uint32_t align, uint32_t flags)
+/*==========================================================================}
+{						  PUBLIC GPU MEMORY FUNCTIONS						}
+{==========================================================================*/
+
+/*-[ V3D_mem_alloc ]--------------------------------------------------------}
+. Allocates contiguous memory on the GPU with size and alignment in bytes
+. and with the properties of the flags.
+. RETURN : GPU handle on successs, 0 if allocation fails
+.--------------------------------------------------------------------------*/
+GPU_HANDLE V3D_mem_alloc (uint32_t size, uint32_t align, V3D_MEMALLOC_FLAGS flags)
 {
 	uint32_t buffer[6];
 	if (mailbox_tag_message(&buffer[0], 6,
-		MAILBOX_TAG_ALLOCATE_MEMORY, 12, 12, size, align, flags)) {
-		return buffer[3];
+		MAILBOX_TAG_ALLOCATE_MEMORY, 12, 12, size, align, flags))	// Allocate memory tag 
+	{																// Message was successful
+		return buffer[3];											// GPU handle returned										
 	}
-	return 0;
+	return 0;														// Memory allocate failed
 }
 
-bool V3D_mem_free (uint32_t handle)
+/*-[ V3D_mem_free ]---------------------------------------------------------}
+. All memory associated with the GPU handle is released.
+. RETURN : TRUE on successs, FALSE if release fails
+.--------------------------------------------------------------------------*/
+bool V3D_mem_free (GPU_HANDLE handle)
 {
-	return (mailbox_tag_message(0, 4,
-		MAILBOX_TAG_RELEASE_MEMORY, 4, 4, handle));
+	uint32_t buffer[4] = { 0 };
+	if (mailbox_tag_message(0, 4,
+		MAILBOX_TAG_RELEASE_MEMORY, 4, 4, handle))					// Release memory tag
+	{																// Release was successful
+		if (buffer[3] == 0) return true;							// Return true
+	}
+	return false;													// Return false
 }
 
-uint32_t V3D_mem_lock (uint32_t handle)
+/*-[ V3D_mem_lock ]---------------------------------------------------------}
+. Locks the memory associated to the GPU handle to a GPU bus address.
+. RETURN : locked gpu address, 0 if lock fails
+.--------------------------------------------------------------------------*/
+uint32_t V3D_mem_lock (GPU_HANDLE handle)
 {
-	uint32_t buffer[4];
+	uint32_t buffer[4] = { 0 };
 	if (mailbox_tag_message(&buffer[0], 4,
-		MAILBOX_TAG_LOCK_MEMORY, 4, 4, handle)) {
-		return buffer[3];
+		MAILBOX_TAG_LOCK_MEMORY, 4, 4, handle))						// Lock memory tag
+	{																// message was successful
+		return buffer[3];											// Return the bus address
 	}
-	return 0;
+	return 0;														// Return failure
 }
 
-bool V3D_mem_unlock (uint32_t handle)
+/*-[ V3D_mem_unlock ]-------------------------------------------------------}
+. Unlocks the memory associated to the GPU handle from the GPU bus address.
+. RETURN : TRUE if sucessful, FALSE if it fails
+.--------------------------------------------------------------------------*/
+bool V3D_mem_unlock (GPU_HANDLE handle)
 {
-	return (mailbox_tag_message(0, 4,
-		MAILBOX_TAG_UNLOCK_MEMORY, 4, 4, handle));
+	uint32_t buffer[4] = { 0 };
+	if (mailbox_tag_message(0, 4,
+		MAILBOX_TAG_UNLOCK_MEMORY, 4, 4, handle))					// Memory unlock tag
+	{																// Message was successful
+		if (buffer[3] == 0) return true;							// Return true
+	}
+	return false;													// Return false
 }
 
 bool V3D_execute_code (uint32_t code, uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3, uint32_t r4, uint32_t r5)
@@ -268,317 +298,361 @@ static void emit_float(uint8_t **list, float f) {
 }
 
 
-// Render a single triangle to memory.
-void testTriangle (uint16_t renderWth, uint16_t renderHt, uint32_t renderBufferAddr, printhandler prn_handler) {
-	//  We allocate/lock some videocore memory
-	// I'm just shoving everything in a single buffer because I'm lazy 8Mb, 4k alignment
-	// Normally you would do individual allocations but not sure of interface I want yet
-	// So lets just define some address in that one single buffer for now 
-	// You need to make sure they don't overlap if you expand sample
-	#define BUFFER_VERTEX_INDEX		0x70 
-	#define BUFFER_SHADER_OFFSET	0x80
-	#define BUFFER_VERTEX_DATA		0x100 
-	#define BUFFER_TILE_STATE		0x200
-	#define BUFFER_TILE_DATA		0x6000
-	#define BUFFER_RENDER_CONTROL	0xe200
-	#define BUFFER_FRAGMENT_SHADER	0xfe00
-	#define BUFFER_FRAGMENT_UNIFORM	0xff00
+bool V3D_InitializeScene (RENDER_STRUCT* scene, uint32_t renderWth, uint32_t renderHt )
+{
+	if (scene) 
+	{
+		scene->rendererHandle = V3D_mem_alloc(0x10000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
+		if (!scene->rendererHandle) return false;
+		scene->rendererDataVC4 = V3D_mem_lock(scene->rendererHandle);
+		scene->loadpos = scene->rendererDataVC4;					// VC4 load from start of memory
 
-	uint32_t handle = V3D_mem_alloc(0x800000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
-	if (!handle) {
-		if (prn_handler) prn_handler("Error: Unable to allocate memory");
-		return;
+		scene->renderWth = renderWth;								// Render width
+		scene->renderHt = renderHt;									// Render height
+		scene->binWth = (renderWth + 63) / 64;						// Tiles across 
+		scene->binHt = (renderHt + 63) / 64;						// Tiles down 
+
+		scene->tileMemSize = 0x4000;
+		scene->tileHandle = V3D_mem_alloc(scene->tileMemSize + 0x4000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
+		scene->tileStateDataVC4 = V3D_mem_lock(scene->tileHandle);
+		scene->tileDataBufferVC4 = scene->tileStateDataVC4 + 0x4000;
+
+		scene->binningHandle = V3D_mem_alloc(0x10000, 0x1000, MEM_FLAG_COHERENT | MEM_FLAG_ZERO);
+		scene->binningDataVC4 = V3D_mem_lock(scene->binningHandle);
+		return true;
 	}
-	uint32_t bus_addr = V3D_mem_lock(handle);
-	uint8_t *list = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(bus_addr);
+	return false;
+}
 
-	uint8_t *p = list;
+bool V3D_AddVertexesToScene (RENDER_STRUCT* scene)
+{
+	if (scene) 
+	{
+		scene->vertexVC4 = (scene->loadpos + 127) & ALIGN_128BIT_MASK;	// Hold vertex start adderss .. aligned to 128bits
+		uint8_t* p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->vertexVC4);
+		uint8_t* q = p;
 
-	// Configuration stuff
-	// Tile Binning Configuration.
-	//   Tile state data is 48 bytes per tile, I think it can be thrown away
-	//   as soon as binning is finished.
-	//   A tile itself is 64 x 64 pixels 
-	//   we will need binWth of them across to cover the render width
-	//   we will need binHt of them down to cover the render height
-	//   we add 63 before the division because any fraction at end must have a bin
-	uint_fast32_t binWth = (renderWth + 63) / 64;					// Tiles across 
-	uint_fast32_t binHt = (renderHt + 63) / 64;						// Tiles down 
+		/* Setup triangle vertices from OpenGL tutorial which used this */
+		// fTriangle[0] = -0.4f; fTriangle[1] = 0.1f; fTriangle[2] = 0.0f;
+		// fTriangle[3] = 0.4f; fTriangle[4] = 0.1f; fTriangle[5] = 0.0f;
+		// fTriangle[6] = 0.0f; fTriangle[7] = 0.7f; fTriangle[8] = 0.0f;
+		uint_fast32_t centreX = scene->renderWth / 2;							// triangle centre x
+		uint_fast32_t centreY = (uint_fast32_t)(0.4f * (scene->renderHt / 2));	// triangle centre y
+		uint_fast32_t half_shape_wth = (uint_fast32_t)(0.4f * (scene->renderWth / 2));// Half width of triangle
+		uint_fast32_t half_shape_ht = (uint_fast32_t)(0.3f * (scene->renderHt / 2));  // half height of tringle
 
-	emit_uint8_t(&p, GL_TILE_BINNING_CONFIG);						// tile binning config control 
-	emit_uint32_t(&p, bus_addr + BUFFER_TILE_DATA);					// tile allocation memory address
-	emit_uint32_t(&p, 0x4000);										// tile allocation memory size
-	emit_uint32_t(&p, bus_addr + BUFFER_TILE_STATE);				// Tile state data address
-	emit_uint8_t(&p, binWth);										// renderWidth/64
-	emit_uint8_t(&p, binHt);										// renderHt/64
-	emit_uint8_t(&p, 0x04);											// config
+		// Vertex Data
 
-	// Start tile binning.
-	emit_uint8_t(&p, GL_START_TILE_BINNING);						// Start binning command
+		// Vertex: Top, vary red
+		emit_uint16_t(&p, (centreX) << 4);								// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 1.0f);											// Varying 0 (Red)
+		emit_float(&p, 0.0f);											// Varying 1 (Green)
+		emit_float(&p, 0.0f);											// Varying 2 (Blue)
 
-	// Primitive type
-	emit_uint8_t(&p, GL_PRIMITIVE_LIST_FORMAT);
-	emit_uint8_t(&p, 0x32);											// 16 bit triangle
+		// Vertex: bottom left, vary blue
+		emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 0.0f);											// Varying 0 (Red)
+		emit_float(&p, 0.0f);											// Varying 1 (Green)
+		emit_float(&p, 1.0f);											// Varying 2 (Blue)
 
-	// Clip Window
-	emit_uint8_t(&p, GL_CLIP_WINDOW);								// Clip window 
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, renderWth);									// width
-	emit_uint16_t(&p, renderHt);									// height
-
-	// GL State
-	emit_uint8_t(&p, GL_CONFIG_STATE);
-	emit_uint8_t(&p, 0x03);											// enable both foward and back facing polygons
-	emit_uint8_t(&p, 0x00);											// depth testing disabled
-	emit_uint8_t(&p, 0x02);											// enable early depth write
-
-	// Viewport offset
-	emit_uint8_t(&p, GL_VIEWPORT_OFFSET);							// Viewport offset
-	emit_uint16_t(&p, 0);											// 0
-	emit_uint16_t(&p, 0);											// 0
-
-	// The triangle
-	// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
-	emit_uint8_t(&p, GL_NV_SHADER_STATE);
-	emit_uint32_t(&p, bus_addr + BUFFER_SHADER_OFFSET);				// Shader Record
-
-	// primitive index list
-	emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
-	emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
-	emit_uint32_t(&p, 9);											// Length
-	emit_uint32_t(&p, bus_addr + BUFFER_VERTEX_INDEX);				// address
-	emit_uint32_t(&p, 6);											// Maximum index
+		// Vertex: bottom right, vary green 
+		emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 0.0f);											// Varying 0 (Red)
+		emit_float(&p, 1.0f);											// Varying 1 (Green)
+		emit_float(&p, 0.0f);											// Varying 2 (Blue)
 
 
-	// End of bin list
-	// So Flush
-	emit_uint8_t(&p, GL_FLUSH_ALL_STATE);
-	// Nop
-	emit_uint8_t(&p, GL_NOP);
-	// Halt
-	emit_uint8_t(&p, GL_HALT);
+		/* Setup triangle vertices from OpenGL tutorial which used this */
+		// fQuad[0] = -0.2f; fQuad[1] = -0.1f; fQuad[2] = 0.0f;
+		// fQuad[3] = -0.2f; fQuad[4] = -0.6f; fQuad[5] = 0.0f;
+		// fQuad[6] = 0.2f; fQuad[7] = -0.1f; fQuad[8] = 0.0f;
+		// fQuad[9] = 0.2f; fQuad[10] = -0.6f; fQuad[11] = 0.0f;
+		centreY = (uint_fast32_t)(1.35f * (scene->renderHt / 2));				// quad centre y
 
-	int length = p - list;
+		// Vertex: Top, left  vary blue
+		emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 0.0f);											// Varying 0 (Red)
+		emit_float(&p, 0.0f);											// Varying 1 (Green)
+		emit_float(&p, 1.0f);											// Varying 2 (Blue)
 
-	// Okay now we need Shader Record to buffer
-	p = list + BUFFER_SHADER_OFFSET;
-	emit_uint8_t(&p, 0x01);											// flags
-	emit_uint8_t(&p, 6 * 4);										// stride
-	emit_uint8_t(&p, 0xcc);											// num uniforms (not used)
-	emit_uint8_t(&p, 3);											// num varyings
-	emit_uint32_t(&p, bus_addr + BUFFER_FRAGMENT_SHADER);			// Fragment shader code
-	emit_uint32_t(&p, bus_addr + BUFFER_FRAGMENT_UNIFORM);			// Fragment shader uniforms
-	emit_uint32_t(&p, bus_addr + BUFFER_VERTEX_DATA);				// Vertex Data
+		// Vertex: bottom left, vary Green
+		emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 0.0f);											// Varying 0 (Red)
+		emit_float(&p, 1.0f);											// Varying 1 (Green)
+		emit_float(&p, 0.0f);											// Varying 2 (Blue)
+
+		// Vertex: top right, vary red
+		emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 1.0f);											// Varying 0 (Red)
+		emit_float(&p, 0.0f);											// Varying 1 (Green)
+		emit_float(&p, 0.0f);											// Varying 2 (Blue)
+
+		// Vertex: bottom right, vary yellow
+		emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
+		emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
+		emit_float(&p, 1.0f);											// Z
+		emit_float(&p, 1.0f);											// 1/W
+		emit_float(&p, 0.0f);											// Varying 0 (Red)
+		emit_float(&p, 1.0f);											// Varying 1 (Green)
+		emit_float(&p, 1.0f);											// Varying 2 (Blue)
+
+		scene->num_verts = 7;
+		scene->loadpos = scene->vertexVC4 + (p - q);					// Update load position
+
+		scene->indexVertexVC4 = (scene->loadpos + 127) & ALIGN_128BIT_MASK;// Hold index vertex start adderss .. align it to 128 bits
+		p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->indexVertexVC4);
+		q = p;
+
+		emit_uint8_t(&p, 0);											// tri - top
+		emit_uint8_t(&p, 1);											// tri - bottom left
+		emit_uint8_t(&p, 2);											// tri - bottom right
+
+		emit_uint8_t(&p, 3);											// quad - top left
+		emit_uint8_t(&p, 4);											// quad - bottom left
+		emit_uint8_t(&p, 5);											// quad - top right
+
+		emit_uint8_t(&p, 4);											// quad - bottom left
+		emit_uint8_t(&p, 6);											// quad - bottom right
+		emit_uint8_t(&p, 5);											// quad - top right
+		scene->IndexVertexCt = 9;
+		scene->MaxIndexVertex = 6;
+
+		scene->loadpos = scene->indexVertexVC4 + (p - q);				// Move loaad pos to new position
+		return true;
+	}
+	return false;
+}
 
 
-	/* Setup triangle vertices from OpenGL tutorial which used this */
-	// fTriangle[0] = -0.4f; fTriangle[1] = 0.1f; fTriangle[2] = 0.0f;
-	// fTriangle[3] = 0.4f; fTriangle[4] = 0.1f; fTriangle[5] = 0.0f;
-	// fTriangle[6] = 0.0f; fTriangle[7] = 0.7f; fTriangle[8] = 0.0f;
-	uint_fast32_t centreX = renderWth / 2;							// triangle centre x
-	uint_fast32_t centreY = (uint_fast32_t)(0.4f * (renderHt / 2));	// triangle centre y
-	uint_fast32_t half_shape_wth = (uint_fast32_t)(0.4f * (renderWth / 2));// Half width of triangle
-	uint_fast32_t half_shape_ht = (uint_fast32_t)(0.3f * (renderHt / 2));  // half height of tringle
+bool V3D_AddShadderToScene (RENDER_STRUCT* scene, uint32_t* frag_shader, uint32_t frag_shader_emits)
+{
+	if (scene)
+	{
+		scene->shaderStart = (scene->loadpos + 127) & ALIGN_128BIT_MASK;// Hold shader start adderss .. aligned to 127 bits
+		uint8_t *p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->shaderStart);	// ARM address for load
+		uint8_t *q = p;												// Hold start address
 
-	// Vertex Data
-	p = list + BUFFER_VERTEX_DATA;
-	// Vertex: Top, vary red
-	emit_uint16_t(&p, (centreX) << 4);								// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 1.0f);											// Varying 0 (Red)
-	emit_float(&p, 0.0f);											// Varying 1 (Green)
-	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+		for (int i = 0; i < frag_shader_emits; i++)					// For the number of fragment shader emits
+			emit_uint32_t(&p, frag_shader[i]);						// Emit fragment shader into our allocated memory
 
-	// Vertex: bottom left, vary blue
-	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 0.0f);											// Varying 1 (Green)
-	emit_float(&p, 1.0f);											// Varying 2 (Blue)
+		scene->loadpos = scene->shaderStart + (p - q);				// Update load position
 
-	// Vertex: bottom right, vary green 
-	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 1.0f);											// Varying 1 (Green)
-	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+		scene->fragShaderRecStart = (scene->loadpos + 127) & ALIGN_128BIT_MASK;// Hold frag shader start adderss .. .aligned to 128bits
+		p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->fragShaderRecStart);
+		q = p;
+
+		// Okay now we need Shader Record to buffer
+		emit_uint8_t(&p, 0x01);										// flags
+		emit_uint8_t(&p, 6 * 4);									// stride
+		emit_uint8_t(&p, 0xcc);										// num uniforms (not used)
+		emit_uint8_t(&p, 3);										// num varyings
+		emit_uint32_t(&p, scene->shaderStart);						// Shader code address
+		emit_uint32_t(&p, 0);										// Fragment shader uniforms (not in use)
+		emit_uint32_t(&p, scene->vertexVC4);						// Vertex Data
+
+		scene->loadpos = scene->fragShaderRecStart + (p - q);		// Adjust VC4 load poistion
+
+		return true;
+	}
+	return false;
+}
 
 
-    /* Setup triangle vertices from OpenGL tutorial which used this */
-	// fQuad[0] = -0.2f; fQuad[1] = -0.1f; fQuad[2] = 0.0f;
-	// fQuad[3] = -0.2f; fQuad[4] = -0.6f; fQuad[5] = 0.0f;
-	// fQuad[6] = 0.2f; fQuad[7] = -0.1f; fQuad[8] = 0.0f;
-	// fQuad[9] = 0.2f; fQuad[10] = -0.6f; fQuad[11] = 0.0f;
-	centreY = (uint_fast32_t)(1.35f * (renderHt / 2));				// quad centre y
+bool V3D_SetupRenderControl (RENDER_STRUCT* scene, VC4_ADDR renderBufferAddr)
+{
+	if (scene)
+	{
+		scene->renderControlVC4 = (scene->loadpos + 127) & ALIGN_128BIT_MASK;// Hold render control start adderss .. aligned to 128 bits
+		uint8_t *p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->renderControlVC4); // ARM address for load
+		uint8_t *q = p;												// Hold start address
 
-	// Vertex: Top, left  vary blue
-	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 0.0f);											// Varying 1 (Green)
-	emit_float(&p, 1.0f);											// Varying 2 (Blue)
+		// Clear colors
+		emit_uint8_t(&p, GL_CLEAR_COLORS);
+		emit_uint32_t(&p, 0xff000000);								// Opaque Black
+		emit_uint32_t(&p, 0xff000000);								// 32 bit clear colours need to be repeated twice
+		emit_uint32_t(&p, 0);
+		emit_uint8_t(&p, 0);
 
-	// Vertex: bottom left, vary Green
-	emit_uint16_t(&p, (centreX - half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 1.0f);											// Varying 1 (Green)
-	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+		// Tile Rendering Mode Configuration
+		emit_uint8_t(&p, GL_TILE_RENDER_CONFIG);
 
-	// Vertex: top right, vary red
-	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY - half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 1.0f);											// Varying 0 (Red)
-	emit_float(&p, 0.0f);											// Varying 1 (Green)
-	emit_float(&p, 0.0f);											// Varying 2 (Blue)
+		emit_uint32_t(&p, renderBufferAddr);						// render address (will be framebuffer)
 
-	// Vertex: bottom right, vary yellow
-	emit_uint16_t(&p, (centreX + half_shape_wth) << 4);				// X in 12.4 fixed point
-	emit_uint16_t(&p, (centreY + half_shape_ht) << 4);				// Y in 12.4 fixed point
-	emit_float(&p, 1.0f);											// Z
-	emit_float(&p, 1.0f);											// 1/W
-	emit_float(&p, 0.0f);											// Varying 0 (Red)
-	emit_float(&p, 1.0f);											// Varying 1 (Green)
-	emit_float(&p, 1.0f);											// Varying 2 (Blue)
+		emit_uint16_t(&p, scene->renderWth);						// render width
+		emit_uint16_t(&p, scene->renderHt);							// render height
+		emit_uint8_t(&p, 0x04);										// framebuffer mode (linear rgba8888)
+		emit_uint8_t(&p, 0x00);
 
-	// Vertex list
-	p = list + BUFFER_VERTEX_INDEX;
-	emit_uint8_t(&p, 0);											// tri - top
-	emit_uint8_t(&p, 1);											// tri - bottom left
-	emit_uint8_t(&p, 2);											// tri - bottom right
+		// Do a store of the first tile to force the tile buffer to be cleared
+		// Tile Coordinates
+		emit_uint8_t(&p, GL_TILE_COORDINATES);
+		emit_uint8_t(&p, 0);
+		emit_uint8_t(&p, 0);
 
-	emit_uint8_t(&p, 3);											// quad - top left
-	emit_uint8_t(&p, 4);											// quad - bottom left
-	emit_uint8_t(&p, 5);											// quad - top right
+		// Store Tile Buffer General
+		emit_uint8_t(&p, GL_STORE_TILE_BUFFER);
+		emit_uint16_t(&p, 0);										// Store nothing (just clear)
+		emit_uint32_t(&p, 0);										// no address is needed
 
-	emit_uint8_t(&p, 4);											// quad - bottom left
-	emit_uint8_t(&p, 6);											// quad - bottom right
-	emit_uint8_t(&p, 5);											// quad - top right
+		// Link all binned lists together
+		for (int x = 0; x < scene->binWth; x++) {
+			for (int y = 0; y < scene->binHt; y++) {
 
-	// fragment shader
-	p = list + BUFFER_FRAGMENT_SHADER;
-	emit_uint32_t(&p, 0x958e0dbf);
-	emit_uint32_t(&p, 0xd1724823); /* mov r0, vary; mov r3.8d, 1.0 */
-	emit_uint32_t(&p, 0x818e7176);
-	emit_uint32_t(&p, 0x40024821); /* fadd r0, r0, r5; mov r1, vary */
-	emit_uint32_t(&p, 0x818e7376);
-	emit_uint32_t(&p, 0x10024862); /* fadd r1, r1, r5; mov r2, vary */
-	emit_uint32_t(&p, 0x819e7540);
-	emit_uint32_t(&p, 0x114248a3); /* fadd r2, r2, r5; mov r3.8a, r0 */
-	emit_uint32_t(&p, 0x809e7009);
-	emit_uint32_t(&p, 0x115049e3); /* nop; mov r3.8b, r1 */
-	emit_uint32_t(&p, 0x809e7012);
-	emit_uint32_t(&p, 0x116049e3); /* nop; mov r3.8c, r2 */
-	emit_uint32_t(&p, 0x159e76c0);
-	emit_uint32_t(&p, 0x30020ba7); /* mov tlbc, r3; nop; thrend */
-	emit_uint32_t(&p, 0x009e7000);
-	emit_uint32_t(&p, 0x100009e7); /* nop; nop; nop */
-	emit_uint32_t(&p, 0x009e7000);
-	emit_uint32_t(&p, 0x500009e7); /* nop; nop; sbdone */
+				// Tile Coordinates
+				emit_uint8_t(&p, GL_TILE_COORDINATES);
+				emit_uint8_t(&p, x);
+				emit_uint8_t(&p, y);
 
-	// Render control list
-	p = list + BUFFER_RENDER_CONTROL;
+				// Call Tile sublist
+				emit_uint8_t(&p, GL_BRANCH_TO_SUBLIST);
+				emit_uint32_t(&p, scene->tileDataBufferVC4 + (y * scene->binWth + x) * 32);
 
-	// Clear colors
-	emit_uint8_t(&p, GL_CLEAR_COLORS);
-	emit_uint32_t(&p, 0xff000000);			// Opaque Black
-	emit_uint32_t(&p, 0xff000000);			// 32 bit clear colours need to be repeated twice
-	emit_uint32_t(&p, 0);
-	emit_uint8_t(&p, 0);
-
-	// Tile Rendering Mode Configuration
-	emit_uint8_t(&p, GL_TILE_RENDER_CONFIG);
-
-	emit_uint32_t(&p, renderBufferAddr);	// render address
-
-	emit_uint16_t(&p, renderWth);			// width
-	emit_uint16_t(&p, renderHt);			// height
-	emit_uint8_t(&p, 0x04);					// framebuffer mode (linear rgba8888)
-	emit_uint8_t(&p, 0x00);
-
-	// Do a store of the first tile to force the tile buffer to be cleared
-	// Tile Coordinates
-	emit_uint8_t(&p, GL_TILE_COORDINATES);
-	emit_uint8_t(&p, 0);
-	emit_uint8_t(&p, 0);
-	// Store Tile Buffer General
-	emit_uint8_t(&p, GL_STORE_TILE_BUFFER);
-	emit_uint16_t(&p, 0);					// Store nothing (just clear)
-	emit_uint32_t(&p, 0);					// no address is needed
-
-	// Link all binned lists together
-	for (int x = 0; x < binWth; x++) {
-		for (int y = 0; y < binHt; y++) {
-
-			// Tile Coordinates
-			emit_uint8_t(&p, GL_TILE_COORDINATES);
-			emit_uint8_t(&p, x);
-			emit_uint8_t(&p, y);
-
-			// Call Tile sublist
-			emit_uint8_t(&p, GL_BRANCH_TO_SUBLIST);
-			emit_uint32_t(&p, bus_addr + BUFFER_TILE_DATA + (y * binWth + x) * 32);
-
-			// Last tile needs a special store instruction
-			if (x == (binWth - 1) && (y == binHt - 1)) {
-				// Store resolved tile color buffer and signal end of frame
-				emit_uint8_t(&p, GL_STORE_MULTISAMPLE_END);
-			}
-			else {
-				// Store resolved tile color buffer
-				emit_uint8_t(&p, GL_STORE_MULTISAMPLE);
+				// Last tile needs a special store instruction
+				if (x == (scene->binWth - 1) && (y == scene->binHt - 1)) {
+					// Store resolved tile color buffer and signal end of frame
+					emit_uint8_t(&p, GL_STORE_MULTISAMPLE_END);
+				}
+				else {
+					// Store resolved tile color buffer
+					emit_uint8_t(&p, GL_STORE_MULTISAMPLE);
+				}
 			}
 		}
+
+		scene->loadpos = scene->renderControlVC4 + (p - q);			// Adjust VC4 load poistion
+		scene->renderControlEndVC4 = scene->loadpos;				// Hold end of render control data
+
+		return true;
 	}
-
-
-	int render_length = p - (list + BUFFER_RENDER_CONTROL);
-
-
-	// Run our control list
-	v3d[V3D_BFC] = 1;                         // reset binning frame count
-	v3d[V3D_CT0CA] = bus_addr;
-	v3d[V3D_CT0EA] = bus_addr + length;
-
-	// Wait for control list to execute
-	while (v3d[V3D_CT0CS] & 0x20);
-
-	// wait for binning to finish
-	while (v3d[V3D_BFC] == 0) {}            
-
-	// stop the thread
-	v3d[V3D_CT0CS] = 0x20;
-
-	// Run our render
-	v3d[V3D_RFC] = 1;						// reset rendering frame count
-	v3d[V3D_CT1CA] = bus_addr + BUFFER_RENDER_CONTROL;
-	v3d[V3D_CT1EA] = bus_addr + BUFFER_RENDER_CONTROL + render_length;
-
-	// Wait for render to execute
-	while (v3d[V3D_CT1CS] & 0x20);
-
-	// wait for render to finish
-	while(v3d[V3D_RFC] == 0) {} 
-
-	// stop the thread
-	v3d[V3D_CT1CS] = 0x20;
-
-	// Release resources
-	V3D_mem_unlock(handle);
-	V3D_mem_free(handle);
-
+	return false;
 }
+
+
+bool V3D_SetupBinningConfig (RENDER_STRUCT* scene) 
+{
+	if (scene)
+	{
+		uint8_t *p = (uint8_t*)(uintptr_t)GPUaddrToARMaddr(scene->binningDataVC4); // ARM address for binning data load
+		uint8_t *list = p;												// Hold start address
+
+		emit_uint8_t(&p, GL_TILE_BINNING_CONFIG);						// tile binning config control 
+		emit_uint32_t(&p, scene->tileDataBufferVC4);					// tile allocation memory address
+		emit_uint32_t(&p, scene->tileMemSize);							// tile allocation memory size
+		emit_uint32_t(&p, scene->tileStateDataVC4);						// Tile state data address
+		emit_uint8_t(&p, scene->binWth);								// renderWidth/64
+		emit_uint8_t(&p, scene->binHt);									// renderHt/64
+		emit_uint8_t(&p, 0x04);											// config
+
+		// Start tile binning.
+		emit_uint8_t(&p, GL_START_TILE_BINNING);						// Start binning command
+
+		// Primitive type
+		emit_uint8_t(&p, GL_PRIMITIVE_LIST_FORMAT);
+		emit_uint8_t(&p, 0x32);											// 16 bit triangle
+
+		// Clip Window
+		emit_uint8_t(&p, GL_CLIP_WINDOW);								// Clip window 
+		emit_uint16_t(&p, 0);											// 0
+		emit_uint16_t(&p, 0);											// 0
+		emit_uint16_t(&p, scene->renderWth);							// width
+		emit_uint16_t(&p, scene->renderHt);								// height
+
+		// GL State
+		emit_uint8_t(&p, GL_CONFIG_STATE);
+		emit_uint8_t(&p, 0x03);											// enable both foward and back facing polygons
+		emit_uint8_t(&p, 0x00);											// depth testing disabled
+		emit_uint8_t(&p, 0x02);											// enable early depth write
+
+		// Viewport offset
+		emit_uint8_t(&p, GL_VIEWPORT_OFFSET);							// Viewport offset
+		emit_uint16_t(&p, 0);											// 0
+		emit_uint16_t(&p, 0);											// 0
+
+		// The triangle
+		// No Vertex Shader state (takes pre-transformed vertexes so we don't have to supply a working coordinate shader.)
+		emit_uint8_t(&p, GL_NV_SHADER_STATE);
+		emit_uint32_t(&p, scene->fragShaderRecStart);					// Shader Record
+
+		// primitive index list
+		emit_uint8_t(&p, GL_INDEXED_PRIMITIVE_LIST);					// Indexed primitive list command
+		emit_uint8_t(&p, PRIM_TRIANGLE);								// 8bit index, triangles
+		emit_uint32_t(&p, scene->IndexVertexCt);						// Number of index vertex
+		emit_uint32_t(&p, scene->indexVertexVC4);						// Address of index vertex data
+		emit_uint32_t(&p, scene->MaxIndexVertex);						// Maximum index
+
+
+		// End of bin list
+		// So Flush
+		emit_uint8_t(&p, GL_FLUSH_ALL_STATE);
+		// Nop
+		emit_uint8_t(&p, GL_NOP);
+		// Halt
+		emit_uint8_t(&p, GL_HALT);
+		scene->binningCfgEnd = scene->binningDataVC4 + (p-list);		// Hold binning data end address
+
+		return true;
+	}
+	return false;
+}
+
+
+
+/*-[ V3D_RenderScene ]------------------------------------------------------}
+. Pretty obvious asks the VC4 to renders the given scene
+.--------------------------------------------------------------------------*/
+void V3D_RenderScene (RENDER_STRUCT* scene) 
+{
+	if (scene) {
+		// clear caches
+		v3d[V3D_L2CACTL] = 4;
+		v3d[V3D_SLCACTL] = 0x0F0F0F0F;
+
+		// stop the thread
+		v3d[V3D_CT0CS] = 0x20;
+		// wait for it to stop
+		while (v3d[V3D_CT0CS] & 0x20);
+
+		// Run our control list
+		v3d[V3D_BFC] = 1;											// reset binning frame count
+		v3d[V3D_CT0CA] = scene->binningDataVC4;						// Start binning config address
+		v3d[V3D_CT0EA] = scene->binningCfgEnd;						// End binning config address is at render control start
+
+		// wait for binning to finish
+		while (v3d[V3D_BFC] == 0) {}
+
+		// stop the thread
+		v3d[V3D_CT1CS] = 0x20;
+
+		// Wait for thread to stop
+		while (v3d[V3D_CT1CS] & 0x20);
+
+		// Run our render
+		v3d[V3D_RFC] = 1;											// reset rendering frame count
+		v3d[V3D_CT1CA] = scene->renderControlVC4;					// Start address for render control
+		v3d[V3D_CT1EA] = scene->renderControlEndVC4;				// End address for render control
+
+		// wait for render to finish
+		while (v3d[V3D_RFC] == 0) {}
+
+	}
+}
+
 
