@@ -19,4 +19,4 @@ For Pi3 in 64 Bit:
      
 To clean for full compile:     
 >     Make Clean
-![](https://github.com/LdB-ECM/Raspberry-Pi/blob/master/Images/USB_HID.jpg)
+![](https://github.com/LdB-ECM/Docs_and_Images/blob/master/Images/USB64_alpha.jpg?raw=true)
