@@ -4,7 +4,7 @@ My redux of CSUD (Chadderz's Simple USB Driver) by Alex Chadwick was converted t
 
 Just in the process of updating ... I will update details here shortly
 
-If you just want to see it just put the files in the firmware directory on a formatted SD card and place in Pi3.
+If you just want to see it just put the files in the DiskImg directory on a formatted SD card and place in your Pi.
 
 To compile edit the makefile so the compiler path matches your compiler:
 >
