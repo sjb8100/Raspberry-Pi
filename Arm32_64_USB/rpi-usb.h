@@ -85,9 +85,6 @@ static inline uint32_t SizeToNumber(UsbPacketSize size) {
 #define MaximumDevices 32											// Max number of devices with a USB node we will allow 
 
 
-
-
-
 	/**
 	\brief The maximum number of children a device could have, by implication, this is
 	the maximum number of ports a hub supports.
@@ -150,12 +147,40 @@ extern const char* SpeedString[3];	// Speed strings High, Low, Full provided as 
 /*--------------------------------------------------------------------------}
 {			 Transfer types as layed out in USB 2.0 standard			    }
 {--------------------------------------------------------------------------*/
-typedef enum {
-	USB_CONTROL = 0,												// USB control transfer
-	USB_ISOCHRONOUS = 1,											// USB isochronous transfer
-	USB_BULK = 2,													// USB bulk transfer
-	USB_INTERRUPT = 3,												// USB interrupt transfer
-} UsbTransfer;
+enum usb_transfer_type {
+	USB_TRANSFER_TYPE_CONTROL = 0,
+	USB_TRANSFER_TYPE_ISOCHRONOUS = 1,
+	USB_TRANSFER_TYPE_BULK = 2,
+	USB_TRANSFER_TYPE_INTERRUPT = 3,
+};
+
+/*--------------------------------------------------------------------------}
+{			 Transfer sizes as layed out in USB 2.0 standard			    }
+{--------------------------------------------------------------------------*/
+enum usb_transfer_size {
+	USB_TRANSFER_SIZE_8_BIT = 0,
+	USB_TRANSFER_SIZE_16_BIT = 1,
+	USB_TRANSFER_SIZE_32_BIT = 2,
+	USB_TRANSFER_SIZE_64_BIT = 3,
+};
+
+/*--------------------------------------------------------------------------}
+{	 USB description types as per Table 9-5 in Section 9.4 of USB2.0 spec	}
+{--------------------------------------------------------------------------*/
+enum usb_descriptor_type {
+	USB_DESCRIPTOR_TYPE_DEVICE = 1,
+	USB_DESCRIPTOR_TYPE_CONFIGURATION = 2,
+	USB_DESCRIPTOR_TYPE_STRING = 3,
+	USB_DESCRIPTOR_TYPE_INTERFACE = 4,
+	USB_DESCRIPTOR_TYPE_ENDPOINT = 5,
+	USB_DESCRIPTOR_TYPE_QUALIFIER = 6,
+	USB_DESCRIPTOR_TYPE_OTHERSPEED_CONFIG = 7,
+	USB_DESCRIPTOR_TYPE_INTERFACE_POWER = 8,
+	USB_DESCRIPTOR_TYPE_HID = 33,
+	USB_DESCRIPTOR_TYPE_HID_REPORT = 34,
+	USB_DESCRIPTOR_TYPE_HID_PHYSICAL = 35,
+	USB_DESCRIPTOR_TYPE_HUB = 41,
+};
 
 /*--------------------------------------------------------------------------}
 {		 Enumeration Status defined in 9.1 of USB 2.0 standard			    }
@@ -227,29 +252,11 @@ struct __attribute__((__packed__)) UsbDeviceRequest {
 };
 
 /*--------------------------------------------------------------------------}
-{			   USB description types as per 9.6 of the USB2.0				}
-{--------------------------------------------------------------------------*/
-enum DescriptorType {
-	Device = 1,
-	Configuration = 2,
-	String = 3,
-	Interface = 4,
-	Endpoint = 5,
-	DeviceQualifier = 6,
-	OtherSpeedConfiguration = 7,
-	InterfacePower = 8,
-	Hid = 33,
-	HidReport = 34,
-	HidPhysical = 35,
-	Hub = 41,
-};
-
-/*--------------------------------------------------------------------------}
 {	         USB description header as per 9.6 of the USB2.0				}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbDescriptorHeader {
 	uint8_t DescriptorLength;										// +0x0
-	enum DescriptorType DescriptorType : 8;							// +0x1
+	enum usb_descriptor_type DescriptorType : 8;					// +0x1
 };
 
 /*--------------------------------------------------------------------------}
@@ -264,66 +271,48 @@ enum DeviceClass {
 	DeviceClassVendorSpecific = 0xff,
 };
 
-/*--------------------------------------------------------------------------}
-{						 USB device descriptor 								}
-{--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) UsbDeviceDescriptor {
-	struct UsbDescriptorHeader Header;								// +0x0	Length of this descriptor, +0x1 DEVICE descriptor type (enum DescriptorType)
-	union {															// Place anonymous union over BCD version .. alignment issues on ARM7/8 and Most 32 bit RISCs
-		struct __attribute__((__packed__, aligned(1))) {
-			uint8_t UsbVersionLo;									// Lo byte of version BCD
-			uint8_t UsbVersionHi;									// Hi byte of version BCD
-		};
-		uint16_t UsbVersion;										// +0x2 (in BCD 0x210 = USB2.10) 
-	};
-	enum DeviceClass Class : 8;										// +0x4 Class code (enum DeviceClass )
-	uint8_t SubClass;												// +0x5 Subclass code (assigned by the USB-IF)
-	uint8_t Protocol;												// +0x6 Protocol code (assigned by the USB-IF)
-	uint8_t MaxPacketSize0;											// +0x7 Maximum packet size for endpoint 0
-	union {															// Place an anonymous union over VendorId .. alignment issues on ARM7/8 and most 32bit RISCs
-		struct __attribute__((__packed__, aligned(1))) {
-			uint8_t VendorIdLo;										// Lo byte of VendorID
-			uint8_t VendorIdHi;										// Hi byte of VendorID
-		};
-		uint16_t VendorId;											// +0x8 Vendor ID (assigned by the USB-IF) 
-	};
-	union {															// Place an anonymous union over ProductId .. alignment issues on ARM7/8 and most 32bit RISCs
-		struct __attribute__((__packed__, aligned(1))) {
-			uint8_t ProductIdLo;									// Lo byte of ProductID
-			uint8_t ProductIdHi;									// Hi byte of ProductID
-		};
-		uint16_t ProductId;											// +0xa Product ID (assigned by the manufacturer)
-	};
-	union {															// Place an anonymous union over Version .. alignment issues on ARM7/8 and most 32bit RISCs
-		struct __attribute__((__packed__, aligned(1))) {
-			uint8_t VersionLo;										// Lo byte of Version
-			uint8_t VersionHi;										// Hi byte of Version
-		};
-		uint16_t Version;											// +0xc Device version number (BCD)
-	};
-	uint8_t Manufacturer;											// +0xe Index of String Descriptor describing the manufacturer.
-	uint8_t Product;												// +0xf Index of String Descriptor describing the product
-	uint8_t SerialNumber;											// +0x10 Index of String Descriptor with the device's serial number
-	uint8_t ConfigurationCount;										// +0x11 Number of possible configurations
-};
+ /*--------------------------------------------------------------------------}
+ {	   USB device descriptor .. Table 9-8 in 9.6.1 of the USB 2.0 spec	 	 }
+ {--------------------------------------------------------------------------*/
+struct usb_device_descriptor {
+	uint8_t  bLength;												// +0x0 Length of this descriptor
+	uint8_t  bDescriptorType;										// +0x1 Descriptor type
+	uint16_t bcdUSB;												// +0x2 (in BCD 0x210 = USB2.10)
+	uint8_t  bDeviceClass;											// +0x4 Class code (enum DeviceClass )
+	uint8_t  bDeviceSubClass;										// +0x5 Subclass code (assigned by the USB-IF)
+	uint8_t  bDeviceProtocol;										// +0x6 Protocol code (assigned by the USB-IF)
+	uint8_t  bMaxPacketSize0;										// +0x7 Maximum packet size for endpoint 0
+	uint16_t idVendor;												// +0x8 Vendor ID (assigned by the USB-IF)
+	uint16_t idProduct;												// +0xa Product ID (assigned by the manufacturer)
+	uint16_t bcdDevice;												// +0xc Device version number (BCD)
+	uint8_t  iManufacturer;											// +0xe Index of String Descriptor describing the manufacturer.
+	uint8_t  iProduct;												// +0xf Index of String Descriptor describing the product
+	uint8_t  iSerialNumber;											// +0x10 Index of String Descriptor with the device's serial number
+	uint8_t  bNumConfigurations;									// +0x11 Number of possible configurations
+} __packed;
 
 /*--------------------------------------------------------------------------}
 {	  USB device configuration descriptor as per 9.6.3 of USB2.0 manual		}
 {--------------------------------------------------------------------------*/
-struct __attribute__((__packed__)) UsbConfigurationDescriptor {
-	struct UsbDescriptorHeader Header;								// +0x0 Length of this descriptor, +0x1 DEVICE descriptor type (enum DescriptorType)
-	uint16_t TotalLength;											// +0x2 Total length of all descriptors for this configuration
-	uint8_t InterfaceCount;											// +0x4 Number of interfaces in this configuration
-	uint8_t ConfigurationValue;										// +0x5 Value of this configuration (1 based)
-	uint8_t StringIndex;											// +0x6 Index of String Descriptor describing the configuration
-	struct __attribute__((__packed__, aligned(1))) {
-		unsigned _reserved0_4 : 5;						// @0
-		unsigned RemoteWakeup : 1;						// @5
-		unsigned SelfPowered : 1;						// @6
-		unsigned _reserved7 : 1;						// @7
-	} Attributes;													// +0x7 Configuration characteristics
-	uint8_t MaximumPower;											// +0x8 Maximum power consumed by this configuration
-};
+struct usb_configuration_descriptor {
+	uint8_t  bLength;												// +0x0 Length of this descriptor
+	uint8_t  bDescriptorType;										// +0x1 DEVICE descriptor type(enum DescriptorType)
+	uint16_t wTotalLength;											// +0x2 Total length of all descriptors for this configuration
+	uint8_t  bNumInterfaces;										// +0x4 Number of interfaces in this configuration
+	uint8_t  bConfigurationValue;									// +0x5 Value of this configuration (1 based)
+	uint8_t  iConfiguration;										// +0x6 Index of String Descriptor describing the configuration
+	union {
+		uint8_t  bmAttributes;										// +0x7 Configuration characteristics
+		struct __attribute__((__packed__, aligned(1))) {
+			unsigned _reserved0_4 : 5;								// @0
+			unsigned RemoteWakeup : 1;								// @5
+			unsigned SelfPowered : 1;								// @6
+			unsigned _reserved7 : 1;								// @7
+		};
+	};
+	uint8_t  bMaxPower;												// +0x8 Maximum power consumed by this configuration
+} __packed;
+
 
 /*--------------------------------------------------------------------------}
 {  USB other speed configuration descriptor as per 9.6.4 of USB2.0 manual   }
@@ -388,10 +377,10 @@ struct __attribute__((__packed__)) UsbEndpointDescriptor {
 	struct __attribute__((__packed__, aligned(1))) {
 		unsigned Number : 4;							// @0
 		unsigned _reserved4_6 : 3;						// @4
-		UsbDirection Direction : 1;						// @7
+		unsigned Direction : 1;							// @7
 	} EndpointAddress;												// +0x2  Endpoint address. Bit 7 indicates direction (0=OUT, 1=IN).
 	struct __attribute__((__packed__, aligned(1))) {
-		UsbTransfer Type : 2;							// @0
+		enum usb_transfer_type Type : 2;				// @0
 		enum {
 			NoSynchronisation = 0,
 			Asynchronous = 1,
@@ -607,7 +596,7 @@ struct __attribute__((__packed__)) HidDescriptor {
 		TurkishF = 35,
 	} Countrycode : 8;												// +0x4
 	uint8_t DescriptorCount;										// +0x5
-	enum DescriptorType Type : 8;									// +0x6
+	enum usb_descriptor_type Type : 8;								// +0x6
 	union {															// Place a union over length .. alignment issues on ARM7/8
 		struct __attribute__((__packed__, aligned(1))) {
 			uint8_t LengthLo;										// Lo of Length
@@ -661,22 +650,24 @@ struct __attribute__((__packed__)) HidDescriptor {
 { 	USB pipe our own special structure encompassing a pipe in the USB spec	}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbPipe {
-	UsbPacketSize MaxSize : 2;										// @0	Maximum packet size
-	UsbSpeed Speed : 2;												// @2	Speed of device
-	unsigned EndPoint : 4;											// @4   Endpoint address
-	unsigned Number : 8;											// @8	Unique device number sometimes called address or id
-	unsigned lowSpeedNodePoint : 8;									// @16  In low speed transfers it is closest parent high speed hub
-	unsigned lowSpeedNodePort: 8;									// @24  In low speed transfers it is port device is on closest parent high speed hub
+	UsbPacketSize MaxSize : 2;										// @0		Maximum packet size
+	UsbSpeed Speed : 2;												// @2		Speed of device
+	unsigned EndPoint : 4;											// @4		Endpoint address
+	unsigned Number : 8;											// @8		Unique device number sometimes called address or id
+	unsigned _reserved : 2;											// @16-17
+	unsigned lowSpeedNodePort : 7;									// @18-24		In low speed transfers it is port device is on closest parent high speed hub
+	unsigned lowSpeedNodePoint : 7;									// @25-31	In low speed transfers it is closest parent high speed hub
 };
 
 /*--------------------------------------------------------------------------}
 { 			USB pipe control used mainly by internal routines				}
 {--------------------------------------------------------------------------*/
 struct __attribute__((__packed__)) UsbPipeControl {
-	unsigned Channel : 8;											// @0  Channel to use
-	UsbTransfer	Type : 2;											// @8  Packet type
-	UsbDirection Direction : 1;										// @10 Direction
-	unsigned reserved : 21;											// @11 Reserved 21 bits
+	unsigned _reserved : 14;										// @0-13	
+	enum usb_transfer_type	Type : 2;								// @14-15	Packet type
+	unsigned Channel : 8;											// @16-23   Channel to use
+	unsigned Direction : 1;											// @24		Direction  1=IN, 0=OUT
+	unsigned _reserved1 : 7;										// @25-31	
 };
 
 /*--------------------------------------------------------------------------}
@@ -724,12 +715,13 @@ enum PayLoadType {
 {--------------------------------------------------------------------------*/
 struct UsbDevice {
 	struct UsbParent ParentHub;						// Details of our parent hub
-	struct UsbPipe Pipe0;							// Usb device control pipe AKA pipe0	
+	struct UsbPipe Pipe0;							// Usb device pipe AKA pipe0	
+	struct UsbPipeControl PipeCtrl0;				// Usb device pipe control AKA pipectrl0
 	struct UsbConfigControl Config;					// Usb config control
 	uint8_t MaxInterface ALIGN4;					// Maxiumum interface in array (varies with config and usually a lot less than the max array size) 
 	struct UsbInterfaceDescriptor Interfaces[MaxInterfacesPerDevice] ALIGN4; // These are available interfaces on this device
 	struct UsbEndpointDescriptor Endpoints[MaxInterfacesPerDevice][MaxEndpointsPerDevice] ALIGN4; // These are available endpoints on this device
-	struct UsbDeviceDescriptor Descriptor ALIGN4;	// Device descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
+	struct usb_device_descriptor Descriptor ALIGN4;	// Device descriptor it's accessed a bit so we have a copy to save USB bus ... align it for ARM7/8
 
 	enum PayLoadType PayLoadId;						// Payload type being carried
 	union {											// It can only be any of the different payloads
@@ -785,7 +777,7 @@ struct MassStorageDevice {
  24Feb17 LdB
  --------------------------------------------------------------------------*/
 RESULT HCDGetDescriptor (const struct UsbPipe pipe,					// Pipe structure to send message thru (really just uint32_t) 
-						 enum DescriptorType type,					// The type of descriptor
+						 enum usb_descriptor_type type,				// The type of descriptor
 						 uint8_t index,								// The index of the type descriptor
 						 uint16_t langId,							// The language id
 						 void* buffer,								// Buffer to recieve descriptor
