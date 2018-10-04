@@ -36,21 +36,22 @@ int main (void) {
 	ARM_setmaxspeed(printf);										// ARM CPU to max speed no message to screen
 	InitV3D();														// Initialize 3D graphics
 
+	// Step1: Initialize scene
 	V3D_InitializeScene(&scene, GetConsole_Width(), GetConsole_Height());
 
-	// Add vertexes to scene
+	// Step2: Add vertexes to scene
 	V3D_AddVertexesToScene(&scene);
 
-	// Add shader to scene
+	// Step3: Add shader to scene
 	V3D_AddShadderToScene(&scene, &shader1[0], _countof(shader1));
 	
-	// Setup render control
+	// Step4: Setup render control
 	V3D_SetupRenderControl(&scene, GetConsole_FrameBuffer());
 	
-	// Setup binning
+	// Step5: Setup binning
 	V3D_SetupBinningConfig(&scene);
 
-    // Render the scene
+    // Render6: the scene
 	V3D_RenderScene(&scene);
 
 	printf("All done batman\n");
