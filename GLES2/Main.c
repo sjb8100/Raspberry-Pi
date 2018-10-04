@@ -6,7 +6,7 @@
 #include "rpi-GLES.h"
 
 
-uint32_t shader1[18] = {  // Vertex Color Shader
+static uint32_t shader1[18] = {  // Vertex Color Shader
 		0x958e0dbf, 0xd1724823,   /* mov r0, vary; mov r3.8d, 1.0 */
 		0x818e7176, 0x40024821,   /* fadd r0, r0, r5; mov r1, vary */
         0x818e7376, 0x10024862,   /* fadd r1, r1, r5; mov r2, vary */
@@ -18,7 +18,7 @@ uint32_t shader1[18] = {  // Vertex Color Shader
 		0x009e7000, 0x500009e7,   /* nop; nop; sbdone */
 };
 
-uint32_t shader2[12] = { // Fill Color Shader
+static uint32_t shader2[12] = { // Fill Color Shader
 		0x009E7000, 0x100009E7,   // nop; nop; nop
 		0xFFFFFFFF,	0xE0020BA7,	  // ldi tlbc, RGBA White
 		0x009E7000, 0x500009E7,   // nop; nop; sbdone
@@ -27,7 +27,7 @@ uint32_t shader2[12] = { // Fill Color Shader
 		0x009E7000, 0x100009E7,   // nop; nop; nop
 };
 
-RENDER_STRUCT scene = { 0 };
+static RENDER_STRUCT scene = { 0 };
 
 int main (void) {
 	Init_EmbStdio(Embedded_Console_WriteChar);						// Initialize embedded stdio
@@ -51,10 +51,10 @@ int main (void) {
 	// Step5: Setup binning
 	V3D_SetupBinningConfig(&scene);
 
-    // Render6: the scene
+    // Step 6: Render the scene
 	V3D_RenderScene(&scene);
 
-	printf("All done batman\n");
+	printf("All done batman .. we have triangles\n");
 
 	while (1){
 		set_Activity_LED(1);			// Turn LED on
