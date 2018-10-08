@@ -1818,7 +1818,7 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
 			return OK;
 		}
 		if (pipectrl.Direction == USB_DIRECTION_IN) {				// In bound pipe as per original
-			lastTransfer = bufferLength - DWC_HOST_CHANNEL[0].TransferSize.size;
+			lastTransfer = bufferLength - DWC_HOST_CHANNEL[pipectrl.Channel].TransferSize.size;
 		}
 		else {
 			lastTransfer = bufferLength;							// Success so transfer is full buffer for send 
@@ -1834,8 +1834,8 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
 			pipe.Number);											// Log error
 		return OK;
 	}
-	if (DWC_HOST_CHANNEL[0].TransferSize.size != 0)
-		LOG_DEBUG("HCD: Warning non zero status transfer! %d.\n", DWC_HOST_CHANNEL[0].TransferSize.size);
+	if (DWC_HOST_CHANNEL[pipectrl.Channel].TransferSize.size != 0)
+		LOG_DEBUG("HCD: Warning non zero status transfer! %d.\n", DWC_HOST_CHANNEL[pipectrl.Channel].TransferSize.size);
 
 	if (bytesTransferred) *bytesTransferred = lastTransfer;
 	//LOG("\n");
@@ -1848,11 +1848,12 @@ RESULT HCDSumbitControlMessage (const struct UsbPipe pipe,			// Pipe structure (
  24Feb17 LdB
  --------------------------------------------------------------------------*/
 RESULT HCDSetAddress (const struct UsbPipe pipe,					// Pipe structure (really just uint32_t)
+					  uint8_t channel,								// Channel to use
 					  uint8_t address)								// Address to set
 {
 	RESULT result;
 	struct UsbPipeControl pipectrl = {
-		.Channel = dwc_get_free_channel(),							// Find first free channel
+		.Channel = channel,											// Use given channel channel
 		.Type = USB_TRANSFER_TYPE_CONTROL,							// Control packet
 		.Direction = USB_DIRECTION_OUT,								// We are writing to host
 	};
@@ -1868,7 +1869,6 @@ RESULT HCDSetAddress (const struct UsbPipe pipe,					// Pipe structure (really j
 			.Value = address,										// Address to set
 		},
 		ControlMessageTimeout, NULL);
-	dwc_release_channel(pipectrl.Channel);							// Release the channel
 	return result;													// Return the result
 }
 
@@ -1876,10 +1876,10 @@ RESULT HCDSetAddress (const struct UsbPipe pipe,					// Pipe structure (really j
  Sets a given USB device configuration to the config index number requested.
  28Feb17 LdB
  --------------------------------------------------------------------------*/
-RESULT HCDSetConfiguration (struct UsbPipe pipe, uint8_t configuration) {
+RESULT HCDSetConfiguration (struct UsbPipe pipe, uint8_t channel, uint8_t configuration) {
 	RESULT result;
 	struct UsbPipeControl pipectrl = {
-		.Channel = dwc_get_free_channel(),							// Find first free channel
+		.Channel = channel,											// Use given channel
 		.Type = USB_TRANSFER_TYPE_CONTROL,							// Control packet
 		.Direction = USB_DIRECTION_OUT,								// We are writing to host
 	};
@@ -1895,7 +1895,6 @@ RESULT HCDSetConfiguration (struct UsbPipe pipe, uint8_t configuration) {
 		},
 		ControlMessageTimeout,
 		NULL);														// Read the requested configuration
-	dwc_release_channel(pipectrl.Channel);							// Release the channel
 	return result;													// Return result
 }
 
@@ -2627,7 +2626,7 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 	}
 	
 	/*			USB ENUMERATION BY THE BOOK STEP 3 = Set Device Address			*/
-	if ((result = HCDSetAddress(device->Pipe0, address)) != OK) {
+	if ((result = HCDSetAddress(device->Pipe0, pipectrl.Channel, address)) != OK) {
 		dwc_release_channel(pipectrl.Channel);					   // Release the channel we are exiting
 		LOG("Enumeration: Failed to assign address to %#x.\n", address);// Log the error
 		device->Pipe0.Number = address;								// Set device number just so it stays valid
@@ -2648,6 +2647,7 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 		bmREQ_GET_DEVICE_DESCRIPTOR,								// Recipient device
 		&transferred, true);										// Pass in pointer to get bytes transferred back
 	if ((result != OK) || (transferred != sizeof(device->Descriptor))) {// This should pass on any valid device
+		dwc_release_channel(pipectrl.Channel);						// Release the channel we are exiting
 		LOG("Enumeration: Step 4 on device %i failed, Result: %#x.\n",
 			device->Pipe0.Number, result);							// Log any error
 		return result;												// Fatal enumeration error of this device
@@ -2697,7 +2697,6 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 		if (result != OK) return result;							// Return error result
 		return ErrorDevice;											// Something went badly wrong .. bail
 	}
-	dwc_release_channel(pipectrl.Channel);							// Release the channel
 
 	// So now we need to search for interfaces and endpoints
 	uint8_t EndPtCnt = 0;											// Preset endpoint count to zero
@@ -2723,6 +2722,7 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 		case USB_DESCRIPTOR_TYPE_HID: {								// HID Interface found
 			if (hidCount == 0) {									// First HID descriptor found
 				if ((result = AddHidPayload(device)) != OK) {		// Ok so we need to add a hid payload to device
+					dwc_release_channel(pipectrl.Channel);			// Release the channel we are exiting
 					LOG("Could not allocate hid payload, Error ID %i\n", result);
 					return result;									// We must have to fouled up device allocation code
 				};
@@ -2745,7 +2745,8 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 	}
 
 	/*	  USB ENUMERATION BY THE BOOK STEP 6 = Set Configuration to Device		*/
-	if ((result = HCDSetConfiguration(device->Pipe0, configNum)) != OK) {
+	if ((result = HCDSetConfiguration(device->Pipe0, pipectrl.Channel, configNum)) != OK) {
+		dwc_release_channel(pipectrl.Channel);					   // Release the channel we are exiting
 		LOG("HCD: Failed to set configuration %#x for device %i.\n",
 			configNum, device->Pipe0.Number);
 		return result;
@@ -2781,6 +2782,7 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 	/*	     USB ENUMERATION BY THE BOOK STEP 7 = ENUMERATE SPECIAL DEVICES		*/
 	if (device->Descriptor.bDeviceClass == DeviceClassHub) {		// If device is a hub then enumerate it
 		if ((result = EnumerateHub(device)) != OK) {				// Run hub enumeration
+			dwc_release_channel(pipectrl.Channel);					// Release the channel we are exiting
 			LOG("Could not enumerate HUB device %i, Error ID %i\n",
 				device->Pipe0.Number, result);						// Log error
 			return result;											// Return the error
@@ -2788,12 +2790,13 @@ RESULT EnumerateDevice(struct UsbDevice *device, struct UsbDevice* ParentHub, ui
 	} else if (hidCount > 0) {										// HID interface on the device
 		device->HidPayload->MaxHID = hidCount;						// Set the maxium HID record number
 		if ((result = EnumerateHID(device->Pipe0, device)) != OK) {	// Ok so enumerate the HID device
+			dwc_release_channel(pipectrl.Channel);					// Release the channel we are exiting
 			LOG("Could not enumerate HID device %i, Error ID %i\n",
 				device->Pipe0.Number, result);
 			return result;											// return the error
 		}
 	}
-
+	dwc_release_channel(pipectrl.Channel);							// Release the channel we are exiting
 	return OK;
 }
 
