@@ -18,13 +18,16 @@
 #define wcscpy_s(a,b,c) wcscpy(a,c)
 #endif
 
+#include <limits.h>
+#include <stdio.h>
+
 /***************************************************************************}
 {		 		    PRIVATE VARIABLE DEFINITIONS				            }
 ****************************************************************************/
+static int MaxOutCount = INT_MAX;										// Max output count
+static int OutputCount = 0;												// Current output count								
+static void (*Console_WriteChar) (char) = NULL;							// The output handler function
 
-#include <stdio.h>
-
-CHAR_OUTPUT_HANDLER Console_WriteChar = 0;
 
 /* Number of bits in an 'unsigned long'.  */
 #define LONG_BITS (8 * sizeof(unsigned long))
@@ -630,21 +633,26 @@ static void ulong_to_string(unsigned long num, char *str,
 /*
 * Routine called by _doprnt() to output each character.
 */
- static int prn_to_buf (int c, void* buf)
+static int prn_to_buf(int c, void* buf)
 {
 	char **sptr = (char **)buf;
 	char *s = *sptr;
-
-	*s++ = c;
-	*sptr = s;
+	if (OutputCount < MaxOutCount) {
+		*s++ = c;
+		*sptr = s;
+		OutputCount++;
+	}
 	return (int)c;
 }
 
 
 static int prn_to_func(int c, void* prn_func)
 {
-	CHAR_OUTPUT_HANDLER handler = prn_func;
-	handler(c);
+	void (*handler) (char) = prn_func;
+	if (OutputCount < MaxOutCount) {
+		handler(c);
+		OutputCount++;
+	}
 	return (int)c;
 }
 
@@ -668,11 +676,9 @@ static int prn_to_func(int c, void* prn_func)
 . 19Oct17 LdB
 .--------------------------------------------------------------------------*/
 
-CHAR_OUTPUT_HANDLER Init_EmbStdio (CHAR_OUTPUT_HANDLER handler)
+void Init_EmbStdio (void (*handler) (char ch))
 {
-	CHAR_OUTPUT_HANDLER ret = Console_WriteChar;					// Hold current handler for return
-	Console_WriteChar = handler;									// Set new handler function
-	return (ret);													// Return the old handler													
+	Console_WriteChar = handler;									// Set new handler function												
 }
 
 
@@ -693,10 +699,14 @@ CHAR_OUTPUT_HANDLER Init_EmbStdio (CHAR_OUTPUT_HANDLER handler)
 int printf (const char *fmt, ...)
 {
 	va_list args;													// Argument list
-	int count;														// Number of characters printed
-	va_start(args, fmt);											// Create argument list
-	count = _doprnt(fmt, args, prn_to_func, Console_WriteChar);
-	va_end(args);													// Done with argument list
+	int count = -1;													// Preset fail to number of characters printed
+	if (Console_WriteChar) {
+		OutputCount = 0;											// Zero output count
+		MaxOutCount = INT_MAX;										// This is a maximum size function
+		va_start(args, fmt);										// Create argument list
+		count = _doprnt(fmt, args, prn_to_func, Console_WriteChar);	// Run conversions
+		va_end(args);												// Done with argument list
+	}
 	return count;													// Return number of characters printed
 }
 
@@ -716,14 +726,105 @@ int printf (const char *fmt, ...)
 .--------------------------------------------------------------------------*/
 int sprintf (char* buf, const char* fmt, ...)
 {
-	va_list ap;
-	char *s;
+	va_list args;													// Argument list
+	char *s = buf;													// Hold initial buffer pointer
+	OutputCount = 0;												// Zero output count
+	MaxOutCount = INT_MAX;											// This is a maximum size function
+	va_start(args, fmt);											// Create argument list
+	_doprnt(fmt, args, prn_to_buf, (void*)&s);						// Run conversions
+	va_end(args);													// Done with argument list
+	*s = '\0';														// Add asciiz terminator
+	return s - buf;													// Return number of characters put in buffer
+}
 
-	s = buf;
-	va_start(ap, fmt);
-	_doprnt(fmt, ap, prn_to_buf, (void*)&s);
-	va_end(ap);
-	*s = '\0';
+/*-[ snprintf ]-------------------------------------------------------------}
+. Writes the C string formatted by fmt to the given buffer, replacing any
+. format specifier in the same way as printf. This function has protection
+. for output buffer size but not for the format buffer. Care should be taken
+. to make user provided buffers are not used for format strings which would
+. allow users to exploit buffer overruns on the format string.
+.
+. RETURN:
+. Number of characters that are written in the buffer array, not counting the
+. ending null character. Excess characters to the buffer size are discarded.
+. 19Oct17 LdB
+.--------------------------------------------------------------------------*/
+int snprintf(char *buf, size_t bufSize, const char *fmt, ...)
+{
+	va_list args;													// Argument list
+	char *s = buf;													// Hold initial buffer pointer
+	OutputCount = 0;												// Zero output count
+	MaxOutCount = (bufSize > 0) ? bufSize-1 : 0;					// This is a maximum size of output
+	va_start(args, fmt);											// Create argument list
+	_doprnt(fmt, args, prn_to_buf, (void*)&s);						// Run conversions
+	va_end(args);													// Done with argument list
+	*s = '\0';														// Add asciiz terminator
+	return s - buf;													// Return number of characters put in buffer
+}
 
-	return s - buf;
+/*-[ vprintf ]--------------------------------------------------------------}
+. Writes the C string formatted by fmt to the standard console, replacing
+. any format specifier in the same way as printf, but using the elements in
+. variadic argument list identified by arg instead of additional variadics.
+.
+. RETURN:
+.	SUCCESS: Positive number of characters written to the standard console.
+.	   FAIL: -1
+. 19Oct17 LdB
+.--------------------------------------------------------------------------*/
+int vprintf(const char* fmt, va_list arg)
+{
+	int count = -1;													// Preset fail to number of characters printed
+	if (Console_WriteChar) {
+		OutputCount = 0;											// Zero output count
+		MaxOutCount = INT_MAX;										// This is a maximum size function
+		count = _doprnt(fmt, arg, prn_to_func, Console_WriteChar);	// Do the output
+	}
+	return count;													// Return number of characters printed
+}
+
+/*-[ vsprintf ]-------------------------------------------------------------}
+. Writes the C string formatted by fmt to the given buffer, replacing any
+. format specifier in the same way as printf.
+.
+. DEPRECATED:
+. Using vsprintf, there is no way to limit the number of characters written,
+. which means the function is susceptible to buffer overruns. The suggested
+. replacement is vsnprintf.
+.
+. RETURN:
+.	SUCCESS: Positive number of characters written to the provided buffer.
+.	   FAIL: -1
+. 19Oct17 LdB
+.--------------------------------------------------------------------------*/
+int vsprintf(char *buf, const char *fmt, va_list args)
+{
+	char *s = buf;													// Hold initial buffer pointer
+	OutputCount = 0;												// Zero output count
+	MaxOutCount = INT_MAX;											// This is a maximum size function
+	_doprnt(fmt, args, prn_to_buf, (void*)&s);						// Run conversions
+	*s = '\0';														// Add asciiz terminator
+	return s - buf;													// Return number of characters put in buffer
+}
+
+/*-[ vsnprintf ]------------------------------------------------------------}
+. Writes the C string formatted by fmt to the given buffer, replacing any
+. format specifier in the same way as printf. This function has protection
+. for output buffer size but not for the format buffer. Care should be taken
+. to make user provided buffers are not used for format strings which would
+. allow users to exploit buffer overruns.
+.
+. RETURN:
+. Number of characters that are written in the buffer array, not counting the
+. ending null character. Excess characters to the buffer size are discarded.
+. 19Oct17 LdB
+.--------------------------------------------------------------------------*/
+int vsnprintf(char *buf, size_t bufSize, const char *fmt, va_list args)
+{
+	char *s = buf;													// Hold initial buffer pointer
+	OutputCount = 0;												// Zero output count
+	MaxOutCount = (bufSize > 0) ? bufSize - 1 : 0;					// This is a maximum size of output
+	_doprnt(fmt, args, prn_to_buf, (void*)&s);						// Run conversions
+	*s = '\0';														// Add asciiz terminator
+	return s - buf;													// Return number of characters put in buffer
 }
